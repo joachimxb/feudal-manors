@@ -101,7 +101,7 @@
   <h1>Feudal Manors — fees &amp; the fighting men they buy</h1>
   <p>A sub-baronial enfeoffment module for ACKS II · esquire's fee to castellany, and the banners they muster · Hârn application in its own tab ·
   <b>the fee is quit of the garrison line by service — lance and levy — with the assize of the fee as its written terms</b> ·
-  <span style="white-space:nowrap">v2.4 — <a href="https://github.com/joachimxb/feudal-manors/releases" style="color:inherit">release notes</a></span></p>
+  <span style="white-space:nowrap">v2.5 — <a href="https://github.com/joachimxb/feudal-manors/releases" style="color:inherit">release notes</a></span></p>
 </header>
 
 <div class="panel">
@@ -526,14 +526,26 @@
           <option value="ang" selected>the 1181 knight — 100 gp</option>
           <option value="dis">the statute knight (1285) — 100 gp</option>
         </select></div>
-      <div class="field"><label>— and the remedy chosen <span class="hint">(how the campaign resolves paper against muster; applied on the grown manor's card, under the ancient reading)</span></label>
-        <select id="h_res">
-          <option value="accept" selected>Accept the old service as written</option>
-          <option value="makegood">Make good — old body + wage-parity coin</option>
-          <option value="replace">Present a current-standard replacement</option>
-          <option value="commute">Commute to scutage</option>
+      <div class="field"><label>This muster — the personal share <span class="hint">(the holder's own lance-equivalent; grown manor, ancient reading)</span></label>
+        <select id="h_mus1">
+          <option value="accept" selected>Accept the old body as written</option>
+          <option value="makegood">Old body + wage-parity make-good</option>
+          <option value="knight">Current-definition knight — 100 gp for the term</option>
+          <option value="sub">Legal substitute — 60-gp heavy horse</option>
+          <option value="commute">Commute the share to coin</option>
+        </select></div>
+      <div class="field"><label>— the additional quota <span class="hint">(beyond holder and levy credit; multi-fee charters only)</span></label>
+        <select id="h_mus2">
+          <option value="oldmg">Old-form bodies + make-good</option>
+          <option value="knight">Current-definition knights — 100 gp each</option>
+          <option value="sub">Legal substitutes — 60 gp each</option>
+          <option value="scut" selected>Scutage the remainder</option>
+        </select></div>
+      <div class="field"><label>Crown follow-up <span class="hint">(after the host rides — the man or the paper, never this year's muster)</span></label>
+        <select id="h_crown">
+          <option value="none" selected>None — the paper and the man stand</option>
           <option value="distrain">Personally distrain the holder — charter intact</option>
-          <option value="reassess">Reassess / regrant — write new count &amp; definition</option>
+          <option value="reassess">Preview reassessment / regrant</option>
         </select></div>
     </div>
   </div>
@@ -2110,18 +2122,16 @@ function renderHousehold(){
   const stand = [[HENCH[3],"an L3 knight"],[HENCH[2],"an L2 knight"],[HENCH[1],"a man-at-arms"]].find(([c])=>c<=sel.head);
 
   // paper against muster — the lag computed, its legal force gated to the ANCIENT reading, and the
-  // campaign's chosen remedy (h_res) applied. The make-good scales with OLD-STANDARD LANCE-EQUIVALENTS
-  // ridden old-form (never raw bodies — two serjeants discharging one lance carry one lance's difference),
-  // and it is a wage-value parity payment, not a kit price: paying it re-equips no one.
-  const res  = document.getElementById("h_res").value;
+  // muster reconciled: two selectors (personal share / additional quota) settle what actually rides,
+  // Q = O + R + C + L, the make-good on OLD-FORM lance-equivalents only (never raw bodies, never
+  // substitutes or coin) — a wage-value parity payment, not a kit price: paying it re-equips no one.
+  // Crown follow-up (distraint / reassessment) is a separate, later timescale — never this year's host.
   const CDEFN = {dom:"the Survey's mailed rider (60 gp)", ang:"the 1181 knight (100 gp)", dis:"the statute knight of 1285 (100 gp)"};
   const DEFORD = {dom:0, ang:1, dis:2};
   const bOld = REQof(cdef), bNow = REQH;
   const defc = ordH ? 0 : Math.max(0, bNow - bOld);
   const lagOn = anc && !ordH && defc>0;                  // the lag binds only while the old paper is legally current
-  const oldEq = gChart;                                  // old-standard lance-equivalents: the ancient complement ridden old-form
-  const mkTotal = defc*oldEq, mkReserve = mkTotal/12;
-  const bodiesSent = Math.ceil(gChart);
+  const musterOn = sel.grown && anc && !ordH;            // the muster selectors apply here and nowhere else
   const anach = !ordH && DEFORD[cdef] > DEFORD[def];     // a later charter under an earlier muster
   const paperVal = gChart * bOld;
   const padGp = sel.grown ? sel.ancn.anchor - HENCH[sel.ancn.keep] : 0;
@@ -2172,7 +2182,7 @@ function renderHousehold(){
        ${sel.lances>1?`<div class="lrow"><span class="lk">Levy credited</span><span class="lvv">${q.med? `${lstr(q.med*0.5)} — ${q.med} medium-horse serjeant${q.med>1?"s":""} at 2:1, assize kept` : (asz? "0 — the family base mounts none" : (q.medReq? `0 — the required serjeant${q.medReq>1?"s":""} uncredited, assize in default` : "0 — the assize stands in default"))}</span></div>`:""}
        <div class="lrow hi"><span class="lk">Still owed</span><span class="lvv">${remS}</span></div>
        ${q.rem>0?`<div class="lrow gold"><span class="lk">Cheapest lawful discharge</span><span class="lvv">scutage, ${f1(sel.scAll)} gp/mo reserve — ${sel.scAll<=sel.head?"fits":"breaks"}</span></div>`:""}
-       ${(sel.grown && lagOn && res==="makegood")?`<div class="lrow warn"><span class="lk">Definition make-good</span><span class="lvv">${f1(mkReserve)} gp/mo reserve (${f1(mkTotal)} gp due in the war-month) — <b>${mkReserve<=sel.head?"fits":"breaks"}</b> · the remedy chosen, below</span></div>`:""}`;
+       ${musterOn?`<div class="lrow sub"><span>this ledger is <b>default performance</b> — service as written; the muster selectors below choose what actually rides, and the reconciled block prices it</span></div>`:""}`;
 
   // the read — computed from the same arrays as the rows
   let read;
@@ -2205,7 +2215,7 @@ function renderHousehold(){
   const adequacy = ordH
     ? "the muster no longer calls the paper — the count commutes to coin (the ledger above)"
     : defc>0
-    ? `old body ${bOld} gp vs current requirement ${bNow} gp → <b>difference ${defc} gp per old-standard lance-equivalent</b> · paper share ${lstr(gChart)} → estate make-good${anc?"":" (were the paper operative)"} <b>${f1(mkTotal)} gp</b> in the war-month (≈${f1(mkReserve)} gp/mo reserve) — a wage-value figure, not a kit price (the remedy, below)`
+    ? `old body ${bOld} gp vs current requirement ${bNow} gp → <b>difference ${defc} gp per old-standard lance-equivalent ridden old-form</b> — a wage-value figure, not a kit price; substitutes and coin carry none of it. The muster selectors settle how many ride old-form${anc?" (reconciled below)":""}`
     : bOld>bNow
     ? `none — the paper over-serves the muster: a ${bOld}-gp body against a ${bNow}-gp requirement`
     : (cdef==="ang" && def==="dis")
@@ -2217,30 +2227,93 @@ function renderHousehold(){
     : !anc
     ? "none due — the current assessment governs the ledger above; the old obligation survives as record, not force"
     : defc>0
-    ? "the <b>tenurial record</b> recognizes the old obligation; the <b>muster</b> finds the body below the current field standard; the <b>host</b> then chooses: accept · cure or replace · commute · compel the man (distraint — the charter intact) · or rewrite the paper (reassessment or regrant — an inquest supplies the evidence, escheat the opportunity). The remedy dial, at left, applies one below"
+    ? "the <b>tenurial record</b> recognizes the old obligation; the <b>muster</b> finds the body below the current field standard; the <b>host</b> then chooses: accept · cure or replace · commute · compel the man (distraint — the charter intact) · or rewrite the paper (reassessment or regrant — an inquest supplies the evidence, escheat the opportunity). The muster selectors, at left, apply the immediate remedies below; Crown follow-up rides its own dial, on its own timescale"
     : bOld>bNow
     ? "the paper exceeds the muster — the host accepts the superior body, but the frozen count earns no rebate, relief, or fractional credit; only a current reassessment would recount the estate under the selected standard"
     : (cdef==="ang" && def==="dis")
     ? "economic adequacy: equal. <b>Inspection adequacy</b>: rides the current view and the king's summons — no gp make-good is computed, and none is implied"
     : "the paper meets the muster — service as written; a new assessment would change nothing but the date";
-  const RESN = {accept:"Accept the old service", makegood:"Make good — old body + wage-parity coin", replace:"Present a current-standard replacement", commute:"Commute to scutage", distrain:"Personally distrain the holder", reassess:"Reassess / regrant — rewrite the paper"};
-  let resBody = "";
+  // the muster reconciled — Q = O + R + C + L: two selectors settle the mix, the crown dial rides after
+  ["h_mus1","h_mus2","h_crown"].forEach(id=>document.getElementById(id).disabled = !musterOn);
+  let musterBlock = "", crownBlock = "";
   if(sel.grown){
-    if(ordH) resBody = `<div class="lrow sub"><span>under the ordinance the remedy is already chosen: the render is coin, and the dial is idle</span></div>`;
-    else if(!anc) resBody = `<div class="lrow sub"><span>already reassessed — the current reading governs the ledger, and the dial is idle: every remedy below presumes an operative old paper</span></div>`;
-    else {
-      const repN = def==="dom" ? "rider" : "sergeant (heavy horseman)";
-      const RESP = {
-        accept: `the host accepts the old-standard body as the lance — no make-good. <b>Fee-holder:</b> nothing beyond the paper service. <b>Lord:</b> field supply for ${bodiesSent} bod${bodiesSent===1?"y":"ies"} (~${fmt(bodiesSent*16)} gp/mo afield)${gChart<1?" — the joint rider, in this estate's year":""}${defc>0?". Grace has a price in worship, not coin — the muster remembers what arrived":""}`,
-        makegood: defc>0
-          ? `an authored make-good at ACKS <b>wage-value parity</b> — coin that lets the host book the old body as equivalent to the current requirement; it re-equips no one and changes no troop class. <b>Fee-holder:</b> ${f1(mkTotal)} gp due in the war-month → ${f1(mkReserve)} gp/mo reserve — <b>${mkReserve<=sel.head?"fits":"breaks"}</b> the margin (the row joins the ledger above). <b>Lord:</b> field supply for the ${bodiesSent} old bod${bodiesSent===1?"y":"ies"} (~${fmt(bodiesSent*16)} gp/mo afield)`
-          : `no deficit stands — there is nothing to make good; choose another remedy or none`,
-        replace: `a current-standard body rides instead — no definition supplement: the replacement is already the muster's man. <b>Fee-holder:</b> term-hired ${repN}${bodiesSent>1?"s":""}, ${bodiesSent}× 60 gp due → ${f1(bodiesSent*5)} gp/mo reserve — <b>${bodiesSent*5<=sel.head?"fits":"breaks"}</b> the margin. <b>Lord:</b> field supply for the replacement${bodiesSent>1?"s":""} (~${fmt(bodiesSent*16)} gp/mo afield)`,
-        commute: `no body rides. <b>Fee-holder:</b> lawful scutage for the whole paper — ${f1(sel.fam/12)} gp/mo reserve — <b>${sel.fam/12<=sel.head?"fits":"breaks"}</b> the margin. <b>Lord:</b> no supply line: the coin buys his own hires, fed at his own cost`,
-        distrain: `the writ aims at the <b>man</b>, and the charter stands untouched — count and definition unchanged. The holder is compelled to the current standard of knighthood or fined into respite (the Fine Rolls carry the receipts); <b>the margin (${fmt(sel.ancn.margin)} gp/mo) is the quarry</b> — income the paper never sees, taxed without a survey`,
-        reassess: `new paper at the muster's standard: keep L${sel.cur.keep} (anchor ${fmt(sel.cur.anchor)}), owing ${lstr(sel.cur.lances)} of the current lance — flip the assessment lever to <b>Current</b> to run the ledger on it. An inquest supplies the evidence; escheat or regrant, the occasion; the writing is the crown's`
+    const mus1El = document.getElementById("h_mus1"), mus2El = document.getElementById("h_mus2");
+    mus1El.options[0].text = (bOld>bNow && !ordH) ? "Accept the superior paper body" : "Accept the old body as written";
+    mus1El.options[1].disabled = defc===0;
+    mus1El.options[2].disabled = def==="dom";
+    mus1El.options[3].text = def==="dom" ? "The current rider — 60 gp (the requirement itself)" : "Legal substitute — 60-gp heavy horse";
+    mus2El.options[0].text = defc>0 ? "Old-form bodies + make-good" : "Old-form bodies — as written";
+    mus2El.options[1].disabled = def==="dom";
+    mus2El.options[3].text = def==="dom" ? "The current riders — 60 gp each" : "Legal substitutes — 60 gp each";
+    let m1 = mus1El.value, m2 = mus2El.value;
+    if(defc===0 && m1==="makegood") m1 = "accept";
+    if(def==="dom"){ if(m1==="knight") m1 = "sub"; if(m2==="knight") m2 = "sub"; }
+    const crown = document.getElementById("h_crown").value;
+    const Q = gChart, P = Math.min(Q, 1), L = q.med*0.5;
+    const addQ = Math.max(0, Q - P - L);
+    mus2El.disabled = !musterOn || addQ<=0;
+    const margin = sel.ancn.margin;
+    if(!musterOn){
+      musterBlock = `
+      <div class="sect">This muster — the remedy chosen</div>
+      <div class="lrow sub"><span>${ordH ? "under the ordinance the settlement is fixed: commutation — the render is coin, and the selectors stand idle" : "no paper remedy is required under a current assessment — the survey has already rewritten the terms, and the selectors stand idle"}</span></div>`;
+      crownBlock = `
+      <div class="sect">Crown follow-up</div>
+      <div class="lrow sub"><span>${ordH ? "the ordinance is itself the crown's settlement" : "nothing to pursue — the paper is current"}</span></div>`;
+    } else {
+      const scutRate = Q>0 ? gFam/Q : 0;   // war-month coin per lance-equivalent — the whole is population-based
+      let O=0, R=0, C=0, hire=0, coin=0;
+      const applyShare = (kind, share) => {
+        if(kind==="old") O += share;
+        else if(kind==="knight"){ R += share; hire += 100*share; }
+        else if(kind==="sub"){ R += share; hire += 60*share; }
+        else { C += share; coin += scutRate*share; }
       };
-      resBody = `<div class="lrow hi"><span class="lk">${RESN[res]}</span><span class="lvv" style="font-weight:400;font-size:11.5px">${RESP[res]}</span></div>`;
+      applyShare(m1==="accept"||m1==="makegood" ? "old" : m1==="commute" ? "coin" : m1, P);
+      if(addQ>0) applyShare(m2==="oldmg" ? "old" : m2==="scut" ? "coin" : m2, addQ);
+      const mk = defc*O;                                   // make-good on old-form lance-equivalents ONLY
+      const totalWar = mk + hire + coin;
+      const reserve = totalWar/12;
+      const bodies = Math.ceil(O + R - 1e-9);
+      const disc = O + R + C + L;
+      // the hired watch is operative while the assize is in default — it reduces spendable margin
+      const hfW = QUAL[1][3], lfW = QUAL[0][3], mhW = QUAL[5][3];
+      const lvHg = Math.min(Math.floor(q.mil*0.5), q.mil - q.medReq), lvLg = q.mil - q.medReq - lvHg;
+      const watch = asz ? 0 : (q.medReq*mhW + lvHg*hfW + lvLg*lfW);
+      const spend = sel.head - watch - reserve;
+      const M1T = {
+        accept: `the ${bOld>bNow?"superior paper":"old-standard"} body rides — no make-good. <b>Campaign consequence: Judge adjudicates</b> — grace is worship's ledger (a favor owed, a cooler hall at the next muster), never coin`,
+        makegood: `the old body rides with <b>${f1(defc*P)} gp</b> of wage-parity make-good — coin that books him equivalent; it re-equips no one`,
+        knight: `a current-definition knight hired for the term — ${f1(100*P)} gp share: the muster's own man, no make-good owed`,
+        sub: def==="dom" ? `the current rider hired for the term — ${f1(60*P)} gp share: the requirement itself` : `a legal substitute — the 60-gp heavy horse the two-tier rule accepts whole (${f1(60*P)} gp share): sufficient, not the definition's knight`,
+        commute: `the share commutes — ${f1(scutRate*P)} gp coin, no body from this share`
+      };
+      const M2T = {
+        oldmg: defc>0 ? `the paper's own complement rides old-form — kept in kind by the ancient estate — with ${f1(defc*addQ)} gp of make-good` : `the paper's own complement rides as written — kept in kind, no coin`,
+        knight: `current-definition knights hired — ${f1(100*addQ)} gp due`,
+        sub: def==="dom" ? `current riders hired — ${f1(60*addQ)} gp due` : `legal substitutes at 60 — ${f1(60*addQ)} gp due`,
+        scut: `scutage for the remainder — ${f1(scutRate*addQ)} gp coin, no bodies`
+      };
+      musterBlock = `
+      <div class="sect">This muster — the remedy chosen</div>
+      <div class="lrow"><span class="lk">The obligation</span><span class="lvv">paper quota ${lstr(Q)} · holder's share ${lstr(P)} · levy credited ${lstr(L)} · additional ${lstr(addQ)}</span></div>
+      ${gChart<1?`<div class="lrow sub"><span><b>joint service:</b> shares shown are the two half-fees' long-run average; in this estate's serving year one whole body rides — and the lord feeds him whole</span></div>`:""}
+      <div class="lrow"><span class="lk">Personal share</span><span class="lvv" style="font-weight:400;font-size:11.5px">${M1T[m1]}</span></div>
+      ${addQ>0?`<div class="lrow"><span class="lk">Additional quota</span><span class="lvv" style="font-weight:400;font-size:11.5px">${M2T[m2]}</span></div>`:""}
+      <div class="sect">Reconciled — what actually rides</div>
+      <div class="lrow"><span class="lk">The count</span><span class="lvv">old-form ${lstr(O)} · substitutes ${lstr(R)} · coin ${lstr(C)} · levy ${lstr(L)} → <b>${lstr(disc)} of ${lstr(Q)} discharged</b></span></div>
+      <div class="lrow hi"><span class="lk">Fee-holder</span><span class="lvv">${[mk>0?`make-good ${f1(mk)}`:"",hire>0?`hires ${f1(hire)}`:"",coin>0?`coin ${f1(coin)}`:""].filter(Boolean).join(" + ")||"nothing owed"}${totalWar>0?` = <b>${f1(totalWar)} gp</b> in the war-month → ${f1(reserve)} gp/mo reserve`:" — the count rides in kind"}</span></div>
+      <div class="lrow"><span class="lk">Lord</span><span class="lvv">${bodies} bod${bodies===1?"y":"ies"} supplied → ~${fmt(bodies*16)} gp/mo afield — no supply for the commuted share</span></div>
+      <div class="lrow gold"><span class="lk">Spendable margin</span><span class="lvv">${fmt(sel.head)}${watch?` − ${fmt(Math.round(watch))} hired watch (assize in default)`:""}${reserve>0?` − ${f1(reserve)} remedy reserve`:""} = <b>${f1(spend)} gp/mo</b></span></div>
+      ${C>0?`<div class="lrow sub"><span><b>population-based:</b> the coin is 1 gp/family for the war-month (p.346) — the frozen count divides it into shares but does not change the whole; per-fee scutage is the history, ACKS Call-to-Arms the mechanic beneath it</span></div>`:""}`;
+      const crownTxt = crown==="none"
+        ? `none — the paper and the man stand as they are`
+        : crown==="distrain"
+        ? `the writ aims at the <b>man</b>, and the charter stands untouched — count and definition unchanged; it settles no muster and fields no body. ${margin>0?`<b>The unassessed margin (${fmt(margin)} gp/mo) is the quarry</b> — income the paper never sees, taxed without a survey; respite purchasable by fine (the Fine Rolls carry the receipts)`:margin===0?`no income margin is visible — the assessment and the estate agree to the shilling, and compulsion finds nothing the paper does not already see`:`the estate cannot meet its contractual keep (${fmt(-margin)} gp/mo short) — compulsion falls on chattels, borrowing, kin, or respite by fine; the margin is no quarry here`}`
+        : `<b>preview only</b> — new paper at the muster's standard: keep L${sel.cur.keep} (anchor ${fmt(sel.cur.anchor)}), owing ${lstr(sel.cur.lances)} of the current lance. To enact, flip the assessment lever to <b>Current</b>; an inquest supplies the evidence, escheat or regrant the occasion, and the writing is the crown's`;
+      crownBlock = `
+      <div class="sect">Crown follow-up — after the host rides</div>
+      <div class="lrow"><span class="lk">${crown==="none"?"None":crown==="distrain"?"Personal distraint":"Reassessment / regrant"}</span><span class="lvv" style="font-weight:400;font-size:11.5px">${crownTxt}</span></div>`;
     }
   }
   const both = sel.grown ? `
@@ -2255,8 +2328,7 @@ function renderHousehold(){
       <div class="lrow ${lagOn?"warn":""}"><span class="lk">Current adequacy</span><span class="lvv" style="font-weight:400;font-size:11.5px">${adequacy}</span></div>
       ${anach?`<div class="lrow sub"><span>a later charter under an earlier muster — a counterfactual chronology, allowed and flagged</span></div>`:""}
       <div class="lrow"><span class="lk">Legal treatment</span><span class="lvv" style="font-weight:400;font-size:11.5px">${treatment}</span></div>
-      <div class="sect">The remedy chosen</div>
-      ${resBody}` : "";
+      ${musterBlock}${crownBlock}` : "";
 
   document.getElementById("hcards").innerHTML = `
     <div class="ucard">
@@ -2264,13 +2336,13 @@ function renderHousehold(){
       <div class="big">${below?`−${fmt(-sel.head)}`:fmt(sel.head)} <small>gp/mo of ${below?"shortfall — the estate is below its keep":"surplus"} — income ${fmt(sel.income)} against the holder's ${fmt(sel.anchor)}-gp keep</small></div>
       ${def==="dom" && !sel.grown && !sel.baron ? `<div class="lrow sub"><span>the rung names are the later centuries' — under the Survey this card is an estate counting ${lstr(sel.lances||0)} of the era's riders, and knighthood is not yet an income class: read the name as the estate's future, not its present</span></div>` : ""}
       ${both}
-      <div class="sect">The quota ledger — a lance is one ${def==="dom"?"rider's service":"knight-service"}</div>
+      <div class="sect">The quota ledger — a lance is one ${def==="dom"?"rider's service":"knight-service"}${musterOn?" · default performance":""}</div>
       ${ledger}
       <div class="lrow sub"><span><b>count vs. crew:</b> a body counts toward the quota only when presented to the host as a lance of it; the men inside a lance — page, squire, the later coustillier — never count, however many ride. A retained man-at-arms can be sent as a lance of the count <i>or</i> ride as his lord's light second: the same body, two different slots, never both at once.</span></div>
       <div class="sect">The menu — per man · the remaining count</div>
       ${MENU.map(line).join("")}
-      ${(!sel.baron && owedN>0) ? `<div class="sect">The lord's corresponding line (doctrine — Units tab)</div>
-      <div class="lrow sub"><span>whatever the fee finds, <b>the host feeds</b>: each body presented for the war-month adds ~16 gp/mo of field supply (4 gp/wk, RR p.442) and a specialist share to the <i>lord's</i> ledger — the ${remS} owed, found in bodies, puts ~${fmt(owedBodies*16)} gp on the lord's month (the holder's own lance and any called levy ride there too). The fee's bill is the wage alone; coin discharge adds nothing to the lord's supply line. Months 2+, wages shift to the lord as well (the muster-roll rate). A declared campaign doctrine, not a medieval universal — custom often read service as at the vassal's own cost.${sel.grown&&anc&&!ordH?" <b>The remedy chosen (above) decides which of these lines applies</b> — body remedies draw supply, coin remedies draw none":""}</span></div>` : ""}
+      ${(!sel.baron && owedN>0 && !musterOn) ? `<div class="sect">The lord's corresponding line (doctrine — Units tab)</div>
+      <div class="lrow sub"><span>whatever the fee finds, <b>the host feeds</b>: each body presented for the war-month adds ~16 gp/mo of field supply (4 gp/wk, RR p.442) and a specialist share to the <i>lord's</i> ledger — the ${remS} owed, found in bodies, puts ~${fmt(owedBodies*16)} gp on the lord's month (the holder's own lance and any called levy ride there too). The fee's bill is the wage alone; coin discharge adds nothing to the lord's supply line. Months 2+, wages shift to the lord as well (the muster-roll rate). A declared campaign doctrine, not a medieval universal — custom often read service as at the vassal's own cost</span></div>` : ""}
       <div class="lrow hi"><span class="lk">The read</span><span class="lvv" style="font-weight:400;font-size:11.5px">${read}</span></div>
     </div>`;
 
@@ -2429,7 +2501,7 @@ function renderOffice(){
     document.getElementById("l_era").value=""; document.getElementById("eraread").innerHTML="";
     renderLadder(); renderUnits(); renderHousehold(); }));
 document.getElementById("l_sq").addEventListener("input", ()=>{ renderLadder(); renderUnits(); });
-["h_holder","h_cls","h_fam","h_chart","h_cdef","h_res"].forEach(id=>
+["h_holder","h_cls","h_fam","h_chart","h_cdef","h_mus1","h_mus2","h_crown"].forEach(id=>
   document.getElementById(id).addEventListener("input", renderHousehold));
 ["u_klvl","u_n","u_blvl","u_sq","u_scale","u_cha","u_iw","u_ms","u_cmd","u_ldr","u_mount"].forEach(id=>
   document.getElementById(id).addEventListener("input", renderUnits));
