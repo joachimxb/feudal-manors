@@ -100,7 +100,8 @@
 <header>
   <h1>Feudal Manors — fees &amp; the fighting men they buy</h1>
   <p>A sub-baronial enfeoffment module for ACKS II · esquire's fee to castellany, and the banners they muster · Hârn application in its own tab ·
-  <b>the fee is quit of the garrison line by service — lance and levy — with the assize of the fee as its written terms</b></p>
+  <b>the fee is quit of the garrison line by service — lance and levy — with the assize of the fee as its written terms</b> ·
+  <span style="white-space:nowrap">v2.3 — <a href="https://github.com/joachimxb/feudal-manors/releases" style="color:inherit">release notes</a></span></p>
 </header>
 
 <div class="panel">
@@ -194,9 +195,9 @@
     ghost-soldier flag is this view, corrupted). Historically both instruments were national law enforced by royal
     machinery; writing their content into the fee's charter is this module's deliberate transplant (owned in the
     ⚖ table). And the assize is <b>era-bound</b> — it is the definition of record's enforcement arm (the definition
-    lever, below): before 1181 there is nothing to keep, kit being custom; the two statutes are themselves the
-    definition's resets; and under the ordinance the fee is commuted and the view survives as the muster
-    commissioner's art. A fee in default is quit for the lance only: it hires the levy's watch until it re-arms.</div>
+    lever, below): before 1181 there is nothing to keep, kit being custom; 1181 defines and 1285 enforces — the
+    assize written, then the view that polices it; and under the ordinance the fee is commuted and the view survives
+    as the muster commissioner's art. A fee in default is quit for the lance only: it hires the levy's watch until it re-arms.</div>
     <div class="adv" style="grid-template-columns:1fr 24px;max-width:420px">
       <label for="l_asz">The assize is kept — levy trained &amp; kitted</label><input type="checkbox" id="l_asz" checked>
     </div>
@@ -235,11 +236,17 @@
     <div class="ldesc">The charter writes <b>three</b> things: the count of lances, the <b>definition</b> of a lance,
     and the term — and all three reset only when the paper does (the assessment lever, above). The definition drifted
     by statute: the 1181 Assize of Arms wrote the first kit ladder into law (mail per fee held), and <b>Winchester
-    1285 re-wrote it</b> — two statutes, two definition resets. By the 13th century the definition was being contested
-    at muster: royal summonses begin specifying <i>equus coopertus</i>, the <b>covered horse</b>, precisely because
-    men were arriving paper-compliant and obsolete. Kit inflation ran ahead of old charters, old fees under-delivered
-    by current standards, and lords preferred coin and modern hires — <b>the definition lag is commutation's quiet
-    engine</b>. This dial re-prices the requirement: fee-counts, quotas, and the discharge menu all follow it.
+    1285 enforced it</b> — not a new price but an <b>enforcement overlay</b>: wealth-assessed kit and the
+    twice-yearly view of arms policing the same body the 1181 assize defined. The field standard tightened
+    separately: by the 13th century royal cavalry summonses begin specifying <i>equus coopertus</i>, the <b>covered
+    horse</b>, precisely because men were arriving paper-compliant and obsolete. Kit inflation ran ahead of old
+    charters, old fees under-delivered by current standards, and lords preferred coin and modern hires — <b>the
+    definition lag is one quiet engine of commutation in this model</b>; history ran several at once (fractional
+    fees, campaigns past the forty days, overseas service, the crown's own taste for paid, flexible hosts — Keefe's
+    caution against reading scutage as a single story). This dial re-prices the requirement: fee-counts, quotas, and
+    the discharge menu all follow it. And because a charter keeps its <i>own</i> definition, paper and muster can
+    disagree: the grown manor (<b>Household</b> tab) carries a charter-definition dial, and the lag is computed
+    there, not narrated.
     <b>Distraint</b> — the seizure of a man's goods until he performs what he owes — is the crown's definition-reset
     aimed at the man rather than the manor: distraint <i>of knighthood</i> compels the income-qualified to take up
     current-standard arms and dubbing (defined in full on the <b>History</b> tab).</div>
@@ -247,7 +254,7 @@
       <select id="l_def">
         <option value="dom">Domesday — the mailed rider (60 gp; the fees re-count)</option>
         <option value="ang">Angevin — the knight, mail per fee (1181)</option>
-        <option value="dis" selected>Distraint century — the harnessed knight (1285)</option>
+        <option value="dis" selected>Distraint century — the statute knight (1285)</option>
         <option value="ord">Ordinance — the lance fournie; the fee commuted</option>
       </select>
     </div>
@@ -335,9 +342,9 @@
         <tr><td><b>The assize of the fee</b> — the levy is a term of enfeoffment: mail per fee held, yeomen trained &amp; kitted, view of arms twice yearly; a fee in default hires the levy's watch until re-armed</td>
           <td>RAW militia is optional — a ruler <i>may</i> levy up to 2 per 10 families (p.431–2) — but the garrison credit's own wording sets the standard: "trained <b>and equipped</b>" (p.341–2), with kit heritable (p.432). The officer delegations include <b>inspecting troops</b> (p.352–3)</td>
           <td>The Assize of Arms (1181) owed <b>a hauberk per fee held</b> — mail scaling with fee-count in statute — with its 10-mark freeman at the habergeon tier (his was a <i>chattels</i> assessment — movable goods, not land: the half-fee mapping borrows the kit-grade, not the tenure); the Statute of Winchester (1285) added the twice-yearly <b>view of arms</b>. Both were national legislation on all free men, enforced by royal machinery — juries and itinerant justices in 1181, elected hundred-constables in 1285. Writing their content into the charter of the fee, and their enforcement into the lord's household, is this module's deliberate transplant. Hârn's yeomen (double tenancy, own kit) are the same custom in canon. Age works against the assize, too: the mail-grade yeomen are precisely the whole-holding tenants, and fragmentation thins that stratum (the three counts of a fee, History tab) — the old subdivided manor is where the view finds habergeons pawned and the fee slides toward default. The convergence is a calibration, not a law: at land 6 — RAW's own average — the rungs' heavy-foot ceilings count <b>1 / 2 / 4</b> mail-grade yeomen on the 1-, 2-, and 4-fee rungs, the statute's scaling out of RAW's qualifying numbers, the esquire at the habergeon tier (0); richer or poorer hexes shift the counts. Default is priced, not forbidden: −levy-credit gp/mo of hired watch until the one-time re-arming is paid — distraint (the seizure of goods to compel a defaulter) as texture, on RAW numbers. And so is delivery: when the service is called, <b>the knight pays his men's wages himself</b> (provider-pays — Call to Arms, p.345–6); the war-month bill is on every card, and it cuts into <code>land+3</code> for the term — one war-month a year; past the forty days the lord's wages carry the host.</td></tr>
-        <tr><td><b>The quota — a fee owes as many lances as it counts fees</b>: ½ owes joint service, 1 its holder, 2 and 4 the holder and the count beside him. A <b>lance</b> is one knight-service, and discharge is by body: a heavy horseman serves a lance whole, a medium-horse serjeant at <b>two-for-one</b>, light horse and foot not at all, coin at the scutage rate — the assize's mounted serjeants credit ½ each while it is kept. And the definition of a lance is itself the charter's, drifting by era (the definition lever): the Survey's mailed rider (60 gp — the fees re-count in him), the 1181 knight (mail per fee), the harnessed knight of 1285 (Winchester's re-written kit ladder; the covered-horse summonses), and the ordinance lance that absorbed the crew — the fee by then commuted. Priced on every card and in full on the Household tab</td>
+        <tr><td><b>The quota — a fee owes as many lances as it counts fees</b>: ½ owes joint service, 1 its holder, 2 and 4 the holder and the count beside him. A <b>lance</b> is one knight-service, and discharge is by body: a heavy horseman serves a lance whole, a medium-horse serjeant at <b>two-for-one</b>, light horse and foot not at all, coin at the scutage rate — the assize's mounted serjeants credit ½ each while it is kept. And the definition of a lance is itself the charter's, drifting by era (the definition lever): the Survey's mailed rider (60 gp — the fees re-count in him), the 1181 knight (mail per fee), the statute knight of 1285 (Winchester's enforcement overlay on the same body; the covered-horse summonses pressing past it), and the ordinance lance that absorbed the crew — the fee by then commuted. Priced on every card and in full on the Household tab</td>
           <td>RAW's Call to Arms prices the duty in gp — troops worth 1 gp/family (p.346) — and never counts lances; the wage ladder alone would read "4 fees = one L5 knight" and stop there</td>
-          <td>The <i>servitium debitum</i> counted knights — one fee, one knight's service; two fees, two — and the Assize of Arms scaled <b>mail with fee-count</b>: the second hauberk of a two-fee man was a second man-at-arms's mail, not a better coat for the first. The module keeps both truths: the fee <b>retains a grade</b> (the wage ladder) and <b>owes a count</b> (the quota) — the gap between them is where scutage, the term-hire market, and the household live. The discharge is priced, not assumed: at wage-parity floors the count above one is affordable only in coin or for the term, which is the record's own answer — real multi-fee holders scutaged and hired; standing retinues awaited the margin (Household tab). The 2:1 substitution is the servitium's own record — two serjeants accepted for a knight — pinned here to the medium-horse body: the 60-gp man is heavy cavalry and serves a lance whole, as the pay rolls' esquire-grade men-at-arms did.</td></tr>
+          <td>The <i>servitium debitum</i> counted knights — one fee, one knight's service; two fees, two — and the Assize of Arms scaled <b>mail with fee-count</b>: the second hauberk of a two-fee man was a second man-at-arms's mail, not a better coat for the first. The module keeps both truths: the fee <b>retains a grade</b> (the wage ladder) and <b>owes a count</b> (the quota) — the gap between them is where scutage, the term-hire market, and the household live. The discharge is priced, not assumed: at wage-parity floors the count above one is affordable only in coin or for the term, which is the record's own answer — real multi-fee holders scutaged and hired; standing retinues awaited the margin (Household tab). The 2:1 substitution is the servitium's own record — two serjeants accepted for a knight (Pollock &amp; Maitland carry the cases) — but the <b>pinning is the module's calibration</b>, owned here: the historical serjeant was a social and tenurial category, not an equipment tier. We map him to the ACKS medium-horse body, and rule the 60-gp heavy-cavalry man sufficiently equipped to discharge a service whole, as the pay rolls' esquire-grade men-at-arms did.</td></tr>
         <tr><td><b>The knight's contract</b> — dubbing puts the fee-holder on the henchman XP ledger (expected wage deducted before the threshold) and raises his base loyalty from −2 to 0 for as long as the fee's service is kept — the same conditions the quittance already audits: homage at succession, the assize, the render. There is no separate bond to track: <b>the loyalty rides the fee</b>. A fee in default of its service is a bond in question — −2 until it re-arms, and still deducted. The esquire's fee sits outside the contract: RAW's plain vassal, undeducted, base −2</td>
           <td>RAW keys the wage deduction to henchman <i>status</i>: "henchmen vassals subtract their expected monthly wage from domain income for purposes of calculating XP" (p.342, Major Errata r4 form); a non-henchman vassal deducts nothing and holds base loyalty −2 (p.347), −4 beyond the range of trade (JJ p.203). Charisma modifies <i>every</i> loyalty score alike (p.166) — it is no henchman perk</td>
           <td>Two transplanted clauses, each with a RAW precedent of exactly its shape. <b>The ledger</b>: companions "function as henchmen for all purposes… but do not take up henchmen slots" (p.334–6) — the book's own proof that henchman accounting detaches from the slot system and travels; we move one clause of that bundle onto the dubbed fee-holder. <b>The loyalty</b>: senatorial republics give "non-henchmen assigned to rule vassal domains base loyalty scores of 0 instead of −2" because the <i>institution</i> commands the loyalty (p.355) — and tenure by knight-service is feudal monarchy's same institution. The loyalty attaches to the position, not the person, which is why the heiress's husband who renders the service is as sworn as the man born to it — the exact shape of the senate parallel. The clauses ship together because RAW never sells them apart: nowhere does the book pair the wage deduction with negative base loyalty (henchman 0, companion +2) — a deducted man at −2 would kneel to be made strictly worse off, and no one kneels for that. Dubbing is thus a real exchange: the knight's last level moves to the battlefield, his lord's hall moves closer. What falls out downstream — the esquire as the one man land alone completes, and distraint of knighthood emerging from the arithmetic — has its own section on the <b>History</b> tab.</td></tr>
@@ -511,6 +518,12 @@
           <option value="0.5">½ fee</option>
           <option value="1" selected>1 fee</option>
           <option value="2">2 fees</option>
+        </select></div>
+      <div class="field"><label>— and its charter's definition <span class="hint">(the lance the paper names — written when the charter was; the Manors definition lever is the <i>muster's</i> standard, and the two may disagree)</span></label>
+        <select id="h_cdef">
+          <option value="dom">the Survey's mailed rider — 60 gp</option>
+          <option value="ang" selected>the 1181 knight — 100 gp</option>
+          <option value="dis">the statute knight (1285) — 100 gp</option>
         </select></div>
     </div>
   </div>
@@ -1324,10 +1337,12 @@
     so are rents, suits, and services of every kind. <b>Distraint of knighthood</b> is that remedy pointed at rank:
     from 1224 the crown ordered sheriffs to distrain fee-holders, and from 1241 any man of £20/yr in land (later
     £40), until they took up the arms and dubbing of a knight — compulsion by inconvenience, with respite purchasable
-    by fine (the Fine Rolls carry the receipts). In the module's terms it is <b>two resets in one writ</b>: an
-    income instrument that taxes the assessment lag without resurveying the manor, and a <b>definition reset</b> that
-    forces the current standard of knighthood — kit, harness, and ledger — onto the man himself (the definition
-    lever, Manors tab). The next section shows why the crown needed it.
+    by fine (the Fine Rolls carry the receipts). In the module's terms — a reading the module makes, not language any
+    writ used — it is <b>two resets in one</b>: an income instrument that taxes the assessment lag without
+    resurveying the manor, and a <b>definition reset</b> that forces the current standard of knighthood — kit,
+    harness, and ledger — onto the man himself (the definition lever, Manors tab). The record shows the income
+    instrument plainly; the definition reset is the module's synthesis of what the compulsion did. The next section
+    shows why the crown needed it.
   </p>
 
   <h2>The esquire's ledger — distraint of knighthood, out of the arithmetic</h2>
@@ -1672,8 +1687,8 @@ function renderLadder(){
       sub:"knighthood is not yet an income class: the 60-gp rider is the era's whole fee, and greater estates simply owe more of him. No assize yet stands — kit is custom, not statute; read the assize rows as the custom the statutes will later write"},
     ang:{name:"the knight himself — mail per fee held (Assize of Arms, 1181)",
       sub:"the first statutory definition: the 1181 assize wrote the kit ladder into law — a hauberk per fee held, the habergeon tier below it"},
-    dis:{name:"the harnessed knight — barded, panoplied, the levy trained &amp; kitted (Winchester, 1285)",
-      sub:"Winchester re-wrote the kit ladder the 1181 assize began — two statutes, two definition resets — and Edwardian summonses specifying <i>equus coopertus</i>, the covered horse, show the definition contested at muster: men arriving paper-compliant and obsolete. The charter's definition holds until the paper is rewritten; distraint resets the man without resurveying the manor"},
+    dis:{name:"the statute knight — wealth-assessed, the view of arms kept (Winchester, 1285)",
+      sub:"an enforcement overlay on the same 100-gp body, not a new price: Winchester was an arms-assessment and peace-keeping statute — it re-graded who must hold what and set the view that polices it, while the knight it inspects is still the 1181 assize's man. The field standard tightened separately: Edwardian cavalry summonses demanding <i>equus coopertus</i>, the covered horse, pressed beyond bare statutory compliance — the definition contested at muster, men arriving paper-compliant and obsolete. The charter's definition holds until the paper is rewritten; distraint resets the man without resurveying the manor"},
     ord:{name:"the ordinance lance — the crew written into the requirement; the fee commuted",
       sub:"the requirement has absorbed the crew: man-at-arms + coustillier + page, ~145 gp/mo hired, the page in the threshold. The fee itself renders coin on ancient paper — the era in which the definition swallowed the crew is the era the fee died"}
   };
@@ -1735,15 +1750,18 @@ function renderLadder(){
     const xtra   = Math.max(0, lances-1);
     // the assize's mounted allocation: multi-fee estates mount medium-horse serjeants where the family
     // base qualifies (RR p.431) — each credits ½ lance while the assize is kept; his 578-gp kit is priced in.
-    // The instrument is the assize's own (1181/1285): no credit under the Domesday custom or the ordinance's coin
+    // The instrument is the assize's own (1181/1285): no credit under the Domesday custom or the ordinance's coin.
+    // REQUIRED vs STANDING: the required composition (what the assize demands) prices the watch and the
+    // re-arming; the quota credits only what stands — in default the serjeant is required but not credited.
     const medCap = Math.floor(mil*20/120);
-    const med    = (xtra>0 && asz && (def==="ang"||def==="dis")) ? Math.min(medCap, Math.ceil(xtra*2)) : 0;
+    const medReq = (xtra>0 && (def==="ang"||def==="dis")) ? Math.min(medCap, Math.ceil(xtra*2)) : 0;
+    const med    = asz ? medReq : 0;
     const rem    = Math.max(0, xtra - med*0.5);
     const [,,hfCost,hfWage] = QUAL[1], [,,lfCost,lfWage] = QUAL[0];      // heavy foot, light foot rows
     const [,,mhCost,mhWage] = QUAL[5];                                   // medium horse row
-    const lvH    = Math.min(Math.floor(mil*0.5), mil-med), lvL = mil - med - lvH;
-    const lvCredit = med*mhWage + lvH*hfWage + lvL*lfWage;               // wage-value vs garrison (p.341)
-    const lvCost   = Math.round(med*mhCost + lvH*hfCost + lvL*lfCost);   // one-time train & equip (p.431)
+    const lvH    = Math.min(Math.floor(mil*0.5), mil-medReq), lvL = mil - medReq - lvH;
+    const lvCredit = medReq*mhWage + lvH*hfWage + lvL*lfWage;            // the required watch's wage-value (p.341)
+    const lvCost   = Math.round(medReq*mhCost + lvH*hfCost + lvL*lfCost);// one-time train & equip, at requirement (p.431)
     let quota, quotaSub;
     if(ord){
       quota = `${FEESTR[r.anchor]} — commuted: the render is coin`;
@@ -1776,7 +1794,7 @@ function renderLadder(){
           : ` — and the count is already met in kind. `) +
         `Host supply rides on the lord's line throughout (Units tab). The full ledger: the <b>Household</b> tab.`;
     }
-    return {...r, fam, income, sq, svc, cost, net, garr, dubbed, farm, mil, roles, med, lvH, lvL, lvCredit, lvCost, quota, quotaSub, lances, feesS};
+    return {...r, fam, income, sq, svc, cost, net, garr, dubbed, farm, mil, roles, med, medReq, lvH, lvL, lvCredit, lvCost, quota, quotaSub, lances, feesS};
   });
 
   document.getElementById("rungs").innerHTML = rows.map(r=>`
@@ -1802,8 +1820,8 @@ function renderLadder(){
       <div class="sect">The levy (2 per 10 families, RR p.431–2)</div>
       <div class="lrow"><span class="lk">Pool</span><span class="lvv">${r.mil} militia — the manor's yeomen</span></div>
       <div class="lrow"><span class="lk">Can train as</span><span class="lvv" style="font-weight:400;font-size:11.5px">${r.roles.map(([n,c])=>`${c} ${n}`).join(" · ")}</span></div>
-      <div class="lrow gold"><span class="lk">The assize's levy</span><span class="lvv">${r.med?`${r.med} mounted serjeant${r.med>1?"s":""} + `:""}${r.lvH} hvy + ${r.lvL} lt → ${r.lvCredit} gp/mo garrison credit</span></div>
-      <div class="lrow sub"><span>one-time ~${fmt(r.lvCost)} gp to train &amp; equip — heirloom, permanent (RR p.432); counts against garrison even uncalled (p.341) — here, part of the service that keeps the fee quit: the assize's substance</span></div>
+      <div class="lrow gold"><span class="lk">The assize's levy</span><span class="lvv">${r.medReq?`${r.medReq} mounted serjeant${r.medReq>1?"s":""} + `:""}${r.lvH} hvy + ${r.lvL} lt → ${r.lvCredit} gp/mo garrison credit${asz?"":" — the requirement; in default, not standing"}</span></div>
+      <div class="lrow sub"><span>one-time ~${fmt(r.lvCost)} gp to train &amp; equip${r.medReq?" (the serjeant's 578-gp mounting included)":""} — heirloom, permanent (RR p.432); counts against garrison even uncalled (p.341) — here, part of the service that keeps the fee quit: the assize's substance</span></div>
       ${r.mil ? `<div class="lrow sub"><span><b>free to keep, dear to call</b>: afield the knight pays his men's wages (${fmt(r.lvCredit)} gp/mo — provider-pays, p.345–6/432) and ${r.mil} plough-team${r.mil===1?"":"s"} stand${r.mil===1?"s":""} idle (−${fmt(r.mil*(perFam+3))} gp: revenue books as if ${r.mil} fewer famil${r.mil===1?"y":"ies"} at the full ${land+6}-gp revenue rate, p.432, while the famil${r.mil===1?"y's":"ies'"} liturgy/tithe/maintenance run on — p.342's cost column charges the family, not the man) ≈ <b>${Math.round((r.lvCredit + r.mil*(perFam+3))/r.income*100)}%</b> of the fee's income for the war-month, −2 morale till they come home. One war-month a year in kind; extension at the lord's wages.</span></div>` : ""}
       <div class="sect">The assize of the fee (terms of enfeoffment)</div>
       <div class="lrow"><span class="lk">The definition of record</span><span class="lvv">${DEFS[def].name}</span></div>
@@ -1988,7 +2006,7 @@ function renderUnits(){
       <div class="lrow hi"><span class="lk">Or enfeoffed instead</span><span class="lvv">${fmt(famTot)} families of fees${famB===null?" + a barony (≥160 fam)":""}</span></div>
       <div class="lrow sub"><span>${N}× ${famPer}-family fees${famB!==null?` + the banneret's ${famB}`:` — the L${bl} banneret is baron-grade: he holds a barony (160+ fam), not a fee`}, at land ${land} (Manors tab) — sustainment costs no coin, only land${S?`; the ${S} squires ride as unpaid train (fostered sons — their wage is their education)`:""}</span></div>
       <div class="lrow gold"><span class="lk">The term (war-month 1)</span><span class="lvv">wages 0 — service in kind, provider-pays</span></div>
-      <div class="lrow"><span class="lk">Extension (months 2+)</span><span class="lvv">${fmt(wage)} gp/mo — the muster-roll wage</span></div>
+      <div class="lrow"><span class="lk">Extension wages (months 2+)</span><span class="lvv">${fmt(wage)} gp/mo — the muster-roll wage; supply &amp; specialists ride their own lines above, every month</span></div>
       <div class="lrow sub"><span>the fee sustains the man year-round and buys the first war-month (the forty days); past the term the lord pays the pay ladder — as the rolls show fee-holders drawing — while supply and specialists are his throughout. What no coin buys at any month: the unit itself — leveled knights are in no crop (p.428)</span></div>
     </div>`;
 
@@ -2012,8 +2030,10 @@ function renderHousehold(){
   const gFam = Math.max(8, parseInt(document.getElementById("h_fam").value,10) || 23);
   const gChart = parseFloat(document.getElementById("h_chart").value) || 1;
   const BOARD = 16;   // in-kind share of a household man's wage — the 4 gp/wk supply rate (RR p.442)
-  const def  = document.getElementById("l_def").value;      // the definition of record (Manors tab)
-  const REQH = def==="dom" ? 60 : 100;
+  const def  = document.getElementById("l_def").value;      // the muster's definition of record (Manors tab)
+  const cdef = document.getElementById("h_cdef").value;     // the grown manor's CHARTER definition — paper and muster may disagree
+  const REQof = d => d==="dom" ? 60 : 100;
+  const REQH = REQof(def);
   const ordH = def==="ord";
   const feeCountOf = a => def==="dom" ? a/60 : ({60:0.5,100:1,200:2,400:4})[a] ?? a/100;
   const gradeOf = v => { let g=0; for(let L=1; L<=8; L++) if(HENCH[L]<=v) g=L; return g; };
@@ -2026,10 +2046,11 @@ function renderHousehold(){
     const mil  = Math.floor(fam*2/10);
     const xtra = Math.max(0, lances-1);
     const medCap = Math.floor(mil*20/120);
-    const med  = (xtra>0 && asz && (def==="ang"||def==="dis")) ? Math.min(medCap, Math.ceil(xtra*2)) : 0;
+    const medReq = (xtra>0 && (def==="ang"||def==="dis")) ? Math.min(medCap, Math.ceil(xtra*2)) : 0;
+    const med  = asz ? medReq : 0;      // required vs standing — in default the serjeant is required, not credited
     const rem  = Math.max(0, xtra - med*0.5);
     const scutL = lances>0 ? (fam/lances)/12 : 0;
-    return {mil, xtra, med, rem, scutL};
+    return {mil, xtra, med, medReq, rem, scutL};
   };
 
   const HH = {
@@ -2046,7 +2067,10 @@ function renderHousehold(){
       o.fam = gFam; o.income = gFam*perFam;
       const kc = Math.max(1, gradeOf(o.income));
       o.cur  = {keep:kc, anchor:HENCH[kc], lances:HENCH[kc]/REQH};
-      const aA = FEEANCHOR[gChart] || 100;
+      // the charter's anchor is its count valued under its OWN definition — never the muster's:
+      // a Domesday fee is the 60-gp rider (whole estates count in him, floored at one man);
+      // under the 100-gp definitions the keep ladder applies (½→60 esquire, 1→100, 2→200)
+      const aA = cdef==="dom" ? Math.max(60, gChart*60) : (FEEANCHOR[gChart] || 100);
       o.ancn = {keep:gradeOf(aA), anchor:aA, lances:gChart, margin:o.income-aA};
       const act = anc ? o.ancn : o.cur;
       o.anchor = act.anchor; o.lances = act.lances;
@@ -2054,7 +2078,10 @@ function renderHousehold(){
     } else {
       o.fam = o.fam ?? Math.ceil(o.anchor/perFam);
       o.income = o.baron ? o.fam*(land+1-cls) : o.fam*perFam;
-      if(!o.baron) o.lances = feeCountOf(o.anchor);       // the count follows the definition of record
+      if(!o.baron){
+        o.lances = feeCountOf(o.anchor);       // the count follows the definition of record
+        o.fees = `${lstr(o.lances)} fee${o.lances!==1?"s":""}${ordH?" — ancient paper":""}`;
+      }
     }
     o.head = o.income - o.anchor;
     o.q = quotaOf(o.fam, o.lances||0);
@@ -2078,15 +2105,17 @@ function renderHousehold(){
     {n:"Man-at-arms — L1 household henchman", c:HENCH[1], lance:true, note:`wage 25, ≈${BOARD} of it the hall's board in kind; replaces a 60-gp hired sergeant — the bond is the discount. Presented to the host he serves a lance whole (a heavy body); riding at his lord's side instead he is the Burgundian paybooks' later coustillier — crew, not count (the lance note, History tab)`},
     {n:"Household knight — L2 henchman", c:HENCH[2], lance:true, note:"wage 50 — replaces a 100-gp hired lance; no term on his service"},
     {n:"Household knight — L3 henchman", c:HENCH[3], lance:true, note:"wage 100 — a full knight in the hall"},
-    {n:"Hired sergeant, standing all year", c:60, lance:true, note:"the 60-gp market man, year-round — the option nobody used"},
-    {n:"Term-hired sergeant (heavy horseman)", c:5, lance:true, note:"60 gp due in the war-month → 5 gp/mo reserve; his host supply is the lord's line (Units tab)"},
-    {n:"Term-hired knight", c:100/12, lance:true, note:"100 gp due in the war-month → 8.3 gp/mo reserve"}
+    {n:def==="dom"?"Hired rider, standing all year":"Hired sergeant, standing all year", c:60, lance:true, note:"the 60-gp market man, year-round — the option nobody used"},
+    {n:def==="dom"?"Term-hired rider (heavy horseman)":"Term-hired sergeant (heavy horseman)", c:5, lance:true, note:`60 gp due in the war-month → 5 gp/mo reserve${def==="dom"?" — the era's whole requirement":""}; his host supply is the lord's line (Units tab)`}
   ];
+  if(def!=="dom") MENU.push({n:"Term-hired knight", c:100/12, lance:true, note:"100 gp due in the war-month → 8.3 gp/mo reserve"});
   if(ordH && !sel.baron){
     MENU.push({n:"Lawful scutage — the whole count", c:sel.fam/12, coinAll:sel.fam/12,
       note:`1 gp/fam for the war-month (p.346) — the render entire: ${lstr(sel.lances||0)} on ancient paper commute to ${f1(sel.fam/12)} gp/mo reserve`});
-    MENU.push({n:"The ordinance lance, hired", c:145, lance:true,
-      note:"man-at-arms + coustillier + page — ~145 gp/mo standing: the paybook's unit, what commuted coin buys; the page rides in the threshold"});
+    MENU.push({n:"The ordinance lance, for the war-month", c:145/12, lance:true,
+      note:"145 gp due in the war-month → 12.1 gp/mo reserve — the seasonal contract: one lance hired for the term, what commuted coin buys"});
+    MENU.push({n:"The ordinance lance, standing", c:145, lance:true,
+      note:"145 gp/mo — 1,740 gp/yr — the permanent <i>ordonnance</i> unit: a standing payroll, not a seasonal reserve like the rows above. The model is specifically Burgundy's 1468 three-man micro-lance — man-at-arms + coustillier + page, the page unpaid in the threshold; the French 1445 lance rode larger, and Burgundy's 1471 ordinance grew to nine men — and the 145 is an ACKS construction from the wage ladder (100 + 45), not a currency conversion"});
   } else if(q.rem>0) MENU.push({n:"Lawful scutage", c:q.scutL, coinAll:sel.scAll,
     note:`1 gp/fam war-month per fee-equivalent (p.346); coin divides — the ${remS} owed costs ${f1(sel.scAll)} gp/mo in reserve`});
 
@@ -2113,7 +2142,7 @@ function renderHousehold(){
        <div class="lrow sub"><span>what the coin buys is the ordinance lance (menu below); personal service is honor and choice, not obligation</span></div>`
     : `<div class="lrow"><span class="lk">Quota</span><span class="lvv">${lstr(sel.lances)} lance${sel.lances!==1?"s":""}${sel.k==="esq"&&sel.lances<1?" — joint: one knight-service between two half-fees":""}</span></div>
        <div class="lrow"><span class="lk">Holder supplies</span><span class="lvv">${sel.lances<1?"his half — jointly one knight between two":"1 — himself"}</span></div>
-       ${sel.lances>1?`<div class="lrow"><span class="lk">Levy credited</span><span class="lvv">${q.med? `${lstr(q.med*0.5)} — ${q.med} medium-horse serjeant${q.med>1?"s":""} at 2:1, assize kept` : (asz? "0 — the family base mounts none" : "0 — the assize stands in default")}</span></div>`:""}
+       ${sel.lances>1?`<div class="lrow"><span class="lk">Levy credited</span><span class="lvv">${q.med? `${lstr(q.med*0.5)} — ${q.med} medium-horse serjeant${q.med>1?"s":""} at 2:1, assize kept` : (asz? "0 — the family base mounts none" : (q.medReq? `0 — the required serjeant${q.medReq>1?"s":""} uncredited, assize in default` : "0 — the assize stands in default"))}</span></div>`:""}
        <div class="lrow hi"><span class="lk">Still owed</span><span class="lvv">${remS}</span></div>
        ${q.rem>0?`<div class="lrow gold"><span class="lk">Cheapest lawful discharge</span><span class="lvv">scutage, ${f1(sel.scAll)} gp/mo reserve — ${sel.scAll<=sel.head?"fits":"breaks"}</span></div>`:""}`;
 
@@ -2129,7 +2158,7 @@ function renderHousehold(){
     if(ordH){
       parts.push(`the count is commuted — coin for the whole (${f1(sel.fam/12)} gp/mo) ${sel.fam/12<=sel.head?"fits the surplus":"breaks the surplus — arrears"}`);
     } else if(q.rem>0){
-      const opts = [sel.scAll<=sel.head&&"coin", sel.sgAll<=sel.head&&`term sergeant${sel.bodies>1?"s":""}`, sel.ktAll<=sel.head&&"a term knight"].filter(Boolean);
+      const opts = [sel.scAll<=sel.head&&"coin", sel.sgAll<=sel.head&&`term ${def==="dom"?"rider":"sergeant"}${sel.bodies>1?"s":""}`, def!=="dom"&&sel.ktAll<=sel.head&&"a term knight"].filter(Boolean);
       parts.push(opts.length ? `the ${remS} owed beyond himself: ${opts.join(" or ")} fit${opts.length===1?"s":""} the surplus` : `the ${remS} owed beyond himself cannot be discharged from the surplus — arrears, default, or the lord's grace`);
     } else if((sel.lances||0)>0) parts.push(sel.k==="esq"&&sel.lances<1 ? "the quota is joint — half a knight-service, shared" : "the quota is met in kind");
     parts.push(stand ? `standing, the surplus keeps up to ${stand[1]} (${stand[0]} gp)` : below ? `the estate is <b>below its keep</b> by ${fmt(-sel.head)} gp — the threadbare state (Design tab)` : `no standing man on wages fits — the following lives inside the threshold`);
@@ -2139,24 +2168,47 @@ function renderHousehold(){
     if(sel.k==="esq") read += " His household is his family; the hall is the farm kitchen.";
   }
 
-  // the grown manor: both readings, side by side
+  // the grown manor: both readings side by side, then paper against muster — the lag COMPUTED
+  const CDEFN = {dom:"the Survey's mailed rider (60 gp)", ang:"the 1181 knight (100 gp)", dis:"the statute knight of 1285 (100 gp)"};
+  const bOld = REQof(cdef), bNow = REQH;
+  const defc = ordH ? 0 : Math.max(0, bNow - bOld);
+  const adequacy = ordH
+    ? "the muster no longer calls the paper — the count commutes to coin (the ledger below)"
+    : defc>0
+    ? `old body ${bOld} gp vs current requirement ${bNow} gp → <b>deficit ${defc} gp per lance presented</b>`
+    : bOld>bNow
+    ? `none — the paper over-serves the muster: a ${bOld}-gp body against a ${bNow}-gp requirement`
+    : (cdef==="ang" && def==="dis")
+    ? "none in gp — the same 100-gp body: Winchester's overlay is enforcement, not price. The pressure is the view's strictness and the covered horse at the king's summons, not a number"
+    : "none — the paper meets the muster";
+  const treatment = ordH
+    ? "commuted — the render is coin on ancient paper; the ordinance is itself the reset"
+    : defc>0
+    ? `the view of arms accepts the paper (kit inspected against the charter) · the host demands the supplement — +${defc} gp for the war-month per body presented (≈${(defc/12).toFixed(1)} gp/mo reserve) · commute (scutage, the ledger below) · or a new writ — escheat, inquest, <b>distraint</b> — resets count and definition alike`
+    : "the view and the host agree — service as written; a new writ (escheat, inquest, distraint) would reset count and definition alike";
   const both = sel.grown ? `
       <div class="sect">The two assessments</div>
       <div class="lrow ${anc?"":"hi"}"><span class="lk">Current (surveyed)</span><span class="lvv">${fmt(sel.income)} gp → keeps L${sel.cur.keep} (anchor ${fmt(sel.cur.anchor)}) → owes ${lstr(sel.cur.lances)}</span></div>
-      <div class="lrow ${anc?"hi":""}"><span class="lk">Ancient (the charter)</span><span class="lvv">charter ${lstr(gChart)} → contractual keep L${sel.ancn.keep} (anchor ${fmt(sel.ancn.anchor)}) → margin <b>${fmt(sel.ancn.margin)}</b> → owes ${lstr(gChart)}</span></div>
-      ${(def==="dis"||ordH) ? `<div class="lrow sub"><span><b>definition lag:</b> the charter's lance is its own era's standard — the view of arms accepts the paper (kit against the charter) while the host expects the current definition (the covered horse); distraint resets the man without resurveying the manor</span></div>` : ``}
-      <div class="lrow sub"><span>the Manors tab's assessment lever picks which reading rules the ledger below — the <b>${anc?"ancient":"current"}</b> one now</span></div>` : "";
+      <div class="lrow ${anc?"hi":""}"><span class="lk">Ancient (the charter)</span><span class="lvv">charter ${lstr(gChart)} → contractual keep L${sel.ancn.keep} (anchor ${fmt(sel.ancn.anchor)}, the charter's own definition) → margin <b>${fmt(sel.ancn.margin)}</b> → owes ${lstr(gChart)}</span></div>
+      <div class="lrow sub"><span>the Manors tab's assessment lever picks which reading rules the ledger below — the <b>${anc?"ancient":"current"}</b> one now. A re-survey rewrites all three of the charter's terms — count, definition, and term — so the current reading carries no lag: the lag is the ancient reading's story</span></div>
+      <div class="sect">Paper against muster — the definition lag</div>
+      <div class="lrow"><span class="lk">Paper obligation</span><span class="lvv">${lstr(gChart)} lance${gChart!==1?"s":""} of ${CDEFN[cdef]} · one war-month a year (the term, held constant here)</span></div>
+      <div class="lrow ${defc>0&&!ordH?"warn":""}"><span class="lk">Current adequacy</span><span class="lvv" style="font-weight:400;font-size:11.5px">${adequacy}</span></div>
+      <div class="lrow"><span class="lk">Legal treatment</span><span class="lvv" style="font-weight:400;font-size:11.5px">${treatment}</span></div>` : "";
 
   document.getElementById("hcards").innerHTML = `
     <div class="ucard">
       <h4>${sel.name}<span>${sel.fees} · ${sel.fam} families at land ${land}</span></h4>
       <div class="big">${below?`−${fmt(-sel.head)}`:fmt(sel.head)} <small>gp/mo of ${below?"shortfall — the estate is below its keep":"surplus"} — income ${fmt(sel.income)} against the holder's ${fmt(sel.anchor)}-gp keep</small></div>
+      ${def==="dom" && !sel.grown && !sel.baron ? `<div class="lrow sub"><span>the rung names are the later centuries' — under the Survey this card is an estate counting ${lstr(sel.lances||0)} of the era's riders, and knighthood is not yet an income class: read the name as the estate's future, not its present</span></div>` : ""}
       ${both}
       <div class="sect">The quota ledger — a lance is one ${def==="dom"?"rider's service":"knight-service"}</div>
       ${ledger}
       <div class="lrow sub"><span><b>count vs. crew:</b> a body counts toward the quota only when presented to the host as a lance of it; the men inside a lance — page, squire, the later coustillier — never count, however many ride. A retained man-at-arms can be sent as a lance of the count <i>or</i> ride as his lord's light second: the same body, two different slots, never both at once.</span></div>
       <div class="sect">The menu — per man · the remaining count</div>
       ${MENU.map(line).join("")}
+      ${(!sel.baron && owedN>0) ? `<div class="sect">The lord's corresponding line (doctrine — Units tab)</div>
+      <div class="lrow sub"><span>whatever the fee finds, <b>the host feeds</b>: each body presented for the war-month adds ~16 gp/mo of field supply (4 gp/wk, RR p.442) and a specialist share to the <i>lord's</i> ledger — the ${remS} owed, found in bodies, puts ~${fmt(owedBodies*16)} gp on the lord's month (the holder's own lance and any called levy ride there too). The fee's bill is the wage alone; coin discharge adds nothing to the lord's supply line. Months 2+, wages shift to the lord as well (the muster-roll rate). A declared campaign doctrine, not a medieval universal — custom often read service as at the vassal's own cost</span></div>` : ""}
       <div class="lrow hi"><span class="lk">The read</span><span class="lvv" style="font-weight:400;font-size:11.5px">${read}</span></div>
     </div>`;
 
@@ -2178,10 +2230,13 @@ function renderHousehold(){
     dispEl.innerHTML = `
       <h3>The disposition — same fees, three shapes <span style="color:var(--mute);text-transform:none;font-weight:400">— land ${land}</span></h3>
       <table class="cmp">
-        <thead><tr><th>Arrangement</th><th>Fam</th><th>The men</th><th>BR (÷960)</th><th>The quota</th><th>Bonds &amp; control</th></tr></thead>
+        <thead><tr><th>Arrangement</th><th>Fam</th><th>The men</th><th>Standing sworn BR (÷960)</th><th>The quota</th><th>Bonds &amp; control</th></tr></thead>
         <tbody>${rows2.join("")}</tbody>
       </table>
-      <p class="note">Same assessed fees, different shapes: bodies and battle-rating rise as grade and control fall. What consolidation buys is never bodies — it is command (an L4+ to officer the banner, Units tab), quality, and <b>one</b> sworn bond where the henchman cap (4 + CHA) makes bonds the scarcest thing a lord owns. Subinfeudation is the land-rich answer, the consolidated shape's found lances are the coin-and-term answer, and the margin (ancient assessments) is the retained answer.</p>`;
+      <p class="note">Same assessed fees, different shapes: bodies and battle-rating rise as grade and control fall. What consolidation buys is never bodies — it is command (an L4+ to officer the banner, Units tab), quality, and <b>one</b> sworn bond where the henchman cap (4 + CHA) makes bonds the scarcest thing a lord owns. Subinfeudation is the land-rich answer, the consolidated shape's found lances are the coin-and-term answer, and the margin (ancient assessments) is the retained answer. The BR column counts the <b>standing sworn</b> principals only — the found lances, term hires, and coin of the quota column ride the mustered host, not this figure.</p>`;
+    dispEl.style.display = "";
+  } else if(sel.k==="kt2" || sel.k==="kt4"){
+    dispEl.innerHTML = `<p class="note">The disposition table is built for the high-medieval 100-gp fee definitions (1181/1285) and hides under the others by design: ${ordH?"under the ordinance the count is commuted — disposition belongs to the company's captain, not the fee":"under the Survey's definition the grades themselves re-count in the 60-gp rider, and the table's three shapes do not yet exist"}.</p>`;
     dispEl.style.display = "";
   } else { dispEl.innerHTML = ""; dispEl.style.display = "none"; }
 
@@ -2189,7 +2244,8 @@ function renderHousehold(){
   const rows = ["esq","kt1","kt2","kt4","lag","bar"].map(mk);
   const standingOf = h => { const f=[[HENCH[3],"an L3 knight"],[HENCH[2],"an L2 knight"],[HENCH[1],"a man-at-arms"]].find(([c])=>c<=h.head);
     return f ? `${f[1]} (${f[0]} gp)${h.baron?" — to the CHA cap":""}` : "none — wages break the floor"; };
-  const term = h => `${5<=h.head?"sergeant ✓":"sergeant ✗"} · ${100/12<=h.head?"knight ✓":"knight ✗"}`;
+  const term = h => def==="dom" ? `${5<=h.head?"rider ✓":"rider ✗"} — no knight this era`
+    : `${5<=h.head?"sergeant ✓":"sergeant ✗"} · ${100/12<=h.head?"knight ✓":"knight ✗"}`;
   const shortOf = h => h.baron ? (h.head>0?"RAW resumes — the henchman roster":"no waged hall here")
     : ordH ? (h.fam/12<=h.head ? "commuted — the coin fits" : "commuted — arrears")
     : h.q.rem>0 ? (h.scAll<=h.head ? `rest of the count (${lstr(h.q.rem)}) in coin` : "count undischargeable — arrears")
@@ -2311,7 +2367,7 @@ function renderOffice(){
     document.getElementById("l_era").value=""; document.getElementById("eraread").innerHTML="";
     renderLadder(); renderUnits(); renderHousehold(); }));
 document.getElementById("l_sq").addEventListener("input", ()=>{ renderLadder(); renderUnits(); });
-["h_holder","h_cls","h_fam","h_chart"].forEach(id=>
+["h_holder","h_cls","h_fam","h_chart","h_cdef"].forEach(id=>
   document.getElementById(id).addEventListener("input", renderHousehold));
 ["u_klvl","u_n","u_blvl","u_sq","u_scale","u_cha","u_iw","u_ms","u_cmd","u_ldr","u_mount"].forEach(id=>
   document.getElementById(id).addEventListener("input", renderUnits));
@@ -2323,7 +2379,7 @@ const ERAS = {
   angevin:{land:5, dens:"185", asz:true, assess:"ancient", def:"ang",
     read:"The hall empties onto the land, and the 1166 cartae freeze the counts a generation before the countryside fills: the first margins open, and scutage is already the crown's answer. Definition of record: <b>the 1181 knight</b> — mail per fee held. (The Assize of Arms arrives only in 1181 — untick it for the century's first half.)"},
   distraint:{land:6, dens:"375", asz:true, assess:"current", def:"dis",
-    read:"The full ladder at the heartland default — honorable, costly dubbing; distraint taxes growth by income as fast as it opens, so the paper tracks the land. Definition of record: <b>the harnessed knight</b> — Winchester's re-written kit, the covered-horse summonses. Kaldor's home century. (The density is 13th-century England's heartland cap; Kaldor itself runs the dial's 350 entry.)"},
+    read:"The full ladder at the heartland default — honorable, costly dubbing; distraint taxes growth by income as fast as it opens, so the paper tracks the land. Definition of record: <b>the statute knight</b> — Winchester's view of arms enforcing the 1181 body, the covered-horse summonses pressing past it. Kaldor's home century. (The density is 13th-century England's heartland cap; Kaldor itself runs the dial's 350 entry.)"},
   indenture:{land:6, dens:"425", asz:true, assess:"ancient", def:"ord",
     read:"Counts fossilized, incomes grown, scutage the norm: the margin is universal and wears livery — obligation has migrated from the fee to the retained man (Household tab). Definition of record: <b>the ordinance lance</b> — the crew absorbed into the count, the fee commuted to coin. Density 425 is the era's pre-plague opening — slide it down after 1348."}
 };
