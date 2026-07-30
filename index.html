@@ -101,7 +101,7 @@
   <h1>Feudal Manors — fees &amp; the fighting men they buy</h1>
   <p>A sub-baronial enfeoffment module for ACKS II · esquire's fee to castellany, and the banners they muster · Hârn application in its own tab ·
   <b>the fee is quit of the garrison line by service — lance and levy — with the assize of the fee as its written terms</b> ·
-  <span style="white-space:nowrap">v2.6 — <a href="https://github.com/joachimxb/feudal-manors/releases" style="color:inherit">release notes</a></span></p>
+  <span style="white-space:nowrap">v2.7 — <a href="https://github.com/joachimxb/feudal-manors/releases" style="color:inherit">release notes</a></span></p>
 </header>
 
 <div class="panel">
@@ -526,7 +526,12 @@
           <option value="ang" selected>the 1181 knight — 100 gp</option>
           <option value="dis">the statute knight (1285) — 100 gp</option>
         </select></div>
-      <div class="field"><label>This muster — the personal share <span class="hint">(the holder's own lance-equivalent; grown manor, ancient reading)</span></label>
+      <div class="field"><label>This muster — the assize serjeants <span class="hint">(readiness is the assize's; deployment is the muster's choice — qualifying multi-fee estates only)</span></label>
+        <select id="h_serj">
+          <option value="ride" selected>Ride against the quota — ½ lance each</option>
+          <option value="remain">Remain with the manor — the share settles below</option>
+        </select></div>
+      <div class="field"><label>— the personal share <span class="hint">(the holder's own lance-equivalent; grown manor, ancient reading)</span></label>
         <select id="h_mus1">
           <option value="accept" selected>Accept the old body as written</option>
           <option value="makegood">Old body + wage-parity make-good</option>
@@ -599,7 +604,7 @@
     spending <i>is</i> the domestic establishment — grooms, a porter, a huntsman, men who take up a bill when the
     manor is entered. So the bank-breaking table above is not "knights had no households"; it is the sharper claim
     that matches the record: <b>servants who could fight were universal; fighting men on wages were magnate
-    practice.</b> The armed valet lives in the threshold; the household knight lives in the margin.
+    practice.</b> The armed valet lives on the living-expense line, below the threshold; the household knight lives in the margin.
   </p>
 
   <h2>The warded walls — castle-guard</h2>
@@ -701,9 +706,12 @@
         <tr><td><b>The quota</b> — a fee owes as many lances as it counts fees; a lance is one knight-service, discharged by body: heavy horse whole, a medium-horse serjeant at 2:1 (the assize's mounted serjeants credit ½ each while it is kept), coin at the scutage rate</td>
           <td>Call to Arms prices the duty in gp and never counts lances (p.346)</td>
           <td>The full ruling and its historical warrant sit in the ⚖ table on the Manors tab (the <i>servitium debitum</i>; the Assize's mail-per-fee; the 2:1 serviens substitutions). This tab applies it: the ledger credits the levy and prices the remainder.</td></tr>
-        <tr><td><b>The keep</b> — the domestic tier (valet, groom, armed servant) lives inside the holder's threshold spending; the fighting household man is a henchman at his full wage, part rendered as the hall's board in kind</td>
+        <tr><td><b>The keep</b> — the domestic tier (valet, groom, armed servant) lives on the holder's living-expense line, below the XP threshold; the fighting household man is a henchman at his full wage, part rendered as the hall's board in kind</td>
           <td>RAW henchmen draw the full wage; expected living expenses equal the level's wage (p.173) and sit inside the XP threshold (p.423) — servants, stabling, the hall itself</td>
-          <td>Two honest lines instead of one magic discount. The servant who fights at need is <b>threshold spending</b> — every knight keeps him, no wage line. The household <b>henchman</b> costs his wage entire (part in board — the supply rate prices the in-kind share); what makes him affordable is the <b>bond</b>, not the board: 25 gp of L1 henchman replaces 60 gp of hired sergeant, the same discount the fee itself runs on (RR p.168). Historically exact — household knights served for robes, mounts, board, and small annuities, not mercenary wages — and honestly priced: at the parity floor even 25 gp breaks, which is why the standing mesnie awaited the margin and the barony.</td></tr>
+          <td>Two honest lines instead of one magic discount. The servant who fights at need is <b>living-expense spending</b> — every knight keeps him, no wage line, and the line sits below the XP threshold. The household <b>henchman</b> costs his wage entire (part in board — the supply rate prices the in-kind share); what makes him affordable is the <b>bond</b>, not the board: 25 gp of L1 henchman replaces 60 gp of hired sergeant, the same discount the fee itself runs on (RR p.168). Historically exact — household knights served for robes, mounts, board, and small annuities, not mercenary wages — and honestly priced: at the parity floor even 25 gp breaks, which is why the standing mesnie awaited the margin and the barony.</td></tr>
+        <tr><td><b>The esquire's household — an extrapolation, flagged</b> — the 0-level rung keeps the same domestic tier as the leveled rungs</td>
+          <td>RAW's living-expense rule rides the leveled henchman-wage ladder ("equal to the wages of a henchman of the same level," p.173), and the wage table's own 0-level row is 12 gp (p.168) — there is no esquire-grade row</td>
+          <td>The module treats the 60-gp heavy-cavalry anchor as carrying an esquire-grade domestic establishment on the same basis as the leveled rungs — doctrine, not citation. Mechanically inert: the valet fields no BR, no lance credit, no garrison credit, no henchman slot, no field supply.</td></tr>
         <tr><td><b>The assessment</b> — written at the grant, the charter's count and definition alike; rewritten only at escheat, new enfeoffment, or royal inquest; distraint taxes income directly instead</td>
           <td>RAW re-prices nothing — domain income is simply current, which is the module's default (assessments current)</td>
           <td>The record's shape: Domesday and the 1166 cartae wrote counts that then froze for centuries while incomes grew, and the crown's response was never a re-survey but income instruments — distraint at £20/£40. Under <b>ancient</b>, the margin (income − charter anchor) appears on the standing-manor line and funds the household; a realm where the margin is universal has aged into livery. The dial gives the era table teeth.</td></tr>
@@ -984,7 +992,9 @@
     Who pays it is the elegant part: the scutage-payer's lance <b>stays home</b>, so the natural clientele is
     history's own — <b>wardships, widows, dotards, the infirm</b>: fees that cannot currently deliver a man. That is
     the quittance's lawful patch for the minority — the wardship pays coin until the heir can ride, the tenure never
-    lapses, and the manor's watch is meanwhile the best-kept in the realm — its levy and household never leave the yard. The
+    lapses, and the manor's watch is meanwhile the best-kept in the realm — its levy and household never leave the yard
+    (the Household muster prices this literally: set the assize serjeants to <b>remain</b>, and the whole obligation
+    settles in coin with no body riding — scutage buys out deployment, never readiness). The
     household inner circle rides, for their bond <i>is</i> the service (priced, at last, on the <b>Household</b> tab); scutage is the instrument of the enfeoffed mass
     and the incapable. Commutation also has a geography the model predicts: the quittance amortizes as manors mature (the
     three counts of a fee, History tab), so scutage takes hold first in the old, dense core while the young march
@@ -1719,7 +1729,7 @@ function renderLadder(){
     dis:{name:"the statute knight — wealth-assessed, the view of arms kept (Winchester, 1285)",
       sub:"an enforcement overlay on the same 100-gp body, not a new price: Winchester was an arms-assessment and peace-keeping statute — it re-graded who must hold what and set the view that polices it, while the knight it inspects is still the 1181 assize's man. The field standard tightened separately: Edwardian cavalry summonses demanding <i>equus coopertus</i>, the covered horse, pressed beyond bare statutory compliance — the definition contested at muster, men arriving paper-compliant and obsolete. The charter's definition holds until the paper is rewritten; distraint resets the man without resurveying the manor"},
     ord:{name:"the ordinance lance — the crew written into the requirement; the fee commuted",
-      sub:"the requirement has absorbed the crew: man-at-arms + coustillier + page, ~145 gp/mo hired, the page in the threshold. The fee itself renders coin on ancient paper — the era in which the definition swallowed the crew is the era the fee died"}
+      sub:"the requirement has absorbed the crew: man-at-arms + coustillier + page, ~145 gp/mo hired, the page a living-expense mouth with no wage line. The fee itself renders coin on ancient paper — the era in which the definition swallowed the crew is the era the fee died"}
   };
   const perFam = land + 3;
   const dens   = parseInt(document.getElementById("dens").value, 10); // families per 6-mile hex (caps RR p.340; historical presets)
@@ -2159,7 +2169,7 @@ function renderHousehold(){
     MENU.push({n:"The ordinance lance, for the war-month", c:145/12, lance:true,
       note:"145 gp due in the war-month → 12.1 gp/mo reserve — the seasonal contract: one lance hired for the term, what commuted coin buys"});
     MENU.push({n:"The ordinance lance, standing", c:145, lance:true,
-      note:"145 gp/mo — 1,740 gp/yr — the permanent <i>ordonnance</i> unit: a standing payroll, not a seasonal reserve like the rows above. The model is specifically Burgundy's 1468 three-man micro-lance — man-at-arms + coustillier + page, the page unpaid in the threshold; the French 1445 lance rode larger, and Burgundy's 1471 ordinance grew to nine men — and the 145 is an ACKS construction from the wage ladder (100 + 45), not a currency conversion"});
+      note:"145 gp/mo — 1,740 gp/yr — the permanent <i>ordonnance</i> unit: a standing payroll, not a seasonal reserve like the rows above. The model is specifically Burgundy's 1468 three-man micro-lance — man-at-arms + coustillier + page, the page unpaid — a living-expense mouth, no wage line; the French 1445 lance rode larger, and Burgundy's 1471 ordinance grew to nine men — and the 145 is an ACKS construction from the wage ladder (100 + 45), not a currency conversion"});
   } else if(q.rem>0) MENU.push({n:"Lawful scutage", c:q.scutL, coinAll:sel.scAll,
     note:`1 gp/fam war-month per fee-equivalent (p.346); coin divides — the ${remS} owed costs ${f1(sel.scAll)} gp/mo in reserve`});
 
@@ -2242,6 +2252,8 @@ function renderHousehold(){
     : "the paper meets the muster — service as written; a new assessment would change nothing but the date";
   // the muster reconciled — Q = O + R + C + L: two selectors settle the mix, the crown dial rides after
   ["h_mus1","h_mus2","h_crown"].forEach(id=>document.getElementById(id).disabled = !musterOn);
+  const serjEl = document.getElementById("h_serj");
+  serjEl.disabled = !musterOn || q.med<=0;               // readiness (the assize) is not in question — only deployment
   let musterBlock = "", crownBlock = "";
   if(sel.grown){
     const mus1El = document.getElementById("h_mus1"), mus2El = document.getElementById("h_mus2");
@@ -2262,7 +2274,8 @@ function renderHousehold(){
     if(mus1El.value!==m1) mus1El.value = m1;
     if(mus2El.value!==m2) mus2El.value = m2;
     const crown = document.getElementById("h_crown").value;
-    const Q = gChart, P = Math.min(Q, 1), L = q.med*0.5;
+    const ridingSerj = (q.med>0 && serjEl.value==="ride") ? q.med : 0;
+    const Q = gChart, P = Math.min(Q, 1), L = ridingSerj*0.5;
     const addQ = Math.max(0, Q - P - L);
     mus2El.disabled = !musterOn || addQ<=0;
     const margin = sel.ancn.margin;
@@ -2290,14 +2303,17 @@ function renderHousehold(){
       const totalWar = mk + hire + coin;
       const reserve = totalWar/12;
       const foundBodies = Math.ceil(O + R - 1e-9);
-      const levyBodies = q.med;                            // the serjeant credited to the count is physically present — the host feeds him
+      const levyBodies = ridingSerj;                       // a serjeant credited to the count is physically present — the host feeds him
       const fracOR = Math.abs((O+R) - Math.round(O+R)) > 1e-9;
       const disc = O + R + C + L;
       // the hired watch is operative while the assize is in default — it reduces spendable margin
       const hfW = QUAL[1][3], lfW = QUAL[0][3], mhW = QUAL[5][3];
       const lvHg = Math.min(Math.floor(q.mil*0.5), q.mil - q.medReq), lvLg = q.mil - q.medReq - lvHg;
       const watch = asz ? 0 : (q.medReq*mhW + lvHg*hfW + lvLg*lfW);
-      const spend = sel.head - watch - reserve;
+      // the deployed serjeant is not free to the fee: his war-month wage plus one plough-team idle at the full rate
+      const serjCall = ridingSerj * (mhW + perFam + 3);
+      const serjRes = serjCall/12;
+      const spend = sel.head - watch - reserve - serjRes;
       const M1T = {
         accept: `the ${bOld>bNow?"superior paper":"old-standard"} body rides — no make-good. <b>Campaign consequence: Judge adjudicates</b> — grace is worship's ledger (a favor owed, a cooler hall at the next muster), never coin`,
         makegood: `the old body rides with <b>${f1(defc*P)} gp</b> of wage-parity make-good — coin that books him equivalent; it re-equips no one`,
@@ -2315,6 +2331,7 @@ function renderHousehold(){
       musterBlock = `
       <div class="sect">This muster — the remedy chosen</div>
       <div class="lrow"><span class="lk">The obligation</span><span class="lvv">paper quota ${lstr(Q)} · holder's share ${lstr(P)} · levy credited ${lstr(L)} · additional ${lstr(addQ)}</span></div>
+      ${q.med>0 && !ridingSerj?`<div class="lrow sub"><span><b>the serjeants remain with the manor</b> — readiness kept, the view of arms unaffected; scutage buys out deployment, never the assize. Their share of the count settles by the selectors below</span></div>`:""}
       ${gChart<1?`<div class="lrow sub"><span><b>joint service:</b> shares shown are the two half-fees' long-run average; in this estate's serving year one whole body rides — and the lord feeds him whole</span></div>`:""}
       <div class="lrow"><span class="lk">Personal share</span><span class="lvv" style="font-weight:400;font-size:11.5px">${M1T[m1]}</span></div>
       ${addQ>0?`<div class="lrow"><span class="lk">Additional quota</span><span class="lvv" style="font-weight:400;font-size:11.5px">${M2T[m2]}</span></div>`:""}
@@ -2322,10 +2339,12 @@ function renderHousehold(){
       <div class="lrow"><span class="lk">The count</span><span class="lvv">old-form ${lstr(O)}${A>0&&M>0?` (${lstr(A)} accepted · ${lstr(M)} made good)`:""} · substitutes ${lstr(R)} · coin ${lstr(C)} · levy ${lstr(L)} → <b>${lstr(disc)} of ${lstr(Q)} discharged</b></span></div>
       ${fracOR?`<div class="lrow sub"><span><b>joint / alternating service:</b> a fractional physical share is the estate's long-run average of a rotation; in this estate's serving year <b>one whole body rides</b> — the cash then is the whole body's, the cost shown here the share — and the lord feeds him whole</span></div>`:""}
       <div class="lrow hi"><span class="lk">Fee-holder</span><span class="lvv">${[mk>0?`make-good ${f1(mk)}`:"",hire>0?`hires ${f1(hire)}`:"",coin>0?`coin ${f1(coin)}`:""].filter(Boolean).join(" + ")||"nothing owed"}${totalWar>0?` = <b>${f1(totalWar)} gp</b> in the war-month → ${f1(reserve)} gp/mo reserve`:" — the count rides in kind"}</span></div>
+      ${ridingSerj?`<div class="lrow"><span class="lk">Quota-serjeant call</span><span class="lvv">${ridingSerj} serjeant${ridingSerj>1?"s":""} — <b>${fmt(serjCall)} gp</b> in the war-month (wage ${mhW} + idle plough ${perFam+3} each) → ${f1(serjRes)} gp/mo reserve</span></div>
+      <div class="lrow sub"><span>if the full foot levy is also called, the Manors card's call figure already includes ${ridingSerj>1?"these serjeants":"this serjeant"} — count one, not both</span></div>`:""}
       <div class="lrow"><span class="lk">Lord</span><span class="lvv">${foundBodies} found bod${foundBodies===1?"y":"ies"}${levyBodies?` + ${levyBodies} levy serjeant${levyBodies>1?"s":""}`:""} → ~${fmt((foundBodies+levyBodies)*16)} gp/mo afield — field supply only, the specialist share additional (Units tab); none for the commuted share</span></div>
       <div class="lrow sub"><span>the <b>quota muster's</b> bodies — the serjeant credited to the count rides and is fed like any other; the foot levy, if also called, is its own muster, priced on the Manors rung cards ("free to keep, dear to call")</span></div>
-      <div class="lrow gold"><span class="lk">Post-remedy margin</span><span class="lvv">${fmt(sel.head)}${watch?` − ${fmt(Math.round(watch))} hired watch (assize in default)`:""}${reserve>0?` − ${f1(reserve)} remedy reserve`:""} = <b>${f1(spend)} gp/mo</b></span></div>
-      <div class="lrow sub"><span>an operating margin after remedy and watch — <b>before</b> the levy's own call-up costs (wages and idle ploughs), which ride the Manors rung cards when the foot is called</span></div>
+      <div class="lrow gold"><span class="lk">Post-remedy margin</span><span class="lvv">${fmt(sel.head)}${watch?` − ${fmt(Math.round(watch))} hired watch (assize in default)`:""}${reserve>0?` − ${f1(reserve)} remedy reserve`:""}${serjRes>0?` − ${f1(serjRes)} serjeant call`:""} = <b>${f1(spend)} gp/mo</b></span></div>
+      <div class="lrow sub"><span>an operating margin after remedy, watch, and the quota-serjeants' call — <b>before</b> any separate foot-levy call (its wages and idle ploughs ride the Manors rung cards)</span></div>
       ${C>0?`<div class="lrow sub"><span><b>population-based:</b> the coin is 1 gp/family (p.346 — RAW prices the monthly <i>rate</i>, running "until the duty is revoked"; the one-war-month <i>term</i> is the module's quantization, History tab) — the frozen count divides it into shares but does not change the whole; per-fee scutage is the history, ACKS Call-to-Arms the mechanic beneath it</span></div>`:""}`;
       const crownTxt = crown==="none"
         ? `none — the paper and the man stand as they are`
@@ -2523,7 +2542,7 @@ function renderOffice(){
     document.getElementById("l_era").value=""; document.getElementById("eraread").innerHTML="";
     renderLadder(); renderUnits(); renderHousehold(); }));
 document.getElementById("l_sq").addEventListener("input", ()=>{ renderLadder(); renderUnits(); });
-["h_holder","h_cls","h_fam","h_chart","h_cdef","h_mus1","h_mus2","h_crown"].forEach(id=>
+["h_holder","h_cls","h_fam","h_chart","h_cdef","h_serj","h_mus1","h_mus2","h_crown"].forEach(id=>
   document.getElementById(id).addEventListener("input", renderHousehold));
 ["u_klvl","u_n","u_blvl","u_sq","u_scale","u_cha","u_iw","u_ms","u_cmd","u_ldr","u_mount"].forEach(id=>
   document.getElementById(id).addEventListener("input", renderUnits));
