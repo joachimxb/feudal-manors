@@ -430,6 +430,36 @@
      written for Feudal Realms and is now the whole document's — one class, one behaviour. */
   .scroll{overflow-x:auto;max-width:100%}
 
+  /* ---- the equation drawer -------------------------------------------------------------------
+     Deliberately plainer than the card it hangs under: this is working, not argument. A monospace
+     column for the result so the equals signs line up down the drawer, and the provenance badge
+     right-aligned so the eye can run down the marks alone and see where the module takes over. */
+  .deriv{margin-top:10px;border-top:1px dashed var(--rule);padding-top:7px}
+  .deriv>summary{cursor:pointer;font-size:11.5px;font-weight:700;color:var(--gold);
+    font-family:Arial,Helvetica,sans-serif;letter-spacing:.02em}
+  .deriv>summary:hover{text-decoration:underline}
+  .derivbody{margin-top:7px}
+  .dlede{font-size:11.5px;color:var(--mute);font-style:italic;margin:0 0 7px}
+  /* TWO LINES per step, not three columns. The first draft was a
+     grid-template-columns:minmax(120px,auto) 1fr auto with a nowrap result — which is fine for
+     "23 families" and catastrophic for "the fee-holder keeps all 9": the auto column took the
+     whole sentence's unwrapped width, crushed the 1fr beside it to about one word, and the
+     working ran down the card a syllable at a time. These cards are a column in a grid and are
+     often 300px wide; nothing in them may assume horizontal room. */
+  .drow{padding:5px 0;border-bottom:1px solid var(--alt);font-size:12px}
+  .drow:last-child{border-bottom:0}
+  .dtop{display:flex;align-items:baseline;gap:8px;justify-content:space-between}
+  .dres{font-weight:700;color:var(--ink);font-family:Arial,Helvetica,sans-serif;font-size:12.5px}
+  .dsrc{flex:none}
+  .dhow{color:var(--mute);line-height:1.45;margin-top:2px}
+
+  /* the bound, said. Written beside the field the moment a typed value is committed to its
+     declared range, so the reader learns it from the page rather than from a card that quietly
+     disagrees with the number under their cursor. role="status" carries it to a screen reader. */
+  .boundnote{display:block;margin-top:3px;font-size:11.5px;font-style:italic;color:var(--red);
+    font-family:Arial,Helvetica,sans-serif;line-height:1.3}
+  .boundnote[hidden]{display:none}
+
   /* ---- Feudal Realms, scoped to its own tab ------------------------------------------ */
 
                 #tab-realms .proto{background:#fff8e6;border:1px solid var(--gold);border-left:4px solid var(--gold);
@@ -859,7 +889,7 @@
   positions, not a snapshot of any year. They are starting points a Judge can argue with, and the
   four names are conveniences: pick the one whose <i>shape</i> matches the realm being run, then
   move the dials until it is that realm and not England.</p>
-  <div role="group" aria-labelledby="cb-era" class="cboxes wide" data-for="l_era" data-skip=""></div>
+  <div role="radiogroup" aria-labelledby="cb-era" class="cboxes wide" data-for="l_era" data-skip=""></div>
   <div class="ldesc" id="eraread2" style="margin:6px 0 2px;max-width:1080px;font-size:12px;color:var(--mute)"></div>
 
   <div class="eracards">
@@ -1122,7 +1152,7 @@
     assize, and assessment dials move to its values — a starting point, not a lock; every dial stays live after, and
     touching one clears the preset back to "dial your own." Fosterage is left out of the presets on purpose: it is a
     realm's custom, not a century's. Kaldor's home setting is the distraint century.</div></details>
-    <select id="l_era" class="srsel" aria-label="The century — era preset">
+    <select id="l_era" class="srsel" aria-hidden="true" tabindex="-1" aria-label="The century — era preset">
       <option value="">— dial your own —</option>
       <option value="domesday">Post-Conquest, 1066–1100 — wasted land, the Survey's world</option>
       <option value="angevin">Norman &amp; Angevin, 12th c. — the cartae a generation stale</option>
@@ -1298,7 +1328,7 @@
   <div class="boxstep" id="step1"><div class="stepno">Step 1</div><h4>The estate</h4>
       <div class="stepwhat">Who holds, and what the paper says. A fee of the ladder <i>is</i> its charter — its families are the fewest that pay it, and follow the land value. The grown manor is the estate that outgrew its grant, and <b>the grant it outgrew is its identity</b>: set its charter below, because the same families on a heavier paper are a poorer knight.</div>
       <p class="cboxlab"><span id="cb-holder">The holder</span> <span class="hint">(a fee’s families are derived; the grown manor sets its own)</span></p>
-      <select id="h_holder" class="srsel" aria-label="The holder">
+      <select id="h_holder" class="srsel" aria-hidden="true" tabindex="-1" aria-label="The holder">
         <option value="esq">Esquire's fee — ½ fee</option>
         <option value="kt1">Bachelor's fee — 1 fee</option>
         <option value="kt2" selected>Double fee — 2 fees</option>
@@ -1306,16 +1336,16 @@
         <option value="lag">The grown manor — named for the charter it outgrew</option>
         <option value="bar">Barony — 160 fam (RAW resumes)</option>
       </select>
-      <div role="group" aria-labelledby="cb-holder" class="cboxes" data-for="h_holder"></div>
+      <div role="radiogroup" aria-labelledby="cb-holder" class="cboxes" data-for="h_holder"></div>
       <div class="ctrls" style="margin-top:12px">
         <div>
           <div class="field"><label id="lab-hcls" for="h_cls">Barony district class <span class="hint">(moves the demesne rate only — a fee's own land+3 never moves with class: the quittance's quiet gift)</span></label>
-            <select id="h_cls" class="srsel" aria-label="Barony district class">
+            <select id="h_cls" class="srsel" aria-hidden="true" tabindex="-1" aria-label="Barony district class">
               <option value="0" selected>civilized — demesne nets land+1</option>
               <option value="1">borderlands — land</option>
               <option value="2">outlands — land−1</option>
             </select>
-            <div role="group" aria-labelledby="lab-hcls" class="cboxes two" data-for="h_cls"></div></div>
+            <div role="radiogroup" aria-labelledby="lab-hcls" class="cboxes two" data-for="h_cls"></div></div>
         </div>
         <div>
           <div class="field"><label for="h_fam">The grown manor — families <span class="hint">(against the charter below: their ratio is what tells two same-sized manors apart. <b>8–80 families</b> is the range this card models — a declared bound, not a derived law: below it the estate is thinner than the ladder's own lowest fee at most land values, and above it the count has left the fee behind for the barony)</span></label>
@@ -1323,63 +1353,69 @@
         </div>
       </div>
       <p class="cboxlab"><span id="cb-chart">— and its charter</span> <span class="hint">(fees written at the grant — the half of its identity that is <i>not</i> its size; inert while the assessment reads <i>current</i>, since the survey re-anchors to income)</span></p>
-      <select id="h_chart" class="srsel" aria-label="The grown manor's charter">
+      <select id="h_chart" class="srsel" aria-hidden="true" tabindex="-1" aria-label="The grown manor's charter">
         <option value="0.5">½ fee</option>
         <option value="1" selected>1 fee</option>
         <option value="2">2 fees</option>
         <option value="4">4 fees</option>
       </select>
-      <div role="group" aria-labelledby="cb-chart" class="cboxes two" data-for="h_chart"></div>
+      <div role="radiogroup" aria-labelledby="cb-chart" class="cboxes two" data-for="h_chart"></div>
       <p class="cboxlab"><span id="cb-cdef">— and its charter’s definition</span> <span class="hint">(the lance the paper names — written when the charter was; the definition of record is the <i>muster’s</i> standard, and the two may disagree)</span></p>
-      <select id="h_cdef" class="srsel" aria-label="The charter's definition of the lance">
+      <select id="h_cdef" class="srsel" aria-hidden="true" tabindex="-1" aria-label="The charter's definition of the lance">
         <option value="dom">the Survey's mailed rider — 60 gp</option>
         <option value="ang" selected>the 1181 knight — 100 gp</option>
         <option value="dis">the statute knight (1285) — 100 gp</option>
       </select>
-      <div role="group" aria-labelledby="cb-cdef" class="cboxes two" data-for="h_cdef"></div>
+      <div role="radiogroup" aria-labelledby="cb-cdef" class="cboxes two" data-for="h_cdef"></div>
     </div>
 
     <div class="boxstep" id="step2"><div class="stepno">Step 2</div><h4 id="cb-serj">The serjeants</h4>
       <div class="stepwhat">The assize’s mounted serjeants: ride against the count, or remain with the manor while their share settles below. Readiness is the assize’s; deployment is the muster’s choice — qualifying multi-fee estates only.</div>
-      <select id="h_serj" class="srsel" aria-label="This muster — the assize serjeants">
+      <select id="h_serj" class="srsel" aria-hidden="true" tabindex="-1" aria-label="This muster — the assize serjeants">
         <option value="ride" selected>Ride against the quota — ½ lance each</option>
         <option value="remain">Remain with the manor — the share settles below</option>
       </select>
-      <div role="group" aria-labelledby="cb-serj" class="cboxes two" data-for="h_serj"></div>
+      <div role="radiogroup" aria-labelledby="cb-serj" class="cboxes two" data-for="h_serj"></div>
+      <p class="cboxlab"><span id="cb-cover">— and the ground they leave</span> <span class="hint">(a serjeant presented to the host is not standing on the manor: readiness is a question about arms and is unaffected, protection is a question about bodies and is not)</span></p>
+      <select id="h_cover" class="srsel" aria-hidden="true" tabindex="-1" aria-label="The watch while the serjeants are away">
+        <option value="accept" selected>Leave the manor uncovered for the term</option>
+        <option value="hire">Hire a watch for the term</option>
+      </select>
+      <div role="radiogroup" aria-labelledby="cb-cover" class="cboxes two" data-for="h_cover"></div>
       <p class="idlenote">Idle here — this estate mounts no serjeant against the count, or its paper needs no settling.</p>
     </div>
 
     <div class="boxstep" id="step3"><div class="stepno">Step 3</div><h4>The settlement</h4>
       <div class="stepwhat">How the count is actually discharged — the holder’s own share first, then everything owed beyond him. Live for the grown manor under an <b>ancient</b> assessment; elsewhere the paper needs no remedy and every box stands idle.</div>
       <p class="cboxlab"><span id="cb-mus1">— the personal share</span> <span class="hint">(the holder's own lance-equivalent; grown manor, ancient reading)</span></p>
-      <select id="h_mus1" class="srsel" aria-label="The personal share">
+      <select id="h_mus1" class="srsel" aria-hidden="true" tabindex="-1" aria-label="The personal share">
         <option value="accept" selected>Accept the old body as written</option>
         <option value="makegood">Old body + wage-parity make-good</option>
         <option value="knight">Current-definition knight — 100 gp for the term</option>
         <option value="sub">Legal substitute — 60-gp heavy horse</option>
         <option value="commute">Commute the share to coin</option>
       </select>
-      <div role="group" aria-labelledby="cb-mus1" class="cboxes" data-for="h_mus1"></div>
+      <div role="radiogroup" aria-labelledby="cb-mus1" class="cboxes" data-for="h_mus1"></div>
       <p class="cboxlab"><span id="cb-mus2">— the additional quota</span> <span class="hint">(beyond holder and levy credit; multi-fee charters only)</span></p>
-      <select id="h_mus2" class="srsel" aria-label="The additional quota">
+      <select id="h_mus2" class="srsel" aria-hidden="true" tabindex="-1" aria-label="The additional quota">
         <option value="oldacc">Old-form bodies — accepted (grace)</option>
         <option value="oldmg">Old-form bodies + make-good</option>
         <option value="knight">Current-definition knights — 100 gp each</option>
         <option value="sub">Legal substitutes — 60 gp each</option>
         <option value="scut" selected>Scutage the remainder</option>
       </select>
-      <div role="group" aria-labelledby="cb-mus2" class="cboxes" data-for="h_mus2"></div>
+      <div role="radiogroup" aria-labelledby="cb-mus2" class="cboxes" data-for="h_mus2"></div>
       <p class="idlenote">Idle here — take <b>the grown manor</b> (Step 1) and set the assessment to <b>ancient</b> (the dials at the head of this walk) to settle a count against its old paper.</p>
     </div>
 
     <div class="boxstep" id="step4"><div class="stepno">Step 4</div><h4 id="cb-crown">Crown follow-up</h4>
       <div class="stepwhat">After the host rides — the crown’s move against the man or the paper, on its own timescale, never this year’s muster.</div>
-      <select id="h_crown" class="srsel" aria-label="Crown follow-up">
+      <select id="h_crown" class="srsel" aria-hidden="true" tabindex="-1" aria-label="Crown follow-up">
         <option value="none" selected>None — the paper and the man stand</option>
         <option value="distrain">Personally distrain the holder — charter intact</option>
         <option value="reassess">Preview reassessment / regrant</option>
       </select>
-      <div role="group" aria-labelledby="cb-crown" class="cboxes" data-for="h_crown"></div>
+      <div role="radiogroup" aria-labelledby="cb-crown" class="cboxes" data-for="h_crown"></div>
       <p class="idlenote">Idle here — nothing to pursue while the paper is current.</p>
     </div>
   <div class="ucards" id="hcards"></div>
@@ -2929,6 +2965,30 @@ const CUMXP  = {1:0, 2:2000, 3:4000, 4:8000, 5:16000, 6:32000};          // figh
 const GARR   = [2,3,4];                                                  // RR p.341 (2gp base; borderlands 3, outlands 4)
 const SQUIRE_WAGE = 45;                          // squire ≈ medium cavalry wage-value (RR p.169) — garrison ledger only
 
+// ---- the equation drawer ---------------------------------------------------------------------
+// A badge says where a CLAIM comes from. It cannot say where an OPERATION comes from — and on this
+// page the interesting cases are all MODULE steps consuming RAW inputs: the quittance is doctrine,
+// the garrison rates it quits are RR p.341-2. A reader sees one badge on the result and has no way
+// to see the join, which is precisely the seam a Judge deciding whether to adopt any of this needs
+// to look at. The drawer shows the chain, and marks each STEP rather than each figure.
+//
+// THE RULE THAT MAKES IT SAFE: every operand and every result is read from what the engine already
+// computed. Only the operator and the prose between them are authored here. A drawer that
+// recomputed would be a second transcription of the model with no build step keeping the two
+// honest — the exact drift the one-file discipline exists to prevent. If a figure is wanted and is
+// not in the stash, ADD IT TO THE STASH; do not derive it in the view.
+//
+// One drawer per card, never one per figure. Twelve is a feature; ninety is a rash.
+const dstep = (result, how, mark, why) =>
+  `<div class="drow">` +
+  `<div class="dtop"><span class="dres">${result}</span>` +
+  `<span class="dsrc">${mark ? bdg(mark, why) : ""}</span></div>` +
+  `<div class="dhow">${how}</div></div>`;
+const drawer = (title, steps) =>
+  `<details class="deriv"><summary>ƒ How this was got</summary>` +
+  `<div class="derivbody"><p class="dlede">${title} Every figure below is the engine's own; only ` +
+  `the working between them is written here.</p>${steps.filter(Boolean).join("")}</div></details>`;
+
 // ---- FM — what the engine last computed, handed over at the moment of computing it ---------
 // The writ used to read its facts back out of the rendered cards: cardVal() matched on .lk label
 // strings, lnum() parsed Unicode fractions out of the values, cardHeadBits() split an <h4> on ·.
@@ -2953,6 +3013,62 @@ const clampNum = (id, lo, hi, dflt) => {
   const n = parseFloat(el ? el.value : "");
   return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : dflt;
 };
+
+// ---- …and writing it back -------------------------------------------------------------------
+// The clamps above bound what the ENGINE reads and nothing else, which left the page able to show
+// one number and compute another: type 999 families and the field keeps 999 while every card is
+// priced on 80. For a calculator that is not a rounding infelicity, it is the page lying about
+// its own input — and the mirrored control made it worse by showing a THIRD figure.
+//
+// So the bound is committed to the control itself, on `change` (never `input`: mid-typing, "1" on
+// the way to "15" is not an out-of-range entry, and rewriting it to 8 would fight the reader's
+// hands). The bounds come from the markup, which is where clampInt's literals already say they
+// come from — one source, and a dial that grows a new range cannot silently disagree with it.
+// A commit that moved the value SAYS SO beside the field, and the notice clears on the next
+// entry that needs no bounding.
+function commitDial(el){
+  if(!el || el.disabled) return false;
+  const raw = String(el.value).trim();
+  const lo = parseFloat(el.min), hi = parseFloat(el.max);
+  // the notice is made where it is needed rather than written into the markup thirteen times —
+  // which also covers the fields the Realms engine generates into its own tables
+  const say = m => {
+    let n = el.id ? document.getElementById("bound-" + el.id) : null;
+    if(!n){
+      if(!m || !el.id || !el.insertAdjacentElement) return;
+      n = document.createElement("span");
+      n.className = "boundnote"; n.id = "bound-" + el.id;
+      n.setAttribute("role", "status");
+      el.insertAdjacentElement("afterend", n);
+    }
+    n.textContent = m; n.hidden = !m;
+  };
+  // an empty field is a reader mid-thought, not an error: leave it, and let the engine's own
+  // default answer for it until something is typed
+  if(raw === ""){ say(""); return false; }
+  const n = parseFloat(raw);
+  if(!Number.isFinite(n)){                       // "abc", "1e", "--3": there is no value to bound
+    say("not a number — the module is reading its default here"); return false; }
+  // TRUNCATED, not rounded, because every one of these is read through clampInt → parseInt, and
+  // the point of the exercise is that the field and the engine agree. 23.7 computes as 23, so
+  // the field must say 23 — rounding it to 24 would trade one disagreement for another.
+  let c = Math.trunc(n);
+  if(Number.isFinite(lo)) c = Math.max(lo, c);
+  if(Number.isFinite(hi)) c = Math.min(hi, c);
+  if(String(c) === raw){ say(""); return false; }
+  el.value = String(c);
+  say(c === hi && n > hi ? `bounded to ${c} — the declared maximum`
+    : c === lo && n < lo ? `bounded to ${c} — the declared minimum`
+    : `read as ${c}`);
+  return true;
+}
+// every typeable numeric dial on the page, including the ones the Realms engine writes into its
+// own tables — delegation, so a control that did not exist at load is covered the moment it does
+document.addEventListener("change", ev=>{
+  const el = ev.target;
+  if(!el || el.tagName !== "INPUT" || el.type !== "number") return;
+  if(commitDial(el)) el.dispatchEvent(new Event("input", {bubbles:true}));
+}, true);
 
 // ---- provenance, and units ------------------------------------------------------------------
 // Four marks and one vocabulary, used by all three tabs. The rule for applying them: a badge goes
@@ -3213,7 +3329,9 @@ function renderLadder(){
           : ` — and the count is already met in kind. `) +
         `Host supply rides on the lord's line throughout (Units section). The full ledger: the <b>Muster</b> section.`;
     }
-    return {...r, fam, income, sq, svc, cost, net, garr, dubbed, farm, mil, roles, med, medReq, lvH, lvL, lvCredit, lvCost, quota, quotaSub, lances, feesS};
+    // `head` and `perFam` join the row because the equation drawer prints them and may not
+    // re-derive them: operands come from the engine, operators from the view
+    return {...r, fam, income, sq, svc, cost, net, garr, dubbed, farm, mil, roles, med, medReq, lvH, lvL, lvCredit, lvCost, quota, quotaSub, lances, feesS, head, perFam, scutL};
   });
   // the rungs as computed, not as printed — the self-test reads its anchors off this
   FM.rungs = rows;
@@ -3271,6 +3389,39 @@ function renderLadder(){
         : `<div class="lrow warn"><span class="lk">Standing</span><span class="lvv">IN DEFAULT — quit for the lance only</span></div>
       <div class="lrow sub"><span>the levy's watch is hired until re-armed: −${fmt(r.lvCredit)} <span class='u'>gp/mo</span> (${Math.round(r.lvCredit/r.income*100)}% of income) against ${fmt(r.lvCost)} <span class='u'>gp once</span> to re-arm — the p.341 credit demands "trained <i>and equipped</i>"; distrained — goods seized to compel — at the view</span></div>`}
       <details class="rungnote"><summary>the rung, annotated</summary><div>${r.note}</div></details>
+      ${drawer(`The ${r.name.toLowerCase()}, from the land value to the men it owes.`, [
+        dstep(`${r.perFam} <span class="u">gp/family</span>`,
+              `= land value ${land} + 3 — RAW's own domain revenue per family`,
+              "raw", "RR p.341–2: the revenue table. The 3 is the gross above the land value, before any garrison line"),
+        dstep(`all ${r.perFam} kept by the holder`,
+              `a lord holding the same ground nets ${lordNetPF[1]} — he pays the ${GARR[1]} <span class="u">gp/family</span> garrison this fee renders in service instead`,
+              "mod", "the quittance: the fee is quit of its garrison line BY SERVICE. RAW puts a garrison line on every domain; this is the module's structural break with it"),
+        dstep(`${fmt(r.anchor)} <span class="u">gp/mo</span> anchor`,
+              `the ${r.dubbed ? "wage of the grade this rung keeps" : "esquire's own wage-grade"} — his keep, not his income`,
+              "raw", "RR p.168 — the henchman wage ladder. The rung is sized FROM this figure, which is why the estate fits the man"),
+        dstep(`${r.fam} families`,
+              `= ${fmt(r.anchor)} ÷ ${r.perFam}, rounded up — the smallest estate that pays that keep`,
+              "mod", "the wage-parity floor: sizing a fresh grant at the anchor is the module's, not RAW's. The ceiling is where the rounding lives"),
+        dstep(`${fmt(r.income)} <span class="u">gp/mo</span> income`,
+              `= ${r.fam} × ${r.perFam}`),
+        dstep(`${fmt(r.head)} <span class="u">gp/mo</span> above his keep`,
+              `= ${fmt(r.income)} − ${fmt(r.anchor)} — the estate's whole spending power`),
+        dstep(`${r.mil} yeom${r.mil===1?"an":"en"}`,
+              `= ${r.fam} × 2 ÷ 10, rounded down — two militia per ten families`,
+              "raw", "RR p.432 — the militia rate. Conscription exists in RAW too and is deliberately not used: it is no feudal institution"),
+        r.medReq ? dstep(`${r.medReq} mounted serjeant${r.medReq>1?"s":""} required`,
+              `the aptitude ceiling on a ${r.mil}-man pool, against ${cstr(Math.max(0,r.lances-1))} owed beyond the holder at 2:1`,
+              "mod", "the ½-lance credit at 2:1 is doctrine laid on a historical rule (two serjeants accepted for a knight); the aptitude numbers under it are RR p.431") : "",
+        dstep(`${r.lvCredit} <span class="u">gp/mo</span> garrison credit`,
+              `= what ${r.medReq?`${r.medReq} serjeant${r.medReq>1?"s":""} + `:""}${r.lvH} heavy foot + ${r.lvL} light foot would draw in wages`,
+              "raw", "RR p.341 — a trained and equipped militia counts against the garrison line whether it is called or not"),
+        dstep(`${cstr(r.lances)} lance${r.lances>1?"s":""} owed`,
+              `= ${r.feesS.replace(/ — ancient paper$/, "")}, under ${DEFS[def].name.split("—")[0].trim()}`,
+              "mod", "one lance per fee counted — the servitium debitum, transplanted. RAW gives a domain no fee-count and no quota at all"),
+        dstep(`≈${r.scutL.toFixed(1)} <span class="u">gp/mo</span> in reserve`,
+              `the lawful rate per lance-equivalent, set aside against the year's month of service`,
+              "raw", "at the RAW default this is the Call to Arms, 1 gp a family (RR p.346), divided by fee-equivalents and quantized to one month — both departures are the module's, and are flagged at the lever")
+      ])}
     </div>`).join("");
 
   document.getElementById("serflag").innerHTML =
@@ -3781,6 +3932,13 @@ function renderHousehold(){
   ["h_mus1","h_mus2","h_crown"].forEach(id=>document.getElementById(id).disabled = !musterOn);
   const serjEl = document.getElementById("h_serj");
   serjEl.disabled = !musterOn || q.med<=0;               // readiness (the assize) is not in question — only deployment
+  // …and its companion, which must be gated OUT HERE beside it and not inside the grown-manor
+  // branch below. That branch does not run on an estate with one assessment, so a cover dial gated
+  // inside it stayed enabled on the page's own default state: three live-looking boxes that changed
+  // nothing, and a Step 2 that no longer greyed itself out because syncSteps only calls a step idle
+  // when EVERY control in it is disabled. Gate a dial where its sibling is gated.
+  const coverEl = document.getElementById("h_cover");
+  coverEl.disabled = !musterOn || q.med<=0 || serjEl.value !== "ride";
   let musterBlock = "", crownBlock = "";
   let musterOut = null;                                  // the reconciled settlement, for FM.last
   if(sel.grown){
@@ -3841,13 +3999,35 @@ function renderHousehold(){
       // the deployed serjeant is not free to the fee: his wage for the month of service plus one plough-team idle at the full rate
       const serjCall = ridingSerj * (mhW + perFam + 3);
       const serjRes = serjCall/12;
-      const spend = sel.head - watch - reserve - serjRes;
+      // ---- and the ground he leaves ------------------------------------------------------------
+      // The same body was discharging two lines at once: the field quota AND the standing garrison
+      // the assize keeps quit. `watch` is zeroed whenever the assize is kept, with no reference to
+      // whether the men are actually on the manor — so a serjeant could ride with the host and hold
+      // the watch in the same month. That is the double-count the two-tier rule exists to prevent,
+      // surviving in the one place it was never checked.
+      //
+      // Readiness is a question about ARMS and is unaffected by deployment: the view of arms finds
+      // the harness whether its owner is home or not. Protection is a question about BODIES, and is
+      // not. So the credit is withdrawn for the term, and the holder chooses what to do about it.
+      // Under the assize med === medReq (`med = asz ? medReq : 0`), so every riding serjeant is one
+      // the required watch was counting on — no min() is needed, and none is written.
+      const gone   = ridingSerj * mhW;                    // their share of the garrison line, at wage
+      // gated above, beside h_serj — read here only
+      // ACCEPT is the default, and deliberately: nobody hired replacements for forty days, and the
+      // cost of a thin month is exposure rather than gold. It is also the conservative reading —
+      // it leaves every figure the page printed before this rule exactly where it was.
+      const cover  = coverEl.value;
+      const hired  = (cover === "hire") ? gone : 0;
+      const spend = sel.head - watch - hired - reserve - serjRes;
       // the settlement as the writ recites it: the non-zero shares, in the card's own order and
       // the card's own words. (The bar used to split the printed row on "·" to recover these.)
       musterOut = {
         segs: [["old-form",O],["substitutes",R],["coin",C],["levy",L]]
                 .filter(([,n]) => n > 0).map(([label,n]) => ({label, n})),
-        disc: disc, spend: spend
+        disc: disc, spend: spend,
+        // the watch the riding serjeants took with them, and what was done about it — stashed at
+        // the moment it is computed, so the tests read the engine and never scrape the card
+        gone: gone, hired: hired, cover: cover
       };
       const M1T = {
         accept: `the ${bOld>bNow?"superior paper":"old-standard"} body rides — no make-good. <b>Campaign consequence: Judge adjudicates</b> — grace is worship's ledger (a favor owed, a cooler hall at the next muster), never coin`,
@@ -3875,10 +4055,14 @@ function renderHousehold(){
       ${fracOR?`<div class="lrow sub"><span><b>joint / alternating service:</b> a fractional physical share is the estate's long-run average of a rotation; in this estate's serving year <b>one whole body rides</b> — the cash then is the whole body's, the cost shown here the share — and the lord feeds him whole</span></div>`:""}
       <div class="lrow hi"><span class="lk">Fee-holder</span><span class="lvv">${[mk>0?`make-good ${f1(mk)}`:"",hire>0?`hires ${f1(hire)}`:"",coin>0?`coin ${f1(coin)}`:""].filter(Boolean).join(" + ")||"nothing owed"}${totalWar>0?` = <b>${f1(totalWar)} <span class='u'>gp for the term</span></b> → ${f1(reserve)} <span class='u'>gp/mo</span> in reserve`:" — the count rides in kind"}</span></div>
       ${ridingSerj?`<div class="lrow"><span class="lk">Quota-serjeant call</span><span class="lvv">${ridingSerj} serjeant${ridingSerj>1?"s":""} — <b>${fmt(serjCall)} <span class='u'>gp for the term</span></b> (wage ${mhW} + idle plough ${perFam+3} each) → ≈${f1(serjRes)} <span class='u'>gp/mo</span> in reserve</span></div>
-      <div class="lrow sub"><span>if the full foot levy is also called, the Ladder card's call figure already includes ${ridingSerj>1?"these serjeants":"this serjeant"} — count one, not both</span></div>`:""}
+      <div class="lrow sub"><span>if the full foot levy is also called, the Ladder card's call figure already includes ${ridingSerj>1?"these serjeants":"this serjeant"} — count one, not both</span></div>
+      <div class="lrow ${hired?"":"warn"}"><span class="lk">The ground they leave ${bdg("mod","that a domain's garrison thins when its men are called is the module's doctrine; RAW prices no such depletion at a Call to Arms")}</span><span class="lvv">${hired
+        ? `a watch hired for the term — <b>${fmt(hired)} <span class='u'>gp/mo</span></b> at the levy's own rate, and the ground stays held`
+        : `<b>the manor is ${fmt(gone)} <span class='u'>gp/mo</span> short of its own watch</b> while the term runs — the credit is withdrawn with the men, and no one is hired in their place`}</span></div>
+      <div class="lrow sub"><span>readiness is not in question: the view of arms finds the harness whether its owner is home or not. This is the <b>protection</b> line — bodies, not arms — and it is the price of the ½-lance credit ${ridingSerj>1?"those serjeants earn":"that serjeant earns"} above. ${hired?"Hiring it back is a cost against the margin, not a second call.":"Accepting the gap costs no coin — it is exposure, and the Judge collects on it or does not."}</span></div>`:""}
       <div class="lrow"><span class="lk">Lord</span><span class="lvv">${foundBodies} found bod${foundBodies===1?"y":"ies"}${levyBodies?` + ${levyBodies} levy serjeant${levyBodies>1?"s":""}`:""} → ~${fmt((foundBodies+levyBodies)*16)} <span class='u'>gp/mo</span> afield — field supply only, the specialist share additional (Units section); none for the commuted share</span></div>
       <div class="lrow sub"><span>the <b>quota muster's</b> bodies — the serjeant credited to the count rides and is fed like any other; the foot levy, if also called, is its own muster, priced on the Ladder rung cards ("free to keep, dear to call")</span></div>
-      <div class="lrow ${spend<0?"warn":"gold"}"><span class="lk">${spend<0?"Post-remedy deficit":"Post-remedy margin"}</span><span class="lvv">${fmt(sel.head)}${watch?` − ≈${fmt(Math.round(watch))} hired watch (${def==="dom"?"no assize yet":"assize in default"})`:""}${reserve>0?` − ≈${f1(reserve)} remedy reserve`:""}${serjRes>0?` − ≈${f1(serjRes)} serjeant call`:""} = <b>${spend<0?`≈${f1(-spend)} <span class='u'>gp/mo</span> short`:`≈${f1(spend)} <span class='u'>gp/mo</span>`}</b>${spend<0?" — the estate cannot carry its obligations: the threadbare state":""}</span></div>
+      <div class="lrow ${spend<0?"warn":"gold"}"><span class="lk">${spend<0?"Post-remedy deficit":"Post-remedy margin"}</span><span class="lvv">${fmt(sel.head)}${watch?` − ≈${fmt(Math.round(watch))} hired watch (${def==="dom"?"no assize yet":"assize in default"})`:""}${hired?` − ≈${fmt(hired)} watch in their place`:""}${reserve>0?` − ≈${f1(reserve)} remedy reserve`:""}${serjRes>0?` − ≈${f1(serjRes)} serjeant call`:""} = <b>${spend<0?`≈${f1(-spend)} <span class='u'>gp/mo</span> short`:`≈${f1(spend)} <span class='u'>gp/mo</span>`}</b>${spend<0?" — the estate cannot carry its obligations: the threadbare state":""}</span></div>
       <div class="lrow sub"><span>an operating margin after remedy, watch, and the quota-serjeants' call — <b>before</b> any separate foot-levy call (its wages and idle ploughs ride the Ladder rung cards)</span></div>
       ${C>0?`<div class="lrow sub"><span>${smode === "raw" ? `<b>population-based:</b> the coin is 1 gp/family (p.346 — RAW prices the monthly <i>rate</i>, running "until the duty is revoked"; the one-month <i>term</i> is the module's quantization, History chapter, Library) — the frozen count divides it into shares but does not change the whole; per-fee scutage is the history, ACKS Call-to-Arms the mechanic beneath it` : `<b>per-lance, not population-based:</b> at this setting the rate is ${scutRate.toFixed(0)} gp for each lance-equivalent commuted, and the estate's size no longer enters it — which is how scutage was in fact assessed, and a departure from RAW's Call-to-Arms anchor (the rate lever, Dials)`}</span></div>`:""}`;
       const crownTxt = crown==="none"
@@ -3980,7 +4164,10 @@ function renderHousehold(){
     chAnchor:sel.grown ? sel.ancn.anchor : NaN,
     musterOn:musterOn,
     segs:musterOut ? musterOut.segs : [], disc:musterOut ? musterOut.disc : NaN,
-    postOn:!!musterOut, post:musterOut ? musterOut.spend : NaN
+    postOn:!!musterOut, post:musterOut ? musterOut.spend : NaN,
+    // the ground the riding serjeants leave: what the manor loses, what was hired back, and which
+    gone:musterOut ? musterOut.gone : 0, hiredWatch:musterOut ? musterOut.hired : 0,
+    cover:musterOut ? musterOut.cover : ""
   };
 
   // the disposition — the multi-fee estate's three shapes
@@ -4145,7 +4332,7 @@ function renderOffice(){
     document.getElementById("l_era").value=""; document.getElementById("eraread").innerHTML="";
     renderLadder(); renderUnits(); renderHousehold(); }));
 document.getElementById("l_sq").addEventListener("input", ()=>{ renderLadder(); renderUnits(); });
-["h_holder","h_cls","h_fam","h_chart","h_cdef","h_serj","h_mus1","h_mus2","h_crown"].forEach(id=>
+["h_holder","h_cls","h_fam","h_chart","h_cdef","h_serj","h_cover","h_mus1","h_mus2","h_crown"].forEach(id=>
   document.getElementById(id).addEventListener("input", renderHousehold));
 ["u_klvl","u_n","u_blvl","u_sq","u_scale","u_cha","u_iw","u_ms","u_cmd","u_ldr","u_mount"].forEach(id=>
   document.getElementById(id).addEventListener("input", renderUnits));
@@ -4197,7 +4384,20 @@ document.getElementById("l_era").addEventListener("input", ()=>{
 // And NOTHING is stored between visits. The page always opens on the module's published defaults,
 // so the FIXED EXAMPLE walk-through is never quietly contradicted by a state the reader does not
 // remember setting. Opening a link is a deliberate act, and the sheet says so when one is opened.
+// The first token carries TWO facts, separated by a dot: the FORMAT and the BUILD.
+//
+//   fm=1.v3_distraint_ang_…
+//      │  └── the build that wrote it. Advisory only, and it may be absent (every link copied
+//      │      before this token existed reads as "unknown build"). It exists because the format
+//      │      version below answers the wrong question: it changes when the FIELD LIST changes,
+//      │      and the field list has been stable across releases that rewrote the muster
+//      │      reconciliation, the assize's required-vs-standing split, and the lag's legal force.
+//      │      A link copied in v2.5 therefore opens today, is accepted, and quietly computes a
+//      │      different estate than the one its author saw. It cannot be REFUSED for that — the
+//      │      dials it names are all still real — so it is admitted and the sheet says so.
+//      └───── the format. A version this build does not speak is refused WHOLE, as before.
 const LINK_V     = "1";        // bump when the field list changes; an old link is then refused whole
+const LINK_BUILD = "v3";       // bump on any release whose formulas move a serialized dial's meaning
 const LINK_SEP   = "_";        // no dial value contains it — h_chart's "0.5" is why it is not "."
 // The estate, and only the estate: the Domains dials the self-test already drives, plus the
 // scutage rate. Officers and Realms are not on the wire. `land` here is the Domains slider and
@@ -4207,8 +4407,16 @@ const LINK_DIALS = [
   ["l_era","sel"],    ["l_def","sel"],  ["l_assess","sel"], ["l_asz","chk"],
   ["land","int"],     ["dens","sel"],   ["l_sq","chk"],     ["l_scut","sel"],
   ["h_holder","sel"], ["h_fam","int"],  ["h_chart","sel"],  ["h_cdef","sel"],
-  ["h_cls","sel"],    ["h_serj","sel"], ["h_mus1","sel"],   ["h_mus2","sel"], ["h_crown","sel"]
+  ["h_cls","sel"],    ["h_serj","sel"], ["h_mus1","sel"],   ["h_mus2","sel"], ["h_crown","sel"],
+  // APPEND-ONLY, and this is now load-bearing: a link written before a dial existed is short by
+  // exactly the fields added after it, and decodeLink admits it with those at their defaults.
+  // Insert a field in the middle instead and every published link silently reads shifted.
+  ["h_cover","sel"]
 ];
+// How many TRAILING dials a link is allowed to be missing — i.e. how many have been appended since
+// the format version was last bumped. **Increment this whenever a dial is appended above**, or the
+// links written by the release before it are refused as truncated. Reset it to 0 when LINK_V bumps.
+const LINK_OPTIONAL = 1;       // h_cover
 // the markup's own opening values, snapshotted before the era preset below has run — so Reset is
 // the boot sequence replayed, not a second transcription of the defaults sitting in the source
 const LINK_DFLT = {};
@@ -4218,9 +4426,12 @@ LINK_DIALS.forEach(([id, kind])=>{ const el = document.getElementById(id);
 let LINK_ORIGIN  = false;      // a link painted these dials — the sheet says so until Reset
 let LINK_BAD     = false;      // a link was present and unreadable: say that rather than nothing
 let LINK_REFUSED = [];         // fields a link named that its control would not accept
+let LINK_BOUNDED = [];         // fields a link named OUT OF RANGE, admitted at the bound
+let LINK_ABSENT  = [];         // dials the link PREDATES, left at the markup’s own opening value
+let LINK_DRIFT   = "";         // the build that wrote the link, when it is not this one
 
 function encodeLink(){
-  const out = [LINK_V];
+  const out = [LINK_V + "." + LINK_BUILD];
   for(const [id, kind] of LINK_DIALS){
     const el = document.getElementById(id);
     const v = !el ? "" : (kind === "chk") ? (el.checked ? "1" : "0") : el.value;
@@ -4236,10 +4447,22 @@ function encodeLink(){
 function decodeLink(frag){
   if(!frag || frag.slice(0, 3) !== "fm=") return null;
   const t = frag.slice(3).split(LINK_SEP);
-  if(t.shift() !== LINK_V)            return null;   // a version this build does not speak
-  if(t.length !== LINK_DIALS.length)  return null;   // truncated, or another field list entirely
-  const set = {}, refused = [];
+  // split on the FIRST dot only: a build name may carry its own ("1.v2.8" is format 1, build v2.8)
+  const tok = String(t.shift()), dot = tok.indexOf(".");
+  const fmtV  = dot < 0 ? tok : tok.slice(0, dot);
+  const build = dot < 0 ? ""  : tok.slice(dot + 1);  // "" = written before the stamp existed
+  if(fmtV !== LINK_V)                 return null;   // a FORMAT this build does not speak
+  // A link may be SHORT by up to LINK_OPTIONAL fields — written before a dial was appended — and
+  // those are admitted with the missing fields at their defaults, because refusing them would kill
+  // every published link each time the module grows a control. It may not be LONG (a field list
+  // this build does not have), and it may not be short by MORE than that, which is what a truncated
+  // link looks like: the bound is the difference between "written last release" and "cut in transit",
+  // and without it a link chopped in half would load as a plausible estate rather than be refused.
+  if(t.length > LINK_DIALS.length)                    return null;
+  if(t.length < LINK_DIALS.length - LINK_OPTIONAL)    return null;
+  const set = {}, refused = [], bounded = [], absent = [];
   LINK_DIALS.forEach(([id, kind], i)=>{
+    if(i >= t.length){ absent.push(id); return; }    // written before this dial existed
     const raw = t[i];
     // "-" is an EMPTY dial, not an absent one. The era chip reads empty the moment a hand moves
     // any dial off its century, and a link has to be able to say so — encoding it as "skip"
@@ -4257,13 +4480,17 @@ function decodeLink(frag){
       const n = parseInt(v, 10);
       if(!Number.isFinite(n)){ refused.push(id); return; }
       const lo = parseInt(el.min, 10), hi = parseInt(el.max, 10);   // the bounds the markup advertises
-      set[id] = String(Math.min(Number.isFinite(hi) ? hi : n, Math.max(Number.isFinite(lo) ? lo : n, n)));
+      const c = Math.min(Number.isFinite(hi) ? hi : n, Math.max(Number.isFinite(lo) ? lo : n, n));
+      // a value outside the range is ADMITTED at the bound — but it is not the value the link
+      // named, and a reader told nothing would believe the number in the field was the author's
+      if(c !== n) bounded.push(id);
+      set[id] = String(c);
     } else {
       if(!Array.prototype.some.call(el.options || [], o => o.value === v)){ refused.push(id); return; }
       set[id] = v;
     }
   });
-  return {set, refused};
+  return {set, refused, bounded, absent, build};
 }
 
 // The values go STRAIGHT to the controls, with no input event fired, and that is the whole trick:
@@ -4276,9 +4503,21 @@ function applyLink(res){
     const el = document.getElementById(id), v = res.set[id];
     if(el.type === "checkbox") el.checked = v; else el.value = v;
   });
+  // a dial the link predates is set to the MARKUP's own opening value, not left wherever the
+  // reader last put it — an old link must paint the same estate whenever it is opened
+  (res.absent || []).forEach(id=>{
+    const el = document.getElementById(id);
+    if(!el || !(id in LINK_DFLT)) return;
+    if(el.type === "checkbox") el.checked = LINK_DFLT[id]; else el.value = LINK_DFLT[id];
+  });
   const era = document.getElementById("l_era"), read = document.getElementById("eraread");
   if(read) read.innerHTML = (era && ERAS[era.value]) ? ERAS[era.value].read : "";
   LINK_REFUSED = res.refused;
+  LINK_BOUNDED = res.bounded || [];
+  LINK_ABSENT  = res.absent  || [];
+  // an ABSENT stamp is not "no drift" — it is a link copied before the stamp existed, which by
+  // definition means an earlier build. Silence there would be the same lie in a quieter voice.
+  LINK_DRIFT   = (res.build === LINK_BUILD) ? "" : (res.build || "an earlier build");
   return true;
 }
 
@@ -4303,9 +4542,13 @@ function resetDials(){
   era.value = "distraint";
   era.dispatchEvent(new Event("input"));   // land, density, class, assize, assessment, definition
   renderOffice();
-  LINK_ORIGIN = false; LINK_BAD = false; LINK_REFUSED = [];
+  LINK_ORIGIN = false; LINK_BAD = false; LINK_REFUSED = []; LINK_BOUNDED = [];
+  LINK_ABSENT = []; LINK_DRIFT = "";
   dSync();
-  try{ history.replaceState(null, "", "#tab-domains"); }catch(e){}
+  // Reset empties the address of the estate too, or the next reload would restore the manor the
+  // reader has just discarded — the fix for the nav bug made the fragment durable enough to matter
+  LINK_ADDR = "";
+  writeHash();
 }
 
 document.getElementById("sheetlink").addEventListener("click", ()=>{
@@ -4320,7 +4563,10 @@ document.getElementById("sheetlink").addEventListener("click", ()=>{
       navigator.clipboard.writeText(url).then(()=> say("Copied"), byHand);
     else byHand();
   }catch(e){ byHand(); }
-  try{ history.replaceState(null, "", "#tab-domains&" + encodeLink()); }catch(e){}
+  // …and the address keeps it from here on: every nav click now writes the estate back out with
+  // the section, so the copied manor survives moving about the page and reloading on it
+  LINK_ADDR = encodeLink();
+  writeHash();
 });
 document.getElementById("sheetreset").addEventListener("click", ()=>{
   resetDials();
@@ -4330,7 +4576,9 @@ document.getElementById("sheetreset").addEventListener("click", ()=>{
 // handed out for the self-test, exactly as FM.realm hands out the Realms closure's functions —
 // the tests drive the real encoder against the real controls, never a copy of either
 FM.link = {encode:encodeLink, decode:decodeLink, apply:applyLink,
-           reset:resetDials, share:shareLink, dials:LINK_DIALS};
+           reset:resetDials, share:shareLink, dials:LINK_DIALS,
+           // set by the chrome further down, where the fragment is actually written
+           hash:null, go:null, addr:()=>LINK_ADDR};
 
 // ---- 3d3, actually rolled -------------------------------------------------------------------
 // RR p.338: land value is 3d3 per hex, rolled when the domain is secured. The label has said so
@@ -4475,7 +4723,11 @@ const sizeOf = st => `${st.cardFam} families`;
 // while the duty stands (RR p.346), and this figure is neither that rate nor a flat monthly bill —
 // it is the module's one-month quantization of it, on the families attaching to the balance
 // still owed, spread over twelve months. Dropping "reserve" read as "scutage costs 1 gp a month".
-const CHEAP_WHY = "The rate in force is set by the scutage lever (Dials); at its RAW default the figure below is " +
+const CHEAP_WHY = "LAWFUL, not necessarily available: this is what the law would charge to commute the " +
+  "service, and whether the liege takes coin instead of the body is his to answer — a lord short of men " +
+  "refuses, and the Fine Rolls are full of what respite then cost. The module prices the option; " +
+  "granting it is played at the table. " +
+  "The rate in force is set by the scutage lever (Dials); at its RAW default the figure below is " +
   "RAW's own Call-to-Arms value for this estate. " +
   "RAW's scutage is 1 gp per family in the whole realm, every month, until the duty " +
   "is revoked (RR p.346). This module departs twice, both by doctrine rather than RAW's letter: it " +
@@ -4868,7 +5120,7 @@ function renderWrit(st, F){
     S.push(`${cond}it owes ${V(lfm(st.demand) + " lance" + (st.demand > 1 ? "s" : ""))}` +
       (levy ? ` and the levy credits ${levy}` : ``) +
       `, leaving ${V(lfm(st.owed) + " still owed", true)}` +
-      (st.cheap ? ` — cheapest discharge: ${V(st.cheapPhrase, false, CHEAP_WHY)}` +
+      (st.cheap ? ` — cheapest lawful discharge: ${V(st.cheapPhrase, false, CHEAP_WHY)}` +
         (st.scut !== "raw"
           ? ` ${V("at the " + (st.scut === "hist" ? "historical" : "full-replacement") + " rate", false,
                   "The scutage rate lever (Dials) is off its RAW default. RAW's own anchor is the Call to Arms — 1 gp a family, p.346.")}`
@@ -4969,12 +5221,12 @@ function renderSheet(st, F){
   if(!isNaN(st.margin) && st.margin < 0) W.push([1, `<b>Below its keep.</b> The estate is ` +
     `${Math.abs(st.margin)} ${U("gp/mo")} short of its obligations — the threadbare fee.`]);
   if(st.short) W.push([0, `<b>${lfm(st.owed)} still owed.</b> Found in bodies or in coin — the ` +
-    `cheapest discharge is priced on the card, and named in the writ below.`]);
+    `cheapest lawful discharge is priced on the card, and named in the writ below.`]);
   if(F.assize.live && F.assize.bad) W.push([0, `<b>The assize stands in default.</b> The watch ` +
     `is hired at market month after month until the levy re-arms, and none of it credits the count.`]);
   if(st.anach) W.push([0, `<b>A later charter under an earlier muster.</b> A counterfactual ` +
     `chronology — allowed, and flagged.`]);
-  if(st.cheapBreaks) W.push([0, `<b>The reserve breaks the margin.</b> The cheapest discharge ` +
+  if(st.cheapBreaks) W.push([0, `<b>The reserve breaks the margin.</b> The cheapest lawful discharge ` +
     `costs more than the estate clears above its holder.`]);
   dG("sheetwarn").innerHTML = W.map(([hard, t]) =>
     `<div class="${hard ? "" : "mild"}">${t}</div>`).join("");
@@ -4985,14 +5237,27 @@ function renderSheet(st, F){
   // the one line on the sheet that is not about the estate: where these dials came from. A
   // reader who opened someone else's manor has to be told, or the FIXED EXAMPLE walk-through
   // above silently describes a different one than the cards below.
+  // Three things can be wrong with an opened link and they are three different sentences: a field
+  // this build does not have (REFUSED — left at the default), a field out of its declared range
+  // (BOUNDED — admitted at the bound, which is not the number the author sent), and a link written
+  // by a build whose formulas have since moved (DRIFT — every dial legal, every figure possibly
+  // different). Only the first was ever said.
+  const nOf = (a, w) => `${a.length} ${w}${a.length > 1 ? "s" : ""} (${a.join(", ")})`;
   dG("sheetnote").innerHTML =
     LINK_BAD ? `<b>That link could not be read</b> — written by a different version of this ` +
         `page, or truncated in transit. The dials below are the module's own defaults.`
   : LINK_ORIGIN ? `Opened from a shared link — <b>these are not the module's defaults</b>, so ` +
         `the fixed worked example above describes a different manor. <b>Reset</b> puts it back.` +
-        (LINK_REFUSED.length ? ` ${LINK_REFUSED.length} setting${LINK_REFUSED.length > 1 ? "s" : ""} ` +
-          `in it (${LINK_REFUSED.join(", ")}) named a value this build does not have, and ` +
-          `${LINK_REFUSED.length > 1 ? "were" : "was"} left at the default.` : "")
+        (LINK_REFUSED.length ? ` ${nOf(LINK_REFUSED, "setting")} named a value this build does ` +
+          `not have, and ${LINK_REFUSED.length > 1 ? "were" : "was"} left at the default.` : "") +
+        (LINK_BOUNDED.length ? ` ${nOf(LINK_BOUNDED, "setting")} lay outside its declared range ` +
+          `and ${LINK_BOUNDED.length > 1 ? "were" : "was"} taken at the nearest bound — ` +
+          `<b>not the value the link named</b>.` : "") +
+        (LINK_ABSENT.length ? ` It predates ${nOf(LINK_ABSENT, "dial")}, ` +
+          `${LINK_ABSENT.length > 1 ? "which are" : "which is"} at the module's own default.` : "") +
+        (LINK_DRIFT ? ` It was written by <b>${LINK_DRIFT}</b> of this page: every dial in it is ` +
+          `still real, but the rules behind them have moved since, so the figures below may not ` +
+          `be the ones its author saw.` : "")
   : "";
 
   // the sheet as computed, handed over — the same discipline as FM.last. A view may not put a
@@ -5173,6 +5438,10 @@ const D_BOXNOTE = {
     ride:   "Presented to the host: each serjeant credits ½ lance — and costs his wage for the month of service and one idle plough-team.",
     remain: "Readiness kept, deployment declined — the watch stays home, and their share of the count settles in the boxes below."
   },
+  h_cover: {
+    accept: "Nobody was hired for forty days. The manor runs thin until the term ends — no coin, and a risk the Judge may collect on.",
+    hire:   "Replacements at the levy's own rate, for the month of service. The ground stays held, and the margin pays for it."
+  },
   h_mus1: {
     accept:   "The host takes the body as the charter wrote it. No coin — and the grace is remembered at the next muster.",
     makegood: "The old body rides, with wage-parity coin booking him equal to the current standard. It re-equips no one.",
@@ -5227,15 +5496,59 @@ function syncBoxes(){
       b.disabled = off;
       b.setAttribute("aria-disabled", off ? "true" : "false");
       b.classList.toggle("off", off);
-      // the box is a toggle in a set of toggles, and it used to announce nothing at all: a
-      // screen reader met six identical buttons with no way to hear which one was in force
+      // ONE control per setting, and it is the visible one.
+      //
+      // These boxes and the <select> behind them were both reachable and both announced: a
+      // keyboard user tabbed onto an invisible one-pixel select, changed the value with arrow
+      // keys while nothing on screen had focus, then tabbed through the boxes as well — four
+      // stops for one setting, across ten settings. A screen reader met the same choice twice,
+      // as a combobox and then as a group of buttons, with nothing to say they were one thing.
+      //
+      // The select was left reachable deliberately, back when these boxes announced nothing at
+      // all (the comment this replaces recorded exactly that). Labels and state were then given
+      // to the boxes, and the safety net quietly became the duplicate. It is now aria-hidden
+      // and out of the tab order — a value store, nothing more — and the boxes own the setting.
+      //
+      // They also carried aria-pressed, which is the wrong word: pressed is a TOGGLE, on or off
+      // independently. Exactly one of these is in force, which is radio. So the group is a
+      // radiogroup, the boxes are radios, and the roving tabindex below is the tab strip's own
+      // pattern — one keyboard idiom on the page rather than two.
       const on = !off && sel.value === opt.value;
       b.classList.toggle("on", on);
-      b.setAttribute("aria-pressed", sel.value === opt.value ? "true" : "false");
+      b.setAttribute("role", "radio");
+      b.setAttribute("aria-checked", sel.value === opt.value ? "true" : "false");
+      b.removeAttribute("aria-pressed");
+      b.tabIndex = on ? 0 : -1;
     });
+    // …and if nothing is checked (every option disabled, or a value no box owns), the group must
+    // still be reachable, or a whole step vanishes from the tab order
+    const live = Array.prototype.filter.call(host.children, c => c.dataset.off !== "1");
+    if(live.length && !live.some(c => c.tabIndex === 0)) live[0].tabIndex = 0;
     while(host.children.length > opts.length) host.removeChild(host.lastChild);
   });
 }
+// Arrow keys within a choice group, which is what makes the roving tabindex above a real
+// radiogroup rather than one button you can reach and three you cannot. Delegated, because the
+// boxes are created by syncBoxes and re-created whenever an option list changes. Moving the
+// selection IS choosing it, as in a native radio group — the box's own click handler does the
+// work, so there is one path to the select and not two.
+document.addEventListener("keydown", ev=>{
+  const b = ev.target.closest && ev.target.closest(".cbox");
+  if(!b) return;
+  const host = b.parentElement;
+  const keys = {ArrowRight:1, ArrowDown:1, ArrowLeft:-1, ArrowUp:-1, Home:0, End:0};
+  if(!(ev.key in keys)) return;
+  const live = Array.prototype.filter.call(host.children, c => c.dataset.off !== "1");
+  if(!live.length) return;
+  const i = live.indexOf(b);
+  const next = ev.key === "Home" ? live[0]
+             : ev.key === "End"  ? live[live.length - 1]
+             : live[(i + keys[ev.key] + live.length) % live.length];
+  ev.preventDefault();
+  next.click();      // selects, which re-runs syncBoxes and moves tabIndex with the selection
+  next.focus();
+});
+
 // a step whose every control is disabled reads as idle, and says why
 function syncSteps(){
   const mark = (step, ids)=>{
@@ -5243,7 +5556,7 @@ function syncSteps(){
     if(!el) return;
     el.classList.toggle("idle", ids.every(id=>{ const s = dG(id); return !s || s.disabled; }));
   };
-  mark("step2", ["h_serj"]);
+  mark("step2", ["h_serj","h_cover"]);
   mark("step3", ["h_mus1","h_mus2"]);
   mark("step4", ["h_crown"]);
 }
@@ -5257,7 +5570,7 @@ function dSync(){ updateStateBar(); syncMirrors(); syncBoxes(); syncSteps(); syn
 
 // listeners registered AFTER the engine's, so every pass sees a finished render
 ["land","dens","l_asz","l_sq","l_assess","l_def","l_era",
- "h_holder","h_cls","h_fam","h_chart","h_cdef","h_serj","h_mus1","h_mus2","h_crown"]
+ "h_holder","h_cls","h_fam","h_chart","h_cdef","h_serj","h_cover","h_mus1","h_mus2","h_crown"]
   .forEach(id=>{ const e = dG(id); if(e) e.addEventListener("input", dSync); });
 // belt and braces: the engine rewrites #hcards wholesale on every household render
 new MutationObserver(()=>{ syncBoxes(); syncSteps(); updateEstate(); }).observe(dG("hcards"), {childList:true});
@@ -5414,12 +5727,11 @@ function showTab(name){
   NAVSECS = TABNAV[name].map(r => r[0]);
   spyNav();
   queuePlace();
-  // the fragment carries two things now — which tab is showing, and (once a link has been
-  // opened or copied) the estate. Rewriting the tab must not drop the estate out of the address.
-  try{
-    const keep = hashParts().filter(p => p.slice(0, 3) === "fm=");
-    history.replaceState(null, "", "#" + ["tab-" + name].concat(keep).join("&"));
-  }catch(e){}
+  // the fragment carries THREE things now — the tab, the estate (once a link has been opened or
+  // copied), and the section. Rewriting the tab must drop neither of the other two; the section
+  // is the exception, because the sections of the tab just left do not exist on the one arrived at.
+  HASH_SEC = "";
+  writeHash();
 }
 document.querySelectorAll(".tabbtn").forEach(b =>
   b.addEventListener("click", ()=> showTab(b.dataset.tab)));
@@ -5435,6 +5747,90 @@ addEventListener("load", ()=>{
   const h = (hashParts().find(p => p.slice(0, 4) === "tab-") || "").slice(4);
   showTab(TABNAV[h] ? h : "domains");
 });
+
+// ---- the address, which now has to carry three facts at once --------------------------------
+// The fragment held the tab and (once copied) the estate. It did NOT hold the section, and every
+// anchor on the page is an ordinary `<a href="#sec-…">` — so the browser replaced the WHOLE
+// fragment on every nav click and the estate fell out of the address. The reader saw no change:
+// the dials in memory were untouched. It only surfaced on reload, or on handing the link on,
+// by which time five minutes of dialling was gone. It is the worst defect the page has had.
+//
+// So the anchors are taken over. One delegated handler, because three of the cross-links are in
+// prose and outside the nav, and the skip link is neither. The fragment is written by hand:
+//
+//     #tab-domains&fm=1.v3_distraint_…&sec-ladder
+//        └ tab        └ estate            └ section
+//
+// which no browser will scroll to on its own — hence preventDefault and an explicit jump. That
+// is not a cost: `scrollIntoView` honours the `scroll-margin-top` the sticky chrome already sets,
+// which is the same offset the native jump was using.
+let HASH_SEC  = "";                 // the section the reader last NAVIGATED to (never the scroll-spy's)
+let LINK_ADDR = LINK_IN || "";      // the fm= token believed to be in the address, if any
+
+// the fragment as a STRING, so a test can read what the address was told without a real History
+function hashStr(){
+  const parts = ["tab-" + TAB];
+  if(LINK_ADDR) parts.push(LINK_ADDR);
+  if(HASH_SEC && NAVSECS.indexOf(HASH_SEC) >= 0) parts.push(HASH_SEC);
+  return "#" + parts.join("&");
+}
+function writeHash(){
+  const h = hashStr();
+  try{ history.replaceState(null, "", h); }catch(e){}
+  return h;
+}
+
+function goAnchor(id){
+  const el = document.getElementById(id);
+  if(!el) return false;
+  el.scrollIntoView();
+  // the native jump moves the keyboard as well as the eye, and the skip link is worthless
+  // without it. Sections are not focusable, so they are made so for the duration.
+  if(!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
+  el.focus({preventScroll:true});
+  HASH_SEC = id;
+  writeHash();
+  spyNav();
+  return true;
+}
+
+document.addEventListener("click", ev=>{
+  const a = ev.target.closest && ev.target.closest('a[href^="#"]');
+  if(!a || ev.defaultPrevented || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.button) return;
+  const id = a.getAttribute("href").slice(1);
+  if(id && goAnchor(id)) ev.preventDefault();
+});
+
+// The backstop, for a hash this page did not write — a hand-typed anchor, a link from outside,
+// a Back that lands on one. `replaceState` fires neither event, so nothing here can recurse.
+addEventListener("hashchange", ()=>{
+  const parts = hashParts();
+  const sec = parts.find(p => NAVSECS.indexOf(p) >= 0);
+  if(sec) HASH_SEC = sec;
+  if(LINK_ADDR && !parts.some(p => p.slice(0, 3) === "fm=")) writeHash();
+});
+
+// Back and Forward. The page pushes no history of its own, so this is the reader returning to the
+// URL they arrived on — and the estate in that address is the one they should get back, whatever
+// the dials have since become. Only ever acts on a fragment that CARRIES an estate.
+addEventListener("popstate", ()=>{
+  const inAddr = hashParts().find(p => p.slice(0, 3) === "fm=") || "";
+  if(!inAddr || inAddr === encodeLink()) return;
+  const res = decodeLink(inAddr);
+  if(!res) return;
+  LINK_ORIGIN = applyLink(res);
+  LINK_ADDR = inAddr;
+  renderLadder(); renderUnits(); renderHousehold();
+  dSync();
+});
+
+// handed to the self-test, which drives the real writer against the real dials — never a copy
+FM.link.hash = hashStr;
+// "what would the address say if the reader clicked through to this section" — non-mutating, so a
+// test can ask it without leaving the reader's own place in the document behind
+FM.link.go   = id => { const was = HASH_SEC; HASH_SEC = id;
+                       const h = hashStr(); HASH_SEC = was; return h; };
+FM.commitDial = commitDial;
 
 
 // ================= TAB 3: Feudal Realms =================
@@ -5998,6 +6394,44 @@ function selfTest(){
   T("income is families × (land+3)",     ()=> FM.rungs.every(r => r.income === r.fam*(6+3)) || "a rung's income is not its families' worth");
   T("families are ⌈anchor ÷ (land+3)⌉",  ()=> FM.rungs.every(r => r.fam === Math.ceil(r.anchor/(6+3))) || "a rung is not the smallest estate that pays it");
 
+  // ---- 1a. the equation drawer says what the engine did ------------------------------------
+  // A drawer that narrates the model is a second description of it, and the failure mode is that
+  // it goes stale: the rule changes to a floor, the card follows, and the drawer still prints ⌈⌉
+  // over the new number. So the printed working is READ BACK and evaluated. This is the one test
+  // on the page that checks the page's explanation of itself rather than its arithmetic.
+  base();
+  const drawers = dG("rungs").innerHTML.split("ƒ How this was got").slice(1);
+  T("every rung carries a drawer",       ()=> eq(drawers.length, FM.rungs.length));
+  T("its rounded-up families step holds", ()=> {
+      const bad = [];
+      drawers.forEach((d, i)=>{
+        // "⌈200 ÷ 9⌉" was the first wording and it read as plain square brackets in the card's
+        // serif face — the drawer says "rounded up" in words now, and this follows it
+        const m = d.replace(/<[^>]*>/g, " ").match(/=\s*([\d,]+)\s*÷\s*([\d,]+), rounded up/);
+        if(!m) return void bad.push(`rung ${i}: no families step`);
+        const a = +m[1].replace(/,/g, ""), b = +m[2].replace(/,/g, "");
+        if(Math.ceil(a/b) !== FM.rungs[i].fam)
+          bad.push(`rung ${i}: printed ⌈${a}÷${b}⌉=${Math.ceil(a/b)}, card says ${FM.rungs[i].fam}`);
+      });
+      return bad.length ? bad.join(" · ") : true; });
+  T("its income step multiplies out",    ()=> {
+      const bad = [];
+      drawers.forEach((d, i)=>{
+        // strip tags to a SPACE, not to nothing: the next step's leading digit would otherwise
+        // run onto this one and "= 7 × 9" reads as "= 7 × 93"
+        const m = d.replace(/<[^>]*>/g, " ").match(/=\s*([\d,]+)\s*×\s*([\d,]+)\s/);
+        if(!m) return void bad.push(`rung ${i}: no income step`);
+        const a = +m[1].replace(/,/g, ""), b = +m[2].replace(/,/g, "");
+        if(a*b !== FM.rungs[i].income)
+          bad.push(`rung ${i}: printed ${a}×${b}=${a*b}, card says ${FM.rungs[i].income}`);
+      });
+      return bad.length ? bad.join(" · ") : true; });
+  T("the drawer follows the land value", ()=> {
+      base({land:9});
+      const d = dG("rungs").innerHTML.split("ƒ How this was got")[1].replace(/<[^>]*>/g, "");
+      base();
+      return /land value 9 \+ 3/.test(d) ? true : "the drawer still prints the old land value"; });
+
   // ---- 2. the quota, by definition of record ----------------------------------------------
   T("1181 knight — the fee owes 1",      ()=> eq(base({l_def:"ang"}).quotaN, 1));
   T("…the half-fee owes ½",              ()=> eq(base({l_def:"ang", h_holder:"esq"}).quotaN, 0.5));
@@ -6010,6 +6444,38 @@ function selfTest(){
   T("castellany, in default — owes 3",   ()=> eq(base({h_holder:"kt4", l_asz:false}).owedN, 3));
   T("…the serjeant is still REQUIRED",   ()=> eq(rung("kt4").medReq, 1));
   T("…but nothing is credited",          ()=> eq(rung("kt4").med, 0));
+
+  // ---- 3a. the ground the riding serjeants leave -------------------------------------------
+  // The defect: `watch` is zeroed whenever the assize is kept, with no reference to whether the
+  // men are on the manor — so one body discharged the field quota AND the standing garrison in
+  // the same month. A 30-family double charter under an ancient assessment mounts one serjeant.
+  const RIDE = {h_holder:"lag", h_fam:30, h_chart:"2", l_assess:"ancient", h_serj:"ride"};
+  T("a riding serjeant takes his watch with him",
+    ()=> eq(base({...RIDE, h_cover:"accept"}).gone, 45));            // one medium horse, at wage
+  T("…accepting the gap costs no coin",
+    ()=> eq(base({...RIDE, h_cover:"accept"}).hiredWatch, 0));
+  T("…and hiring it back costs exactly that",
+    ()=> eq(base({...RIDE, h_cover:"hire"}).hiredWatch, 45));
+  T("…the margin differs by the hire and nothing else",
+    ()=> eq(base({...RIDE, h_cover:"accept"}).post - base({...RIDE, h_cover:"hire"}).post, 45));
+  T("a serjeant who REMAINS takes nothing",
+    ()=> eq(base({...RIDE, h_serj:"remain", h_cover:"hire"}).gone, 0));
+  T("…so the cover dial cannot charge for him",
+    ()=> eq(base({...RIDE, h_serj:"remain", h_cover:"hire"}).hiredWatch, 0));
+  // a dial that is live but inert is worse than a disabled one: it invites a click and answers
+  // nothing, and it keeps its whole Step out of the idle styling that says "not your problem here"
+  T("the cover dial is dead on the page's own default",
+    ()=> { base(); return dG("h_cover").disabled === true ? true : "it is live where nothing rides"; });
+  T("…live only when serjeants actually ride",
+    ()=> { base({...RIDE, h_cover:"accept"});
+           return dG("h_cover").disabled === false ? true : "it is dead where they do ride"; });
+  T("…and dead again when they remain",
+    ()=> { base({...RIDE, h_serj:"remain"});
+           return dG("h_cover").disabled === true ? true : "it is live where nobody left"; });
+  T("an estate that mounts none is untouched by the dial",
+    ()=> { const a = base({h_holder:"lag", h_fam:24, h_chart:"1", l_assess:"ancient", h_cover:"accept"}).post,
+                 b = base({h_holder:"lag", h_fam:24, h_chart:"1", l_assess:"ancient", h_cover:"hire"}).post;
+           return a === b ? true : `${a} vs ${b}`; });
 
   // ---- 4. the grown manor, on both assessments (24 families on a 1-fee charter, land 6) ----
   T("ancient — the charter anchors it",  ()=> { const L = base({h_holder:"lag", h_fam:24, h_chart:"1", l_assess:"ancient"});
@@ -6180,8 +6646,79 @@ function selfTest(){
       const now = dialState();
       return now === before ? true : `wanted ${before} · got ${now}`; });
   T("…including a century cleared by hand",  ()=> eq(dG("l_era").value, ""));
-  T("another version's link is refused whole", ()=> eq(L.decode(shot.replace("fm=1_", "fm=2_")), null));
+  T("another FORMAT's link is refused whole", ()=> eq(L.decode(shot.replace("fm=1.", "fm=2.")), null));
+  // the build stamp is the opposite case: every dial in such a link is real, so it is ADMITTED
+  // and flagged. Refusing it would throw away a usable estate; taking it in silence is the lie.
+  T("a link from another build is admitted", ()=> {
+      const r = L.decode(shot.replace("fm=1.v3_", "fm=1.v2.8_"));
+      return r && r.build === "v2.8" ? true : `build ${r && r.build}`; });
+  T("…and a stampless link reads as an earlier build", ()=> {
+      const r = L.decode(shot.replace("fm=1.v3_", "fm=1_"));
+      return r && r.build === "" ? true : `build ${r && r.build}`; });
+  T("an out-of-range field is bounded, and said", ()=> {
+      const parts = shot.split("_"), i = L.dials.findIndex(d => d[0] === "h_fam") + 1;
+      parts[i] = "999";
+      const r = L.decode(parts.join("_"));
+      return (r.set.h_fam === "80" && r.bounded.indexOf("h_fam") >= 0) ? true
+           : `set ${r.set.h_fam}, bounded ${JSON.stringify(r.bounded)}`; });
+  T("…and an in-range field is not", ()=> {
+      const r = L.decode(shot);
+      return r.bounded.length === 0 ? true : JSON.stringify(r.bounded); });
+
+  // ---- the address carries all three facts, and a nav click drops none of them ----------------
+  // The bug this guards: every anchor was an ordinary <a href="#sec-…">, so one nav click replaced
+  // the whole fragment and the estate fell out of it. Nothing on screen changed; it only surfaced
+  // on reload. These assert the fragment WRITER, which is the thing that was missing.
+  T("the address carries the tab", ()=> {
+      const h = L.hash();
+      return h.indexOf("#tab-") === 0 ? true : h; });
+  T("a nav click keeps the estate in the address", ()=> {
+      L.reset();                                     // no estate in the address yet
+      const bare = L.go("sec-ladder");
+      L.apply(L.decode(shot));                       // …now open one
+      const withEstate = (()=>{ const enc = L.encode();
+        // stand in for the Copy-link handler: it is what arms the address
+        return L.go("sec-ladder").replace("#tab-domains", "#tab-domains&" + enc); })();
+      return (bare.indexOf("sec-ladder") > 0 && withEstate.indexOf("fm=") > 0
+              && withEstate.indexOf("sec-ladder") > withEstate.indexOf("fm=")) ? true
+           : `${bare} · ${withEstate}`; });
+  T("a section of another tab is not written", ()=> {
+      const h = L.go("sec-reckoning");               // a Feudal Realms section, from Domains
+      return h.indexOf("sec-reckoning") < 0 ? true : h; });
+
+  // ---- the clamp is committed to the control, not only to the engine --------------------------
+  // The bug this guards: clampInt bounded what the ENGINE read and nothing else, so a field could
+  // show 999 while every card on the page was priced on 80.
+  T("a value over the maximum is written back", ()=> {
+      set("h_fam", 999); FM.commitDial(dG("h_fam"));
+      return eq(dG("h_fam").value, "80"); });
+  T("a value under the minimum is written back", ()=> {
+      set("h_fam", 2); FM.commitDial(dG("h_fam"));
+      return eq(dG("h_fam").value, "8"); });
+  T("…and the committed value is what the engine reads", ()=> {
+      set("h_fam", 999); FM.commitDial(dG("h_fam"));
+      return eq(String(clampInt("h_fam", 8, 80, 23)), dG("h_fam").value); });
+  T("a fraction truncates as parseInt does, not rounds", ()=> {
+      set("h_fam", "23.7"); FM.commitDial(dG("h_fam"));
+      return eq(dG("h_fam").value, "23"); });
+  T("an in-range value is left alone", ()=> {
+      set("h_fam", 40);
+      return (FM.commitDial(dG("h_fam")) === false && dG("h_fam").value === "40") ? true
+           : dG("h_fam").value; });
+  set("h_fam", 23);
   T("a truncated link is refused whole",     ()=> eq(L.decode(shot.split("_").slice(0, 9).join("_")), null));
+  // …but a link short by exactly the dials appended since is NOT truncated, it is last release's,
+  // and it opens with those at the module's own defaults rather than being thrown away
+  T("a link predating the newest dial opens", ()=> {
+      const p = shot.split("_"); p.pop();               // drop the one appended field
+      const r = L.decode(p.join("_"));
+      return (r && r.absent.length === 1 && !("h_cover" in r.set)) ? true
+           : `absent ${r && JSON.stringify(r.absent)}`; });
+  T("…with that dial at the module's default", ()=> {
+      const p = shot.split("_"); p.pop();
+      dG("h_cover").value = "hire";                     // move it first, so a default is provable
+      L.apply(L.decode(p.join("_")));
+      return eq(dG("h_cover").value, "accept"); });
   T("a fragment that is not ours is ignored", ()=> eq(L.decode("sec-dials"), null));
   T("a value this build does not own is refused",
     ()=> { const r = L.decode(shot.replace("_kt4_", "_kt9_"));

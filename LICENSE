@@ -1,0 +1,73 @@
+Feudal Manors — licence
+=======================
+
+This repository contains one work with two kinds of material in it, licensed
+differently, plus a third kind that is not the author's to license at all. Read
+all three paragraphs before reusing any part of it.
+
+
+1. The engine — MIT
+-------------------
+
+The JavaScript, CSS, markup and the `tools/` verification harness are licensed
+under the MIT Licence:
+
+    Copyright (c) 2026 the Feudal Manors authors
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in
+    all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+
+
+2. The prose, the house rules and the historical essays — CC BY-SA 4.0
+----------------------------------------------------------------------
+
+The written argument — the chapters, the sidenotes, the rulings, the era table,
+the historical commentary, and the module's own house rules (everything the page
+marks MODULE) — is licensed under the Creative Commons Attribution-ShareAlike 4.0
+International Licence.
+
+    https://creativecommons.org/licenses/by-sa/4.0/
+
+You may share and adapt it, including commercially, provided you give
+attribution and license your adaptation under the same terms.
+
+
+3. What is NOT licensed here
+----------------------------
+
+**The ACKS II rules.** This is an unofficial supplement for the *Adventurer
+Conqueror King System II*, published by Autarch LLC. Every figure the page marks
+RAW — wage tables, garrison requirements, Tribute Inefficiency bands, Call to
+Arms, unit costs, Personal Authority, and the page numbers that cite them — is
+Autarch's, quoted here for reference and comment. Neither licence above conveys
+any right to that material. Autarch is not affiliated with this project and has
+not endorsed it.
+
+**Hârn.** Material marked HÂRN refers to the Hârn setting, © N. Robin Crossby
+and Columbia Games Inc. It is referenced, not licensed. Kaldor, Chybisa, Melderyn
+and the rest are theirs.
+
+**Cited scholarship.** Material marked HISTORY or DEBATED cites published
+historical work — Harvey, Hollister, Harriss, Prestwich, Coss, and the record
+editions and databases named in the Library. Citations are citations; the works
+themselves are their authors' and publishers'.
+
+If you reuse this project, the safe reading is: the code and the house rules are
+yours to build on under the terms above; the rules text, the setting and the
+scholarship are not, and you will need to reach your own arrangement with their
+owners.
