@@ -304,7 +304,7 @@
 <header>
   <h1>Feudal Manors — fees &amp; the fighting men they buy</h1>
   <p><b>A sub-baronial enfeoffment module for ACKS II · lance and levy in place of coin — the fee quit of its garrison line by service, on the written terms of the assize of the fee</b> ·
-  <span style="white-space:nowrap">v2.8 — <a href="https://github.com/joachimxb/feudal-manors/releases" style="color:inherit">release notes</a></span></p>
+  <span style="white-space:nowrap">v2.8.1 — <a href="https://github.com/joachimxb/feudal-manors/releases" style="color:inherit">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav">
@@ -3643,6 +3643,14 @@ function facts(st){
     F.recon = {kind:"moot", live:false,
       sent: W => `Its charter names ${E("pop-paper", chartW)}, but the ${E("pop-def","ordinance")} has ` +
                  `commuted the fee entirely — the count renders coin, and the old definition no longer matters.`};
+  } else if(!st.anc && st.cdef === st.def){
+    // NOTHING HAS BEEN SUPERSEDED when the charter names the body the muster already demands.
+    // Reporting a supersession here invented a documentary history the reader never set — most
+    // visibly on an estate one family past its fee, whose charter IS the current muster's paper.
+    F.recon = {kind:"origin", live:false,
+      sent: W => `Its charter names ${W("def")} as well, so there is nothing here for the ` +
+                 `${E("pop-assess","current")} assessment to overturn — the survey sets the count either ` +
+                 `way, and the paper says where this estate began rather than what it owes.`};
   } else if(!st.anc){
     // the COUNT is in the estate's name in the opening sentence — naming it again here would be
     // the doubling this bar was rebuilt to remove. Past tense: this paper is the one superseded.
@@ -3754,6 +3762,13 @@ function famWrite(commit){
     if(!commit || v === famOf(st)) return;      // unchanged, or still mid-keystroke on a rung
     set("h_holder", "lag");                     // a rung sized off its paper IS the grown manor
     set("h_chart", RUNGFEE[st.holder]);
+    // …and the charter's DEFINITION is the rung's too. A fee's paper and the muster's are one
+    // document — that is what the rung's own clause asserts — so a fee promoted by a single
+    // family must not silently acquire a charter naming some other century's body. Left to the
+    // control's default it did: a Double fee under the distraint century became a manor
+    // chartered on the 1181 knight, a lag the reader never set and the estate never had.
+    // (The ordinance commutes ANCIENT paper, so its charter is the standing definition before it.)
+    set("h_cdef", st.def === "ord" ? "dis" : st.def);
     set("h_fam", v);
     dSync();
   };
