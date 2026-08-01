@@ -1,0 +1,48 @@
+# Verification, run on the published artifact itself.
+#
+# Every check here runs against index.html — the one file this project ships — with no packages,
+# no install step and no build. That is the point: the harness must never become a dependency of
+# the thing it checks, or "one self-contained file, works offline from a memory stick" stops being
+# true. `npm ci` is deliberately absent because there is nothing to install.
+#
+# What is NOT here, and why: cmpnum / cmpnumoffice / cmprealm compare the candidate against a
+# BASELINE copy of a previous build, and a baseline belongs to the release it was taken from — it
+# is a local pre-release step, documented in tools/README.md, not something a workflow can invent.
+# Everything that needs only the file itself runs below.
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Self-tests (in-page suite, driven headless)
+        run: node tools/run_selftest.mjs index.html
+
+      - name: Defect sweep (~2,880 states, no NaN or undefined)
+        run: node tools/sweep.mjs index.html
+
+      - name: Navigation harness (the estate survives a nav click)
+        run: node tools/check_nav.mjs index.html
+
+      # The three audits are LISTS, not gates: they print what they find and a number that grows
+      # is the finding. They are run here so the numbers are on the record for every commit.
+      - name: Accessibility audit
+        run: node tools/audit_a11y.mjs index.html
+
+      - name: Contrast audit (WCAG 2.1)
+        run: node tools/audit_contrast.mjs
+
+      - name: Unit-discipline audit (bare gp)
+        run: node tools/audit_units.mjs index.html

@@ -3026,40 +3026,89 @@ const clampNum = (id, lo, hi, dflt) => {
 // come from — one source, and a dial that grows a new range cannot silently disagree with it.
 // A commit that moved the value SAYS SO beside the field, and the notice clears on the next
 // entry that needs no bounding.
-function commitDial(el){
-  if(!el || el.disabled) return false;
+// What the engine will actually read out of this field, beside what the field is showing. Split
+// out of commitDial because the two events want different halves of it: `input` needs the reading
+// (to say it) and must not touch the value; `change` needs the write-back.
+function dialRead(el){
   const raw = String(el.value).trim();
   const lo = parseFloat(el.min), hi = parseFloat(el.max);
-  // the notice is made where it is needed rather than written into the markup thirteen times —
-  // which also covers the fields the Realms engine generates into its own tables
-  const say = m => {
-    let n = el.id ? document.getElementById("bound-" + el.id) : null;
-    if(!n){
-      if(!m || !el.id || !el.insertAdjacentElement) return;
-      n = document.createElement("span");
-      n.className = "boundnote"; n.id = "bound-" + el.id;
-      n.setAttribute("role", "status");
-      el.insertAdjacentElement("afterend", n);
-    }
-    n.textContent = m; n.hidden = !m;
-  };
-  // an empty field is a reader mid-thought, not an error: leave it, and let the engine's own
-  // default answer for it until something is typed
-  if(raw === ""){ say(""); return false; }
+  if(raw === "") return {raw, ok:false, empty:true};
   const n = parseFloat(raw);
-  if(!Number.isFinite(n)){                       // "abc", "1e", "--3": there is no value to bound
-    say("not a number — the module is reading its default here"); return false; }
-  // TRUNCATED, not rounded, because every one of these is read through clampInt → parseInt, and
-  // the point of the exercise is that the field and the engine agree. 23.7 computes as 23, so
-  // the field must say 23 — rounding it to 24 would trade one disagreement for another.
-  let c = Math.trunc(n);
+  if(!Number.isFinite(n)) return {raw, ok:false, nan:true};
+  let c = Math.trunc(n);                       // parseInt truncates; the field must agree with it
   if(Number.isFinite(lo)) c = Math.max(lo, c);
   if(Number.isFinite(hi)) c = Math.min(hi, c);
-  if(String(c) === raw){ say(""); return false; }
-  el.value = String(c);
-  say(c === hi && n > hi ? `bounded to ${c} — the declared maximum`
-    : c === lo && n < lo ? `bounded to ${c} — the declared minimum`
-    : `read as ${c}`);
+  return {raw, n, c, lo, hi, ok:String(c) === raw};
+}
+
+// ---- and saying it WHILE the reader types -----------------------------------------------------
+// The write-back below fixed the permanent disagreement, and left a transient one: every render
+// runs on `input`, the commit on `change`, so between typing 999 and leaving the field the cards
+// were priced on 80 while the field still read 999 and said nothing about it.
+//
+// The two obvious remedies are both worse. Bounding on `input` fights the reader's hands — "1" on
+// the way to "15" is not an out-of-range entry, and rewriting it to 8 makes the field unusable.
+// Deferring the recalculation trades the mismatch for a staler one: the cards would then show the
+// PREVIOUS estate, which disagrees with the field just as much and says so even less.
+//
+// So neither the value nor the render moves, and the disagreement is DISCLOSED instead — live,
+// under the field, in the engine's own terms. The reader sees 999, reads "the module is reading
+// 80", and sees cards priced on 80. Three things agreeing about what is happening beats two
+// agreeing silently while the third lies.
+// ABOVE THE MAXIMUM ONLY, and the asymmetry is the whole design.
+//
+// The first cut of this announced any out-of-range reading on every keystroke, which fixed a rare
+// silent mismatch by putting a warning flash on ordinary typing: h_fam's minimum is 8, so "23"
+// warned at "2", and most two-digit entries start below 8. u_cha was worse — typing "-3" warned
+// "not a number" at the bare "-". That is a worse trade at far higher frequency.
+//
+// The line that holds: BELOW the minimum, a value may be the prefix of a valid entry — "2" on its
+// way to "23" — and so may a bare "-" or "1e". Those are a reader mid-thought and wait for blur,
+// exactly as an empty field does. ABOVE the maximum, no further digit can bring the value back
+// into range, so it is a settled disagreement and is said at once. That also happens to be the
+// case worth catching: 999 in a field of 80, with every card priced on 80 and nothing saying so.
+function announceDial(el){
+  if(!el || el.disabled || !el.id) return;
+  const r = dialRead(el);
+  const over = !r.empty && !r.nan && Number.isFinite(r.hi) && r.n > r.hi;
+  dialSay(el, over ? `the module is reading ${r.c} — the declared maximum` : "");
+}
+document.addEventListener("input", ev=>{
+  const el = ev.target;
+  if(el && el.tagName === "INPUT" && el.type === "number") announceDial(el);
+}, true);
+
+// the notice is made where it is needed rather than written into the markup thirteen times —
+// which also covers the fields the Realms engine generates into its own tables
+function dialSay(el, m){
+  let n = el.id ? document.getElementById("bound-" + el.id) : null;
+  if(!n){
+    if(!m || !el.id || !el.insertAdjacentElement) return;
+    n = document.createElement("span");
+    n.className = "boundnote"; n.id = "bound-" + el.id;
+    n.setAttribute("role", "status");
+    el.insertAdjacentElement("afterend", n);
+  }
+  n.textContent = m; n.hidden = !m;
+}
+
+function commitDial(el){
+  if(!el || el.disabled) return false;
+  const r = dialRead(el);
+  // an empty field is a reader mid-thought, not an error: leave it, and let the engine's own
+  // default answer for it until something is typed
+  if(r.empty){ dialSay(el, ""); return false; }
+  if(r.nan){                                     // "abc", "1e", "--3": there is no value to bound
+    dialSay(el, "not a number — the module is reading its default here"); return false; }
+  // dialRead TRUNCATES rather than rounding, because every one of these is read through
+  // clampInt → parseInt, and the point of the exercise is that the field and the engine agree.
+  // 23.7 computes as 23, so the field must say 23 — rounding to 24 trades one disagreement
+  // for another.
+  if(r.ok){ dialSay(el, ""); return false; }
+  el.value = String(r.c);
+  dialSay(el, r.c === r.hi && r.n > r.hi ? `bounded to ${r.c} — the declared maximum`
+    : r.c === r.lo && r.n < r.lo ? `bounded to ${r.c} — the declared minimum`
+    : `read as ${r.c}`);
   return true;
 }
 // every typeable numeric dial on the page, including the ones the Realms engine writes into its
@@ -4386,7 +4435,7 @@ document.getElementById("l_era").addEventListener("input", ()=>{
 // remember setting. Opening a link is a deliberate act, and the sheet says so when one is opened.
 // The first token carries TWO facts, separated by a dot: the FORMAT and the BUILD.
 //
-//   fm=1.v3_distraint_ang_…
+//   fm=1.v3-2026-08-02_distraint_ang_…
 //      │  └── the build that wrote it. Advisory only, and it may be absent (every link copied
 //      │      before this token existed reads as "unknown build"). It exists because the format
 //      │      version below answers the wrong question: it changes when the FIELD LIST changes,
@@ -4397,7 +4446,24 @@ document.getElementById("l_era").addEventListener("input", ()=>{
 //      │      dials it names are all still real — so it is admitted and the sheet says so.
 //      └───── the format. A version this build does not speak is refused WHOLE, as before.
 const LINK_V     = "1";        // bump when the field list changes; an old link is then refused whole
-const LINK_BUILD = "v3";       // bump on any release whose formulas move a serialized dial's meaning
+// The build stamp is a RULES REVISION, not the public release label, and it took two attempts to
+// get right. The first cut read "v3" — the release label, which is exactly the collision the stamp
+// exists to detect, since two builds can both be v3 and compute differently. The second read
+// "v3-2026-08-02", which fails the same way for the same reason: this page shipped twice in one
+// day, and both builds would have carried that date.
+//
+// So it leads with a MONOTONIC COUNTER, which cannot collide, and carries the date only to be
+// readable in the warning the reader actually sees. The rule is the semantic one:
+//
+//   BUMP THE COUNTER WHENEVER A FORMULA MOVES THE MEANING OF A SERIALIZED DIAL,
+//   whether or not the public version changes. Never bump it for prose, layout or tests.
+//
+// A public v4 with no rules change keeps this stamp; a silent patch that re-prices the muster
+// moves it. The two identifiers answer different questions and must not be tied together.
+//
+//   r1 — the quittance ladder as first serialized (retrospective; links from it carry no stamp)
+//   r2 — the riding serjeant's garrison credit withdrawn for the term (h_cover)
+const LINK_BUILD = "r2-2026-08-02";
 const LINK_SEP   = "_";        // no dial value contains it — h_chart's "0.5" is why it is not "."
 // The estate, and only the estate: the Domains dials the self-test already drives, plus the
 // scutage rate. Officers and Realms are not on the wire. `land` here is the Domains slider and
@@ -4576,7 +4642,7 @@ document.getElementById("sheetreset").addEventListener("click", ()=>{
 // handed out for the self-test, exactly as FM.realm hands out the Realms closure's functions —
 // the tests drive the real encoder against the real controls, never a copy of either
 FM.link = {encode:encodeLink, decode:decodeLink, apply:applyLink,
-           reset:resetDials, share:shareLink, dials:LINK_DIALS,
+           reset:resetDials, share:shareLink, dials:LINK_DIALS, build:LINK_BUILD,
            // set by the chrome further down, where the fragment is actually written
            hash:null, go:null, addr:()=>LINK_ADDR};
 
@@ -5758,7 +5824,7 @@ addEventListener("load", ()=>{
 // So the anchors are taken over. One delegated handler, because three of the cross-links are in
 // prose and outside the nav, and the skip link is neither. The fragment is written by hand:
 //
-//     #tab-domains&fm=1.v3_distraint_…&sec-ladder
+//     #tab-domains&fm=1.v3-2026-08-02_distraint_…&sec-ladder
 //        └ tab        └ estate            └ section
 //
 // which no browser will scroll to on its own — hence preventDefault and an explicit jump. That
@@ -5831,6 +5897,7 @@ FM.link.hash = hashStr;
 FM.link.go   = id => { const was = HASH_SEC; HASH_SEC = id;
                        const h = hashStr(); HASH_SEC = was; return h; };
 FM.commitDial = commitDial;
+FM.announceDial = announceDial;   // the live reading, tested without a real keystroke
 
 
 // ================= TAB 3: Feudal Realms =================
@@ -6650,10 +6717,10 @@ function selfTest(){
   // the build stamp is the opposite case: every dial in such a link is real, so it is ADMITTED
   // and flagged. Refusing it would throw away a usable estate; taking it in silence is the lie.
   T("a link from another build is admitted", ()=> {
-      const r = L.decode(shot.replace("fm=1.v3_", "fm=1.v2.8_"));
+      const r = L.decode(shot.replace("fm=1." + L.build + "_", "fm=1.v2.8_"));
       return r && r.build === "v2.8" ? true : `build ${r && r.build}`; });
   T("…and a stampless link reads as an earlier build", ()=> {
-      const r = L.decode(shot.replace("fm=1.v3_", "fm=1_"));
+      const r = L.decode(shot.replace("fm=1." + L.build + "_", "fm=1_"));
       return r && r.build === "" ? true : `build ${r && r.build}`; });
   T("an out-of-range field is bounded, and said", ()=> {
       const parts = shot.split("_"), i = L.dials.findIndex(d => d[0] === "h_fam") + 1;
@@ -6705,6 +6772,37 @@ function selfTest(){
       set("h_fam", 40);
       return (FM.commitDial(dG("h_fam")) === false && dG("h_fam").value === "40") ? true
            : dG("h_fam").value; });
+
+  // ---- and the transient, WHILE the reader is still typing ----------------------------------
+  // The write-back fixed the permanent disagreement and left a temporary one: renders run on
+  // `input`, the commit on `change`, so between typing 999 and leaving the field the cards were
+  // priced on 80 while the field read 999 and said nothing. Neither the value nor the render
+  // moves — the reading is DISCLOSED live instead, so nothing on screen is silently wrong.
+  const noteOf = id => { const n = dG("bound-" + id); return n && !n.hidden ? n.textContent : ""; };
+  T("mid-typing, an over-range field says what is being read", ()=> {
+      set("h_fam", 999); FM.announceDial(dG("h_fam"));
+      return /reading 80/.test(noteOf("h_fam")) ? true : `note: "${noteOf("h_fam")}"`; });
+  T("…and the field itself is NOT rewritten yet", ()=> eq(dG("h_fam").value, "999"));
+  T("…which is exactly what the engine goes on to use", ()=> eq(clampInt("h_fam", 8, 80, 23), 80));
+  // the asymmetry, and it is the point: a value UNDER the minimum may be the prefix of a valid
+  // entry, so it waits for blur. h_fam's floor is 8 and most two-digit entries start below it —
+  // announcing there put a warning flash on ordinary typing, which is a worse trade than the
+  // mismatch it fixed. Above the maximum no further digit recovers, so that one is said at once.
+  T("mid-typing, an under-range field stays quiet", ()=> {
+      set("h_fam", 2); FM.announceDial(dG("h_fam"));      // "2" — the start of "23"
+      return eq(noteOf("h_fam"), ""); });
+  T("…and a bare minus sign does too", ()=> {
+      set("u_cha", "-"); FM.announceDial(dG("u_cha"));    // "-" — the start of "-3"
+      const n = noteOf("u_cha"); set("u_cha", 0);
+      return n === "" ? true : `note: "${n}"`; });
+  T("…but blur still bounds and says it", ()=> {
+      set("h_fam", 2); FM.commitDial(dG("h_fam"));
+      return (dG("h_fam").value === "8" && /bounded to 8/.test(noteOf("h_fam"))) ? true
+           : `value ${dG("h_fam").value}, note "${noteOf("h_fam")}"`; });
+  T("a value on its way to valid clears the notice", ()=> {
+      set("h_fam", 999); FM.announceDial(dG("h_fam"));
+      set("h_fam", 23);  FM.announceDial(dG("h_fam"));
+      return eq(noteOf("h_fam"), ""); });
   set("h_fam", 23);
   T("a truncated link is refused whole",     ()=> eq(L.decode(shot.split("_").slice(0, 9).join("_")), null));
   // …but a link short by exactly the dials appended since is NOT truncated, it is last release's,
