@@ -15,7 +15,7 @@ const CDEF = ["dom","ang","dis"];
 const ASSESS = ["ancient","current"];
 const LAND = [3,6,9];
 const FAM  = [8,14,23,24,80];
-const SCUT = ["raw","hist","full"];
+const SCUT = ["raw","ang","john","late","full"];   // the dial's own option values
 
 const set = (id, v) => { const e = byId(id); if(e.type === "checkbox") e.checked = !!v; else e.value = String(v); };
 
@@ -55,3 +55,10 @@ for(const smode of SCUT){
 }
 console.log(`${n} states swept, ${hits.length} defective`);
 hits.slice(0, 25).forEach(h => console.log("  " + h));
+
+// ---- the exit code, which is the only thing a workflow reads ----------------------------------
+// This script printed its findings and exited 0 regardless. In CI that means a run reporting
+// defects stays GREEN, and a README calling this a gate is telling the truth about the intent and
+// not about the behaviour. process.exitCode rather than process.exit(): the latter can truncate
+// pending stdout on a pipe, and the output most at risk is the failure detail you actually need.
+if(hits.length) process.exitCode = 1;

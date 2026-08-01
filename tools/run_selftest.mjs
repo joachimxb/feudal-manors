@@ -40,4 +40,6 @@ catch(e){
 }
 console.log(`\n${r.pass} passed, ${r.fail} failed${r.skip ? `, ${r.skip} skipped` : ""}\n`);
 for(const o of r.out) if(o.ok === false) console.log("FAIL · " + o.name + "  — " + o.got);
-process.exit(r.fail ? 1 : 0);
+// exitCode, not exit(): those FAIL lines are the whole reason to run this, and process.exit()
+// can truncate pending stdout on a pipe — cutting exactly the output CI exists to surface.
+process.exitCode = r.fail ? 1 : 0;

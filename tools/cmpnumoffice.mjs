@@ -16,3 +16,10 @@ for(const rate of [1,2,3]) for(const cls of [0,1,2]) for(const pay of [0,8,9,409
 }
 console.log(`offices: ${ok} numerically identical, ${bad.length} differing`);
 bad.slice(0,4).forEach(d=>console.log("  "+d));
+
+// ---- the exit code, which is the only thing a workflow reads ----------------------------------
+// This script printed its findings and exited 0 regardless. In CI that means a run reporting
+// defects stays GREEN, and a README calling this a gate is telling the truth about the intent and
+// not about the behaviour. process.exitCode rather than process.exit(): the latter can truncate
+// pending stdout on a pipe, and the output most at risk is the failure detail you actually need.
+if(bad.length) process.exitCode = 1;

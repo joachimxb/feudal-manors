@@ -10,7 +10,7 @@
 // The pairs below are read off the stylesheet by hand rather than computed from it: a CSS parser
 // would tell you which colours meet, not which ones a reader actually reads one against the other
 // (a badge on a card on parchment resolves three backgrounds deep). Adding a coloured rule to the
-// page means adding its pair here. 47 pairs, 0 failing, since item 7's contrast pass.
+// page means adding its pair here. 53 pairs, 0 failing.
 const BEFORE = process.argv.includes("--before");
 
 const hex = h => { h = h.replace("#", ""); if(h.length === 3) h = h.split("").map(c => c + c).join("");
@@ -56,6 +56,10 @@ const PAIRS = [
   ["--hint .hint on white",                V.hint,  V.white, 12, 0],
   ["--hint .hint on parchment",            V.hint,  V.parch, 12, 0],
   ["header p tan on --green",              V.tan,   V.green, 13, 0],
+  // the ledger reading in the state bar — three faces on the bar's own dark green
+  ["sbledger row label tan on bar",         V.tan,   V.bar,   12, 1],
+  ["sbledger value cream on bar",           V.cream, V.bar,   12, 0],
+  ["sbledger note sage on bar",             "#8fa285", V.bar, 12, 0],
   ["header .hframe #e6dcc0 on --green",    "#e6dcc0", V.green, 13.5, 0],
   ["topnav link tan on --green",           V.tan,   V.green, 12.5, 1],
   ["topnav .on #fff on --green",           V.white, V.green, 12.5, 1],

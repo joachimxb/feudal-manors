@@ -13,7 +13,7 @@ from; publishing the harness is that argument applied to the verification.
 
 ```
 node tools/run_selftest.mjs index.html      # the in-page suite, driven headless
-node tools/sweep.mjs        index.html      # ~2,880 states, no NaN or undefined
+node tools/sweep.mjs        index.html      # ~4,800 states, no NaN or undefined
 node tools/check_nav.mjs    index.html      # the estate survives a nav click
 node tools/audit_a11y.mjs   index.html
 node tools/audit_contrast.mjs
@@ -21,6 +21,28 @@ node tools/audit_units.mjs  index.html
 ```
 
 `.github/workflows/verify.yml` runs exactly these on every push.
+
+## Which of these can actually fail
+
+| Script | Behaviour |
+|---|---|
+| `run_selftest.mjs` | **gate** — exits 1 on any failed check |
+| `sweep.mjs` | **gate** — exits 1 if any state is defective |
+| `check_nav.mjs` | **gate** — exits 1 on any failed check |
+| `cmpnum` · `cmpnumoffice` · `cmprealm` | **gate**, but needs a baseline — local pre-release, not CI |
+| `audit_a11y` · `audit_contrast` · `audit_units` | **not gates, by design** — always exit 0 |
+
+This table is here because it was once false. `sweep.mjs` and the three numeric diffs printed their
+findings and exited 0 regardless, so a run reporting fifty defective states stayed green and a diff
+that found a real numeric change reported it and passed. The claim that they "fail" described the
+intent, not the behaviour. All four now set `process.exitCode`.
+
+`process.exitCode` rather than `process.exit()` throughout: the latter can truncate pending stdout
+on a pipe, and the output most at risk is the failure detail that is the whole reason to run the
+thing. That applies to the two scripts that always did gate, so they were changed too.
+
+The audits stay non-gating deliberately — they are lists, and a number that grows is the finding.
+That is a choice, not an oversight, and it is why they are named separately above.
 
 ## What each one is
 
@@ -31,9 +53,9 @@ imports it; nothing re-implements it.
 **`run_selftest.mjs`** — prints the opening writ, fires the load handlers, shows all three tabs, and
 runs `FM.selfTest()`. The suite itself lives **in the page**: run it in any browser by appending
 `#selftest` to the URL, or by calling `FM.selfTest()` in the console. This script is only a way to
-run it without one. **183 checks, 0 failures** at the current build.
+run it without one. **192 checks, 0 failures** at the current build.
 
-**`sweep.mjs`** — walks ~2,880 dial combinations and fails on any `NaN`, `undefined` or empty figure
+**`sweep.mjs`** — walks ~4,800 dial combinations and fails on any `NaN`, `undefined` or empty figure
 reaching the writ, a card or the ladder. Catches the class of bug where one rare combination of
 century, definition and assessment produces a sentence with a hole in it.
 
@@ -53,7 +75,7 @@ group of buttons. Four tab stops per setting, the same choice announced twice. V
 interactive element is only safe if it is **also** `tabindex="-1"` **and** `aria-hidden="true"`, or
 genuinely `display:none`.
 
-**`audit_contrast.mjs`** — 50 colour pairs against WCAG 2.1, **0 failing**. `--before` restores the
+**`audit_contrast.mjs`** — 53 colour pairs against WCAG 2.1, **0 failing**. `--before` restores the
 earlier palette and reproduces its 11 failures, so the finding survives the fix. Pairs are listed by
 hand rather than parsed out of the CSS: a reader meets a badge on a card on parchment, three
 backgrounds deep, and a parser would report which colours *meet* rather than which are actually read

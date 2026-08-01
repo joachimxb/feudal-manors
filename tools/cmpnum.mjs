@@ -56,3 +56,10 @@ console.log(`${STATES.length} states · ${ok} numerically identical · ${bad.len
 const seen = new Set();
 for(const d of bad){ const k = d.split("· ")[1].slice(0, 80); if(seen.has(k)) continue; seen.add(k);
   console.log("  " + d); if(seen.size >= 6) break; }
+
+// ---- the exit code, which is the only thing a workflow reads ----------------------------------
+// This script printed its findings and exited 0 regardless. In CI that means a run reporting
+// defects stays GREEN, and a README calling this a gate is telling the truth about the intent and
+// not about the behaviour. process.exitCode rather than process.exit(): the latter can truncate
+// pending stdout on a pipe, and the output most at risk is the failure detail you actually need.
+if(bad.length) process.exitCode = 1;

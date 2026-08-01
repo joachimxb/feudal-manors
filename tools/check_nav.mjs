@@ -81,4 +81,6 @@ T("Reset empties the estate out of the address again", () => {
 });
 
 console.log(`\n${pass} passed, ${fail} failed\n`);
-process.exit(fail ? 1 : 0);
+// exitCode, not exit(): the pass/fail lines above are the point of running this, and
+// process.exit() can truncate them on a pipe.
+process.exitCode = fail ? 1 : 0;
