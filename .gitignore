@@ -1,0 +1,13 @@
+# This repo ships one page: index.html, plus README and LICENSE.
+# Anything else in the working directory is local noise and must not be
+# published by a stray `git add .`.
+#
+# Note: `#` only opens a comment at the START of a line. A trailing comment
+# is part of the pattern, so these stay on their own lines.
+
+# Notepad++ backup copies of index.html
+nppBackup/
+
+# Windows shell / macOS Finder droppings
+Thumbs.db
+.DS_Store
