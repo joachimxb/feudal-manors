@@ -191,7 +191,18 @@
     font-weight:700;text-transform:uppercase;letter-spacing:.07em;line-height:1.6;
     padding:0 4px;border-radius:3px;border:1px solid;vertical-align:1px;white-space:nowrap;
     cursor:help;font-variant-numeric:normal}
+  /* the public release number, deliberately quiet: a reader should be able to find out which
+     artifact he is reading without the page announcing it at him */
+  .vchip{display:inline-block;white-space:nowrap;margin-left:8px;font-size:11px;font-weight:400;
+    letter-spacing:.02em;color:#cdbf98}
+  .vchip a{color:inherit}
   .bdg.raw{color:#1c4429;border-color:#8fae96;background:#eaf2ec}
+  /* RAW-INFORMED: RAW's ink and RAW's ground, on a DASHED rule. The visual says exactly what the
+     badge means — this is the rulebook's own material, and the border is not closed, because RAW
+     motivated the claim without supplying it. Reusing raw's colour pair is deliberate: it is the
+     same evidence, differently bounded, and it inherits an already-verified contrast reading. The
+     labels are never confusable at 8.5px either, RAW-INFORMED being four times the width. */
+  .bdg.rin{color:#1c4429;border-color:#7fa387;background:#eaf2ec;border-style:dashed}
   .bdg.mod{color:#6d5410;border-color:var(--rule);background:#faf3df}
   .bdg.his{color:#5b5443;border-color:#cfc6b0;background:#f2eee4}
   .bdg.hrn{color:#39587a;border-color:#a9c0d6;background:#eaf1f7}
@@ -593,7 +604,12 @@
 <header>
   <h1 id="mh-title">Feudal Manors — fees &amp; the fighting men they buy</h1>
   <p class="hframe">An ACKS II house-rule framework inspired by English and Burgundian military tenure.</p>
-  <p><b id="mh-arg">A sub-baronial enfeoffment module for ACKS II · lance and levy in place of coin — the fee quit of its garrison line by service, on the written terms of the assize of the fee</b></p>
+  <p><b id="mh-arg">A sub-baronial enfeoffment module for ACKS II · lance and levy in place of coin — the fee quit of its garrison line by service, on the written terms of the assize of the fee</b>
+  <!-- The version chip was removed in v3, which left a reader unable to tell which build he had —
+       and with the custom of record now changing every figure on the page by 2.25×, "which build"
+       is a question with consequences. Restored as the public release number only: the internal
+       LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
+  <span class="vchip">v3.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -672,9 +688,9 @@
   <div class="ptitle">The district</div>
   <label for="m_cls">Civilization class <span style="font-weight:400;font-style:italic">(it caps the population below and sets the garrison)</span></label>
   <select id="m_cls">
-    <option value="0">Civilized — holds up to 780 fam/hex · demesne nets land+1</option>
-    <option value="1">Borderlands — up to 375 fam/hex · demesne nets land</option>
-    <option value="2">Outlands — up to 185 fam/hex · demesne nets land−1</option>
+    <option value="0">Civilized — holds up to 780 fam/hex · garrison 2 gp/family</option>
+    <option value="1">Borderlands — up to 375 fam/hex · garrison 3 gp/family</option>
+    <option value="2">Outlands — up to 185 fam/hex · garrison 4 gp/family</option>
   </select>
   <label for="m_dens">Population under it — families per 6-mile hex</label>
   <select id="m_dens">
@@ -715,7 +731,7 @@
        manor. The box is therefore never inert and never a lie: it always says what the estate's
        families are, and always changes them. -->
   <label for="m_fam">Its families <span style="font-weight:400;font-style:italic" id="hfam-lab"></span></label>
-  <input type="number" id="m_fam" min="8" max="80" step="1" style="width:100%;font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--rule2);border-radius:4px">
+  <input type="number" id="m_fam" min="8" max="800" step="1" style="width:100%;font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--rule2);border-radius:4px">
   <p class="pnote" id="hfam-note"></p>
 </div>
 <div class="pop" id="pop-paper" hidden>
@@ -862,6 +878,7 @@
   <a href="#sec-library">Library</a>’s ⚖ doctrine tables.</p>
   <div class="badgekey">
     <span class="k"><span class="bdg raw" title="ACKS II, rules as written — page-exact, and cited">RAW</span> ACKS II as written, cited to the page.</span>
+    <span class="k"><span class="bdg rin" title="RAW's own wording motivates this step, but does not supply the value or the setting — that part is the module's, and is badged MODULE where it is stated">RAW-INFORMED</span> RAW motivates the step; the number is still ours.</span>
     <span class="k"><span class="bdg mod" title="this module's own ruling; RAW does not say it">MODULE</span> this module’s ruling — RAW does not say it.</span>
     <span class="k"><span class="bdg his" title="a historical institution, borrowed as an analogy — not a rule of the game">HISTORY</span> a historical institution, borrowed — not a game rule.</span>
     <span class="k"><span class="bdg hrn" title="specific to the Hârn setting, and to Kaldor">HÂRN</span> setting-specific: Hârn, and Kaldor.</span>
@@ -1026,7 +1043,7 @@
     <div class="ldesc" style="font-weight:700;color:var(--green);margin-bottom:2px">How rich is the dirt? — 3 poor · 6 ordinary · 9 rich</div>
     <div class="ldesc lead">Sets what a family yields — and therefore how big each fresh fee must be: richer dirt, smaller fees. Standing manors never resize; they re-grade (the live line below).</div>
     <details class="deeper"><summary>⚖ Deeper — grant-time floors, rich dirt, and the standing manor</summary>
-    <div class="ldesc">3d3 per hex, rolled when the domain is secured (RR p.338) — average 6. A fee-holder nets <b>land + 3</b> gp/family. The slider prices the <b>floor at grant-time</b>: on rich dirt a lord seats the same man on fewer families — and will, since every family he grants away costs him more demesne there. Standing manors don't shrink — moving the slider reprices a <i>fresh grant</i>, it does not follow one manor through changing fortunes; the grown manor (Muster section) does that.</div></details>
+    <div class="ldesc">3d3 per hex, rolled when the domain is secured (RR p.338) — average 6. What a fee-holder <i>nets</i> from a family depends on the <b>custom of record</b> below — <b>land + 3</b> under ACKS RAW revenues, <b>land − 2</b> under the customary rent — and the live figure is printed beside the slider. The slider prices the <b>floor at grant-time</b>: on rich dirt a lord seats the same man on fewer families — and will, since every family he grants away costs him more demesne there. Standing manors don't shrink — moving the slider reprices a <i>fresh grant</i>, it does not follow one manor through changing fortunes; the grown manor (Muster section) does that.</div></details>
     <div class="rangewrap"><input type="range" id="land" min="3" max="9" step="1" value="6" aria-labelledby="ln-land"><output class="val" id="landv" for="land"></output></div>
     <div class="rollrow"><button type="button" class="sbtn" id="rolland">Roll 3d3</button><output class="rolled" id="rolledv" for="rolland"></output></div>
     <div class="ldesc" id="standing" style="margin-top:6px"></div>
@@ -1171,22 +1188,84 @@
     </div>
   </div>
 
+  <div class="lever">
+    <div class="lname"><span id="ln-cust">The custom of record — what a family yields</span> <span class="bdg rin" title="RAW's own wording makes service revenue the licence income of a freeman's trades, which motivates a customary population yielding LESS than RAW's commercial profile. That is the direction only — RAW supplies no value">RAW-INFORMED</span> <span class="bdg mod" title="the numbers are the module's: a calibration target of 4 gp net per family at land 6, which leaves exactly one whole gp to divide between service and tax, and the module assigns it to service. Peasant TAX 0 is then a residual, and it is also a RAW dial at its floor (p.349). Urban families keep RAW's 4/2 untouched — a further module ruling, since RAW propagates a domain's tax setting to them">MODULE</span></div>
+    <div class="ldesc" style="font-weight:700;color:var(--green);margin-bottom:2px">Is this a manor, or a taxed province?</div>
+    <div class="ldesc lead">The definition of record above says what <b>body</b> the charter names. This says what a
+    <b>family</b> yields — and it is the same thesis one level down: a fixed paper, with the land drifting away from
+    it. <b>Customary</b> is a villein population holding by custom of the manor: the rent is the land, and service
+    falls to the seigneurial monopolies alone. <b>ACKS RAW</b> is the rulebook as printed — a free, taxed,
+    commercial peasantry, and it is offered here as a <b>comparison</b>, not as a rival century: no era preset
+    selects it, and picking a century never moves it. <b>Urban settlements are untouched either way</b>: a borough
+    really is free, taxed and commercial, which is exactly why the manor is not.</div>
+    <details class="fold"><summary>Why service is 1 and tax is 0 — one derivation, and it can be proved wrong</summary>
+    <div class="ldesc">Not a pile of arguments. <b>One residual allocation inside a calibrated model</b>, and it is
+    stated this way so that a Judge who disagrees knows exactly which number to attack.
+    <p style="margin:6px 0 0">At land value 6 the customary profile is calibrated to a net receipt of <b>4 gp</b> per
+    full-tenement unit — that is the historical input, drawn from the manorial record (see <i>the evidence</i> in the
+    Library). The ledger then closes itself: <code>4 = 6 + service + tax − 3</code>, so
+    <b><code>service + tax = 1</code></b>. At ACKS's whole-gold-piece resolution there is exactly <b>one point</b> of
+    non-land recurring revenue left to place, and the only question is where it sits.</p>
+    <p style="margin:6px 0 0">RAW answers that: service revenue is the licence income of skilled freemen —
+    <i>"Most of these services are provided by <b>freemen</b> who offer a portion of their labor to the ruler in
+    exchange for the right to practise their trade on his domain"</i> (RR p.341) — and a customary manor still has
+    mills, smiths, bakehouses and brewing. So the residual is <b>not</b> zero, and it belongs on the service line.
+    Tax takes what remains, which is nothing.</p>
+    <p style="margin:6px 0 0"><b>Tax 0 is not a claim that the dues vanished.</b> Heriot, merchet, entry fines, court
+    profits, tolls and assized rent were all real and all collected. It says this profile <i>resolves no separate
+    whole-gp monthly tax line</i> beyond a total recurring receipt that is already calibrated. Note the trap in a
+    weaker version of this argument, which this page used to make: every individual due being smaller than RAW's
+    smallest digit does <b>not</b> make their sum smaller than it. The honest claim is about what is separately
+    resolved, not about what is negligible.</p>
+    <p style="margin:6px 0 0"><b>What is booked where.</b> Agricultural <i>week-work</i> is represented through the
+    <b>land</b> line, because that labour produces the demesne output RAW's land line already collects — so
+    labour-rent is not priced twice. That is a bookkeeping convention, and its limits are worth stating: customary
+    tenants commonly owed works <i>and</i> a fixed money rent on the same holding. The thirteenth-century
+    <i>Extenta Manerii</i> asks its surveyors for <i>"how much rent of assize be paid yearly <b>besides</b> the works
+    and customs"</i> — so cash rent and labour service were two obligations, not one. This module does not resolve
+    them separately; it does not claim they were the same.</p>
+    <p style="margin:6px 0 0"><b>Relief, aid and wardship are a different layer entirely</b> — they run from the
+    fee-holder <i>up</i> to his liege and replace recurring tribute at <i>that</i> level. They neither duplicate nor
+    excuse peasant dues below it.</p>
+    <p style="margin:6px 0 0"><b>How to falsify this.</b> Move the calibration target and the allocation moves with
+    it. If rural service ought to round to nothing, then tax is 1 and service 0. If local cash dues demonstrably need
+    another whole gold piece, then either the target net is too low or this decomposition is wrong. Every step is a
+    number you can argue with.</p>
+    Tax 0 is in any case <b>RAW's own dial at its floor</b> (p.349), and it pays the domain <b>+2 morale</b> for
+    sitting there — the manorial bargain stated in RAW's own table: the lord takes less in coin and is owed more in
+    obedience.
+    <b>The lord's own line follows</b>: where he hires the garrison instead of receiving it in service he nets
+    feeNet − 2/3/4 by district, so at the customary rent an <i>outlands</i> demesne nets exactly nothing — the
+    frontier held in hand pays for its own protection and no more.</div></details>
+    <div class="field" style="margin:4px 0;max-width:380px">
+      <select id="l_cust" aria-labelledby="ln-cust">
+        <option value="cust" selected>Customary — villeins by custom of the manor (service 1, tax 0)</option>
+        <option value="raw">ACKS RAW — a free, taxed, commercial peasantry (4, 2)</option>
+      </select>
+    </div>
+  </div>
+
 
   <div class="lever">
     <div class="lname"><span id="ln-scut">The scutage rate — what coin buys off a lance</span> <span class="bdg mod" title="the DEFAULT is RAW to the gold piece — the Call to Arms at 1 gp per family (p.346), divided by fee-equivalents and quantized to the year's one month. The other two settings are the module's, and the rate is a lever because historically it was one">MODULE</span></div>
     <div class="ldesc" style="font-weight:700;color:var(--green);margin-bottom:2px">What does it cost to commute one missing lance?</div>
     <div class="ldesc lead">What a fee pays when no body rides. <b>RAW anchor</b>: the estate's own Call-to-Arms
-    value, 1 gp a family — the default, and RAW exactly. <b>Historical</b>: about a quarter of what hiring the
-    month costs, which is roughly where English scutage actually sat. <b>Full replacement</b>: the crown charges
-    what the substitute costs, and commutation stops being a bargain.</div>
+    value, 1 gp a family — the default, and RAW exactly. <b>Customary Angevin</b>, <b>John's</b> and <b>later
+    negotiated</b> price the century's postures, from about a quarter of a substitute's hire down to a decayed
+    sixth. <b>The requirement in full</b>: the crown charges the whole recorded requirement, and commutation
+    stops being a bargain — though under the ordinance even that buys no lance, the paper standing at 100 and
+    the lance costing 145.</div>
     <details class="deeper"><summary>⚖ Deeper — why the cheap rate is the interesting one</summary>
     <div class="ldesc">Scutage is <b>not</b> priced at what it replaces, and that gap is the whole institution.
     English scutage ran about <b>20s per fee</b> against a knight's 2s a day for forty days — roughly <b>£4</b>, so
     about a <b>quarter</b> of a substitute's hire. The crown took the coin and still had to find the man; the
     difference came from <b>fines for respite</b>, <b>aids</b> at the three occasions, wardships, and reliefs —
     which is why a king's military finance is never one line in a ledger, and why barons fought over the rate
-    rather than the principle. Set the dial to <b>full replacement</b> and the argument disappears: no lord would
-    ever prefer coin, commutation dies, and the fee stays a body forever. Set it to the <b>RAW anchor</b> and coin
+    rather than the principle. Set the dial to <b>the requirement in full</b> and the argument disappears wherever
+    the paper and the hire agree: no lord would ever prefer coin, commutation dies, and the fee stays a body
+    forever. Under the <b>ordinance</b> it does not disappear — the requirement is still the Angevin 100 while the
+    lance it must replace costs 145, so rendering the paper in full leaves the crown 45 gp short of a man. That
+    residue is the ordinance's whole bargain. Set it to the <b>RAW anchor</b> and coin
     is so cheap that a Judge should expect his knights to reach for it — which is exactly what the record shows
     them doing. <b>Keefe's caution applies</b>: scutage was never one story, and the rate moved by reign, by
     campaign, and by who was arguing. The dial does not model that drift; it lets a Judge pick a century's
@@ -1197,7 +1276,7 @@
         <option value="ang">Customary Angevin — ~20s the fee, ≈¼ of the term's hire</option>
         <option value="john">John's rate — the raised assessments, ≈½ the hire</option>
         <option value="late">Later negotiated — the due decayed, ≈⅙ the hire</option>
-        <option value="full">Full replacement — hire the month outright</option>
+        <option value="full">The requirement in full — the whole recorded paper, in coin</option>
       </select>
     </div>
     <div class="ldesc" id="scutread" style="margin-top:4px"></div>
@@ -1257,7 +1336,7 @@
   <div class="viz">
     <h3>Manors at a glance <span id="glanceland" style="color:var(--mute);text-transform:none;font-weight:400"></span></h3>
     <table class="cmp" id="cmptable"></table>
-    <p class="note">Cost to lord = income he'd net keeping the land <b>in demesne</b> — the land a lord keeps and runs himself; with the garrison hired for cash that runs land+1 / land / land−1 per family at civilized / borderlands / outlands (the c/b/o triplets used throughout).
+    <p class="note">Cost to lord = income he'd net keeping the land <b>in demesne</b> — the land a lord keeps and runs himself; with the garrison hired for cash that is the fee-holder's net less 2 / 3 / 4 per family at civilized / borderlands / outlands (the c/b/o triplets used throughout — the district popover prints the sum at your current dials).
     Lord's net = retainer-equivalent − cost. Read it as a <b>comparison and never as coin</b>: what the same men would cost as standing hires, set against the income he gave up to have them instead. The cards split it into the three ledgers it was hiding — a garrison bill avoided monthly, a body owed once a year, and a wage not being paid — because those are three different kinds of number and only the first is a saving that recurs. <b>The surplus of enfeoffment is largely the garrison bill he no longer pays</b>, which is why knights profit a lord most on the frontier — and why the militia table below, where he pays that bill in yeomen instead, is the comparison that actually decides it.
     Each rung ≈ 2× the one below (wages double per level), so fees count in powers of two in the grade they <i>retain</i>: 1 fee keeps an L3, 2 an L4, 4 an L5 — what the fee <i>grows</i> unaided is one level shy (the knight's contract, ⚖ below).</p>
   </div>
@@ -1422,17 +1501,17 @@
       <div role="radiogroup" aria-labelledby="cb-holder" class="cboxes" data-for="h_holder"></div>
       <div class="ctrls" style="margin-top:12px">
         <div>
-          <div class="field"><label id="lab-hcls" for="h_cls">Barony district class <span class="hint">(moves the demesne rate only — a fee's own land+3 never moves with class: the quittance's quiet gift)</span></label>
+          <div class="field"><label id="lab-hcls" for="h_cls">Barony district class <span class="hint">(moves the demesne rate only — a fee's own net never moves with class, being quit of that line by service: the quittance's quiet gift. The figures below are the garrison RATES, which are RAW under either custom of record; what they are deducted <i>from</i> moves with it)</span></label>
             <select id="h_cls" class="srsel" aria-hidden="true" tabindex="-1" aria-label="Barony district class">
-              <option value="0" selected>civilized — demesne nets land+1</option>
-              <option value="1">borderlands — land</option>
-              <option value="2">outlands — land−1</option>
+              <option value="0" selected>civilized — garrison 2 gp/family</option>
+              <option value="1">borderlands — 3 gp/family</option>
+              <option value="2">outlands — 4 gp/family</option>
             </select>
             <div role="radiogroup" aria-labelledby="lab-hcls" class="cboxes two" data-for="h_cls"></div></div>
         </div>
         <div>
-          <div class="field"><label for="h_fam">The grown manor — families <span class="hint">(against the charter below: their ratio is what tells two same-sized manors apart. <b>8–80 families</b> is the range this card models — a declared bound, not a derived law: below it the estate is thinner than the ladder's own lowest fee at most land values, and above it the count has left the fee behind for the barony)</span></label>
-            <input type="number" id="h_fam" min="8" max="80" step="1" value="23"></div>
+          <div class="field"><label for="h_fam">The grown manor — families <span class="hint">(against the charter below: their ratio is what tells two same-sized manors apart. <b>8–800</b> is what this card can represent — a declared technical capacity, not a derived law. Below 8 the estate is thinner than the ladder's own lowest fee at most land values. The figure worth watching is not the maximum but the <b>guidance printed under the field</b>, which moves with the land and the economy: it names what a four-fee charter costs on this ground, and twice that so an estate can outgrow its paper. Past it you are modelling a barony with a fee's tools — permitted, and said so rather than prevented)</span></label>
+            <input type="number" id="h_fam" min="8" max="800" step="1" value="50"></div>
         </div>
       </div>
       <p class="cboxlab"><span id="cb-chart">— and its charter</span> <span class="hint">(fees written at the grant — the half of its identity that is <i>not</i> its size; inert while the assessment reads <i>current</i>, since the survey re-anchors to income)</span></p>
@@ -1575,7 +1654,8 @@
     9th-level magnate adding companions who take no slot (p.334–6). How full the hall runs is a matter of demesne:
     at average land a 160-family barony clears ~320 gp/mo above the L6 wage when civilized, ~160 at borderlands,
     and nothing at outlands — the district selector above prices it, and note what does <i>not</i> move: a fee's
-    own <code>land+3</code> is class-free, the quittance's quiet gift, which is why marcher realms ran on fees while
+    own net is class-free (<code>land+3</code> under ACKS RAW revenues, <code>land−2</code> customary) — the quittance's
+    quiet gift, and it is the class-freeness rather than the figure that is the point: it is why marcher realms ran on fees while
     their barons' demesnes ran thin. Where the surplus exists, the binding constraint is never
     coin but <b>Charisma</b>: the sworn household ends at the cap, and past it stand non-henchman retainers at base
     −2 — annuitants, liveried men, the bought and re-bought. <b>The affinity begins where Charisma runs out.</b>
@@ -1716,12 +1796,13 @@
     <div class="scroll"><table class="audit"><caption class="vh">Module doctrine — where this module deviates from RAW, and why</caption>
       <thead><tr><th scope="col">Ruling</th><th scope="col">What RAW says</th><th scope="col">Why we rule it</th></tr></thead>
       <tbody>
-        <tr><th scope="row"><b>The fee is QUIT of the garrison line by service</b> — the lance and the trained levy discharge it in kind, and the fee nets <code>land+3</code>. Nothing and no one is priced onto the line.</th>
+        <tr><th scope="row"><b>The fee is QUIT of the garrison line by service</b> — the lance and the trained levy discharge it in kind, and the fee keeps its whole net — <code>land+3</code> under ACKS RAW revenues, <code>land−2</code> under the
+          customary rent. Nothing and no one is priced onto the line.</th>
           <td>The garrison line is a <b>protection-value floor, not a payroll</b>: RAW itself meets it with unpaid value — trained militia "even if the militia is not called up," scutage, a lord's troops (p.341–2) — though "garrison cost cannot be paid with expenditure on henchman… except actual troops." And the scutage duty (p.346) grants its garrison credit <i>and</i> says "<b>in some realms</b>, a vassal may send troops instead of gp" in the same entry — the cash/kind equivalence is printed, realm-conditional; <b>this module's realms are declared such realms</b>, which is the whole of the Library’s History chapter’s era claim. RAW's channel for the vassal's person is Call to Council, unpriced (p.346)</td>
-          <td><b>This is the module's structural deviation — owned, bounded, priced</b> (the p.342 aside about "spending only the minimum 2gp" reads the line as payable, not zeroable, and we zero it). The form is a <b>quittance</b>, the period's own instrument: charters made estates quit of geld (the land tax) and of castle-guard in consideration of service kept, and quit-rent is the same deal run backward — coin paid to be quit of service. The fee exercises the scutage entry's equivalence <i>standing</i>: troops instead of gp, permanently. Because the discharge is contractual, <b>no valuation of the knight is ever needed</b> — asked who actually defends the manor, the answer is the consideration itself: one knight, his squire, and his armed yeomen (in the yard, <i>the knight is still the garrison</i> — the quittance is how the ledger says it). The quittance is <b>conditional</b> — see the assize row below: a fee in default is quit for the lance only and hires its missing watch. The bound against strict RAW is small: full militia credit already equals <code>land+3</code> at civilized; the residue is the frontier increment, 1–2 gp/family — and it expires: the fee's own maturation walks it to the civilized reading (the three counts of a fee, History chapter, Library), amortizing the concession over the manor's life. Equivalently, at realm scale: <b>land held by knight-service carries no garrison line</b> — enfeoffed families garrisoned in men, demesne families in coin; the per-fee quittance and the class exemption are one fact in two ledgers.</td></tr>
+          <td><b>This is the module's structural deviation — owned, bounded, priced</b> (the p.342 aside about "spending only the minimum 2gp" reads the line as payable, not zeroable, and we zero it). The form is a <b>quittance</b>, the period's own instrument: charters made estates quit of geld (the land tax) and of castle-guard in consideration of service kept, and quit-rent is the same deal run backward — coin paid to be quit of service. The fee exercises the scutage entry's equivalence <i>standing</i>: troops instead of gp, permanently. Because the discharge is contractual, <b>no valuation of the knight is ever needed</b> — asked who actually defends the manor, the answer is the consideration itself: one knight, his squire, and his armed yeomen (in the yard, <i>the knight is still the garrison</i> — the quittance is how the ledger says it). The quittance is <b>conditional</b> — see the assize row below: a fee in default is quit for the lance only and hires its missing watch. The bound against strict RAW is small: full militia credit already equals the RAW fee-holder's net <code>land+3</code> at civilized; the residue is the frontier increment, 1–2 gp/family — and it expires: the fee's own maturation walks it to the civilized reading (the three counts of a fee, History chapter, Library), amortizing the concession over the manor's life. Equivalently, at realm scale: <b>land held by knight-service carries no garrison line</b> — enfeoffed families garrisoned in men, demesne families in coin; the per-fee quittance and the class exemption are one fact in two ledgers.</td></tr>
         <tr><th scope="row"><b>The assize of the fee</b> — the levy is a term of enfeoffment: mail per fee held, yeomen trained &amp; kitted, view of arms twice yearly; a fee in default hires the levy's watch until re-armed</th>
           <td>RAW militia is optional — a ruler <i>may</i> levy up to 2 per 10 families (p.432) — but the garrison credit's own wording sets the standard: "trained <b>and equipped</b>" (p.341–2), with kit heritable (p.432). The officer delegations include <b>inspecting troops</b> (p.352–3)</td>
-          <td>The Assize of Arms (1181) owed <b>a hauberk per fee held</b> — mail scaling with fee-count in statute — with its 10-mark freeman at the habergeon tier (his was a <i>chattels</i> assessment — movable goods, not land: the half-fee mapping borrows the kit-grade, not the tenure); the Statute of Winchester (1285) added the twice-yearly <b>view of arms</b>. Both were national legislation on all free men, enforced by royal machinery — juries and itinerant justices in 1181, elected hundred-constables in 1285. Writing their content into the charter of the fee, and their enforcement into the lord's household, is this module's deliberate transplant. Hârn's yeomen (double tenancy, own kit) are the same custom in canon. Age works against the assize, too: the mail-grade yeomen are precisely the whole-holding tenants, and fragmentation thins that stratum (the three counts of a fee, History chapter, Library) — the old subdivided manor is where the view finds habergeons pawned and the fee slides toward default. The convergence is a calibration, not a law: at land 6 — RAW's own average — the rungs' heavy-foot ceilings count <b>1 / 2 / 4</b> mail-grade yeomen on the 1-, 2-, and 4-fee rungs, the statute's scaling out of RAW's qualifying numbers, the esquire at the habergeon tier (0); richer or poorer hexes shift the counts. Default is priced, not forbidden: −levy-credit gp/mo of hired watch until the one-time re-arming is paid — distraint (the seizure of goods to compel a defaulter) as texture, on RAW numbers. And so is delivery: when the service is called, <b>the knight pays his men's wages himself</b> (provider-pays — Call to Arms, p.345–6); the month-of-service bill is on every card, and it cuts into <code>land+3</code> for the term — one month of service a year; past the forty days the lord's wages carry the host.</td></tr>
+          <td>The Assize of Arms (1181) owed <b>a hauberk per fee held</b> — mail scaling with fee-count in statute — with its 10-mark freeman at the habergeon tier (his was a <i>chattels</i> assessment — movable goods, not land: the half-fee mapping borrows the kit-grade, not the tenure); the Statute of Winchester (1285) added the twice-yearly <b>view of arms</b>. Both were national legislation on all free men, enforced by royal machinery — juries and itinerant justices in 1181, elected hundred-constables in 1285. Writing their content into the charter of the fee, and their enforcement into the lord's household, is this module's deliberate transplant. Hârn's yeomen (double tenancy, own kit) are the same custom in canon. Age works against the assize, too: the mail-grade yeomen are precisely the whole-holding tenants, and fragmentation thins that stratum (the three counts of a fee, History chapter, Library) — the old subdivided manor is where the view finds habergeons pawned and the fee slides toward default. The convergence is a calibration, not a law: at land 6 — RAW's own average — the rungs' heavy-foot ceilings count <b>1 / 2 / 4</b> mail-grade yeomen on the 1-, 2-, and 4-fee rungs, the statute's scaling out of RAW's qualifying numbers, the esquire at the habergeon tier (0); richer or poorer hexes shift the counts. Default is priced, not forbidden: −levy-credit gp/mo of hired watch until the one-time re-arming is paid — distraint (the seizure of goods to compel a defaulter) as texture, on RAW numbers. And so is delivery: when the service is called, <b>the knight pays his men's wages himself</b> (provider-pays — Call to Arms, p.345–6); the month-of-service bill is on every card, and it cuts into the fee's net for the term — one month of service a year; past the forty days the lord's wages carry the host.</td></tr>
         <tr><th scope="row"><b>The quota — a fee owes as many lances as it counts fees</b>: ½ owes joint service, 1 its holder, 2 and 4 the holder and the count beside him. A <b>lance</b> is one knight-service, and discharge is by body: a heavy horseman serves a lance whole, a medium-horse serjeant at <b>two-for-one</b>, light horse and foot not at all, coin at the scutage rate — the assize's mounted serjeants credit ½ each while it is kept. And the definition of a lance is itself the charter's, drifting by era (the definition lever): the Survey's mailed rider (60 gp — the fees re-count in him), the 1181 knight (mail per fee), the statute knight of 1285 (Winchester's enforcement overlay on the same body; the covered-horse summonses pressing past it), and the ordinance lance that absorbed the crew — the fee by then commuted. Priced on every card and in full on the Muster section</th>
           <td>RAW's Call to Arms prices the duty in gp — troops worth 1 gp/family (p.346) — and never counts lances; the wage ladder alone would read "4 fees = one L5 knight" and stop there</td>
           <td>The <i>servitium debitum</i> counted knights — one fee, one knight's service; two fees, two — and the Assize of Arms scaled <b>mail with fee-count</b>: the second hauberk of a two-fee man was a second man-at-arms's mail, not a better coat for the first. The module keeps both truths: the fee <b>retains a grade</b> (the wage ladder) and <b>owes a count</b> (the quota) — the gap between them is where scutage, the term-hire market, and the household live. The discharge is priced, not assumed: at wage-parity floors the count above one is affordable only in coin or for the term, which is the record's own answer — real multi-fee holders scutaged and hired; standing retinues awaited the margin (Muster section). The 2:1 substitution is the servitium's own record — two serjeants accepted for a knight (Pollock &amp; Maitland carry the cases) — but the <b>pinning is the module's calibration</b>, owned here: the historical serjeant was a social and tenurial category, not an equipment tier. We map him to the ACKS medium-horse body, and rule the 60-gp heavy-cavalry man sufficiently equipped to discharge a service whole, as the pay rolls' esquire-grade men-at-arms did.</td></tr>
@@ -1793,7 +1874,8 @@
         <tr><th scope="row">The enfeoffed knight is no household henchman — why does the wage table bind him?</th>
           <td>Because the wage table is the market price of a level-L man, and the fee must pay it at every point of contact. At a fee's birth from the household, p.168 applies verbatim: the lord enfeoffs a knight he was already paying, and land replaces wage. At a birth from the market — RAW lets a lord enfeoff non-henchmen outright: "mercenary commanders, adventurers" (p.347) — the fee's income is the recruitment offer, and it must meet the man's open-market wage or he rides on. And at every inheritance the market binds the <b>grade</b>, not the man: an heir on a 96-gp manor doesn't ride off — he stays, poorer, and the estate can no longer sustain the rank's establishment, so the line slides down the kit ladder toward the esquire (the threadbare fee, Design chapter, Library) while standing manors re-grade rather than resize. Netting, offering, retaining: one price — enforced hard at the first two points, and at the third by the slow slide of grade.</td></tr>
         <tr><th scope="row">Who pays when the levy is called up?</th>
-          <td>Someone does: <b>the provider</b> — RAW's general law (Call to Arms: the vassal musters troops at his own wage cost; Troops favor: the lord pays for what he sends down, p.346). The rung cards price it: afield, the knight pays his yeomen's wages and their plough-teams stand idle. The idle plough is booked at the family's <b>full revenue rate</b> (land+6), because RAW's two ledger columns come apart here: p.432 reduces domain <i>revenues</i> by one family per man levied ("produce revenue as if it has [fewer] families"), while p.342's <i>Costs per Family</i> column — liturgies, tithe, maintenance — keeps charging: the family still lives there; only its production marches. Net loss per man is therefore the whole revenue, not the fee's net take. Together roughly <b>two-fifths</b> of the fee's income for the month of service, plus −2 morale — free to keep, dear to call, which is why historical levies were short-term, defensive instruments. And the bill is bounded: the fee owes the term — one month of service a year, the forty days — at its own cost; past it the muster rides on the lord's wages (the pay ladder, 1s/2s/4s ↔ 60/100/200), as the rolls show fee-holders drawing. The knight himself is pre-paid for the term: the fee sustains him year-round — at home always, in the host for the forty days, and beyond them at the lord's coin.</td></tr>
+          <td>Someone does: <b>the provider</b> — RAW's general law (Call to Arms: the vassal musters troops at his own wage cost; Troops favor: the lord pays for what he sends down, p.346). The rung cards price it: afield, the knight pays his yeomen's wages and their plough-teams stand idle. The idle plough is booked at the family's <b>full revenue rate</b> (<code>land+6</code> under ACKS RAW revenues,
+            <code>land+1</code> customary — the engine reads the live profile), because RAW's two ledger columns come apart here: p.432 reduces domain <i>revenues</i> by one family per man levied ("produce revenue as if it has [fewer] families"), while p.342's <i>Costs per Family</i> column — liturgies, tithe, maintenance — keeps charging: the family still lives there; only its production marches. Net loss per man is therefore the whole revenue, not the fee's net take. Together roughly <b>two-fifths</b> of the fee's income for the month of service, plus −2 morale — free to keep, dear to call, which is why historical levies were short-term, defensive instruments. And the bill is bounded: the fee owes the term — one month of service a year, the forty days — at its own cost; past it the muster rides on the lord's wages (the pay ladder, 1s/2s/4s ↔ 60/100/200), as the rolls show fee-holders drawing. The knight himself is pre-paid for the term: the fee sustains him year-round — at home always, in the host for the forty days, and beyond them at the lord's coin.</td></tr>
         <tr><th scope="row">Four fees — one L5 knight, or four knights?</th>
           <td>Both, and the module says which is which. The wage ladder answers <b>retention</b>: 400 gp of income keeps one L5 man — grade. The quota answers <b>service</b>: four fees owe four lances — count. Historically the count was the law and the grade the social fact, and they were never traded one for the other: a four-fee holder did not send "one better knight" — he sent himself and found three more, or paid. The cards price the finding (scutage, term-hire, the levy's horse), and the Muster section prices why the standing alternative — retained men on wages — belongs to the margin and the barony, not the parity floor. Concentration keeps its real cost visible too: four L3 lances out-rate one L5 on the battle sheet (Units section) — the premium of the great fee is command, quality, and one sworn bond, never bodies.</td></tr>
       </tbody>
@@ -1814,10 +1896,11 @@
       <thead><tr><th scope="col">Rule</th><th scope="col">Source</th><th scope="col">Used as</th></tr></thead>
       <tbody>
         <tr><th scope="row">"A henchman who is given a domain to rule as a vassal does not need to be paid a wage if the domain income is equal to or greater than his wage"</th><td>RR p.168</td><td><b>the fee's constitution</b> — a fee is the smallest estate whose income equals its holder's wage; the manors are this sentence iterated per level</td></tr>
-        <tr><th scope="row">Revenue 12 gp/family (land 6 + service 4 + tax 2); liturgies, tithe, maintenance −1 each; garrison −2/3/4 by class</th><td>RR p.341–2</td><td>fee-holder nets <code>land+3</code> (garrison in kind); lord nets <code>land+1 / land / land−1</code> (garrison hired)</td></tr>
+        <tr><th scope="row">Revenue 12 gp/family (land 6 + service 4 + tax 2); liturgies, tithe, maintenance −1 each; garrison −2/3/4 by class</th><td>RR p.341–2</td><td><b>Under ACKS RAW revenues</b> the fee-holder nets <code>land+3</code> (garrison in kind) and the lord nets <code>land+1 / land / land−1</code> (garrison hired). Under the <b>customary</b> rent — service 1, tax 0 — the same lines give <code>land−2</code> and <code>land−4 / land−5 / land−6</code>. The custom of record (Dials) sets which; the fixed expenses and the garrison rates are RAW either way</td></tr>
         <tr><th scope="row">Trained militia's gp value applies against garrison cost "even if the militia is not called up"</th><td>RR p.341 (restated p.432)</td><td>the yeomen-levy's garrison credit, and the standard the assize enforces ("trained <i>and equipped</i>"); the fee itself is quit by service, not by credit (see rulings table below)</td></tr>
         <tr><th scope="row">Mercenary wages: heavy cavalry 60 gp (regular, F0) · 100 gp (veteran, F1)</th><td>RR p.438–440</td><td>60 gp prices the esquire's fee (and the unlanded household man-at-arms); any dubbed knight ≥ 100 — the knight-fee floor. Matches the 1s : 2s muster-roll pay and the 1436 £24 : £40 estates</td></tr>
-        <tr><th scope="row">Henchman monthly wage doubles per level: 25 / 50 / 100 / 200 / 400 / 800</th><td>RR p.168</td><td>wage-grade per level; rung size = wage ÷ (land+3)</td></tr>
+        <tr><th scope="row">Henchman monthly wage doubles per level: 25 / 50 / 100 / 200 / 400 / 800</th><td>RR p.168</td><td>wage-grade per level; rung size = wage ÷ the fee-holder's net — <code>land+3</code> under ACKS RAW revenues,
+          <code>land−2</code> customary, so the same wage buys a much larger estate under the customary rent</td></tr>
         <tr><th scope="row">Monthly XP threshold: 25 / 75 / 150 / 300 / 600 / 1,200; domain XP = income − threshold</th><td>RR p.423</td><td>growth plateau — you stop one level above the last threshold you beat</td></tr>
         <tr><th scope="row">Henchman vassals subtract expected wage from domain income for XP (and do not halve domain XP — the errata'd form)</th><td>RR p.342 + Major Errata r4</td><td>the knight's ledger: every dubbed rung grows its man one level below what it retains — extended from henchmen to all dubbed holders by the knight's contract (⚖ below); the undubbed esquire is exempt</td></tr>
         <tr><th scope="row">Militia: ≤2 per 10 families; each man called up costs 1 family's revenue; morale −1 (≤1/10) or −2 (2/10); untrained = 1d4 hp rabble at 3gp/mo</th><td>RR p.432</td><td>levy pool per rung; trained militia = mercenary stats, kit &amp; skills heritable ("pass their arms and skills on to their heirs"). Conscription (RR p.430) is deliberately not modeled — pressed men are no feudal institution</td></tr>
@@ -1998,10 +2081,10 @@
     worked the knight's fee in ACKS terms: a ~10-family estate as the support unit of a lance, with the decisive
     observation that feudal service is <i>seasonal</i> — which is why land-for-service beats year-round wages.
     <b>Helgeran's <i>Knightly Realms</i></b> systematized it into a whole pyramid: uniform 10-family knightholds
-    under 2nd-level knights netting <code>land+1</code> (the garrison still paid in cash, centralized as the baron's
+    under 2nd-level knights netting <code>land+1</code> at RAW revenues (the garrison still paid in cash, centralized as the baron's
     852-gp foot), banners of fifteen fees run as micro-senates, and service in place of tribute below the viscount.
     <b>This module</b> refines toward the historical record: a graduated scale of manors (esquire to castellan) sized by
-    wage-parity instead of uniform knightholds; the garrison taken in kind (<code>land+3</code> — the knight's own lance
+    wage-parity instead of uniform knightholds; the garrison taken in kind (the knight's own lance
     and trained yeomen in place of the coin line); heritable fees with fosterage demographics closing the XP loop;
     fidelity through the household rather than the senate; and the cross-checks (<b>History</b> chapter, Library). <b>It states the doctrine
     as a quittance</b> — the fee is quit of the garrison line so long as its service is kept, the period's own
@@ -2014,8 +2097,10 @@
   <p class="intro">
     Be clear about the causality: <b>these manors are generated by ACKS character levels, not by history.</b>
     The engine is the henchman wage table (RR p.168), which doubles per level — 25 / 50 / 100 / 200 / 400 gp —
-    and one farming fact: a fee-holder who garrisons his own land in kind nets <code>land + 3</code> gp per family
-    (9 at average land). Divide wage by net and the rungs fall out: ~7, 12, 23, 45 families. (That 23 misses
+    and one farming fact: a fee-holder who garrisons his own land in kind keeps his whole net per family. <b>The rungs
+    below are worked at ACKS RAW revenues</b> — <code>land + 3</code>, so 9 at average land — because that is the
+    ledger this derivation was written against; under the module's opening <b>customary</b> rent the same wages buy
+    15, 25, 50 and 100 families instead. Divide wage by net and the rungs fall out: ~7, 12, 23, 45 families. (That 23 misses
     2 × 12 by one on purpose: grants come in whole families, so each rung rounds its own remainder up — two
     bachelor's fees carry two rounding pads where one double fee carries one. The same arithmetic prices two
     esquire's fees at 14 families against the bachelor's 12: <b>consolidation wastes less remainder</b>, one more
@@ -2058,7 +2143,8 @@
     and no garrison line under the fees at all. That is the <i>servitium debitum</i>'s — the "service owed," a realm's
     fixed knight-quota — own arithmetic: a quota of
     knights, never a commuted garrison budget. His cost is the demesne income foregone
-    (<code>land+1 / land / land−1</code> per family — in <i>his</i> hands the garrison is paid in cash); the service
+    (<code>land+1 / land / land−1</code> per family at ACKS RAW revenues, <code>land−4 / land−5 / land−6</code>
+    customary — in <i>his</i> hands the garrison is paid in cash); the service
     he receives is the holder's market rate (plus the fosterage squire) — and the fee's two readings agree by
     construction: N whole fees owe N 100-gp lances, and the anchor <i>is</i> N × 100 (only the half-fee rides above
     its 50, at history's 60), so the retainer-equivalent is the same figure whether the card counts one graded
@@ -2371,7 +2457,8 @@
   <p class="intro">
     Ask "how many families is a knight's fee?" and the record returns three numbers — 12, 20, 23. They are one
     process observed at three moments, and each count has its own derivation. <b>12 is the grant
-    floor</b> — the least the grant can be: wage-parity (100 gp ÷ 9 gp/family), the leanest estate that retains its
+    floor</b> — the least the grant can be: wage-parity (100 gp ÷ 9 gp/family <i>at ACKS RAW revenues</i>; 25 families
+    at the customary rent, and the three counts below are a ratio argument that survives either), the leanest estate that retains its
     knight. The floor is where the lord's incentive points, since every family enfeoffed is demesne alienated
     forever — and the record shows grants trending toward it: Domesday's <i>milites</i> on 1.5–2 hides, the Cartae
     Baronum's "new enfeoffment" fees running smaller than the old, new fees carved from waste and march-land as
@@ -2962,7 +3049,13 @@
       <option value="3">3 — poor</option><option value="4">4</option><option value="5">5</option>
       <option value="6" selected>6 — the average</option><option value="7">7</option>
       <option value="8">8</option><option value="9">9 — rich</option>
-    </select></div>
+    </select>
+    <!-- The economy is the Domains tab's dial, and a realm cannot price its manors by one custom
+         while the manor cards price them by another — so this tab READS l_cust rather than owning a
+         second control. What it must not do is leave a reader here unable to see which economy his
+         honour is costed in: every figure on this tab moves by 2.25× with it. A read-only mirror,
+         with a link to the dial that owns it. (Round-4 review §4.) -->
+    <p class="pnote" id="r_custread" style="margin:4px 0 0"></p></div>
 
   <div class="field"><label for="cls">District class <span class="hint">(sets the garrison rate, RR p.341–2)</span></label>
     <select id="cls">
@@ -3067,6 +3160,149 @@ const THRESH = {1:25, 2:75, 3:150, 4:300, 5:600, 6:1200};                // RR p
 const CUMXP  = {1:0, 2:2000, 3:4000, 4:8000, 5:16000, 6:32000};          // fighter XP
 const GARR   = [2,3,4];                                                  // RR p.341 (2gp base; borderlands 3, outlands 4)
 const SQUIRE_WAGE = 45;                          // squire ≈ medium cavalry wage-value (RR p.169) — garrison ledger only
+
+// ---- the militia ceiling, and the rounding RAW does not settle --------------------------------
+// RAW (RR p.430) permits "up to 2 additional peasants per 10 families". Two integer readings of
+// that ceiling exist and RAW's only worked instance cannot tell them apart:
+//
+//   proportional   floor(fam × 2 / 10)      25 families → 5
+//   complete tens  floor(fam / 10) × 2      25 families → 4
+//
+// RAW writes "(1,200 / 10 × 2) 240" — the complete-tens ORDER — but 1,200 is divisible by 10, so
+// both forms give 240 and the example settles nothing but the author's arithmetic. This module had
+// BOTH forms in it: Domains proportional, Feudal Realms complete-tens, two answers to one rule.
+//
+// MODULE ruling, and it is a ruling, not a reading: unify on the proportional form. The ceiling is
+// stated as a ratio, so it rounds once at the end rather than discarding a partial group before
+// multiplying — which matters precisely for the small holdings this module exists to model, where a
+// 15-family fee is the difference between 2 men and 3. Do NOT cite RAW for the boundary; RAW is
+// silent on it. (Spec §2.6 Finding B; the discriminating cases are the odd half-tens, 5-9, 15-19, …)
+const militiaCount = fam => Math.floor(fam * 2 / 10);
+
+// ---- how large an estate this card will model: a STATIC bound and a MOVING guide ---------------
+// The grown manor's family count needs a ceiling, and the honest ceiling moves with the economy: a
+// four-fee charter anchors at 400 gp, so parity with its own paper costs ⌈400 ÷ feeNet⌉ families —
+// 100 at RAW land 9, 100 at Customary land 6, 400 at Customary land 4, 400 at land 3. An estate
+// capped below its own paper can only ever be modelled as in arrears, which is an expressiveness
+// loss the profile change itself would have caused.
+//
+// It is nonetheless a STATIC maximum, and deriving it live was the wrong answer for three reasons
+// worth recording, because all three are about ORDER and none is visible from the formula:
+//   1. l_cust is appended AFTER h_fam in LINK_DIALS. A decoder validating h_fam has not yet applied
+//      the saved economy, so it cannot know the live bound without a second pass.
+//   2. A dynamic bound must either silently clamp on a profile toggle — destroying a 700-family
+//      estate because the reader wanted to see it at RAW for a moment — or leave the field visibly
+//      above its own declared maximum while the engine reads something else. That second failure is
+//      the calculator-trust defect this page already fixed once for the numeric fields.
+//   3. Both h_fam and its m_fam mirror would need the new bound before input, change, link-apply or
+//      render could read either. Substantial machinery for a UI scope limit.
+// So: 800 is the technical capacity — the worst case over every supported (land, custom) pair, which
+// is Customary land 3 at feeNet 1 — and the DERIVED figure becomes advice printed beside the field.
+// It is also, not quite by accident, just above RAW's own top density cap of 780 a hex (p.340), so a
+// reader who dials past the guidance has passed a RAW number as well as this module's.
+// (Round-4 review §5. A self-test asserts every supported guidance value fits inside FAM_MAX; if a
+// future profile ever puts feeNet below 1, that test fails and forces the decision rather than
+// dividing by zero in a template.)
+const FAM_MIN = 8, FAM_MAX = 800, FAM_DFLT = 50;
+const CHART_MAX_ANCHOR = 400;                        // a four-fee charter, at 100 gp the fee
+const famGuide = feeNet => Math.ceil(CHART_MAX_ANCHOR / Math.max(1, feeNet)) * 2;
+
+// ---- the custom of record: what a peasant family yields ---------------------------------------
+// The DEFINITION of record says what BODY the charter names. The CUSTOM of record says what a
+// FAMILY yields. Both are paper facts an estate is held to, and the module's thesis is the same
+// on both: the paper is fixed, and the land drifts away from it.
+//
+//   ACKS RAW ("raw")   land + service 4 + tax 2   — a free, taxed, commercial peasantry
+//   Customary ("cust") land + service 1 + tax 0   — villeins holding by custom of the manor
+//
+// WHY 1 AND 0 — a residual allocation inside a calibrated whole-gp model. Not four arguments, not
+// two; one derivation, and it is falsifiable, which is what three withdrawn justifications were not.
+//
+//   the historical calibration fixes the target:   feeNet = 4 at land 6
+//   the ledger fixes the rest:                     4 = 6 + service + tax − 3
+//   therefore                                      service + tax = 1
+//
+// At ACKS's whole-gold-piece resolution there is exactly ONE point of non-land recurring revenue to
+// place, and the only question left is where it goes. RAW answers it: service revenue is the licence
+// income of skilled freemen (RR p.341), and a customary manor still has mills, smiths, bakehouses
+// and brewing — so the residual belongs on the service line and is not zero. Tax takes what is left,
+// which is nothing.
+//
+//   RAW           land / service / tax are separate categories; most service revenue is freemen's
+//                 trade-licence income; tax may be lowered, and lowering it pays +1 morale a gp
+//   RAW-INFORMED  a customary rural population should therefore yield LESS service revenue than
+//                 RAW's commercial profile — the direction, not the number
+//   MODULE        target net 4 at land 6; agricultural week-work booked through land production;
+//                 the one remaining whole gp assigned to service; no separate monthly tax line
+//
+// It falsifies cleanly, which is the point: move the calibration target and the allocation moves; if
+// rural service ought to round to zero then tax becomes 1; if local cash dues demonstrably need
+// another whole gp then the target is too low or this decomposition is wrong.
+//
+// THREE JUSTIFICATIONS WITHDRAWN, and they are recorded because the pattern is the lesson —
+// all three lent RAW's authority to a module choice (spec §2.6, provenance discipline):
+//   ✗ "England had no recurring royal land tax." RAW's tax line is not a royal tax; it is "coin paid
+//     directly to the ruler by his peasants" — the same pocket the land line fills.
+//   ✗ "The module already prices those fees as incidents, so charging tax too is a double-count."
+//     Wrong level: relief, aid and wardship run fee-holder → liege and replace recurring TRIBUTE
+//     there. They say nothing about peasant dues below, and the two coexisted.
+//   ✗ "Under customary tenure the rent IS the week-work, so it is already in the land line."
+//     True of LABOUR rent and false in general — assized money rent coexisted with works on the same
+//     tenement. The Extenta Manerii asks surveyors for "how much rent of assize be paid yearly
+//     BESIDES the works and customs", which settles it. What survives is the narrow convention below.
+//
+// THE SURVIVING CONVENTION — RAW-INFORMED plus MODULE, and it is bookkeeping, not history:
+// agricultural week-work is represented through LAND revenue, because that labour produces the
+// demesne output RAW's land line already collects ("land revenue derives from labor on the domain's
+// lands"). So the Customary profile does not price labour-rent a second time. It does NOT claim that
+// cash rent and other local dues were the same obligation — they were not, and they are simply not
+// resolved separately here.
+//
+// And note the arithmetic trap in the older wording: every individual due being smaller than RAW's
+// smallest digit does NOT make their SUM smaller than it. Many small dues can total more than a gp.
+// The defensible claim is that they are not separately resolved once total recurring receipt is
+// calibrated — not that their aggregate is known to be negligible.
+//
+// Urban families keep RAW's 4/2 untouched — a borough really is free, taxed and commercial, which is
+// precisely why the manor is not. That exception is an additional MODULE ruling, since RAW propagates
+// a domain's tax setting to its urban families. (Spec §2.1-2.2, §3.1-3.3)
+//
+// NOTE the token collision, deliberate and confined: the dial VALUE "raw" is not bdg()'s "raw"
+// badge kind. Different namespaces; both are commented at their sites.
+//
+// Six quantities, and they do NOT all move together — this is why a bare perFam() is not enough:
+// idleLoss is GROSS (an idle plough loses the family's whole production while the fixed expenses
+// run on), so a perFam-only change would silently leave the muster pricing idle ploughs on RAW.
+//
+// `glance` is how the profile names itself in the running text. ACKS RAW says COMPARISON out loud
+// wherever it appears, because it is a comparison dimension and not a rival century: a reader must
+// never arrive at a Domesday manor priced as a tax-state without having chosen that himself. The
+// era presets no longer touch this dial (see the era handler), so the only ways to be in RAW are to
+// select it or to open a link that predates the dial — and both are deliberate.
+const CUSTOMS = {
+  cust:{key:"cust", name:"Customary", glance:"customary rents",                  service:1, tax:0},
+  raw: {key:"raw",  name:"ACKS RAW",  glance:"ACKS RAW revenues — comparison",   service:4, tax:2}
+};
+function customOf(){                                  // the dial, read defensively
+  const el = document.getElementById("l_cust");
+  const v  = el && el.value;
+  return CUSTOMS[v] ? v : "cust";                     // Customary is the default (spec §9 #1)
+}
+function ruralRevenue(land, custom){
+  const c       = CUSTOMS[custom] || CUSTOMS.cust;
+  const service = c.service, tax = c.tax;
+  const fixed   = 3;                                  // liturgies 1 + tithes 1 + maintenance 1 (RR p.341-2)
+  const gross   = land + service + tax;               // 12 at RAW land 6 · 7 at Customary land 6
+  const feeNet  = gross - fixed;                      // 9 · 4 — garrison discharged in kind (quittance, Model A)
+  return {
+    land, service, tax, fixed, gross, feeNet,
+    custom: c.key, customName: c.name, customGlance: c.glance,
+    idleLoss: gross,                                  // NOT feeNet + 3 — see the note above
+    taxMorale: 2 - tax,                               // RR p.349: +1 per gp below 2
+    // the lord who HIRES the garrison instead of receiving it in service
+    demesneNet: (cls, credit) => feeNet - Math.max(0, GARR[cls] - (credit||0))
+  };
+}
 
 // ---- the equation drawer ---------------------------------------------------------------------
 // A badge says where a CLAIM comes from. It cannot say where an OPERATION comes from — and on this
@@ -3227,8 +3463,15 @@ document.addEventListener("change", ev=>{
 // where a reader could get the PROVENANCE of a claim wrong — never on arithmetic whose source the
 // row already names, and never so thickly that the card reads as a rash. RAW figures that the
 // module merely adds up carry the RAW mark once, at the head of their group.
+// RAW-INFORMED exists because three published claims failed the same way: they lent RAW's authority
+// to a choice RAW does not make. It is the honest middle — the rulebook's wording motivates the
+// step, and the number or the setting is still the module's. It may NOT be used to make a
+// coefficient sound like a citation: where a value is the module's, the value gets `mod` and only
+// the reasoning gets `rin`. (Spec §2.6, provenance discipline.)
 const BDGN = {
   raw:["RAW",     "ACKS II, rules as written — page-exact, and cited"],
+  rin:["RAW-INFORMED",
+       "RAW's own wording motivates this step, but does not supply the value or the setting — that part is the module's, and is badged MODULE where it is stated"],
   mod:["MODULE",  "this module's own ruling. RAW does not say it; the ⚖ doctrine tables argue it"],
   his:["HISTORY", "a historical institution, borrowed as an analogy — not a rule of the game"],
   hrn:["HÂRN",    "specific to the Hârn setting, and to Kaldor"],
@@ -3256,11 +3499,35 @@ const gpt = n => `${fmt(n)} ${U("gp for the term")}`;
 // difference came out of fines, aids, wardships and reliefs. Two further settings price that gap —
 // and the third setting (full replacement) is the useful counterfactual: at parity no one commutes,
 // and the fee never becomes a rent-charge.
-const SCUTN = {
-  raw:  "the Call to Arms — 1 gp a family, RAW exactly",
-  hist: "≈¼ of the term's hire — where English scutage actually sat",
-  full: "full replacement — what the substitute costs for the term"
+// ---- ONE canonical name for each rate, and the reason there is only one now --------------------
+// This page carried FOUR name maps for this one dial: SCUTN here, a local SCUTNAME inside
+// renderHousehold, S_SCUTN with the manor sheet, and SCUTPT inside the Realms closure. Two of them
+// had DRIFTED — they still answered the two-setting design (raw/hist/full) after the dial split
+// `hist` into ang/john/late, so three of five settings printed a literal "(undefined)" on the
+// scutage reading and in the Realms note. That is the shadow-copy class in its worst form: not two
+// copies that agree until a dial splits them, but two copies where the dial ALREADY split and only
+// one copy was told. One table, read by every surface. Never transcribe it again.
+//
+// The `full` mode is named for what is RENDERED, not for what it buys. It renders 100% of the
+// RECORDED requirement — which replaces the man under the Angevin and statute definitions, where
+// paper and hire coincide at 100, and does NOT under the ordinance, where the paper still says 100
+// and the lance costs 145. "Full replacement" was true in three definitions out of four and quietly
+// false in the fourth. (Spec §3.7; round-4 review §6.)
+const SCUT = {
+  raw:  {name:"the RAW anchor",          gloss:"the Call to Arms — 1 gp a family, RAW exactly"},
+  ang:  {name:"the customary Angevin",   gloss:"≈¼ of the term's hire — where English scutage actually sat"},
+  john: {name:"John's",                  gloss:"≈½ the hire — the raised assessments, resisted hard"},
+  late: {name:"the later negotiated",    gloss:"≈⅙ the hire — the due decayed into a small fixed charge"},
+  full: {name:"the requirement in full", gloss:"the whole recorded requirement, rendered in coin"}
 };
+const scutName  = m => (SCUT[m] || {}).name  || m;
+const scutGloss = m => (SCUT[m] || {}).gloss || "";
+
+// The RECORDED requirement, and what replacing that body actually costs. They are the same figure
+// under three definitions and differ under the fourth, which is the whole point of the ordinance.
+const ORD_LANCE = 145;                                          // man-at-arms + coustillier + page, hired
+const reqOf     = def => def === "dom" ? 60 : 100;              // the paper body's wage-value
+const replaceOf = def => def === "ord" ? ORD_LANCE : reqOf(def);// what the crown must pay to put a lance there
 // gp due for the year's term, per lance-equivalent. `req` is the definition of record's body.
 const SCUTRATE = {                 // share of the term's hire, per lance-equivalent commuted
   ang:  0.25,                      // customary Angevin — ~20s the fee against ~£4 of hire
@@ -3366,7 +3633,7 @@ function renderLadder(){
   const anc  = document.getElementById("l_assess").value === "ancient";  // assessments frozen at the charter
   // the definition of record — what the charter's lance must be; the requirement re-prices with it
   const def  = document.getElementById("l_def").value;
-  const REQ  = def==="dom" ? 60 : 100;                     // the required body's wage-value
+  const REQ  = reqOf(def);                                 // the required body's wage-value
   const smode = scutMode();                                // the scutage rate lever
   const ord  = def==="ord";                                // the ordinance era: the fee commuted, the lance a paybook unit
   const FEECOUNT = def==="dom" ? {60:1, 100:5/3, 200:10/3, 400:20/3} : {60:0.5, 100:1, 200:2, 400:4};
@@ -3384,14 +3651,25 @@ function renderLadder(){
     ord:{name:"the ordinance lance — the crew written into the requirement; the fee commuted",
       sub:"the requirement has absorbed the crew: man-at-arms + coustillier + page, ~145 gp/mo hired, the page a living-expense mouth with no wage line. The fee itself renders coin on ancient paper — the era in which the definition swallowed the crew is the era the fee died"}
   };
-  const perFam = land + 3;
+  // the custom of record — Customary (service 1, tax 0) or ACKS RAW (4, 2). See CUSTOMS above.
+  const REV    = ruralRevenue(land, customOf());
+  const perFam = REV.feeNet;                        // 4 customary · 9 RAW, at land 6
   // families per 6-mile hex (caps RR p.340; historical presets). 780 is RAW's highest rural
   // density — past it a domain grows only by territory or by an urban settlement (p.340).
   const dens   = clampInt("dens", 1, 780, 375);
   const acFam  = 19968/dens;                                          // the hex ≈ 31.2 sq mi ≈ 20,000 acres
-  const lordNetPF = [land+1, land, land-1];
+  // the lord who HIRES the garrison rather than receiving it in service, by district class.
+  // = feeNet − GARR[cls]. Customary land 6: 2/1/0 — outlands demesne nets EXACTLY ZERO, which the
+  // sweep must reach. (This read [land+1, land, land-1] when RAW was the only custom; the spec's
+  // first draft mis-stated the customary form as [land-2, land-3, land-4], deducting 0/1/2 for a
+  // garrison RAW prices at 2/3/4. Derive it, never restate it.)
+  const lordNetPF = GARR.map((g,i) => REV.demesneNet(i, 0));
   document.getElementById("landv").textContent = `${land} gp → holder nets ${perFam}/fam`;
-  document.getElementById("glanceland").textContent = `— land value ${land} · ${dens} fam/hex${fost?", squires ride":""}${asz?"":(def==="dom"?" · NO ASSIZE YET (1181)":" · ASSIZE IN DEFAULT")}${anc?" · ASSESSMENTS ANCIENT":""}${def==="dom"?" · DOMESDAY DEFINITION — FEES RE-COUNT":def==="ang"?" · ANGEVIN DEFINITION":ord?" · ORDINANCE — FEES COMMUTED":""}`;
+  // "tax morale +2", never "domain morale +2": RR p.349's entry is a MORALE ROLL ADJUSTMENT for
+  // one month, and it is one line among a dozen (liturgy, tithes, alignment, levy call-up,
+  // invasion, the ruler's presence). Naming it for its source keeps a modifier from being read as
+  // a total — the error an earlier draft of the spec made and the review caught twice.
+  document.getElementById("glanceland").textContent = `— land value ${land} · ${REV.customGlance}${REV.taxMorale?` (tax morale +${REV.taxMorale})`:""} · ${dens} fam/hex${fost?", squires ride":""}${asz?"":(def==="dom"?" · NO ASSIZE YET (1181)":" · ASSIZE IN DEFAULT")}${anc?" · ASSESSMENTS ANCIENT":""}${def==="dom"?" · DOMESDAY DEFINITION — FEES RE-COUNT":def==="ang"?" · ANGEVIN DEFINITION":ord?" · ORDINANCE — FEES COMMUTED":""}`;
   // a standing manor never resizes — it re-grades: fixed 23-family estate at this land value
   const m23 = 23 * perFam;
   let keepL = 1; for(let L = 1; L <= 5; L++) if(HENCH[L] <= m23) keepL = L;
@@ -3433,7 +3711,7 @@ function renderLadder(){
     const garr   = GARR.map(g => fam*g);
     const dubbed = r.key !== "esq";               // the knight's contract binds the dubbed rungs only
     const farm   = plateau(income, dubbed);       // the esquire grows on RAW's plain vassal ledger
-    const mil    = Math.floor(fam*2/10);   // militia only — conscription exists in RAW (p.430) but is no feudal institution
+    const mil    = militiaCount(fam);      // militia only — conscription exists in RAW (p.430) but is no feudal institution
     // levy roles (RR p.431-2): ceilings per aptitude
     const roles  = QUAL.map(([n,q])=>[n, Math.floor(mil*q/120)]).filter(([,c])=>c>0);
     // the quota — a fee owes as many lances as it counts fees; a LANCE is one knight-service.
@@ -3529,7 +3807,7 @@ function renderLadder(){
       <div class="lrow sub"><span><b>${fmt(r.lvCost)} <span class='u'>gp once</span></b> to train &amp; equip${r.medReq?" (the serjeant's 578-gp mounting included)":""} — heirloom, permanent (RR p.432); counts against garrison even uncalled (p.341) — here, part of the service that keeps the fee quit: the assize's substance. Set that capital against what the fee clears above its holder's keep — <b>${fmt(r.income-r.anchor)} <span class='u'>gp/mo</span></b> — and it is ${r.income-r.anchor > 0
         ? `<b>≈${Math.round(r.lvCost/(r.income-r.anchor))} months of everything the estate makes</b>`
         : `<b>unreachable: this floor clears nothing at all</b>`}. So it is not saved up out of surplus, and was not historically: the kit comes as the lord's grant at enfeoffment, out of a relief taken at succession, or by serving an initial term in default until the manor can arm itself.</span></div>
-      ${r.mil ? `<div class="lrow sub"><span><b>free to keep, dear to call</b>: afield the knight pays his men's wages (${fmt(r.lvCredit)} <span class='u'>gp for the term</span> — provider-pays, p.345–6/432) and ${r.mil} plough-team${r.mil===1?"":"s"} stand${r.mil===1?"s":""} idle (−${fmt(r.mil*(perFam+3))} ${U("gp for the term")}: revenue books as if ${r.mil} fewer famil${r.mil===1?"y":"ies"} at the full ${land+6} ${U("gp/family")} revenue rate, p.432, while the famil${r.mil===1?"y's":"ies'"} liturgy/tithe/maintenance run on — p.342's cost column charges the family, not the man) ≈ <b>${Math.round((r.lvCredit + r.mil*(perFam+3))/r.income*100)}%</b> of the fee's income for the month of service, −2 morale till they come home. One month of service a year in kind; extension at the lord's wages.</span></div>` : ""}
+      ${r.mil ? `<div class="lrow sub"><span><b>free to keep, dear to call</b>: afield the knight pays his men's wages (${fmt(r.lvCredit)} <span class='u'>gp for the term</span> — provider-pays, p.345–6/432) and ${r.mil} plough-team${r.mil===1?"":"s"} stand${r.mil===1?"s":""} idle (−${fmt(r.mil*(perFam+3))} ${U("gp for the term")}: revenue books as if ${r.mil} fewer famil${r.mil===1?"y":"ies"} at the full ${REV.gross} ${U("gp/family")} revenue rate, p.432, while the famil${r.mil===1?"y's":"ies'"} liturgy/tithe/maintenance run on — p.342's cost column charges the family, not the man) ≈ <b>${Math.round((r.lvCredit + r.mil*(perFam+3))/r.income*100)}%</b> of the fee's income for the month of service, −2 morale till they come home. One month of service a year in kind; extension at the lord's wages.</span></div>` : ""}
       <div class="sect">The assize of the fee (terms of enfeoffment) ${bdg("mod","the name and the instrument are the module's coinage — a package of enfeoffment terms assembled from historical statutes; ACKS has no such thing")}</div>
       <div class="lrow"><span class="lk">The definition of record${bdg("his","each definition is a real century's standard — the Survey's rider, the 1181 knight, Winchester's statute knight, the ordinance lance. The LEVER that switches between them is the module's")}</span><span class="lvv">${DEFS[def].name}</span></div>
       <div class="lrow sub"><span>${DEFS[def].sub}</span></div>
@@ -3663,24 +3941,38 @@ function renderLadder(){
 
   // ---- the scutage shortfall, live under its own dial ------------------------------------
   // The gap between what coin buys off and what the month actually costs to hire is the permanent
-  // fact of the institution, and it should stand under the lever whatever the setting — including
-  // at full replacement, where it is zero and commutation therefore has no reason to happen.
+  // fact of the institution, and it should stand under the lever whatever the setting.
+  //
+  // THREE quantities, not two, and the third is why the mode was renamed. The requirement is what
+  // the paper records; the render is what the rate lever pays against it; the REPLACEMENT is what
+  // putting a lance in the field actually costs. Under dom/ang/dis requirement and replacement
+  // coincide, so "the requirement in full" closes the gap and commutation has no reason to happen.
+  // Under the ordinance they part — paper 100, lance 145 — and rendering the requirement in full
+  // still leaves the crown 45 gp short. This block used to compute the gap against the requirement
+  // alone, so at the ordinance it announced that "the rate meets the hire exactly" while the
+  // treasury was 45 gp down on every lance. (Round-4 review §6.)
   {
     const term = scutTerm(optR.fam, optR.lances, REQ, smode);   // the ladder's unit fee, one lance
-    const gap  = REQ - term;
+    const hire = replaceOf(def);                                // what the substitute costs — 145 at the ordinance
+    const gap  = hire - term;
     const el   = document.getElementById("scutread");
     if(el) el.innerHTML =
       `<b>At these dials:</b> a ${optR.name.toLowerCase()} of ${optR.fam} families renders
-       <b>${term.toFixed(term % 1 ? 1 : 0)} <span class="u">gp for the term</span></b> in place of its lance —
-       against <b>${REQ} <span class="u">gp</span></b> to hire the month outright.` +
+       <b>${term.toFixed(term % 1 ? 1 : 0)} <span class="u">gp for the term</span></b> against a recorded
+       requirement of <b>${REQ} <span class="u">gp</span></b> —
+       and a substitute costs <b>${hire} <span class="u">gp</span></b> to hire for the month.` +
       (gap > 0
         ? ` The crown takes the coin and <b>must still find ${gap.toFixed(gap % 1 ? 1 : 0)} <span class="u">gp</span></b>
-           — ${Math.round(gap/REQ*100)}% of the man — from somewhere else: fines for respite, aids at the three
-           occasions, wardships, reliefs. <b>That deficit is not a flaw in the rate; it is the institution.</b>
-           It is also why the fee-holder reaches for coin, and why his lord would rather he rode.`
-        : ` The rate meets the hire exactly, so <b>nothing is gained by commuting</b> — no lord prefers the coin,
+           — ${Math.round(gap/hire*100)}% of the man — from somewhere else: fines for respite, aids at the three
+           occasions, wardships, reliefs. <b>That deficit is not a flaw in the rate; it is the institution.</b>` +
+          (hire > REQ
+            ? ` Here the paper itself is short: the requirement is ${REQ} and the lance is ${hire}, so even
+               <b>the requirement rendered in full</b> leaves ${hire - REQ} <span class="u">gp</span> to find.
+               That is the ordinance's bargain, and the reason the fee died in it.`
+            : ` It is also why the fee-holder reaches for coin, and why his lord would rather he rode.`)
+        : ` The render meets the hire exactly, so <b>nothing is gained by commuting</b> — no lord prefers the coin,
            no knight buys his way out, and the fee stays a body for as long as the dial sits here.`) +
-      ` <span style="color:var(--mute)">(${SCUTN[smode]})</span>`;
+      ` <span style="color:var(--mute)">(${scutGloss(smode)})</span>`;
   }
 
   document.getElementById("cmptable").innerHTML = `
@@ -3723,7 +4015,7 @@ function renderUnits(){
   const land = clampInt("land", 3, 9, 6);
   const sqr  = clampNum("u_sq", 0, 1, 0.5);
   const S    = Math.round(N * sqr);                // squires: fostered sons, ride with the host as TRAIN (not troops)
-  const REQU = document.getElementById("l_def").value==="dom" ? 60 : 100;   // the definition's required body
+  const REQU = reqOf(document.getElementById("l_def").value);   // the definition's required body
   const kWage = Math.max(HENCH[kl], REQU);         // dubbed floor: any knight ≥ the definition of record (manor doctrine)
 
   // ---- organization (RR p.435-7): ≤600 troops → platoons of 15 cav; else companies of 60
@@ -3759,8 +4051,12 @@ function renderUnits(){
   const supplyWk = (N+1+S) * 4;                     // 240 gp/wk per 60 cavalry — the train and its mounts eat too
   const spec  = Math.round((N+1) * 50/60);          // squires ARE servants — they reduce the need, not add to it
   const field = wage + spec + 4*supplyWk;
-  const famPer = Math.ceil(kWage / (land+3));       // dubbed floor → L1–L3 all sit on the bachelor's fee
-  const famB  = bl < 6 ? Math.ceil(HENCH[bl]/(land+3)) : null;  // L6+ holds a barony, not a fee
+  // the custom of record reaches here too: how much LAND a wage-grade costs is the whole point of
+  // this block, and it is 2.25× more land under the customary rent (spec §4.0 — the fourth and
+  // fifth sites the perFam sweep found, neither of which any earlier pass reached)
+  const UREV  = ruralRevenue(land, customOf());
+  const famPer = Math.ceil(kWage / UREV.feeNet);    // dubbed floor → L1–L3 all sit on the bachelor's fee
+  const famB  = bl < 6 ? Math.ceil(HENCH[bl]/UREV.feeNet) : null;  // L6+ holds a barony, not a fee
   const famTot = N*famPer + (famB ?? 0);            // squires cost no land — fostered sons
 
   // ---- qualification checks: the banneret is a LIEUTENANT; command is the lord's (user ruling + RR p.435)
@@ -3843,29 +4139,28 @@ function renderUnits(){
 const FEEANCHOR = {0.5:60, 1:100, 2:200, 4:400};
 function renderHousehold(){
   const land = clampInt("land", 3, 9, 6);
-  const perFam = land+3;
+  const REV  = ruralRevenue(land, customOf());    // the custom of record — Customary or ACKS RAW
+  const perFam = REV.feeNet;
   const anc  = document.getElementById("l_assess").value==="ancient";
   const asz  = document.getElementById("l_asz").checked;
   const cls  = clampInt("h_cls", 0, 2, 0);        // 0 civ · 1 bord · 2 out — the barony's demesne only
   // the 8-family floor is a DECLARED BOUND, not a derived law — an 8-family manor is thinner than
   // the esquire's own fee at most land values (10 families at land 3, 7 at land 6, 5 at land 9).
   // It used to bite silently, the field simply refusing to go lower; the control now says so.
-  const gFam = clampInt("h_fam", 8, 80, 23);
+  const gFam = clampInt("h_fam", FAM_MIN, FAM_MAX, FAM_DFLT);
   const gChart = clampNum("h_chart", 0.5, 4, 1);
   const BOARD = 16;   // in-kind share of a household man's wage — the 4 gp/wk supply rate (RR p.442)
   const def  = document.getElementById("l_def").value;      // the muster's definition of record (Dials panel)
   const cdef = document.getElementById("h_cdef").value;     // the grown manor's CHARTER definition — paper and muster may disagree
-  const REQof = d => d==="dom" ? 60 : 100;
-  const REQH = REQof(def);
+  const REQH = reqOf(def);          // REQof was a local restatement of the same rule; reqOf is shared
   const smode = scutMode();                                 // the scutage rate lever
   const ordH = def==="ord";
   // renderLadder has DEFS; this function does not, and the drawer needs the definition by name
   const DEFNAME = {dom:"the Survey's rider", ang:"the 1181 knight",
                    dis:"the statute knight", ord:"the ordinance lance"};
-  // S_SCUTN lives with the manor sheet, far below, and the boot sequence calls this function
-  // before that declaration has run — a TDZ error, not a missing name. Named locally instead.
-  const SCUTNAME = {raw:"RAW anchor", ang:"customary Angevin", john:"John's",
-                    late:"later negotiated", full:"full-replacement"};
+  // The local SCUTNAME that used to sit here was a transcription, kept because S_SCUTN lived far
+  // below and the boot sequence reached this function first. The canonical SCUT table now sits above
+  // every consumer, so the TDZ reason is gone with the copy.
   const feeCountOf = a => def==="dom" ? a/60 : ({60:0.5,100:1,200:2,400:4})[a] ?? a/100;
   const gradeOf = v => { let g=0; for(let L=1; L<=8; L++) if(HENCH[L]<=v) g=L; return g; };
   const f1 = n => (Math.round(n*10)/10).toString();
@@ -3878,14 +4173,16 @@ function renderHousehold(){
   const scutWhy = smode === "raw"
     ? `RAW's own Call-to-Arms value — <b>1 gp a family</b> (p.346)`
     : smode === "full"
-    ? `<b>full replacement</b>: ${REQH} gp a lance, what hiring the month actually costs — the rate lever, not RAW's anchor (which is 1 gp a family, p.346)`
-    : `the <b>${SCUTNAME[smode] || smode}</b> rate: ${SCUTRATE[smode]*REQH} gp a lance${
+    ? `<b>the requirement in full</b>: ${REQH} gp a lance, the whole recorded requirement rendered in coin${
+        ordH ? ` — which still buys no lance here, the ordinance's costing ${replaceOf(def)}` : ``
+      } — the rate lever, not RAW's anchor (which is 1 gp a family, p.346)`
+    : `<b>${scutName(smode)}</b> rate: ${SCUTRATE[smode]*REQH} gp a lance${
         smode==="ang" ? " — ~20s the fee against a knight's ~£4 of hire, the rate the cartae generation actually paid"
       : smode==="john" ? " — the raised assessments, taken often and resisted hard; Magna Carta's clause 12 is downstream of this number"
       : " — the levy decayed into a small fixed due, long after it could replace anyone"
       }. A century's posture, not RAW's anchor (which is 1 gp a family, p.346)`;
   const quotaOf = (fam, lances) => {
-    const mil  = Math.floor(fam*2/10);
+    const mil  = militiaCount(fam);
     const xtra = Math.max(0, lances-1);
     const medCap = Math.floor(mil*20/120);
     const medReq = (xtra>0 && (def==="ang"||def==="dis")) ? Math.min(medCap, Math.ceil(xtra*2)) : 0;
@@ -3935,7 +4232,10 @@ function renderHousehold(){
         (anc ? ` · assessments ancient` : `, since re-surveyed · assessments current`);
     } else {
       o.fam = o.fam ?? Math.ceil(o.anchor/perFam);
-      o.income = o.baron ? o.fam*(land+1-cls) : o.fam*perFam;
+      // a barony holds no fee: it pays its garrison the plain RAW way by class, so its per-family
+      // net is the DEMESNE rate, not the fee-holder's. This read `land+1-cls` — the old RAW triplet
+      // written out — and so bypassed the custom of record entirely. Derive it; never restate it.
+      o.income = o.baron ? o.fam*REV.demesneNet(cls, 0) : o.fam*perFam;
       if(!o.baron){
         o.lances = feeCountOf(o.anchor);       // the count follows the definition of record
         o.fees = `${lstr(o.lances)} fee${o.lances!==1?"s":""}${ordH?" — ancient paper":""}`;
@@ -3977,7 +4277,7 @@ function renderHousehold(){
                ang:"the 1181 knight (100 " + U("gp/mo") + ")",
                dis:"the statute knight of 1285 (100 " + U("gp/mo") + ")"};
   const DEFORD = {dom:0, ang:1, dis:2};
-  const bOld = REQof(cdef), bNow = REQH;
+  const bOld = reqOf(cdef), bNow = REQH;
   const defc = ordH ? 0 : Math.max(0, bNow - bOld);
   const lagOn = anc && !ordH && defc>0;                  // the lag binds only while the old paper is legally current
   const musterOn = sel.grown && anc && !ordH;            // the muster selectors apply here and nowhere else
@@ -4341,7 +4641,7 @@ function renderHousehold(){
               owedN>0 ? `= ${lstr(sel.lances||0)} demanded − the holder's own body${levyN>0?` − ${lstr(levyN)} of levy credit`:""}`
                       : `the count is met in kind — the holder and his levy answer it whole`) : "",
         (cheapOn && owedN>0) ? dstep(`≈${f1(q.scutL)} <span class="u">gp/mo</span> in reserve`,
-              `${f1(q.scutL*12)} gp falls due for the term at the ${SCUTNAME[smode] || smode} rate — the cheapest LAWFUL discharge, which is not the same as an available one`,
+              `${f1(q.scutL*12)} gp falls due for the term at ${scutName(smode)} rate — the cheapest LAWFUL discharge, which is not the same as an available one`,
               "raw", "at the RAW default this is the Call to Arms, 1 gp a family (RR p.346), divided by fee-equivalents and quantized to one month a year — both departures are the module's and are flagged at the lever") : "",
         ridingSerjOut>0 ? dstep(`${fmt(goneOut)} <span class="u">gp/mo</span> of watch away`,
               `${ridingSerjOut} serjeant${ridingSerjOut>1?"s":""} × ${QUAL[5][3]} — the garrison credit leaves with the men, for the term${hiredOut?"; hired back at the same rate":"; not hired back"}`,
@@ -4357,6 +4657,11 @@ function renderHousehold(){
   // (which counts nothing in lances). That was the scrapers' behaviour and it is the correct
   // reading; it is now stated instead of falling out of a missing selector.
   FM.last = {
+    // the revenue profile the cards were ACTUALLY built from — stashed, so readState consumes it
+    // rather than deriving the same answer a second time. Two independent derivations that agree
+    // today are the shadow-copy defect in miniature, and this file has just paid for seven of them.
+    custom:REV.custom, gross:REV.gross, perFam:REV.feeNet,
+    idleLoss:REV.idleLoss, taxMorale:REV.taxMorale,
     fam:sel.fam, fees:sel.fees, income:sel.income, anchor:sel.anchor, head:sel.head,
     quotaN:sel.lances || 0, noCount:!!sel.baron,
     owedN:(sel.baron || ordH) ? 0 : owedN,
@@ -4539,6 +4844,12 @@ function renderOffice(){
   document.getElementById(id).addEventListener("input", ()=>{
     document.getElementById("l_era").value=""; document.getElementById("eraread").innerHTML="";
     renderLadder(); renderUnits(); renderHousehold(); }));
+// l_cust is deliberately NOT in that list. It re-renders like any dial, but it does not clear the
+// era chip, because the economy is orthogonal to the century: a reader comparing the Distraint
+// century's estate against ACKS RAW revenues has not left the Distraint century. The two selections
+// are independent and each must survive the other. (See the era handler below.)
+document.getElementById("l_cust").addEventListener("input", ()=>{
+  renderLadder(); renderUnits(); renderHousehold(); });
 document.getElementById("l_sq").addEventListener("input", ()=>{ renderLadder(); renderUnits(); });
 ["h_holder","h_cls","h_fam","h_chart","h_cdef","h_serj","h_cover","h_mus1","h_mus2","h_crown"].forEach(id=>
   document.getElementById(id).addEventListener("input", renderHousehold));
@@ -4574,6 +4885,23 @@ document.getElementById("l_era").addEventListener("input", ()=>{
   document.getElementById("l_asz").checked = e.asz;
   document.getElementById("l_assess").value = e.assess;
   document.getElementById("l_def").value = e.def;
+  // THE ECONOMY IS NOT A PROPERTY OF THE CENTURY, and the presets deliberately do not touch it.
+  //
+  // They used to. Each entry carried cust:"cust", which looked harmless because every century this
+  // module depicts IS a customary one — and that is exactly what made it wrong: a preset that writes
+  // the same value in all four entries carries no era-discriminating information, so it was claiming
+  // ownership of an independent axis for no gain. It also cost something real. ACKS RAW is a
+  // COMPARISON dimension applicable to any era, and a preset that rewrote it meant picking a century
+  // silently terminated the comparison a reader had deliberately set up.
+  //
+  // It broke the fixtures too, which is how it was found: the page fires this handler on load, so
+  // pinning the markup's l_cust to "raw" to build a RAW-pinned comparison did nothing — the boot
+  // preset overwrote the pin, and the first "RAW-pinned" diff was still computing Customary and
+  // reporting differences that read as regressions. Four owners for one dial (markup, LINK_DFLT, the
+  // boot preset, the link decoder) is three too many. The preset has now given up its claim.
+  //
+  // So: `Distraint · ACKS RAW revenues` is a legitimate state, not a broken preset, and the era chip
+  // stays lit when the economy moves. (Round-4 review §4; spec §4.2.)
   renderLadder(); renderUnits(); renderHousehold();
 });
 // ================= a shareable estate — the dials in the address =============================
@@ -4626,7 +4954,7 @@ const LINK_V     = "1";        // bump when the field list changes; an old link 
 //        The l_scut VALUES changed, so a link naming the old "hist" is refused for that field
 //        alone and opens at the RAW anchor, with the sheet saying so. The field list is unchanged,
 //        so LINK_V does not move — this is exactly the case the build stamp exists for.
-const LINK_BUILD = "r3-2026-08-02";
+const LINK_BUILD = "r6-2026-08-02";
 const LINK_SEP   = "_";        // no dial value contains it — h_chart's "0.5" is why it is not "."
 // The estate, and only the estate: the Domains dials the self-test already drives, plus the
 // scutage rate. Officers and Realms are not on the wire. `land` here is the Domains slider and
@@ -4640,17 +4968,28 @@ const LINK_DIALS = [
   // APPEND-ONLY, and this is now load-bearing: a link written before a dial existed is short by
   // exactly the fields added after it, and decodeLink admits it with those at their defaults.
   // Insert a field in the middle instead and every published link silently reads shifted.
-  ["h_cover","sel"]
+  ["h_cover","sel"],
+  ["l_cust","sel"]
 ];
 // How many TRAILING dials a link is allowed to be missing — i.e. how many have been appended since
 // the format version was last bumped. **Increment this whenever a dial is appended above**, or the
 // links written by the release before it are refused as truncated. Reset it to 0 when LINK_V bumps.
-const LINK_OPTIONAL = 1;       // h_cover
+const LINK_OPTIONAL = 2;       // h_cover, l_cust
 // the markup's own opening values, snapshotted before the era preset below has run — so Reset is
 // the boot sequence replayed, not a second transcription of the defaults sitting in the source
 const LINK_DFLT = {};
 LINK_DIALS.forEach(([id, kind])=>{ const el = document.getElementById(id);
   if(el) LINK_DFLT[id] = (kind === "chk") ? el.checked : el.value; });
+
+// ---- what an ABSENT field means, when that is NOT the markup's default ------------------------
+// A link short by a trailing field is admitted with that field at LINK_DFLT — the markup's opening
+// value — and for every dial before l_cust that was right, because appending a dial did not change
+// what the existing ones meant. The custom of record breaks that assumption: it re-prices EVERY
+// estate by 2.25×, and its markup default is Customary. Left to LINK_DFLT, every link ever shared
+// would silently repaint at the customary rent and show its reader an estate its author never saw.
+// A link that predates the dial was written under the RAW economy, so that is what it must decode
+// to — the markup default is what a FRESH page opens on, which is a different question.
+const LINK_LEGACY = { l_cust: "raw" };
 
 let LINK_ORIGIN  = false;      // a link painted these dials — the sheet says so until Reset
 let LINK_BAD     = false;      // a link was present and unreadable: say that rather than nothing
@@ -4732,12 +5071,15 @@ function applyLink(res){
     const el = document.getElementById(id), v = res.set[id];
     if(el.type === "checkbox") el.checked = v; else el.value = v;
   });
-  // a dial the link predates is set to the MARKUP's own opening value, not left wherever the
-  // reader last put it — an old link must paint the same estate whenever it is opened
+  // a dial the link predates is set to the value it MEANT when the link was written — LINK_LEGACY
+  // where the answer differs from the markup's opening value (l_cust: an old link is a RAW-economy
+  // estate), otherwise the markup's own opening value. Not left wherever the reader last put it:
+  // an old link must paint the same estate whenever it is opened, by whoever opens it.
   (res.absent || []).forEach(id=>{
     const el = document.getElementById(id);
     if(!el || !(id in LINK_DFLT)) return;
-    if(el.type === "checkbox") el.checked = LINK_DFLT[id]; else el.value = LINK_DFLT[id];
+    const v = (id in LINK_LEGACY) ? LINK_LEGACY[id] : LINK_DFLT[id];
+    if(el.type === "checkbox") el.checked = v; else el.value = v;
   });
   const era = document.getElementById("l_era"), read = document.getElementById("eraread");
   if(read) read.innerHTML = (era && ERAS[era.value]) ? ERAS[era.value].read : "";
@@ -4988,8 +5330,14 @@ const aszRead = st => st.def === "dom"
      : {chip:"assize <b>IN DEFAULT</b>", sub:"nothing credited · watch hired at market",
         phr:"the assize in default", sent:"The assize stands in default",
         arrow:"nothing credited", bad:true});
-const S_GARR  = [2, 3, 4];                        // garrison per family — RR p.341
-const S_RATE  = ["land+1", "land", "land−1"];// land+3 − garrison — RR p.341–2
+// S_GARR was a third transcription of GARR — the shared constant is at the top of the file and
+// structure.md §2's rule is that it is never redeclared. Alias it.
+const S_GARR  = GARR;                             // garrison per family — RR p.341
+// S_RATE was ["land+1","land","land−1"] — the RAW demesne triplet as DISPLAY STRINGS, so it kept
+// saying the RAW rate however the engine computed, and no numeric diff could ever have caught it.
+// Now derived from the rate the cards were built with: fee-holder's net less the class garrison.
+// Customary land 6 gives 2/1/0 — and the outlands zero is real, not a formatting accident.
+const S_RATE_OF = st => GARR.map(g => st.perFam - g);
 const densNeeds = n => n <= 185 ? 2 : n <= 375 ? 1 : 0;
 
 // --- writing the card's numerals as the card writes them -----------------------------------
@@ -5009,7 +5357,7 @@ function readState(){
   const st = {
     era:V("l_era"), def:V("l_def"), assess:V("l_assess"), asz:dG("l_asz").checked,
     land:clampInt("land", 3, 9, 6), dens:clampInt("dens", 1, 780, 375), sq:dG("l_sq").checked,
-    holder:V("h_holder"), fam:clampInt("h_fam", 8, 80, 23), chart:V("h_chart"),
+    holder:V("h_holder"), fam:clampInt("h_fam", FAM_MIN, FAM_MAX, FAM_DFLT), chart:V("h_chart"),
     cdef:V("h_cdef"), cls:clampInt("h_cls", 0, 2, 0)
   };
   st.ord   = st.def === "ord";
@@ -5019,8 +5367,8 @@ function readState(){
   // the charter is a separate document ONLY on the grown manor: the engine reads h_chart/h_cdef
   // inside if(o.grown) and nowhere else, so on a ladder rung the paper IS the rung
   st.paperApart = st.grown;
-  st.reqNow = st.def  === "dom" ? 60 : 100;
-  st.reqOld = st.cdef === "dom" ? 60 : 100;
+  st.reqNow = reqOf(st.def);
+  st.reqOld = reqOf(st.cdef);
   st.defGap = st.ord ? 0 : Math.max(0, st.reqNow - st.reqOld);
   st.anach  = !st.ord && S_ORD[st.cdef] > S_ORD[st.def];
   st.assessBites = st.grown && !st.ord;      // `anc` picks o.ancn vs o.cur — grown manor only
@@ -5030,7 +5378,16 @@ function readState(){
   st.lagOn       = st.grown && st.anc && !st.ord && st.defGap > 0;
   st.musterOn    = !!FM.last.musterOn;       // the settlement walk is live (renderHousehold's own test)
   st.over        = st.dens > S_CAP[st.cls];
-  st.perFam      = st.land + 3;
+  // The writ's rate is CONSUMED, never recomputed. This line was `st.land + 3` — a fifth
+  // transcription, found by the sweep and by neither review — and the obvious repair was to call
+  // ruralRevenue() again here. That would have been right and still wrong: two independent
+  // derivations that agree today are exactly the shadow-copy defect this file has now paid for
+  // seven times. renderHousehold stashes the profile it actually rendered from; take that.
+  st.cust        = FM.last.custom;                 // "cust" | "raw" — the dial, for the writ's prose
+  st.gross       = FM.last.gross;
+  st.perFam      = FM.last.perFam;
+  st.idleLoss    = FM.last.idleLoss;
+  st.taxMorale   = FM.last.taxMorale;
 
   // --- what the card computed, handed over rather than read back ---------------------------
   // renderHousehold stashes these at the moment it renders them (see FM). Nothing below touches
@@ -5082,8 +5439,12 @@ function readState(){
 function groundRead(st){
   const read = dG("pop-ground-read"); if(!read) return;
   const Cap  = S_CLSN[st.cls].charAt(0).toUpperCase() + S_CLSN[st.cls].slice(1);
-  const rate = ` The barony demesne nets <b>${S_RATE[st.cls]}</b> a family (garrison ${S_GARR[st.cls]});` +
-               ` every fee nets <b>land+3</b> whatever the class.`;
+  // the arithmetic, not the answer: a reader can check this line against the cards, and a shadow
+  // copy would show up as a sum that does not add up rather than as a number nobody can verify
+  const rate = ` The barony demesne nets <b>${st.perFam} − ${S_GARR[st.cls]} = ` +
+               `${S_RATE_OF(st)[st.cls]}</b> <span class="u">gp/family</span> (fee-holder's net,` +
+               ` less the ${S_CLSN[st.cls]} garrison it must hire); every fee nets ` +
+               `<b>${st.perFam}</b> whatever the class, being quit of that line by service.`;
   read.innerHTML = (
     st.over ? `<b style="color:var(--red)">Over the cap — RAW forbids this.</b> ${Cap} ground <i>cannot ` +
               `exceed</i> ${S_CAP[st.cls]} families a hex (p.340); ${st.dens} wants <b>${S_CLSN[densNeeds(st.dens)]}</b> or better.`
@@ -5201,6 +5562,20 @@ function facts(st){
 const RUNGFEE   = {esq:"0.5", kt1:"1", kt2:"2", kt4:"4"};
 const RUNGANCH  = {esq:60, kt1:100, kt2:200, kt4:400};   // the wage grade — never moves with the definition
 const famOf = st => st.cardFam || 0;
+// The guidance sentence — derived from the LIVE profile, printed rather than enforced. Both figures
+// are read from what the engine already computed (st.perFam is FM.last's, stashed by the card), so
+// this is a view and not a second model. See FAM_MAX for why the bound above it is static.
+function famGuidance(st){
+  const parity = Math.ceil(CHART_MAX_ANCHOR / Math.max(1, st.perFam));
+  const guide  = famGuide(st.perFam);
+  return `<p style="margin:6px 0 0" class="boundnote"><b>On this ground</b>, a four-fee charter reaches ` +
+    `parity at <b>${parity}</b> families (⌈${CHART_MAX_ANCHOR} ÷ ${st.perFam}⌉), so the comparison range this ` +
+    `card is sized for runs to about <b>${guide}</b>.` +
+    (st.fam > guide
+      ? ` This estate is <b>past it at ${st.fam}</b> — still calculated exactly, but you are modelling a ` +
+        `barony on a fee's card, and the <a href="#sec-realms">Barony holder</a> is built for it.`
+      : ``) + `</p>`;
+}
 function holderRead(st){
   const fam = dG("m_fam"), lab = dG("hfam-lab"), note = dG("hfam-note");
   if(!fam) return;
@@ -5235,7 +5610,11 @@ function holderRead(st){
       (st.anc ? `this charter outruns the land and the estate falls short of its own keep.`
               : `the estate would still sit under that charter — the distance left to run, not a debt, ` +
                 `while the survey rules.`) +
-      ` (The same control as Step 1 of <a href="#sec-muster">the Muster</a> — moved here or there, it is one estate.)`;
+      ` (The same control as Step 1 of <a href="#sec-muster">the Muster</a> — moved here or there, it is one estate.)` +
+      // the moving guide. It is ADVICE, never a wall: an estate past it keeps calculating, because a
+      // reader comparing the same manor across profiles must not have it quietly resized underneath
+      // him. What it costs is a sentence; what a clamp would cost is his estate. (Round-4 review §5.)
+      famGuidance(st);
     return;
   }
   const n = famOf(st);
@@ -5351,7 +5730,7 @@ function renderWrit(st, F){
       `, leaving ${V(lfm(st.owed) + " still owed", true)}` +
       (st.cheap ? ` — cheapest lawful discharge: ${V(st.cheapPhrase, false, CHEAP_WHY)}` +
         (st.scut !== "raw"
-          ? ` ${V("at the " + (S_SCUTN[st.scut] || st.scut) + " rate", false,
+          ? ` ${V("at " + scutName(st.scut) + " rate", false,
                   "The scutage rate lever (Dials) is off its RAW default. RAW's own anchor is the Call to Arms — 1 gp a family, p.346.")}`
           : ``) : ``) + `.`);
 
@@ -5390,8 +5769,7 @@ function renderWrit(st, F){
 // It derives NOTHING. Every value is quoted — from the stash (FM.last, handed over by the card
 // at the moment it computed it) or from the facts the writ has already worded. That is the whole
 // design: two views of one estate that cannot disagree, because only one of them does arithmetic.
-const S_SCUTN = {raw:"RAW anchor", ang:"customary Angevin", john:"John's",
-                 late:"later negotiated", full:"full-replacement"};
+// (the sheet's own S_SCUTN copy is gone — it reads the canonical SCUT table through scutName())
 const shCell = (k, v, n, dim) =>
   `<div class="sheetcell${dim ? " dim" : ""}"><span class="sk">${k}</span>` +
   `<span class="sv">${v}</span>${n ? `<span class="sn">${n}</span>` : ""}</div>`;
@@ -5452,7 +5830,7 @@ function renderSheet(st, F){
     shCell("The term", term ? "1 month a year" : DASH,
       term ? `in kind, at ${F.def.word}` : "no service owed", !term),
     shCell("Scutage", st.noCount ? DASH : `${shGp(C.scutL*12)} ${U("gp for the term")}`,
-      st.noCount ? "nothing to buy off" : `per lance-equivalent, at the ${S_SCUTN[st.scut] || st.scut} rate`,
+      st.noCount ? "nothing to buy off" : `per lance-equivalent, at ${scutName(st.scut)} rate`,
       st.noCount)
   ].join("");
 
@@ -5607,7 +5985,10 @@ function syncMirrors(){
   const lv = dG("m_landv");
   // the mirror must echo the value the ENGINE used, not the raw field — they differ only when
   // something out of range has been put in the box, which is exactly when it matters
-  if(lv){ const L = clampInt("land", 3, 9, 6); lv.textContent = L + " gp → " + (L + 3) + "/fam"; }
+  // …and it must echo the CUSTOM the engine used too. This read `L + 3` — the seventh shadow the
+  // sweep turned up, and the one with the least excuse, since echoing the engine is its only job.
+  if(lv){ const L = clampInt("land", 3, 9, 6);
+          lv.textContent = L + " gp → " + ruralRevenue(L, customOf()).feeNet + "/fam"; }
 }
 D_MIRRORS.forEach(([m,r])=>{
   const me = dG(m);
@@ -6140,9 +6521,20 @@ const CLSN  = ["civilized","borderlands","outlands"];
 const MIL_PER_FAM = 1.8;   // 2 men per 10 families, half heavy foot (12gp) half light (6gp) = 1.8/family
 
 const RUNGS = [
-  {key:"esq", name:"Esquire's fee",  anchor:60,  fees:0.5, dflt:5,  sc:1},
-  {key:"kt1", name:"Bachelor's fee", anchor:100, fees:1,   dflt:92, sc:25},
-  {key:"kt2", name:"Double fee",     anchor:200, fees:2,   dflt:15, sc:4},
+  // The opening roster was 5 / 92 / 15 / 2 — 132.5 fee-equivalents on 1,574 families, sized for
+  // the RAW rate. Under the customary rent those same fees need 3,325 families, and the realm
+  // has 2,360 to give: the fresh page would have opened ILLEGAL, over-granted by 965.
+  //
+  // Of the three ways out — cut the host, grow the realm, or preserve the demesne — this keeps
+  // the DEMESNE, because 780 is the Count's own personal-domain figure (RR p.346) and the tab is
+  // built to read against it. 2×15 + 34×25 + 10×50 + 2×100 = 1,580, leaving exactly 780.
+  //
+  // The cost is the finding, and the card says it out loud: the same ~1,580 families support
+  // 63 fee-equivalents where they supported 132.5 — the customary rent buys HALF the knights off
+  // the same ground. That is a substantive historical claim and it must not arrive silently.
+  {key:"esq", name:"Esquire's fee",  anchor:60,  fees:0.5, dflt:2,  sc:1},
+  {key:"kt1", name:"Bachelor's fee", anchor:100, fees:1,   dflt:34, sc:12},
+  {key:"kt2", name:"Double fee",     anchor:200, fees:2,   dflt:10, sc:3},
   {key:"kt4", name:"Castellany",     anchor:400, fees:4,   dflt:2,  sc:0}
 ];
 
@@ -6277,11 +6669,16 @@ function model(){
   const level    = clampInt("lvl", 4, 12, 9);
   const dmil     = dG("dmil").value === "1";
 
-  const perFam   = land + 3;                 // fee-holder's net — garrison in kind (RR p.341-2)
+  // the CUSTOM of record is the Domains tab's too — one realm cannot price its manors by a
+  // different custom than the manor cards do, so this reads the same dial rather than owning one.
+  // It is mirrored, read-only, into #r_custread below so a reader on this tab can see which economy
+  // his honour is costed in — every figure here moves by 2.25× with it.
+  const REV      = ruralRevenue(land, customOf());
+  const perFam   = REV.feeNet;               // fee-holder's net — garrison in kind (RR p.341-2)
   // the scutage rate and the definition of record are the Domains tab's: this honour consumes
   // that doctrine rather than re-arguing it (see the reckoning's note)
   const smodeR   = scutMode();
-  const REQR     = (dG("l_def") && dG("l_def").value === "dom") ? 60 : 100;
+  const REQR     = reqOf(dG("l_def") ? dG("l_def").value : "dis");
 
   // --- vassals, as a tree. Every lord in it — including this one — is banded on HIS OWN direct
   //     vassals (RR p.347). A vassal's tribute upward is read off his WHOLE realm, sub-grants and
@@ -6306,7 +6703,8 @@ function model(){
     const sc  = Math.min(n, clampInt("fc_"+r.key, 0, 9999, 0));
     const fam = Math.ceil(r.anchor / perFam);
     return {...r, n, sc, fam, fams:n*fam, lances:n*r.fees, kind:(n-sc)*r.fees,
-            levy:n*Math.floor(fam/10)*2,
+            levy:n*militiaCount(fam),   // was floor(fam/10)*2 — the OTHER reading of RAW's ceiling,
+                                        // and the module answered one rule two ways. See militiaCount.
             // scutage per estate, monthly reserve: the Domains rate lever, applied to this
             // rung's fee-count. Under the RAW anchor that is the estate's own families.
             scut:(sc * r.fees * scutTerm(fam, r.fees, REQR, smodeR))/12};
@@ -6347,7 +6745,10 @@ function model(){
   // --- the lord's garrison: on the DEMESNE only. Fees are quit by service; vassals carry their own.
   const garrRate  = GARR[cls];
   const garrReq   = dem * garrRate;
-  const milMen    = dmil ? Math.floor(dem/10)*2 : 0;
+  // the DEMESNE militia — a fourth site of the same ceiling, and the one the greps missed, because
+  // it counts `dem` and every search for the defect was written around `fam`. Found by the ownership
+  // gate, which asks about the rule rather than about a variable name. It was still complete-tens.
+  const milMen    = dmil ? militiaCount(dem) : 0;
   const milCred   = Math.min(garrReq, milMen * 9);
   const milKit    = dmil ? (milMen/2) * 210.5 : 0;
   const garrCoin  = garrReq - milCred;
@@ -6377,7 +6778,8 @@ function model(){
   const perLanceScut  = lancesKind ? scutGross / lancesKind : 0;
   const perLanceNet   = lancesKind ? netFeeCost / lancesKind : 0;
 
-  return {famTotal, land, cls, perFam, granted, demesne:dem, rawDem:demesne, demShare:demesne/famTotal,
+  return {famTotal, land, cls, perFam, REVname:REV.customName, REVcustom:REV.custom,
+          granted, demesne:dem, rawDem:demesne, demShare:demesne/famTotal,
           illegal, vass, vassN, vassFams, vassGross, vassOver, rungs, estates, scutEst, enfFams, lancesAll,
           lancesKind, lancesCoin, levyAll, scutGross, scutNet, tribNet, payers, fB, coinIn,
           cfPayers, cfB, cfNet,
@@ -6431,9 +6833,15 @@ function render(){
   setT("f_g", "−"+fmt(m.feeCost)+" gp/mo");
   setT("f_l", one(m.lancesKind)); setT("f_k", fmt(m.scutGross)+" gp/mo"); setT("f_v", fmt(m.levyAll));
   setT("f_d", fmt(m.rawDem)); setT("f_dg", "+"+fmt(m.demNet)+" gp/mo");
-  const SCUTPT = {raw:"RAW's own Call-to-Arms anchor, 1 gp a family",
-                  hist:"the historical rate — ≈¼ of the term's hire",
-                  full:"full replacement — what hiring the month costs"}[scutMode()];
+  // which economy this honour is costed in — read-only, and it says so
+  const rcr = dG("r_custread");
+  if(rcr) rcr.innerHTML =
+    `Costed at the <b>${m.REVname}</b> — ${one(m.perFam)} gp a family net to a fee-holder. ` +
+    `Set on the Domains tab’s <a href="#sec-dials">custom of record</a>; this tab reads it.` +
+    (m.REVcustom === "raw"
+      ? ` <b>This is the comparison profile</b>, not the module’s reading of a manor.` : ``);
+  const SCUTPT = scutGloss(scutMode());   // was a fourth transcription, and a DRIFTED one: it still
+                                          // answered raw/hist/full after the dial split hist three ways
   dG("feenote").innerHTML = `<b>Count the militia he could have raised here too.</b>
     <span>"Costs the lord" is income he would have kept had he held the land — ${one(m.perFam)} gp a
     family less ${one(m.oppGarr)} gp of garrison${m.oppmil?"":" at the full coin rate"}; no coin
@@ -6655,7 +7063,8 @@ function selfTest(){
 
   // --- the dials, saved and restored: a reader who asks for the tests keeps his estate ------
   const DIALS = ["l_era","l_def","l_assess","l_asz","land","dens","l_sq","l_scut","h_holder",
-                 "h_fam","h_chart","h_cdef","h_cls","h_serj","h_mus1","h_mus2","h_crown","o_hench"];
+                 "h_fam","h_chart","h_cdef","h_cls","h_serj","h_mus1","h_mus2","h_crown","o_hench",
+                 "l_cust"];
   const saved = {};
   DIALS.forEach(id => { const e = dG(id); if(e) saved[id] = e.type === "checkbox" ? e.checked : e.value; });
   const set = (id, v) => { const e = dG(id); if(!e) return;
@@ -6664,8 +7073,15 @@ function selfTest(){
   const paint = o => { Object.keys(o).forEach(k => set(k, o[k]));
                        renderLadder(); renderUnits(); renderHousehold(); return FM.last; };
   const rung = k => FM.rungs.find(r => r.key === k);
+  // l_cust is pinned to "raw" ON PURPOSE, and the pin is load-bearing: every figure asserted below
+  // §1–§25 was calibrated against the RAW economy, so pinning it here makes this entire suite the
+  // CLEAN-SWITCH proof — under ACKS RAW the page must still compute exactly what it always did, and
+  // any drift is a bug in the custom-of-record work. The Customary figures are asserted separately
+  // in §26, and the identities are SWEPT across both customs in §27, because tools/README's rule
+  // stands: a dial pinned in the fixture is a dial the suite is otherwise blind to.
   const DEFAULT = {l_era:"", l_def:"dis", l_assess:"current", l_asz:true, land:6, dens:375,
-                   l_sq:true, h_holder:"kt1", h_cls:1, h_fam:23, h_chart:"1", h_cdef:"ang"};
+                   l_sq:true, h_holder:"kt1", h_cls:1, h_fam:23, h_chart:"1", h_cdef:"ang",
+                   l_cust:"raw"};
   const base = o => paint(Object.assign({}, DEFAULT, o || {}));
 
   // ---- 1. the published worked example — the bachelor's fee at land 6, borderlands ---------
@@ -6813,7 +7229,9 @@ function selfTest(){
   // ---- 5. the era presets: each coherent, and each re-pricing the ladder -------------------
   ["domesday","angevin","distraint","indenture"].forEach(k => {
     set("l_era", k); dG("l_era").dispatchEvent(new Event("input"));
-    const e = ERAS[k], pf = e.land + 3;
+    // derived, not restated: once the presets carry a custom this must follow the preset's own
+    // economy, and `e.land + 3` would silently keep asserting the RAW rate against it
+    const e = ERAS[k], pf = ruralRevenue(e.land, customOf()).feeNet;
     T(`preset ${k} — the ladder re-prices`, ()=>
       FM.rungs.every(r => r.fam === Math.ceil(r.anchor/pf) && r.income === r.fam*pf) || "a rung is off its own land value");
     T(`preset ${k} — density under its cap`, ()=> +e.dens <= S_CAP[+e.cls] ? true : `${e.dens} over the ${S_CLSN[+e.cls]} cap`);
@@ -6873,9 +7291,23 @@ function selfTest(){
                                    && dG("r_land").value === "6";
   const ifVirgin = fn => virgin ? fn()
     : "skip:the realm is no longer as it opens — the Realms tab was edited";
+  // LEGALITY, asserted directly — and it has to be, because PA cannot see it. A seeded revert of
+  // the fee roster to its pre-customary counts over-grants the realm by hundreds of families and
+  // the PA test still passes: the illegal state's tribute-only coin lands in the SAME 2,400–5,000
+  // band as the legal state's. Two different opening realms, one PA reading. So assert the land
+  // account itself: what is granted may not exceed what the realm has.
+  T("realm default — the land account balances", ()=> ifVirgin(()=>
+    R.rawDem >= 0 ? true
+      : `over-granted by ${-R.rawDem} families — ${R.granted} granted of ${R.famTotal}`));
+  T("…and leaves the Count his 780", ()=> ifVirgin(()=> eq(R.demesne, 780)));
   T("realm default — 4,600 families, titled Count", ()=> ifVirgin(()=> R.famTotal === 4600 && R.title.t.name === "Count" ? true : `${R.famTotal} families, ${R.title.t && R.title.t.name}`));
   T("realm default — nine direct vassals, 66% band", ()=> ifVirgin(()=> eq(R.fB, .66)));
-  T("realm default — PA +0 at level 9", ()=> ifVirgin(()=> eq(FM.realm.pa(R.coin, R.level), 0)));
+  // PA +1, and it is INTENDED — not a number tuned for, and not a regression. The migrated roster
+  // restores a legal opening state and the 780-family demesne, but ~4,900 gp/mo of spendable coin
+  // sits inside RAW's 2,400–5,000 band (PABANDS), so level 9 reads +1. The old RAW opening state
+  // sat in the SAME band and read +0 only because its coin was lower still. Retuning a default to
+  // chase a band boundary would be fixing the map to match the legend; the emergent figure stands.
+  T("realm default — PA +1 at level 9", ()=> ifVirgin(()=> eq(FM.realm.pa(R.coin, R.level), 1)));
 
   // ---- 11. the office: the conservation claim, on the engine's own numbers -----------------
   // At the hostile pole the crown must receive PRECISELY the naked RAW band — the dial buys the
@@ -6980,7 +7412,7 @@ function selfTest(){
       const parts = shot.split("_"), i = L.dials.findIndex(d => d[0] === "h_fam") + 1;
       parts[i] = "999";
       const r = L.decode(parts.join("_"));
-      return (r.set.h_fam === "80" && r.bounded.indexOf("h_fam") >= 0) ? true
+      return (r.set.h_fam === String(FAM_MAX) && r.bounded.indexOf("h_fam") >= 0) ? true
            : `set ${r.set.h_fam}, bounded ${JSON.stringify(r.bounded)}`; });
   T("…and an in-range field is not", ()=> {
       const r = L.decode(shot);
@@ -7012,13 +7444,13 @@ function selfTest(){
   // show 999 while every card on the page was priced on 80.
   T("a value over the maximum is written back", ()=> {
       set("h_fam", 999); FM.commitDial(dG("h_fam"));
-      return eq(dG("h_fam").value, "80"); });
+      return eq(dG("h_fam").value, String(FAM_MAX)); });
   T("a value under the minimum is written back", ()=> {
       set("h_fam", 2); FM.commitDial(dG("h_fam"));
-      return eq(dG("h_fam").value, "8"); });
+      return eq(dG("h_fam").value, String(FAM_MIN)); });
   T("…and the committed value is what the engine reads", ()=> {
       set("h_fam", 999); FM.commitDial(dG("h_fam"));
-      return eq(String(clampInt("h_fam", 8, 80, 23)), dG("h_fam").value); });
+      return eq(String(clampInt("h_fam", FAM_MIN, FAM_MAX, FAM_DFLT)), dG("h_fam").value); });
   T("a fraction truncates as parseInt does, not rounds", ()=> {
       set("h_fam", "23.7"); FM.commitDial(dG("h_fam"));
       return eq(dG("h_fam").value, "23"); });
@@ -7035,9 +7467,9 @@ function selfTest(){
   const noteOf = id => { const n = dG("bound-" + id); return n && !n.hidden ? n.textContent : ""; };
   T("mid-typing, an over-range field says what is being read", ()=> {
       set("h_fam", 999); FM.announceDial(dG("h_fam"));
-      return /reading 80/.test(noteOf("h_fam")) ? true : `note: "${noteOf("h_fam")}"`; });
+      return new RegExp("reading " + FAM_MAX).test(noteOf("h_fam")) ? true : `note: "${noteOf("h_fam")}"`; });
   T("…and the field itself is NOT rewritten yet", ()=> eq(dG("h_fam").value, "999"));
-  T("…which is exactly what the engine goes on to use", ()=> eq(clampInt("h_fam", 8, 80, 23), 80));
+  T("…which is exactly what the engine goes on to use", ()=> eq(clampInt("h_fam", FAM_MIN, FAM_MAX, FAM_DFLT), FAM_MAX));
   // the asymmetry, and it is the point: a value UNDER the minimum may be the prefix of a valid
   // entry, so it waits for blur. h_fam's floor is 8 and most two-digit entries start below it —
   // announcing there put a warning flash on ordinary typing, which is a worse trade than the
@@ -7051,7 +7483,7 @@ function selfTest(){
       return n === "" ? true : `note: "${n}"`; });
   T("…but blur still bounds and says it", ()=> {
       set("h_fam", 2); FM.commitDial(dG("h_fam"));
-      return (dG("h_fam").value === "8" && /bounded to 8/.test(noteOf("h_fam"))) ? true
+      return (dG("h_fam").value === String(FAM_MIN) && new RegExp("bounded to " + FAM_MIN).test(noteOf("h_fam"))) ? true
            : `value ${dG("h_fam").value}, note "${noteOf("h_fam")}"`; });
   T("a value on its way to valid clears the notice", ()=> {
       set("h_fam", 999); FM.announceDial(dG("h_fam"));
@@ -7061,24 +7493,32 @@ function selfTest(){
   T("a truncated link is refused whole",     ()=> eq(L.decode(shot.split("_").slice(0, 9).join("_")), null));
   // …but a link short by exactly the dials appended since is NOT truncated, it is last release's,
   // and it opens with those at the module's own defaults rather than being thrown away
+  // list-driven, never naming a dial: these tests used to hardcode `h_cover` as "the newest",
+  // and appending l_cust broke both. The question they ask is about the LAST entry of LINK_DIALS,
+  // whatever it currently is, so ask it that way and the next append costs nothing.
+  const LAST_DIAL = L.dials[L.dials.length - 1][0];
   T("a link predating the newest dial opens", ()=> {
       const p = shot.split("_"); p.pop();               // drop the one appended field
       const r = L.decode(p.join("_"));
-      return (r && r.absent.length === 1 && !("h_cover" in r.set)) ? true
+      return (r && r.absent.length === 1 && r.absent[0] === LAST_DIAL && !(LAST_DIAL in r.set)) ? true
            : `absent ${r && JSON.stringify(r.absent)}`; });
-  T("…with that dial at the module's default", ()=> {
+  // the migration itself, and it is the assertion that matters: an absent dial takes the value it
+  // MEANT when the link was written, which for l_cust is the RAW economy — NOT the markup default,
+  // which is Customary. Get this wrong and every link ever shared silently reprices by 2.25×.
+  T("…and an absent dial migrates, not defaults", ()=> {
       const p = shot.split("_"); p.pop();
-      dG("h_cover").value = "hire";                     // move it first, so a default is provable
+      dG("l_cust").value = "cust";                      // move it first, so the migration is provable
       L.apply(L.decode(p.join("_")));
-      return eq(dG("h_cover").value, "accept"); });
+      return eq(dG("l_cust").value, "raw"); });
+  T("…a fresh page, by contrast, opens Customary", ()=> eq(LINK_DFLT.l_cust, "cust"));
   T("a fragment that is not ours is ignored", ()=> eq(L.decode("sec-dials"), null));
   T("a value this build does not own is refused",
     ()=> { const r = L.decode(shot.replace("_kt4_", "_kt9_"));
            return (r.refused.indexOf("h_holder") >= 0 && !("h_holder" in r.set)) ? true
                 : `refused ${JSON.stringify(r.refused)}`; });
-  T("…an out-of-range count clamps to the markup's 80",
-    ()=> eq(L.decode(shot.replace("_41_", "_4100_")).set.h_fam, "80"));
-  T("…and to its 8 at the low end",          ()=> eq(L.decode(shot.replace("_41_", "_0_")).set.h_fam, "8"));
+  T("…an out-of-range count clamps to the markup's maximum",
+    ()=> eq(L.decode(shot.replace("_41_", "_4100_")).set.h_fam, String(FAM_MAX)));
+  T("…and to its floor at the low end",      ()=> eq(L.decode(shot.replace("_41_", "_0_")).set.h_fam, String(FAM_MIN)));
   T("the land dial clamps to its own 3–9",   ()=> eq(L.decode(shot.replace("_9_375_", "_99_375_")).set.land, "9"));
   L.reset();
   LINK_ORIGIN = false; LINK_BAD = false; LINK_REFUSED = [];   // the tests are not a shared link
@@ -7233,6 +7673,160 @@ function selfTest(){
     const a = dG("sbwrit").getAttribute("aria-live"), b = dG("sbwrit").getAttribute("aria-atomic");
     return (a === "polite" && b === "true") ? true : `aria-live=${a}, aria-atomic=${b}`;
   });
+
+  // ---- 22. the custom of record — the profile itself, swept -----------------------------------
+  // Everything above ran with l_cust pinned to "raw" (see DEFAULT), which makes this suite the
+  // clean-switch proof but leaves the dial itself untested. tools/README's rule: a dial pinned in
+  // the fixture is a dial the suite is blind to. So sweep it here, and assert the IDENTITIES
+  // rather than a constant — the earlier spec draft asserted "coverage == 2.0, invariant" and it
+  // was true only at land 6 civilized, which is precisely the kind of claim a sweep would kill.
+  T("the profile's identities hold, every land × custom", ()=> {
+    for(const cu of ["cust","raw"]) for(let L = 3; L <= 9; L++){
+      const R = ruralRevenue(L, cu), c = CUSTOMS[cu];
+      if(R.gross     !== L + c.service + c.tax) return `${cu} land ${L}: gross ${R.gross}`;
+      if(R.feeNet    !== R.gross - 3)           return `${cu} land ${L}: feeNet ${R.feeNet}`;
+      if(R.idleLoss  !== R.gross)               return `${cu} land ${L}: idleLoss is not gross`;
+      if(R.taxMorale !== 2 - c.tax)             return `${cu} land ${L}: taxMorale ${R.taxMorale}`;
+      for(let cl = 0; cl <= 2; cl++)
+        if(R.demesneNet(cl, 0) !== R.feeNet - GARR[cl]) return `${cu} land ${L} cls ${cl}`;
+    }
+    return true;
+  });
+  // the rate gap, at the default — one number, and the whole package's headline
+  T("customary is 2.25× under RAW at land 6", ()=>
+    eq(ruralRevenue(6,"raw").feeNet / ruralRevenue(6,"cust").feeNet, 2.25));
+  T("…gross 12 → 7, idle-plough follows", ()=>
+    eq(`${ruralRevenue(6,"raw").idleLoss}/${ruralRevenue(6,"cust").idleLoss}`, "12/7"));
+  // the outlands zero and the poor-land negatives are REAL results, not formatting accidents:
+  // the frontier held in hand pays for its own protection and no more, and below land 5 it loses.
+  T("outlands demesne nets exactly 0 at land 6", ()=> eq(ruralRevenue(6,"cust").demesneNet(2,0), 0));
+  T("…and goes negative at land 3, unclamped", ()=>
+    arr([0,1,2].map(c => ruralRevenue(3,"cust").demesneNet(c,0)), [-1,-2,-3]));
+  // the cards, under the customary rent — the figures the module now opens on
+  T("customary bachelor — 25 families", ()=> eq(base({l_cust:"cust"}) && rung("kt1").fam, 25));
+  T("…100 gp/mo, and it clears nothing",  ()=> {
+    base({l_cust:"cust"});
+    return (rung("kt1").income === 100 && rung("kt1").income - rung("kt1").anchor === 0) ? true
+         : `income ${rung("kt1").income}, clears ${rung("kt1").income - rung("kt1").anchor}`; });
+  T("customary castellany — 100 families", ()=> eq(base({l_cust:"cust"}) && rung("kt4").fam, 100));
+  // the writ CONSUMES the stash — it must not re-derive, and this catches it if it starts to
+  T("the writ's rate is the cards' rate",  ()=> {
+    base({l_cust:"cust"});
+    return eq(readState().perFam, FM.last.perFam); });
+  T("…and the district popover adds up",   ()=> {
+    base({l_cust:"cust", h_cls:1}); const st = readState();
+    return eq(S_RATE_OF(st)[1], st.perFam - GARR[1]); });
+
+  // ---- 28. the militia ceiling — the boundaries RAW does not settle -------------------------
+  // The two readings of "2 per 10" agree on every complete ten and part company on every half-ten,
+  // so a test at 20 families proves nothing at all. These are the DISCRIMINATING cases, and they
+  // are the whole reason the ruling had to be made explicitly rather than inherited from whichever
+  // engine a reader happened to be looking at. (Spec §2.6 Finding B.)
+  T("militia — the boundaries that discriminate", ()=> {
+    const want = {4:0, 5:1, 9:1, 10:2, 14:2, 15:3, 19:3, 20:4};
+    for(const f in want) if(militiaCount(+f) !== want[f])
+      return `${f} families → ${militiaCount(+f)}, want ${want[f]}`;
+    return true;
+  });
+  // …and the cross-engine half, which is the half that was actually wrong. Feudal Realms priced
+  // this ceiling with floor(fam/10)×2 while Domains used the proportional form, so the two tabs
+  // answered one RAW sentence two ways. Read the REALM's own live rows rather than calling the
+  // helper twice — a test that calls militiaCount on both sides would pass on a file where Realms
+  // still carried its own arithmetic.
+  T("…and Feudal Realms now answers it the same way", ()=> {
+    const R = FM.realmLast;
+    for(const r of R.rungs)
+      if(r.levy !== r.n * militiaCount(r.fam))
+        return `${r.name}: realm levy ${r.levy}, proportional ${r.n * militiaCount(r.fam)} ` +
+               `(${r.n} × ${r.fam} families)`;
+    return true;
+  });
+  T("…and the two forms genuinely differ on this roster", ()=> {
+    // If they agreed everywhere the unification would be untestable and the finding cosmetic.
+    // Name the rungs where the old form lost a man, so the rebaseline is a knowable list.
+    const R = FM.realmLast;
+    const moved = R.rungs.filter(r => militiaCount(r.fam) !== Math.floor(r.fam/10)*2);
+    return moved.length ? true
+      : "no rung discriminates — this roster cannot prove the unification either way";
+  });
+
+  // ---- 29. the economy is orthogonal to the century -----------------------------------------
+  // Seven invariants, and every one of them is an OWNERSHIP claim: exactly one thing decides the
+  // opening value of a dial. The boot-order defect that motivated them had four owners for l_cust
+  // (markup, LINK_DFLT, the boot preset, the link decoder) and the preset silently won.
+  T("the markup's opening economy is what boots", ()=> eq(LINK_DFLT.l_cust, "cust"));
+  T("no era preset carries an economy", ()=> {
+    for(const k in ERAS) if("cust" in ERAS[k]) return `${k} still carries cust:"${ERAS[k].cust}"`;
+    return true;
+  });
+  T("picking a century leaves the economy alone", ()=> {
+    set("l_cust", "raw");
+    for(const k in ERAS){
+      set("l_era", k); dG("l_era").dispatchEvent(new Event("input"));
+      if(dG("l_cust").value !== "raw") return `${k} overwrote the economy with "${dG("l_cust").value}"`;
+    }
+    return true;
+  });
+  T("…and picking an economy leaves the century lit", ()=> {
+    set("l_era", "domesday"); dG("l_era").dispatchEvent(new Event("input"));
+    set("l_cust", "raw"); dG("l_cust").dispatchEvent(new Event("input"));
+    return eq(dG("l_era").value, "domesday");
+  });
+  T("Reset All lands on Distraint and Customary", ()=> {
+    set("l_cust", "raw"); set("l_era", "");
+    FM.link.reset();
+    return (dG("l_era").value === "distraint" && dG("l_cust").value === "cust") ? true
+         : `era ${dG("l_era").value}, custom ${dG("l_cust").value}`;
+  });
+  T("ACKS RAW names itself a comparison wherever it prints", ()=>
+    /comparison/i.test(ruralRevenue(6, "raw").customGlance) &&
+    !/comparison/i.test(ruralRevenue(6, "cust").customGlance) ? true
+      : `raw "${ruralRevenue(6,"raw").customGlance}" · cust "${ruralRevenue(6,"cust").customGlance}"`);
+
+  // ---- 30. the scope bound is static, and the guidance fits inside it ------------------------
+  // The tripwire the round-4 review asked for: if a future profile ever puts feeNet below 1, this
+  // fails and forces an explicit decision instead of dividing by zero inside a template.
+  T("every supported guidance value fits the static maximum", ()=> {
+    for(const cu of ["cust","raw"]) for(let L = 3; L <= 9; L++){
+      const net = ruralRevenue(L, cu).feeNet;
+      if(net < 1)              return `${cu} land ${L}: feeNet ${net} — the guide would divide by ≤0`;
+      if(famGuide(net) > FAM_MAX) return `${cu} land ${L}: guide ${famGuide(net)} exceeds FAM_MAX ${FAM_MAX}`;
+    }
+    return true;
+  });
+  T("…and the worst case is exactly the declared one", ()=>
+    eq(famGuide(ruralRevenue(3, "cust").feeNet), FAM_MAX));
+  T("the markup's bound is the engine's bound", ()=>
+    (dG("h_fam").min === String(FAM_MIN) && dG("h_fam").max === String(FAM_MAX) &&
+     dG("m_fam").min === String(FAM_MIN) && dG("m_fam").max === String(FAM_MAX)) ? true
+      : `h_fam ${dG("h_fam").min}-${dG("h_fam").max}, m_fam ${dG("m_fam").min}-${dG("m_fam").max}`);
+
+  // ---- 31. one canonical name per scutage rate ------------------------------------------------
+  // Four transcriptions of this map existed and two had DRIFTED, so three of the five dial settings
+  // printed a literal "(undefined)". That is the shadow-copy class at its worst: not two copies that
+  // agree until a dial splits them, but two copies where the dial already split and one was not told.
+  T("every scutage setting the dial offers has a name", ()=> {
+    const opts = Array.from(dG("l_scut").options || []).map(o => o.value);
+    for(const v of opts){
+      if(!SCUT[v])                    return `the dial offers "${v}" and SCUT has no entry`;
+      if(scutName(v)  === v)          return `"${v}" falls through to its own key`;
+      if(!scutGloss(v))               return `"${v}" has no gloss`;
+    }
+    return opts.length ? true : "the dial offers nothing";
+  });
+  T("…and every SCUT entry is a setting the dial offers", ()=> {
+    const opts = Array.from(dG("l_scut").options || []).map(o => o.value);
+    for(const k in SCUT) if(opts.indexOf(k) < 0) return `SCUT carries "${k}" and the dial does not`;
+    return true;
+  });
+  // the rename's substance: the mode renders the RECORDED requirement, which replaces the man in
+  // three definitions and does not in the fourth. "Full replacement" was quietly false at the ordinance.
+  T("the requirement in full renders the paper, not the hire", ()=>
+    eq(scutTerm(50, 1, reqOf("ord"), "full"), 100));
+  T("…and at the ordinance that still leaves 45 gp to find", ()=>
+    eq(replaceOf("ord") - scutTerm(50, 1, reqOf("ord"), "full"), 45));
+  T("…while under the statute knight it closes exactly", ()=>
+    eq(replaceOf("dis") - scutTerm(50, 1, reqOf("dis"), "full"), 0));
 
   // --- the estate as the reader left it ----------------------------------------------------
   Object.keys(saved).forEach(id => set(id, saved[id]));

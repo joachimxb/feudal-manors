@@ -61,6 +61,10 @@ const PAIRS = [
   ["sbledger value cream on bar",           V.cream, V.bar,   12, 0],
   ["sbledger note sage on bar",             "#8fa285", V.bar, 12, 0],
   ["header .hframe #e6dcc0 on --green",    "#e6dcc0", V.green, 13.5, 0],
+  // the version chip — 11px on the masthead's green, so it is the smallest text on that ground and
+  // the pair worth checking. A first draft used a dark grey, which would have been near-invisible:
+  // styled for a light background out of habit, on the one dark panel in the document.
+  ["header .vchip #cdbf98 on --green",      V.tan,    V.green, 11,   0],
   ["topnav link tan on --green",           V.tan,   V.green, 12.5, 1],
   ["topnav .on #fff on --green",           V.white, V.green, 12.5, 1],
   ["card h4 cream on --green",             V.cream, V.green, 14, 1],
@@ -76,6 +80,10 @@ const PAIRS = [
   ["sbhint #8fa285 on the bar",            "#8fa285", V.bar, 10, 0],
   ["wed.open ink on --goldlit",            "#1a1409", V.goldlit, 13, 1],
   ["bdg raw #1c4429 on #eaf2ec",           "#1c4429", "#eaf2ec", 8.5, 1],
+  // RAW-INFORMED reuses raw's pair on purpose — same ink, same ground, dashed rule. Listed anyway:
+  // a badge kind that is not in this list is a badge kind nobody checked, and the pair being
+  // identical is the finding, not a reason to omit it.
+  ["bdg rin #1c4429 on #eaf2ec (dashed)",  "#1c4429", "#eaf2ec", 8.5, 1],
   ["bdg mod #6d5410 on #faf3df",           "#6d5410", "#faf3df", 8.5, 1],
   ["bdg his #5b5443 on #f2eee4",           "#5b5443", "#f2eee4", 8.5, 1],
   ["bdg hrn #39587a on #eaf1f7",           "#39587a", "#eaf1f7", 8.5, 1],

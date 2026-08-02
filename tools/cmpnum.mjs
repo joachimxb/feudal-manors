@@ -28,7 +28,18 @@ for(const def of ["dom","ang","dis","ord"])
 for(const assess of ["ancient","current"])
 for(const asz of [true,false])
 for(const land of [3,6,9])
-  STATES.push({h_holder:holder, l_def:def, l_assess:assess, l_asz:asz, land,
+  // l_cust is driven HERE rather than pinned in a fixture file, and the difference matters. The
+  // first RAW-pinned comparison was built by editing the markup's selected option — which did
+  // nothing, because the page fired the era preset on load and the preset then carried a custom,
+  // so the "RAW-pinned" run was still computing Customary and reported differences that read as
+  // regressions. A fixture that depends on the boot sequence preserving it is a fixture that can
+  // be silently overwritten. Setting the dial after boot cannot be. (The preset no longer touches
+  // it either — but the fixture should not have to know that.)
+  //
+  // On a baseline predating the dial this is a harmless no-op: the harness auto-creates unknown
+  // ids, so the old build ignores it and goes on computing the only economy it has — which IS the
+  // RAW one. That is precisely what makes this the backward-compatibility proof.
+  STATES.push({h_holder:holder, l_def:def, l_assess:assess, l_asz:asz, land, l_cust:"raw",
                h_cls:1, dens:375, l_sq:true, h_chart:"1", h_cdef:"ang", h_fam:24, l_era:""});
 
 const render = (h, st) => { const set = setOn(h);
