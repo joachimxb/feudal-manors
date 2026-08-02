@@ -564,7 +564,14 @@
   #tab-realms .readout .big{font-size:23px;letter-spacing:.02em;line-height:1.1}
   #tab-realms .readout .tk{font-size:11px;opacity:.78;display:block;text-transform:uppercase;letter-spacing:.06em}
   #tab-realms .readout .tv{font-size:15px;font-variant-numeric:tabular-nums}
-  #tab-realms .readout .tv small{font-size:11.5px;opacity:.75;font-variant-numeric:normal}
+  /* `.u` is listed BESIDE `small` and given small's exact values rather than inheriting the global
+     `.u` rule: the readout's unit was the page's one `<small>`-wrapped unit, which the unit audit
+     reads as bare and is right to — a wrapper that is not `.u` is not a marking. Bringing it under
+     the discipline must not also restyle it, so the override cancels `.u`'s own `color` and
+     `letter-spacing` and matches `small` term for term. Same look, one vocabulary. */
+  #tab-realms .readout .tv small,
+  #tab-realms .readout .tv .u{font-size:11.5px;opacity:.75;font-variant-numeric:normal;
+    color:inherit;letter-spacing:normal;font-weight:400}
   #tab-realms .readout .sep{flex-basis:100%;height:1px;background:rgba(244,236,214,.22);margin:1px 0}
   #tab-realms .readout .bad{color:#f0a79a}
   #tab-realms .land{display:flex;flex-wrap:wrap;gap:20px;background:#fff;border:1px solid var(--rule);
@@ -609,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.4 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.4.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -3773,7 +3780,7 @@ function renderLadder(){
     dis:{name:"the statute knight — wealth-assessed, the view of arms kept (Winchester, 1285)",
       sub:"an enforcement overlay on the same 100-gp body, not a new price: Winchester was an arms-assessment and peace-keeping statute — it re-graded who must hold what and set the view that polices it, while the knight it inspects is still the 1181 assize's man. The field standard tightened separately: Edwardian cavalry summonses demanding <i>equus coopertus</i>, the covered horse, pressed beyond bare statutory compliance — the definition contested at muster, men arriving paper-compliant and obsolete. The charter's definition holds until the paper is rewritten; distraint resets the man without resurveying the manor"},
     ord:{name:"the ordinance lance — the crew written into the requirement; the fee commuted",
-      sub:"the requirement has absorbed the crew: man-at-arms + coustillier + page, ~145 gp/mo hired, the page a living-expense mouth with no wage line. The fee itself renders coin on ancient paper — the era in which the definition swallowed the crew is the era the fee died"}
+      sub:"the requirement has absorbed the crew: man-at-arms + coustillier + page, ~145 <span class='u'>gp/mo</span> hired, the page a living-expense mouth with no wage line. The fee itself renders coin on ancient paper — the era in which the definition swallowed the crew is the era the fee died"}
   };
   // the custom of record — Customary (service 1, tax 0) or ACKS RAW (4, 2). See CUSTOMS above.
   const REV    = ruralRevenue(land, customOf());
@@ -3799,11 +3806,11 @@ function renderLadder(){
   let keepL = 1; for(let L = 1; L <= 5; L++) if(HENCH[L] <= m23) keepL = L;
   document.getElementById("standing").innerHTML = anc
     ? `A <b>standing manor under ancient assessment answers only its charter:</b> a typical 23-family manor granted ` +
-      `as a single fee of the classic charter still yields <b>${fmt(m23)} gp/mo</b> against the 100-gp anchor its paper names — a ` +
-      `<b>margin of ${fmt(m23-100)} gp/mo</b> the assessment never sees. The quota stays one lance; the margin is ` +
+      `as a single fee of the classic charter still yields <b>${fmt(m23)} ${U("gp/mo")}</b> against the 100-gp anchor its paper names — a ` +
+      `<b>margin of ${fmt(m23-100)} ${U("gp/mo")}</b> the assessment never sees. The quota stays one lance; the margin is ` +
       `the household's funding (<b>Muster</b> section, "the grown manor") — and distraint is the crown taxing it ` +
       `by income instead of re-surveying.`
-    : `A <b>standing manor never resizes — it re-grades:</b> a typical 23-family manor here yields <b>${fmt(m23)} gp/mo</b> ` +
+    : `A <b>standing manor never resizes — it re-grades:</b> a typical 23-family manor here yields <b>${fmt(m23)} ${U("gp/mo")}</b> ` +
       `≈ <b>${(m23/100).toFixed(1)} fees</b>, keeping an <b>L${keepL}</b> knight (the knight's ledger grows him to L${vassalPlateau(m23).L}). ` +
       `The fee-count is the value-absorbing unit, just as the medieval assessment counted value in fees. ` +
       `A manor stocks from its grant floor toward the whole-holding ceiling and fragments past it — the three counts of a fee (History chapter, Library).`;
@@ -3861,7 +3868,7 @@ function renderLadder(){
     if(ord){
       quota = `${FEESTR[r.anchor]} — commuted: the render is coin`;
       const scAllC = fam/12;
-      quotaSub = `the count stands on ancient paper and the render is <b>coin</b>: scutage for the whole count ≈${scAllC.toFixed(1)} <span class='u'>gp/mo</span> in reserve <b>${scAllC<=head?"fits":"breaks"}</b> the ${fmt(head)} <span class='u'>gp/mo</span> surplus. What the coin buys is the ordinance lance — man-at-arms + coustillier + page, ~145 gp/mo hired, the page in the threshold: the requirement has absorbed the crew, and the fee has become a rent-charge. Personal service survives as honor and choice, not obligation (the era table, History chapter, Library)`;
+      quotaSub = `the count stands on ancient paper and the render is <b>coin</b>: scutage for the whole count ≈${scAllC.toFixed(1)} <span class='u'>gp/mo</span> in reserve <b>${scAllC<=head?"fits":"breaks"}</b> the ${fmt(head)} <span class='u'>gp/mo</span> surplus. What the coin buys is the ordinance lance — man-at-arms + coustillier + page, ~145 <span class='u'>gp/mo</span> hired, the page in the threshold: the requirement has absorbed the crew, and the fee has become a rent-charge. Personal service survives as honor and choice, not obligation (the era table, History chapter, Library)`;
     } else if(lances < 1){
       quota = "½ — joint service: two half-fees owe one knight-service between them";
       quotaSub = "they may alternate the term, nominate the better-equipped holder while the other bears a share of his war-costs, or discharge proportional scutage. Their combined 120 <span class=\"u\">gp/mo</span> of retention exceeds the 100 <span class=\"u\">gp/mo</span> dubbed floor — a service-value comparison, not a common purse: the two anchors are two men's keeps, and no free income sits between them";
@@ -4246,12 +4253,12 @@ function renderUnits(){
       <div class="lrow hi"><span class="lk">Or enfeoffed instead</span><span class="lvv">${fmt(famTot)} families of fees${famB===null?" + a barony (≥160 fam)":""}</span></div>
       <div class="lrow sub"><span>${N}× ${famPer}-family fees${famB!==null?` + the banneret's ${famB}`:` — the L${bl} banneret is baron-grade: he holds a barony (160+ fam), not a fee`}, at land ${land} (Dials panel) — sustainment costs no coin, only land${S?`; the ${S} squires ride as unpaid train (fostered sons — their wage is their education)`:""}</span></div>
       <div class="lrow gold"><span class="lk">The term (month 1)</span><span class="lvv">wages 0 — service in kind, provider-pays</span></div>
-      <div class="lrow"><span class="lk">Extension wages (months 2+)</span><span class="lvv">${fmt(wage)} gp/mo — the muster-roll wage; supply &amp; specialists ride their own lines above, every month</span></div>
+      <div class="lrow"><span class="lk">Extension wages (months 2+)</span><span class="lvv">${fmt(wage)} ${U("gp/mo")} — the muster-roll wage; supply &amp; specialists ride their own lines above, every month</span></div>
       <div class="lrow sub"><span>the fee sustains the man year-round and buys the first month of service (the forty days); past the term the lord pays the pay ladder — as the rolls show fee-holders drawing — while supply and specialists are his throughout. What no coin buys at any month: the unit itself — leveled knights are in no crop (p.428)</span></div>
     </div>`;
 
   const flags = [];
-  flags.push(`<div class="flag">⏳ <b>The term bounds the free month, not the asset:</b> the fees field this muster in kind for one month of service a year — the forty days — then extension rides on the muster-roll wage (${fmt(wage)} gp/mo). What coin never buys is the unit itself: leveled knights are in no recruitment crop (RR p.428) — the fee is the only mint, and it pays the man's value all year so that he exists at all. Refusing paid extension past the term is no treason — the duty is served; an unpaid extended host is a loyalty problem (going without wages is a calamity). The banneret's household men ride without term: the henchman bond has no forty days (the Muster section prices them).</div>`);
+  flags.push(`<div class="flag">⏳ <b>The term bounds the free month, not the asset:</b> the fees field this muster in kind for one month of service a year — the forty days — then extension rides on the muster-roll wage (${fmt(wage)} ${U("gp/mo")}). What coin never buys is the unit itself: leveled knights are in no recruitment crop (RR p.428) — the fee is the only mint, and it pays the man's value all year so that he exists at all. Refusing paid extension past the term is no treason — the duty is served; an unpaid extended host is a loyalty problem (going without wages is a calamity). The banneret's household men ride without term: the henchman bond has no forty days (the Muster section prices them).</div>`);
   if(kl>=4 && N>15) flags.push(`<div class="flag">A host of ${N} L${kl} knights is a realm-shaking force — by the Ladder section, every one of them holds ${famPer} families. Check the realm can actually seat ${fmt(N*famPer)} families of fees before fielding this.</div>`);
   if(!ltOK) flags.push(`<div class="flag bad">The L${bl} banneret is under-leveled even for the lieutenant's post at ${scale.name} scale (needs L${scale.lq}+). His banner rides unofficered unless the Judge waives (RR p.435).</div>`);
   if(cmdQual) flags.push(`<div class="flag">The L${bl} banneret would qualify for ${scale.name}-scale <b>command</b> (L${scale.cq}+) — he has outgrown banner service. In the feudal chain that division belongs to a lord${scale.cq===6?" (L6 = baron-grade, exactly where the manors end)":""}; a banneret rides as lieutenant, however high he climbs.</div>`);
@@ -4469,7 +4476,7 @@ function renderHousehold(){
        ${sel.lances>1?`<div class="lrow"><span class="lk">Levy credited</span><span class="lvv">${q.med? `${lstr(levyN)} — ${levyWhat}, assize kept` : (asz? "0 — the family base mounts none" : (def==="dom"? "0 — no assize yet stands (1181); the levy is unraised, not in default" : (q.medReq? `0 — the required serjeant${q.medReq>1?"s":""} uncredited, assize in default` : "0 — the assize stands in default")))}</span></div>`:""}
        <div class="lrow hi"><span class="lk">Still owed</span><span class="lvv">${remS}</span></div>
        ${q.rem>0?`<div class="lrow gold"><span class="lk">Cheapest lawful discharge</span><span class="lvv">${cheapPhrase} — ${cheapFits?`fits, ${cheapLeft} <span class='u'>gp/mo</span> left`:"breaks the margin"}</span></div>
-       <div class="lrow sub"><span><b>the rate in force:</b> ${scutWhy}.${smode === "raw" ? `` : ` <b>Two of the three settings are the module's own</b>, offered because the rate is the thing kings and barons actually argued about — the division and the quantization below apply whichever is chosen.`} <b>why ${f1(sel.scAll*12)} and not ${sel.fam}?</b> RAW's scutage is <b>1 gp per family in the realm</b> — ${sel.fam} gp here, undivided, and payable <i>every month</i> until the duty is revoked (p.346). This module renders it two steps differently, and both are doctrine, not RAW's letter. <b>It divides:</b> scutage was historically assessed per knight's fee, and a tenant who served part of his quota in person paid only on the balance — so the ${remS} still owed carries ${f1(sel.scAll*12)} of the ${sel.fam}, the holder's own body discharging the rest. <b>It quantizes:</b> the render is one month of service a year rather than a standing monthly tax, so that ${f1(sel.scAll*12)} gp falls due when the host is called and the ${f1(sel.scAll)} gp/mo is the reserve set against it. Strict RAW would charge the whole ${sel.fam} gp a month, credit no personal service, and make scutage ruinous beside the lance — which is why the module divides (History chapter, Library)</span></div>`:""}
+       <div class="lrow sub"><span><b>the rate in force:</b> ${scutWhy}.${smode === "raw" ? `` : ` <b>Two of the three settings are the module's own</b>, offered because the rate is the thing kings and barons actually argued about — the division and the quantization below apply whichever is chosen.`} <b>why ${f1(sel.scAll*12)} and not ${sel.fam}?</b> RAW's scutage is <b>1 gp per family in the realm</b> — ${sel.fam} gp here, undivided, and payable <i>every month</i> until the duty is revoked (p.346). This module renders it two steps differently, and both are doctrine, not RAW's letter. <b>It divides:</b> scutage was historically assessed per knight's fee, and a tenant who served part of his quota in person paid only on the balance — so the ${remS} still owed carries ${f1(sel.scAll*12)} of the ${sel.fam}, the holder's own body discharging the rest. <b>It quantizes:</b> the render is one month of service a year rather than a standing monthly tax, so that ${f1(sel.scAll*12)} gp falls due when the host is called and the ${f1(sel.scAll)} ${U("gp/mo")} is the reserve set against it. Strict RAW would charge the whole ${sel.fam} gp a month, credit no personal service, and make scutage ruinous beside the lance — which is why the module divides (History chapter, Library)</span></div>`:""}
        ${musterOn?`<div class="lrow sub"><span>this ledger is <b>default performance</b> — service as written; the muster selectors below choose what actually rides, and the reconciled block prices it</span></div>`:""}`;
 
   // the read — computed from the same arrays as the rows
@@ -4482,7 +4489,7 @@ function renderHousehold(){
   } else {
     const parts = [];
     if(ordH){
-      parts.push(`the count is commuted — coin for the whole (${f1(sel.fam/12)} gp/mo) ${sel.fam/12<=sel.head?"fits the surplus":"breaks the surplus — arrears"}`);
+      parts.push(`the count is commuted — coin for the whole (${f1(sel.fam/12)} ${U("gp/mo")}) ${sel.fam/12<=sel.head?"fits the surplus":"breaks the surplus — arrears"}`);
     } else if(q.rem>0){
       const opts = [sel.scAll<=sel.head&&"coin", sel.sgAll<=sel.head&&`term ${def==="dom"?"rider":"sergeant"}${sel.bodies>1?"s":""}`, def!=="dom"&&sel.ktAll<=sel.head&&"a term knight"].filter(Boolean);
       parts.push(opts.length ? `the ${remS} owed beyond himself: ${opts.join(" or ")} fit${opts.length===1?"s":""} the surplus` : `the ${remS} owed beyond himself cannot be discharged from the surplus — arrears, default, or the lord's grace`);
@@ -4667,7 +4674,7 @@ function renderHousehold(){
       const crownTxt = crown==="none"
         ? `none — the paper and the man stand as they are`
         : crown==="distrain"
-        ? `the writ aims at the <b>man</b>, and the charter stands untouched — count and definition unchanged; it settles no muster and fields no body. ${margin>0?`<b>The unassessed margin (${fmt(margin)} gp/mo) is the quarry</b> — income the paper never sees, taxed without a survey; respite purchasable by fine (the Fine Rolls carry the receipts)`:margin===0?`no income margin is visible — the assessment and the estate agree to the shilling, and compulsion finds nothing the paper does not already see`:`the estate cannot meet its contractual keep (${fmt(-margin)} gp/mo short) — compulsion falls on chattels, borrowing, kin, or respite by fine; the margin is no quarry here`}`
+        ? `the writ aims at the <b>man</b>, and the charter stands untouched — count and definition unchanged; it settles no muster and fields no body. ${margin>0?`<b>The unassessed margin (${fmt(margin)} ${U("gp/mo")}) is the quarry</b> — income the paper never sees, taxed without a survey; respite purchasable by fine (the Fine Rolls carry the receipts)`:margin===0?`no income margin is visible — the assessment and the estate agree to the shilling, and compulsion finds nothing the paper does not already see`:`the estate cannot meet its contractual keep (${fmt(-margin)} ${U("gp/mo")} short) — compulsion falls on chattels, borrowing, kin, or respite by fine; the margin is no quarry here`}`
         : `<b>preview only</b> — new paper at the muster's standard: keep L${sel.cur.keep} (anchor ${fmt(sel.cur.anchor)}), owing ${lstr(sel.cur.lances)} of the current lance. To enact, flip the assessment lever to <b>Current</b>; an inquest supplies the evidence, escheat or regrant the occasion, and the writing is the crown's`;
       crownBlock = `
       <div class="sect">Crown follow-up — after the host rides ${bdg("his","distraint of knighthood and the reassessing inquest are both real instruments; which one a crown reached for was politics")}</div>
@@ -4743,7 +4750,7 @@ function renderHousehold(){
       ${musterOn?`<div class="lrow sub"><span>a price-list against the <b>gross</b> contractual margin — each row an independent unit price; for post-obligation affordability compare the reconciled <b>post-remedy margin</b> above</span></div>`:""}
       ${MENU.map(line).join("")}
       ${(!sel.baron && owedN>0 && !musterOn) ? `<div class="sect">The lord's corresponding line (doctrine — Units section)</div>
-      <div class="lrow sub"><span>whatever the fee finds, <b>the host feeds</b>: each body presented for the month of service adds ~16 gp/mo of field supply (4 gp/wk, RR p.442) and a specialist share to the <i>lord's</i> ledger — the ${remS} owed, found in bodies, puts ~${fmt(owedBodies*16)} <span class='u'>gp for the term</span> on the lord's month (the holder's own lance and any called levy ride there too). The fee's bill is the wage alone; coin discharge adds nothing to the lord's supply line. Months 2+, wages shift to the lord as well (the muster-roll rate). A declared campaign doctrine, not a medieval universal — custom often read service as at the vassal's own cost</span></div>` : ""}
+      <div class="lrow sub"><span>whatever the fee finds, <b>the host feeds</b>: each body presented for the month of service adds ~16 <span class='u'>gp/mo</span> of field supply (4 <span class='u'>gp/wk</span>, RR p.442) and a specialist share to the <i>lord's</i> ledger — the ${remS} owed, found in bodies, puts ~${fmt(owedBodies*16)} <span class='u'>gp for the term</span> on the lord's month (the holder's own lance and any called levy ride there too). The fee's bill is the wage alone; coin discharge adds nothing to the lord's supply line. Months 2+, wages shift to the lord as well (the muster-roll rate). A declared campaign doctrine, not a medieval universal — custom often read service as at the vassal's own cost</span></div>` : ""}
       <div class="lrow hi"><span class="lk">The read</span><span class="lvv" style="font-weight:400;font-size:11.5px">${read}</span></div>
       ${drawer(`${sel.name}, from the ground to the count and what discharges it.`, [
         dstep(`${perFam} <span class="u">gp/family</span>`,
@@ -4948,11 +4955,11 @@ function renderOffice(){
   if(keepL >= 6) flags.push(`<div class="flag bad">Baron-grade income (${fmt(take)} ≥ 800 gp)${skim ? " — reached by graft" : ""}: no office holds such a man for long — the crown ennobles him or loses him${skim ? ", and this one is buying land, titles, or treason" : ""}. Offices cap where the manors cap, and for the same reason.</div>`);
   if(sworn) flags.push(`<div class="flag good">A henchman-officer holds at loyalty 0 + the crown's CHA, skims nothing, and the office raises him to L${vp.L} — it grows its man like a fee does, one level shy of what it pays for. The bench and the office feed each other.</div>`);
   else if(mode === "a4") flags.push(`<div class="flag bad">Hostile: he <b>farms the office</b> — keeps whatever he collects, remitting only a fixed residue, the medieval sense of "farm." The crown's take falls to the band itself (${Math.round(fB*100)}%) — the office has dissolved back into the inefficiency it was meant to cure. Next comes treachery (RR p.342), and he holds the castle.</div>`);
-  else flags.push(`<div class="flag bad">The unsworn officer skims ${Math.round(K*100)}% of the spread (+${fmt(skim)} gp/mo)${mode === "a1" ? " — favors, offices, and marriage ties hold his loyalty at ~0: good lordship, and the crown pays for it monthly in favors" : mode === "a3" ? " — distance is corruption's friend (−4 beyond the range of trade, JJ p.203): the trade maps double as audit maps" : ""}. The crown still nets ${fmt(crownF)} against the naked band's ${fmt(trib*fB)} — but the bond is worth ${fmt(skim)} gp/mo here: closing that gap is what fosterage and household office-holding are <b>for</b>.</div>`);
+  else flags.push(`<div class="flag bad">The unsworn officer skims ${Math.round(K*100)}% of the spread (+${fmt(skim)} ${U("gp/mo")})${mode === "a1" ? " — favors, offices, and marriage ties hold his loyalty at ~0: good lordship, and the crown pays for it monthly in favors" : mode === "a3" ? " — distance is corruption's friend (−4 beyond the range of trade, JJ p.203): the trade maps double as audit maps" : ""}. The crown still nets ${fmt(crownF)} against the naked band's ${fmt(trib*fB)} — but the bond is worth ${fmt(skim)} ${U("gp/mo")} here: closing that gap is what fosterage and household office-holding are <b>for</b>.</div>`);
   if(!sworn && rate > 1){
     const take1 = 0.125*garr + bnd*(0.125 + K*spread);   // his take at the customary 1 gp/family
     const g1 = gradeOf(take1);
-    flags.push(`<div class="flag bad">🪙 He set the render himself: ${rate} gp/family where custom says 1. His take is ${fmt(take)} (L${keepL || "0"}) against ${fmt(take1)} (L${g1 || "0"}) at the customary rate${keepL > g1 ? " — <b>raising the taxes raised the man</b>: the exaction is his ladder, and the shire pays for the rungs" : " — the exaction fattens him, though it has not yet bought a level"}. Squeezed families are a morale problem the crown inherits (RR p.349: taxes above 2 gp/family cost −1 morale per gp above).</div>`);
+    flags.push(`<div class="flag bad">🪙 He set the render himself: ${rate} ${U("gp/family")} where custom says 1. His take is ${fmt(take)} (L${keepL || "0"}) against ${fmt(take1)} (L${g1 || "0"}) at the customary rate${keepL > g1 ? " — <b>raising the taxes raised the man</b>: the exaction is his ladder, and the shire pays for the rungs" : " — the exaction fattens him, though it has not yet bought a level"}. Squeezed families are a morale problem the crown inherits (RR p.349: taxes above 2 gp/family cost −1 morale per gp above).</div>`);
   }
   if(!sworn && garr > 0) flags.push(`<div class="flag">👻 On the <b>garrison line</b> corruption wears another face — ghost soldiers and empty stores. Price it as an under-strength garrison at inspection, not as lost coin: the delegations exist so someone inspects (RR p.352–3). And here the officer's loyalty finally touches the district's <b>morale</b>: a paper muster forfeits the additional-troops bonus of the marches (+1 borderlands, +1/+2 outlands, RR p.347–8), and a squeezed shire is a population losing faith in its ruler — the officer's dial bleeds into the people's.</div>`);
   document.getElementById("oflags").innerHTML = flags.join("");
@@ -7056,9 +7063,9 @@ function render(){
     <div><span>Tribute Inefficiency <span style="font-style:italic">(RR p.347)</span></span>
       <b class="${m.fB===1?"ok":m.fB>=0.5?"warn":"err"}">${Math.round(m.fB*100)}%</b></div>
     <div><span>Direct vassals</span><b>${fmt(m.vassN)}</b></div>
-    <div><span>Tribute owed him</span><b>${fmt(m.vassGross)} gp/mo</b></div>
-    <div><span>Tribute he receives</span><b class="${m.fB===1?"ok":"err"}">${fmt(m.tribNet)} gp/mo</b></div>
-    <div><span>Lost to collection</span><b class="${m.fB===1?"":"err"}">${fmt(m.vassGross-m.tribNet)} gp/mo</b></div>` : "";
+    <div><span>Tribute owed him</span><b>${fmt(m.vassGross)} ${U("gp/mo")}</b></div>
+    <div><span>Tribute he receives</span><b class="${m.fB===1?"ok":"err"}">${fmt(m.tribNet)} ${U("gp/mo")}</b></div>
+    <div><span>Lost to collection</span><b class="${m.fB===1?"":"err"}">${fmt(m.vassGross-m.tribNet)} ${U("gp/mo")}</b></div>` : "";
 
   // --- fee table
   m.rungs.forEach(r => {
@@ -7102,7 +7109,7 @@ function render(){
     <div><span class="tk">In hand</span><span class="tv${m.illegal?" bad":""}">${fmt(m.rawDem)} <small>· ${pc(m.rawDem)}</small></span></div>
     <div><span class="tk">To vassals</span><span class="tv">${fmt(m.vassFams)} <small>· ${pc(m.vassFams)}</small></span></div>
     <div><span class="tk">To fees</span><span class="tv">${fmt(m.enfFams)} <small>· ${pc(m.enfFams)}</small></span></div>
-    <div><span class="tk">Coin in hand</span><span class="tv">${fmt(m.coin)} <small>gp/mo</small></span></div>
+    <div><span class="tk">Coin in hand</span><span class="tv">${fmt(m.coin)} ${U("gp/mo")}</span></div>
     <div><span class="tk">Personal authority</span><span class="tv">${paV>=0?"+":""}${paV}</span></div>`
     : `<div><span class="tk">Rank</span><span class="big">—</span></div>
        <div style="font-size:12.5px;font-style:italic">${m.title.note}: this is a manor, not a realm.</div>`)
@@ -7119,11 +7126,11 @@ function render(){
     <div class="lrow"><span class="lk">Demesne — garrison in coin ${bdg("raw")}</span><span class="lvv">−${gpm(m.garrCoin)}</span></div>
     ${m.sqCastle ? `<div class="lrow sub">…and that garrison line is already ${fmt(m.sqCastle)} ${U("gp")} lighter than the bill, because ${fmt(m.sqWard)} ward-boys stand the castle watch (the spread of squires, below).</div>` : ""}
     <div class="lrow"><span class="lk">Demesne — net</span><span class="lvv">${gpm(m.demNet)}</span></div>
-    <div class="lrow"><span class="lk">Vassal tribute — gross ${bdg("raw")}</span><span class="lvv">${fmt(m.vassGross)} gp/mo</span></div>
-    <div class="lrow"><span class="lk">…after Tribute Inefficiency (${Math.round(m.fB*100)}% on ${fmt(m.payers)} vassal${m.payers===1?"":"s"})</span><span class="lvv">${fmt(m.tribNet)} gp/mo</span></div>
-    <div class="lrow hi"><span class="lk">Coin in hand — his to spend ${bdg("mod","the quittance — enfeoffed land renders no coin and carries no garrison line. This module’s doctrine, not RAW’s: argued, bounded and priced in the ⚖ table on Feudal Domains")}</span><span class="lvv">${fmt(m.coin)} gp/mo</span></div>
+    <div class="lrow"><span class="lk">Vassal tribute — gross ${bdg("raw")}</span><span class="lvv">${fmt(m.vassGross)} ${U("gp/mo")}</span></div>
+    <div class="lrow"><span class="lk">…after Tribute Inefficiency (${Math.round(m.fB*100)}% on ${fmt(m.payers)} vassal${m.payers===1?"":"s"})</span><span class="lvv">${fmt(m.tribNet)} ${U("gp/mo")}</span></div>
+    <div class="lrow hi"><span class="lk">Coin in hand — his to spend ${bdg("mod","the quittance — enfeoffed land renders no coin and carries no garrison line. This module’s doctrine, not RAW’s: argued, bounded and priced in the ⚖ table on Feudal Domains")}</span><span class="lvv">${fmt(m.coin)} ${U("gp/mo")}</span></div>
     <div class="lrow sub">Scutage is <b>not here</b>: RAW earmarks it — "a lord who receives scutage
-      must spend the funds on troops" (p.346) — so its ${fmt(m.scutNet)} gp/mo is reported against the
+      must spend the funds on troops" (p.346) — so its ${fmt(m.scutNet)} ${U("gp/mo")} is reported against the
       garrison, not the purse. And the serving fees render <b>no coin at all</b>: that is the
       <b>quittance</b> at realm scale — the lord books nothing from them and pays nothing on them.
       That last is <b>this module's own doctrine, not RAW</b>, and the whole realm ledger leans on it:
@@ -7133,9 +7140,9 @@ function render(){
   cards.push(`<div class="card pur"><h4>The vassals<span>RAW's tier: tribute, scutage, and the call</span></h4>
     <div class="lrow"><span class="lk">Vassals</span><span class="lvv">${fmt(m.vassN)}</span></div>
     <div class="lrow"><span class="lk">Families under them</span><span class="lvv">${fmt(m.vassFams)} families</span></div>
-    <div class="lrow"><span class="lk">Tribute gross ${bdg("raw")}</span><span class="lvv">${fmt(m.vassGross)} gp/mo</span></div>
-    <div class="lrow"><span class="lk">…after Tribute Inefficiency (${Math.round(m.fB*100)}%)</span><span class="lvv">${fmt(m.tribNet)} gp/mo</span></div>
-    <div class="lrow"><span class="lk">Scutage — the monthly levy ${bdg("raw","RAW's own scutage, unquantized and undivided: 1 gp per family in the vassal's realm, every month until the duty is revoked (p.346). This is the REALM's instrument. The fee's scutage on the manor sheets is a different thing wearing the same word — a commutation of one month of service a year — and is argued in the Scutage section")}</span><span class="lvv">${fmt(m.realmScut)} gp/mo</span></div>
+    <div class="lrow"><span class="lk">Tribute gross ${bdg("raw")}</span><span class="lvv">${fmt(m.vassGross)} ${U("gp/mo")}</span></div>
+    <div class="lrow"><span class="lk">…after Tribute Inefficiency (${Math.round(m.fB*100)}%)</span><span class="lvv">${fmt(m.tribNet)} ${U("gp/mo")}</span></div>
+    <div class="lrow"><span class="lk">Scutage — the monthly levy ${bdg("raw","RAW's own scutage, unquantized and undivided: 1 gp per family in the vassal's realm, every month until the duty is revoked (p.346). This is the REALM's instrument. The fee's scutage on the manor sheets is a different thing wearing the same word — a commutation of one month of service a year — and is argued in the Scutage section")}</span><span class="lvv">${fmt(m.realmScut)} ${U("gp/mo")}</span></div>
     <div class="lrow${m.scutMo>1?" hi":""}"><span class="lk">…while it stands — ${m.scutMo} month${m.scutMo===1?"":"s"} ${bdg("mod","the DURATION is the Judge's, not RAW's: RAW gives no term at all, only the monthly rate and the revocation roll. The dial exists because 'until revoked' is unpriceable without one, and its default of 1 prices a single month")}</span><span class="lvv">${fmt(m.realmScutStand)} ${U("gp")}</span></div>
     <div class="lrow sub"><b>This is RAW's scutage, whole</b> — 1 ${U("gp/family")} across the ${fmt(m.vassFams)}
       families they hold, <b>every month until the duty is revoked</b>, and imposable more than once (p.346).
@@ -7220,26 +7227,26 @@ function render(){
 
   cards.push(`<div class="card gold"><h4>The lord's garrison<span>the line he still carries himself, monthly</span></h4>
     <div class="lrow"><span class="lk">Demesne families</span><span class="lvv">${fmt(m.demesne)} families</span></div>
-    <div class="lrow"><span class="lk">Garrison rate — ${CLSN[m.cls]} ${bdg("raw")}</span><span class="lvv">${m.garrRate} gp/family</span></div>
-    <div class="lrow"><span class="lk">Garrison required</span><span class="lvv">${fmt(m.garrReq)} gp/mo</span></div>
+    <div class="lrow"><span class="lk">Garrison rate — ${CLSN[m.cls]} ${bdg("raw")}</span><span class="lvv">${m.garrRate} ${U("gp/family")}</span></div>
+    <div class="lrow"><span class="lk">Garrison required</span><span class="lvv">${fmt(m.garrReq)} ${U("gp/mo")}</span></div>
     <div class="lrow"><span class="lk">Demesne militia — ${mixed}</span><span class="lvv">${fmt(m.milMen)} men</span></div>
-    <div class="lrow"><span class="lk">…their credit against the line ${bdg("raw")}</span><span class="lvv">−${fmt(m.milCred)} gp/mo</span></div>
+    <div class="lrow"><span class="lk">…their credit against the line ${bdg("raw")}</span><span class="lvv">−${fmt(m.milCred)} ${U("gp/mo")}</span></div>
     ${m.milKit?`<div class="lrow"><span class="lk">…one-time to train &amp; equip them</span><span class="lvv">${gpo(m.milKit)}</span></div>`:""}
-    <div class="lrow"><span class="lk">Still to find in coin</span><span class="lvv">${fmt(m.garrCoin)} gp/mo</span></div>
-    <div class="lrow gold"><span class="lk">Scutage toward it — <b>earmarked for troops</b> ${bdg("raw")}</span><span class="lvv">−${fmt(m.scutNet)} gp/mo</span></div>
-    <div class="lrow hi"><span class="lk">He must still find ${bdg("mod","the fees carry no garrison line at all — the quittance again. Strict RAW would charge every enfeoffed family the same rate the demesne pays")}</span><span class="lvv">${fmt(Math.max(0, m.garrCoin - m.scutNet))} gp/mo</span></div>
+    <div class="lrow"><span class="lk">Still to find in coin</span><span class="lvv">${fmt(m.garrCoin)} ${U("gp/mo")}</span></div>
+    <div class="lrow gold"><span class="lk">Scutage toward it — <b>earmarked for troops</b> ${bdg("raw")}</span><span class="lvv">−${fmt(m.scutNet)} ${U("gp/mo")}</span></div>
+    <div class="lrow hi"><span class="lk">He must still find ${bdg("mod","the fees carry no garrison line at all — the quittance again. Strict RAW would charge every enfeoffed family the same rate the demesne pays")}</span><span class="lvv">${fmt(Math.max(0, m.garrCoin - m.scutNet))} ${U("gp/mo")}</span></div>
     <div class="lrow sub"><b>Scutage is not income.</b> "A lord who receives scutage must spend the funds
       on troops or provoke Henchman Loyalty rolls at −4" (p.346) — so it is set against the military
       line and never enters the purse. It <i>helps him fill</i> this bill rather than buying anything
       countable: garrison is a gold line, not a roster, and neither scutage nor the residue divides
       neatly into whole men.${m.scutNet>m.garrCoin?
-      ` Here it more than fills it — <b>${fmt(m.scutNet-m.garrCoin)} gp/mo over</b>, and the surplus must
+      ` Here it more than fills it — <b>${fmt(m.scutNet-m.garrCoin)} ${U("gp/mo")} over</b>, and the surplus must
         still go to troops, which is how RAW funds a standing army (p.346).`:
       ` Spent instead on a field army it discharges nothing here and the garrison stands unpaid; the
         choice is the lord's, the obligation to convert it is not.`}</div>
     <div class="lrow sub"><b>Who garrisons what.</b> The lord pays on his demesne alone: the
-      ${fmt(m.enfFams)} enfeoffed families discharge <b>${fmt(m.feesQuit)} gp/mo</b> of garrison by
-      service, and the ${fmt(m.vassFams)} families under vassals carry <b>${fmt(m.vassOwn)} gp/mo</b> of
+      ${fmt(m.enfFams)} enfeoffed families discharge <b>${fmt(m.feesQuit)} ${U("gp/mo")}</b> of garrison by
+      service, and the ${fmt(m.vassFams)} families under vassals carry <b>${fmt(m.vassOwn)} ${U("gp/mo")}</b> of
       their own. Trained militia counts "even if the militia is not called up" (p.341) — and RAW warns
       that a domain turned rebellious draws its rebels from exactly this militia (p.432).</div>
   </div>`);
@@ -7300,11 +7307,11 @@ function render(){
   </div>`);
 
   cards.push(`<div class="card"><h4>What a lance costs the lord<span>three statements, never one number</span></h4>
-    <div class="lrow"><span class="lk">Revenue given up</span><span class="lvv">${fmt(m.perLanceGross)} gp/mo</span></div>
-    <div class="lrow"><span class="lk">Garrison no longer paid</span><span class="lvv">−${fmt(m.perLanceGarr)} gp/mo</span></div>
-    <div class="lrow"><span class="lk">Scutage back off the bill</span><span class="lvv">−${one(m.perLanceScut)} gp/mo</span></div>
-    <div class="lrow hi"><span class="lk">Net, per lance <b>delivered</b></span><span class="lvv">${fmt(m.perLanceNet)} gp/mo</span></div>
-    <div class="lrow gold"><span class="lk">The same veteran, hired standing ${bdg("raw")}</span><span class="lvv">100 gp/mo</span></div>
+    <div class="lrow"><span class="lk">Revenue given up</span><span class="lvv">${fmt(m.perLanceGross)} ${U("gp/mo")}</span></div>
+    <div class="lrow"><span class="lk">Garrison no longer paid</span><span class="lvv">−${fmt(m.perLanceGarr)} ${U("gp/mo")}</span></div>
+    <div class="lrow"><span class="lk">Scutage back off the bill</span><span class="lvv">−${one(m.perLanceScut)} ${U("gp/mo")}</span></div>
+    <div class="lrow hi"><span class="lk">Net, per lance <b>delivered</b></span><span class="lvv">${fmt(m.perLanceNet)} ${U("gp/mo")}</span></div>
+    <div class="lrow gold"><span class="lk">The same veteran, hired standing ${bdg("raw")}</span><span class="lvv">100 ${U("gp/mo")}</span></div>
     <div class="lrow sub">Read against the <b>${one(m.lancesKind)} lances that ride</b>, not the
       ${one(m.lancesAll)} owed: a commuted fee still costs its land, so its share falls on the bodies
       that do turn out.${m.perLanceNet>100?` At this rate of commutation a delivered lance costs
@@ -7314,7 +7321,7 @@ function render(){
   </div>`);
 
   cards.push(`<div class="card"><h4>Authority<span>is the man big enough for the realm?</span></h4>
-    <div class="lrow"><span class="lk">Realm income for PA</span><span class="lvv">${fmt(m.coin)} gp/mo</span></div>
+    <div class="lrow"><span class="lk">Realm income for PA</span><span class="lvv">${fmt(m.coin)} ${U("gp/mo")}</span></div>
     <div class="lrow"><span class="lk">Lord's level</span><span class="lvv">${m.level}</span></div>
     <div class="lrow hi"><span class="lk">Personal authority ${bdg("raw")}</span>
       <span class="lvv">${paV>=0?"+":""}${paV}</span></div>
