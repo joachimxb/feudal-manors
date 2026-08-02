@@ -609,7 +609,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.2 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.3 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -2204,6 +2204,34 @@
     purposes," p.346 — the coin as XP-inert as the service it replaces).
   </p>
   <p class="intro">
+    <b>Two instruments wear the one word, and this module prices both.</b> RAW's scutage (p.346) is a
+    <i>tax on a tribute vassal</i>: 1 gp per family in his realm, payable <b>every month until the duty is
+    revoked</b>, imposable more than once, and — the clause that governs everything below — it
+    <b>counts as garrison expense for the vassal who pays it</b>. The fee's scutage is a different animal
+    with the same name: a <i>commutation of a standing tenurial service</i>, the year's month of service
+    discharged in coin. <b>The realm is taxed; the fee commutes.</b> Both are printed in the one entry,
+    which is why they are so easily run together — and the realm's monthly form is priced where it belongs,
+    on the vassals card of <b>Feudal Realms</b>, not here.
+  </p>
+  <p class="intro">
+    <b>Why the fee's render is quantized to the year's month, and why that is not mere smoothing.</b>
+    RAW's monthly rate never travels alone: it is <b>netted against the 2 gp/family garrison line</b> every
+    domain owes (p.341), which is what makes a standing monthly charge bearable at all. <b>A fee has no such
+    line left.</b> It was made quit of its garrison at enfeoffment, by the service itself — the quittance, argued
+    in the ⚖ table on <b>Feudal Domains</b> — so the offset RAW pairs with the monthly rate has already been
+    spent. Carry the monthly rate onto a fee anyway and four things break at once. The fee <b>pays twice</b>
+    for one obligation, in service year-round <i>and</i> in coin every month. The <b>coin/service equivalence
+    collapses</b>, and with it the quota ledger, which rests on a lance and its commutation being the same
+    debt settled two ways. The <b>rate lever inverts</b>: at twelve times the annual figure the RAW anchor
+    would overtop even <i>the requirement in full</i>, so full replacement — the setting that is supposed to be
+    the dear one, the counterfactual where nobody commutes — would become the <b>cheapest</b> on the dial, and the
+    lever would argue the opposite of the history it was built to model. And it would <b>price out scutage's own
+    clientele</b>: the wardships, widows and infirm of the next paragraph are precisely the fees that cannot
+    field a body, and a monthly charge would swallow the minority's whole income — turning the quittance's
+    lawful patch for the incapable into the fastest way to lose the land. The division is doctrine and says so;
+    <b>the quantization is what the quittance leaves behind.</b>
+  </p>
+  <p class="intro">
     Who pays it is the elegant part: the scutage-payer's lance <b>stays home</b>, so the natural clientele is
     history's own — <b>wardships, widows, dotards, the infirm</b>: fees that cannot currently deliver a man. That is
     the quittance's lawful patch for the minority — the wardship pays coin until the heir can ride, the tenure never
@@ -3115,6 +3143,23 @@
     <select id="dmil">
       <option value="1" selected>raised and trained — the credit runs</option>
       <option value="0">not raised — the garrison is paid in coin</option>
+    </select></div>
+
+  <!-- Months the levy stands. This dial belongs to the REALM and to nothing else. RAW's scutage is a
+       standing monthly rate on a tribute vassal, so "how long does it stand" is a real question here —
+       and the Favor/Duty table answers it with a clock rather than a term: 16.7% a month that the most
+       recent duty is revoked, so ~6 months is the expectation. The default is 1, which prices a single
+       month and changes no figure that was on this card before the dial existed.
+       It must NEVER be offered at the fee tier. The fee does not hold a levy that stands; it commutes
+       one month of service a year, and it is quit of the garrison line RAW's monthly rate is netted
+       against — so a months multiplier there would double-charge the fee, invert the rate lever, and
+       price out the wardships and widows the quittance exists to protect (Scutage section). -->
+  <div class="field"><label for="r_scutmo">Months the levy stands <span class="hint">(scutage runs until revoked — RR p.346; the table's clock makes ~6 the expectation)</span></label>
+    <select id="r_scutmo">
+      <option value="1" selected>1 — a single month</option>
+      <option value="3">3 — a season</option>
+      <option value="6">6 — the expected life</option>
+      <option value="12">12 — a year of it</option>
     </select></div>
 
   <div class="field"><label for="lvl">The lord's level <span class="hint">(for personal authority, RR p.347–8)</span></label>
@@ -5352,7 +5397,16 @@ const CHEAP_WHY = "LAWFUL, not necessarily available: this is what the law would
   "DIVIDES the render by fee-equivalents, as historical scutage was assessed — a tenant serving part " +
   "of his quota in person paid only on the balance — and it QUANTIZES the render to one month of service a " +
   "year. So the month-of-service figure is the estate's scutage times the share still owed, and the gp/mo " +
-  "figure is the reserve set against it, not a rate. The card's discharge row argues both in full.";
+  "figure is the reserve set against it, not a rate. The card's discharge row argues both in full. " +
+  "WHY THE QUANTIZATION IS NOT MERE SMOOTHING: RAW's monthly rate is not a bare tax — it is offset, because " +
+  "scutage counts as garrison expense for the vassal who pays it (p.346), set against the 2 gp/family " +
+  "garrison line every domain owes (p.341). A tribute vassal charged monthly is therefore charged against a " +
+  "line he still carries. THE FEE CARRIES NO SUCH LINE: it was quit of its garrison at enfeoffment, by the " +
+  "service itself (the quittance). Take RAW's monthly rate onto a fee and the offset it is paired with has " +
+  "already been spent, so the fee pays twice — in service year-round AND in coin every month — for one " +
+  "obligation. That is why the render is quantized here and not there: not smoothing, but the absence of the " +
+  "thing the monthly rate is netted against. The realm tier, where the garrison line does survive, carries " +
+  "RAW's monthly scutage in full — see the vassals card on Feudal Realms.";
 
 // --- the assize boolean says two different things, and only the DEFINITION OF RECORD tells them
 // apart. After 1181 an unkept assize is a BREACH — "in default", distraint's own occasion. Under
@@ -6713,6 +6767,9 @@ function model(){
   // slider and the select below was inert.
   const land     = clampInt("r_land", 3, 9, 6);
   const cls      = clampInt("cls", 0, 2, 1);
+  // months the REALM's scutage levy stands (see the dial's own comment). Default 1: at that setting
+  // the levy total equals the monthly rate and nothing on the card moves.
+  const scutMo   = clampInt("r_scutmo", 1, 12, 1);
   const level    = clampInt("lvl", 4, 12, 9);
   const dmil     = dG("dmil").value === "1";
 
@@ -6785,6 +6842,15 @@ function model(){
   const scutNet = scutGross;
   const coinIn  = tribNet;
 
+  // --- the REALM's scutage, which is a different instrument from the fee's above. RAW p.346: 1 gp
+  //     per family in the VASSAL's realm, every month until the duty is revoked. Undivided and
+  //     unquantized — the /12 that governs `scutGross` is the fee's quittance arithmetic and has no
+  //     business here, exactly as the monthly rate has no business at the fee. Not added into the
+  //     lord's purse for the same reason `scutNet` is not: it is earmarked for troops on pain of a
+  //     -4 Henchman Loyalty roll.
+  const realmScut      = vassFams;
+  const realmScutStand = realmScut * scutMo;
+
   const cfPayers = vassN + estates;
   const cfB      = band(cfPayers);
   const cfNet    = (vassGross + rungs.reduce((s,r) => s + r.n*tribute(r.fam), 0)) * cfB;
@@ -6829,6 +6895,7 @@ function model(){
           granted, demesne:dem, rawDem:demesne, demShare:demesne/famTotal,
           illegal, vass, vassN, vassFams, vassGross, vassOver, rungs, estates, scutEst, enfFams, lancesAll,
           lancesKind, lancesCoin, levyAll, scutGross, scutNet, tribNet, payers, fB, coinIn,
+          scutMo, realmScut, realmScutStand,
           cfPayers, cfB, cfNet,
           demIncome, demNet, coin, garrRate, garrReq, milMen, milCred, milKit, garrCoin, garrEff,
           lordFam, feesQuit, vassOwn, oppmil, oppGarr, oppFam, feeCost, netFeeCost,
@@ -6934,12 +7001,41 @@ function render(){
       it is argued, bounded and priced in the ⚖ table of <b>Feudal Domains</b>.</div>
   </div>`);
 
-  cards.push(`<div class="card pur"><h4>The vassals<span>RAW's tier: tribute, and the call</span></h4>
+  cards.push(`<div class="card pur"><h4>The vassals<span>RAW's tier: tribute, scutage, and the call</span></h4>
     <div class="lrow"><span class="lk">Vassals</span><span class="lvv">${fmt(m.vassN)}</span></div>
     <div class="lrow"><span class="lk">Families under them</span><span class="lvv">${fmt(m.vassFams)} families</span></div>
     <div class="lrow"><span class="lk">Tribute gross ${bdg("raw")}</span><span class="lvv">${fmt(m.vassGross)} gp/mo</span></div>
     <div class="lrow"><span class="lk">…after Tribute Inefficiency (${Math.round(m.fB*100)}%)</span><span class="lvv">${fmt(m.tribNet)} gp/mo</span></div>
+    <div class="lrow"><span class="lk">Scutage — the monthly levy ${bdg("raw","RAW's own scutage, unquantized and undivided: 1 gp per family in the vassal's realm, every month until the duty is revoked (p.346). This is the REALM's instrument. The fee's scutage on the manor sheets is a different thing wearing the same word — a commutation of one month of service a year — and is argued in the Scutage section")}</span><span class="lvv">${fmt(m.realmScut)} gp/mo</span></div>
+    <div class="lrow${m.scutMo>1?" hi":""}"><span class="lk">…while it stands — ${m.scutMo} month${m.scutMo===1?"":"s"} ${bdg("mod","the DURATION is the Judge's, not RAW's: RAW gives no term at all, only the monthly rate and the revocation roll. The dial exists because 'until revoked' is unpriceable without one, and its default of 1 prices a single month")}</span><span class="lvv">${fmt(m.realmScutStand)} gp</span></div>
+    <div class="lrow sub"><b>This is RAW's scutage, whole</b> — 1 ${U("gp/family")} across the ${fmt(m.vassFams)}
+      families they hold, <b>every month until the duty is revoked</b>, and imposable more than once (p.346).
+      <b>It is not the fee's scutage</b>, which commutes a year's month of service and is quantized to it: the
+      <b>realm is taxed, the fee commutes</b> (Scutage section, Feudal Domains).
+      <b>The vassal is not simply out the money</b> — RAW nets it: scutage "counts as garrison expense for the
+      vassal," so one imposition discharges ${m.garrRate===2?"<b>half</b>":m.garrRate===3?"<b>a third</b>":"<b>a quarter</b>"}
+      of the ${m.garrRate} ${U("gp/family")} garrison line he owes on his own land (p.341), and
+      ${m.garrRate===2?"a second imposition covers the whole of it":`it takes ${m.garrRate} impositions to cover the whole of it`}.
+      That offset is the reason the monthly form is bearable at the realm tier and ruinous at the fee's,
+      where the quittance already spent it.
+      <b>And the lord may not pocket it:</b> "a lord who receives scutage must spend the funds on troops or
+      provoke Henchman Loyalty rolls at <b>−4</b>" — the sharpest loyalty penalty in the vassalage rules.
+      <b>Nor need it always come as coin:</b> "in some realms, a vassal may send troops instead of gp" (p.346)
+      — this module's realms are declared such realms, which is the same printed equivalence the fee's
+      quittance exercises standing.
+      <b>The clock.</b> Nothing here is permanent: a vassal rolls 1d20 on the Favor/Duty table once a month,
+      and 9–12 revokes his most recent favour or duty — a duty on 2–6 of a d6. That is <b>16.7% a month</b>,
+      so a levy stands about <b>6 months</b> before the table takes it back, or roughly
+      ${fmt(m.realmScut*6)} ${U("gp")} over its expected life — which is what the <b>months the levy
+      stands</b> dial prices, and why its 6 is labelled the expected one. It goes only if nothing has been demanded
+      since — the roll takes the <i>most recent</i> duty, so a lord who keeps demanding keeps his scutage and
+      loses the newer thing instead. Arriving is slow too: half the first period, a quarter the second, the
+      rest the third, monthly thereafter (p.346) — which is why RAW says lords avoid scutage except to keep
+      standing armies.</div>
     <div class="lrow hi"><span class="lk">Call to Arms — troops they must raise</span><span class="lvv">${fmt(m.vassFams)} gp</span></div>
+    <div class="lrow sub">Same unit, different kind: RAW prices scutage and the Call to Arms both at
+      1 ${U("gp/family")}, one in coin and one in bodies, and cross-references them in the one entry. The
+      lord chooses which he needs; the vassal raises the troops <b>at his own cost</b> either way.</div>
     <div class="lrow sub"><b>Favours and duties.</b> RAW runs vassalage as a ledger (p.345–7): the lord
       grants <b>favours</b> — land, troops sent down, offices, protection — and demands <b>duties</b>:
       tribute, scutage, attendance, the Call to Arms. A sworn henchman performs <b>one ongoing duty
@@ -6953,10 +7049,15 @@ function render(){
 
   const mixed = m.milMen ? `${fmt(m.milMen/2)} heavy foot and ${fmt(m.milMen/2)} light` : "none raised";
   // --- the incidents: what the honour collects by EVENT rather than by rate --------------------
-  // Tribute and scutage are rates — so much a family, every month. The incidents are not: they fall
-  // when a man dies, when his heir is a child, when his lord marries a daughter. That makes them
-  // invisible in a monthly ledger and substantial in a reign, which is exactly why a realm sheet
-  // should show them. Priced at the Library's sterling rate (Feudal Domains → Money).
+  // Tribute is a rate — so much a family, every month; and so is the REALM's scutage, the monthly
+  // levy on a tribute vassal priced beside it on the vassals card (p.346). The FEE's scutage is not
+  // a rate and must not be described as one: it is a commutation of one month of service a year,
+  // and `scutGross` above is that annual figure spread over twelve months (a reserve, not a bill) —
+  // see the /12 at its site. This comment used to lump the two together, which is exactly the
+  // conflation the Scutage section exists to break. The incidents are a third thing again: they
+  // fall when a man dies, when his heir is a child, when his lord marries a daughter. That makes
+  // them invisible in a monthly ledger and substantial in a reign, which is exactly why a realm
+  // sheet should show them. Priced at the Library's sterling rate (Feudal Domains → Money).
   const reliefRoll = Math.round(m.lancesAll * 120);   // 100s the fee, at 1s = 1.2gp
   const aidOnce    = Math.round(m.granted);           // RAW's duty unit: 1gp per family, once
   FM.realmIncidents = {reliefRoll, aidOnce, fees:m.lancesAll};   // for the self-test
@@ -7075,7 +7176,7 @@ function render(){
   dG("flags").innerHTML = F;
 }
 
-["fam","r_land","cls","lvl","dmil","oppmil","l_scut"]
+["fam","r_land","cls","lvl","dmil","oppmil","l_scut","r_scutmo"]
   .concat(RUNGS.map(r => "fn_"+r.key)).concat(RUNGS.map(r => "fc_"+r.key))
   .forEach(id => dG(id).addEventListener("input", render));
 drawVassals();
