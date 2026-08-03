@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.4.3 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.5 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -844,8 +844,8 @@
   <b>at the default dials</b> (land 6, borderlands density, distraint century, assize kept, squires ride). Move a
   dial below and the live cards re-price; the figures here are the defaults’, exactly as the engine computes them.</p>
   <div class="walkthrough">
-    <div class="wrow"><span class="wk">The estate</span><span>12 families — the smallest estate whose income pays a knight: 12 × 9 gp (land 6 + 3) = <b>108 gp/mo</b>.</span></div>
-    <div class="wrow"><span class="wk">What he earns</span><span>108 gp a month against his own 100-gp keep (the L3 henchman wage) — <b>8 gp/mo of surplus</b>, less than one family’s output.</span></div>
+    <div class="wrow"><span class="wk">The estate</span><span><b>25 families</b> at the customary rent — the smallest estate whose income pays a knight: 25 × 4 gp (land 6 − 2) = <b>100 gp/mo</b>. <i>Under ACKS RAW revenues the same rung is 12 families at 9 gp = 108 gp/mo.</i></span></div>
+    <div class="wrow"><span class="wk">What he earns</span><span>100 gp a month against his own 100-gp keep (the L3 henchman wage) — <b>nothing over</b>. The fee pays its man exactly and clears no surplus, which is why a relief is paid by borrowing rather than out of income. <i>Under ACKS RAW revenues, 108 against 100 — 8 gp/mo, less than one family’s output.</i></span></div>
     <div class="wrow"><span class="wk">What he owes</span><span><b>One lance — himself</b>, mounted and mailed, squire and remounts behind him: one month of service a year in kind, and the quota is met the day he rides.</span></div>
     <div class="wrow"><span class="wk">The levy</span><span>2 yeomen (1 heavy foot, 1 light foot), trained and kitted once (≈211 gp, heirloom — kit and skills pass to their sons): <b>18 gp/mo of standing watch</b>, part of the service that keeps the fee quit.</span></div>
     <div class="wrow"><span class="wk">What he is quit of</span><span>The garrison line — 24 / 36 / 48 gp a month by district class (civilized / borderlands / outlands) — discharged by that service, never paid in coin.</span></div>
@@ -1400,7 +1400,7 @@
     (25 / 50 / 100 / 200 / 400) prices the <i>stipend of a sworn man</i>, whose loot-share and heritable tenure are
     the rest of his pay. They cross at 100 gp — a dubbed knight's market floor (the F1 veteran) equals an L3
     stipend — which is exactly why one 12-family rung serves knights of L1–L3, and why the esquire's fee keeps an
-    L2 veteran on 63 gp who would cost 100 as a hired lance: <b>the tenure is the discount</b>.
+    L2 veteran on the half-fee’s 63 gp <i>at ACKS RAW revenues</i> — 60 at the customary rent — who would cost 100 as a hired lance: <b>the tenure is the discount</b>.
   </p>
   </details>
 </section>
@@ -1420,6 +1420,13 @@
   down (RR&nbsp;p.345–6). So the month of service rides on the knight's purse, and the field supply — about 16&nbsp;gp a
   month a body, 4&nbsp;gp a week (RR&nbsp;p.442) — rides on the lord's. Months 2+ the wages shift to the lord as
   well, at the muster-roll rate.</aside>
+  <p class="note"><b>Paper against muster is not only this page's idea.</b> The charter-versus-assessment model
+  below was built from English evidence and the module's own doctrine — but Hârnic canon, written decades later by
+  different authors, assesses knight service <b>two ways at once</b> (one knight per manor, and one knight per
+  1,200 gross acres) and leaves the two unreconciled. The mean Kaldoric manor sits <b>1.40×</b> its paper, and two
+  canon holdings work the whole argument out in print. Full treatment in the
+  <a href="#sec-library">Library</a> → <i>Canon's two rules</i>; it is made once, there, rather than twice.
+  <span class="bdg hrn" title="canon's two assessments are quoted in the Library chapter; the mapping onto charter and current assessment is this module's reading">HÂRN</span></p>
   </div>
   <details class="fold"><summary>The men around the man — why the hall matters (the full introduction)</summary>
 <p class="intro">
@@ -1832,7 +1839,7 @@
           <td>RAW's favor⇄duty economy prices <b>ongoing relations between parties whose consideration passes repeatedly</b> — wages, gifts, grants renewed and revoked (p.345 for the sworn henchman, p.347 for everyone else). It has no category for a <b>conveyance with a reserved service</b>, because ACKS assigns land to a holder and then governs him through loyalty and wages rather than through tenure. <b>RAW is silent here, not contrary</b> — and the distinction it lacks is the one this module is about</td>
           <td>Because the alternative was to keep borrowing p.345, and p.345 is henchman <b>status</b> machinery that the contract row expressly disowns: a transplant that gives up the slot system cannot keep drawing on the slot system's economy — and the fee's single most load-bearing property was resting on exactly that. <b>What it rules over:</b> the standing character of a fee's service, and only that. The lord does not re-purchase the host's attendance each year; he purchased it at enfeoffment, and goes on purchasing it every day he does not resume the land. <b>It is not a better deal than the clause it replaces — it is a different deal, and in two ways a worse one for the lord.</b> RAW's henchman duty runs <i>until revoked</i>, at the lord's word; the fee's service cannot be revoked at all, only distrained and then resumed, by process. And where the henchman's free duty is open-ended in kind, the fee's is bounded to the term. The fee trades the lord's flexibility for the tenant's permanence, which is what tenure <i>is</i>. <b>And it explains the scutage, which p.345 never could:</b> if service were a revocable favour, a lord wanting coin instead of a lance would simply revoke it, and no commutation instrument would be needed. It is because the service is an incident of a standing tenure — not the lord's to cancel — that commuting it requires its own machinery. The module already has that machinery; this ruling is what makes it <i>necessary</i> rather than merely available.</td></tr>
         <tr><th scope="row"><b>Knights owe service, not tribute</b> — no per-fee tribute line; tribute falls once, on the lord's whole realm</th>
-          <td>RAW tribute cascades to every vassal by realm families (18 × fam<sup>0.6</sup>, p.343–4) — but the formula was calibrated for baronies and up: on a 12-family fee it would take ~80 of 108 gp (74%). Tribute is explicitly negotiable ("Adventurers can set the tribute for their own vassals as desired," p.343)</td>
+          <td>RAW tribute cascades to every vassal by realm families (18 × fam<sup>0.6</sup>, p.343–4) — but the formula was calibrated for baronies and up: on a 12-family fee <i>at ACKS RAW revenues</i> it would take ~80 of 108 gp (74%) — and <b>at the customary rent it is worse, not better</b>: 25 families owe 124 gp against an income of 100, which is <b>confiscatory</b>, because RAW keys tribute to family COUNT and lowering the rate does not move the formula. Tribute is explicitly negotiable ("Adventurers can set the tribute for their own vassals as desired," p.343)</td>
           <td>Below the barony the render is the lance itself — a ruling inherited from <i>Knightly Realms</i>. The Call-to-Arms duty (troops worth 1 gp/family, p.346) is what cash-vassalage would extract; the fee delivers a 100-gp lance instead.</td></tr>
         <tr><th scope="row"><b>Service in kind side-steps Tribute Inefficiency</b></th>
           <td>Cash tribute decays with vassal count (p.347): 9–16 vassals deliver 66%, 17–63 deliver 50%, 64–216 a third, 16,384+ just 1% (the Drakomir example). Only ≤8 vassals pay in full. <b>One boundary is RAW's own:</b> the printed table lists 16,384 twice — in "16,384 or more" (1%) and in "4,096 – 16,384" (5%). This module resolves the overlap to the stricter 1%; every other boundary is inclusive and matches the printed rows exactly</td>
@@ -1892,7 +1899,7 @@
         <tr><th scope="row">Doesn't the knight piggyback on his lord's Personal Authority?</th>
           <td>No rule shares PA (Personal Authority — RAW's measure of whether a ruler's level is big enough for what he holds; 0 = matched, negative = the domain outgrows the man) — it is computed per ruler, per domain. And the fees sit on the PA-competence diagonal by construction: the PA table's income columns <b>are</b> the GP-threshold bands (verified cell-by-cell against p.348), so each rung's wage-grade reads <b>exactly PA 0</b> over its own manor — the book's own Designer's Note says rulers advance to PA 0 and stop. Under the knight's contract the land delivers a man one level shy of that mark: <b>every dubbed knight reads PA −1 until the field finishes him, and PA 0 is the badge of the proven knight</b> — the module's texture as law, not a leak. The esquire, outside the contract, ploughs to his grade and reads PA 0 by rents alone. Nothing is borrowed, because nothing is missing.</td></tr>
         <tr><th scope="row">Doesn't the in-kind garrison inflate knightly income?</th>
-          <td>Run the full RAW ledger (revenue <code>land+4+2</code>, less the three 1-gp cost lines, less garrison, plus militia credit — p.341–2) at RAW's own militia ceiling — 2 per 10 families at the qualifying numbers' best mix, half heavy foot and half bowmen, ~2.1 gp of credit per family, good even uncalled (richer mixes exist on paper, but the yeoman-and-archer mix is the period's) — and it yields <code>land+3</code> exactly at civilized class. The entire dispute is the frontier increment, ~0.9 gp per family at borderlands and ~1.9 at outlands — call it 1–2; concede it whole and the bachelor's fee moves from 12 families to 13 at borderlands. What the gold per family buys is a sworn knight in the manor house <b>above</b> the armed peasantry — and p.432 (rebels are drawn from the militia when a domain turns) is exactly why the assize pairs the levy with a resident lord: the counterweight is a term of the same contract.</td></tr>
+          <td>Run the full RAW ledger (revenue <code>land+4+2</code>, less the three 1-gp cost lines, less garrison, plus militia credit — p.341–2) at RAW's own militia ceiling — 2 per 10 families at the qualifying numbers' best mix, half heavy foot and half bowmen, ~2.1 gp of credit per family, good even uncalled (richer mixes exist on paper, but the yeoman-and-archer mix is the period's) — and it yields <code>land+3</code> exactly at civilized class. The entire dispute is the frontier increment, ~0.9 gp per family at borderlands and ~1.9 at outlands — call it 1–2; concede it whole and the bachelor's fee moves from 12 families to 13 at borderlands <i>(ACKS RAW revenues; at the customary rent, 25 to 34)</i>. What the gold per family buys is a sworn knight in the manor house <b>above</b> the armed peasantry — and p.432 (rebels are drawn from the militia when a domain turns) is exactly why the assize pairs the levy with a resident lord: the counterweight is a term of the same contract.</td></tr>
         <tr><th scope="row">The enfeoffed knight is no household henchman — why does the wage table bind him?</th>
           <td>Because the wage table is the market price of a level-L man, and the fee must pay it at every point of contact. At a fee's birth from the household, p.168 applies verbatim: the lord enfeoffs a knight he was already paying, and land replaces wage. At a birth from the market — RAW lets a lord enfeoff non-henchmen outright: "mercenary commanders, adventurers" (p.347) — the fee's income is the recruitment offer, and it must meet the man's open-market wage or he rides on. And at every inheritance the market binds the <b>grade</b>, not the man: an heir on a 96-gp manor doesn't ride off — he stays, poorer, and the estate can no longer sustain the rank's establishment, so the line slides down the kit ladder toward the esquire (the threadbare fee, Design chapter, Library) while standing manors re-grade rather than resize. Netting, offering, retaining: one price — enforced hard at the first two points, and at the third by the slow slide of grade.</td></tr>
         <tr><th scope="row">Who pays when the levy is called up?</th>
@@ -2022,63 +2029,416 @@
     designer's, the coin table is RAW, and the reading below is the module's.
     <span class="bdg dbt" title="a designer's stated basis is not the same as a rulebook rule, and other conversions are defensible — a reader who prefers a different rate need only rescale the sterling column">DEBATED</span></p>
 
-    <div class="raw-head" style="margin-top:14px">What the rate reveals — this fee is richer than its model</div>
-    <p class="note">Apply it and something the module had never checked falls out. A bachelor's fee here
-    earns 108 <span class="u">gp/mo</span> — <b>1,296 <span class="u">gp/yr</span>, which is £54</b>. The
-    historical minimal knight's fee ran about <b>£20</b>, and this module's own ladder card says so while
-    working the rung at ≈560 acres — near the notional ~600-acre fee. <b>Same ground, 2.7× the sterling
-    income.</b> That is not an error to fix; ACKS's economy is its own, and the ladder is built from its
-    wage table, not from English rentals. But it has one consequence a Judge must see before he prices
-    anything in sterling: <b>a due fixed in shillings lands 2.7× lighter here than it did in England.</b></p>
+    <div class="raw-head" style="margin-top:14px">⚠ Withdrawn — "this fee is richer than its model, 2.7×"</div>
+    <p class="note">This chapter used to headline a <b>2.7×</b> gap between a bachelor's fee and the historical
+    £20 knight's fee, and later a <b>5.6×</b> compounded from two factors. <b>Both are withdrawn, and the reason
+    is instructive enough to keep on the page.</b> They divided the module's income by <i>ACKS families</i> and
+    the record's by <i>recorded entries</i> — the counting convention below applied to one side and not the
+    other. Applied to both, the gap is a single ratio at every denominator, and <code>5.6 = 2.7 × 2.1</code>
+    was a spurious product. The withdrawn claim that the module is "2.1× thin in households" goes with it:
+    <b>it is not thin in recorded entries at all.</b>
+    <span class="bdg mod" title="the withdrawal is the module's own correction, made at the pre-implementation review; the arithmetic is shown below so a reader can check it rather than take it">MODULE</span></p>
+
+    <div class="raw-head" style="margin-top:14px">The rate is not the problem — four anchors, one dial</div>
+    <p class="note">Before blaming the conversion, test it. Macris's rate was checked at four independent
+    points, and it is <b>calibrated at the floor and drifts rich as you climb</b>:</p>
+    <div class="viz">
+      <table class="cmp"><caption class="vh">The gold-to-sterling rate tested at four independent anchors</caption>
+        <thead><tr><th scope="col">Anchor</th><th scope="col">ACKS</th><th scope="col">England, 13th c.</th><th scope="col">Verdict</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Unskilled labour (RR&nbsp;p.174)</th><td>1&nbsp;<span class="u">sp</span>/day = <b>1d/day</b></td><td>1–1½d/day</td><td>✔ lands</td></tr>
+          <tr><th scope="row">Wheat (RR&nbsp;p.123)</th><td>4&nbsp;<span class="u">gp</span>/quarter = <b>3s&nbsp;4d</b></td><td>~5–6s</td><td>✔ cheap by ~1.5×</td></tr>
+          <tr><th scope="row">Grain wage — days per quarter</th><td><b>40</b></td><td>~48</td><td>✔ lands</td></tr>
+          <tr><th scope="row">Heavy cavalry (RR&nbsp;p.176)</th><td>60&nbsp;<span class="u">gp/mo</span> = <b>20d/day</b></td><td>serjeant 12d, knight 24d</td><td>1.7× rich</td></tr>
+          <tr><th scope="row">L3 henchman (RR&nbsp;p.168)</th><td>100&nbsp;<span class="u">gp/mo</span> = <b>33d/day</b></td><td>knight 24d/day on campaign</td><td>1.4× rich</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><b>A labourer and a loaf are right.</b> Rescaling the rate would fix the fee and break the two
+    anchors that currently work — three good anchors, one dial, over-determined. <b>The rate is not to be
+    touched</b>, and the fault has to be somewhere else.</p>
+
+    <div class="raw-head" style="margin-top:14px">One error, one face — the lord's revenue per holding</div>
+    <p class="note">It is. The defect is a <b>rate</b>, and it reads the same at every denominator you choose,
+    which is the point and is why the earlier "three faces" framing was not merely wrong but weaker:</p>
+    <div class="viz">
+      <table class="cmp"><caption class="vh">The gap between ACKS RAW revenues and the customary rent, at three denominators</caption>
+        <thead><tr><th scope="col">Denominator</th><th scope="col">ACKS RAW revenues</th><th scope="col">The customary rent</th><th scope="col">Gap</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Per ACKS family, per month</th><td>9&nbsp;<span class="u">gp</span></td><td>4&nbsp;<span class="u">gp</span></td><td><b>2.25×</b></td></tr>
+          <tr><th scope="row">Per full tenement, per year</th><td>£4.50</td><td>£2.00</td><td><b>2.25×</b></td></tr>
+          <tr><th scope="row">Per recorded entry, per year (÷2.5)</th><td>£1.80</td><td><b>£0.80</b></td><td><b>2.25×</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note"><code>9 ÷ 4 = 2.25</code> exactly, and it comes from <code>(land+3) ÷ (land−2)</code> at land
+    value 6. <b>What this does not say</b> is that the module's fee <i>is</i> the historical £20 fee. It is not:
+    the £20 fee is about 10 families and yields 40&nbsp;<span class="u">gp/mo</span>; a customary bachelor's fee is
+    25 families and yields 100. <b>The module's fee stays 2.5× the benchmark fee in total income, and that is
+    correct.</b> What gets calibrated here is the <i>rate per holding</i>; the <i>size of the grant</i> is set
+    elsewhere, by the body the charter names. The £20 fee does not reach even the 60-<span class="u">gp</span>
+    Domesday rider, let alone the 100-<span class="u">gp</span> Angevin knight — and that is not an embarrassment
+    to smooth over. <b>It is the original finding, correctly relocated</b>, and the definition-of-record lever
+    already carries it.</p>
+
+    <div class="raw-head" style="margin-top:14px">Where the money is invented</div>
+    <p class="note">The Judges Journal derives RAW's 12&nbsp;<span class="u">gp</span> from a modelled farm.
+    Three of its four lines survive contact with the English record; one does not, and the extraction rate does
+    not.</p>
+    <div class="viz">
+      <table class="cmp"><caption class="vh">The Judges Journal's model farm, audited line by line against the English record</caption>
+        <thead><tr><th scope="col">Line</th><th scope="col">ACKS</th><th scope="col">England</th><th scope="col"></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Crops — 20 ac × 1 qr × 4&nbsp;<span class="u">gp</span></th><td>80&nbsp;<span class="u">gp</span> = £3.33</td><td>~15 qr × 5s = £3.75</td><td>✔ <b>calibrated</b></td></tr>
+          <tr><th scope="row">Livestock — 3 cows, ox, pig, <b>32 sheep</b></th><td>83&nbsp;<span class="u">gp</span> = £3.46</td><td>~£1</td><td>✗ 2–3×</td></tr>
+          <tr><th scope="row">Other labour — <b>320 days</b> at 1&nbsp;<span class="u">sp</span></th><td>32&nbsp;<span class="u">gp</span> = £1.33</td><td>those days were <b>week-work owed, unpaid</b></td><td>✗</td></tr>
+          <tr><th scope="row">The lord's share of the total</th><td>144 of 195 = <b>73.8%</b></td><td>rent + works + dues ≈ <b>25–35%</b></td><td>✗ 2.4×</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The sheep figure is the checkable one: England's entire sheep population c.1300 — every
+    demesne, monastery and peasant croft — works out to roughly <b>8–15 per family</b>. ACKS gives <b>every</b>
+    family 32.
+    ⚠ <b>Do not multiply these two columns together.</b> An earlier draft compounded the endowment factor by the
+    claim factor and published the product as the headline; that is the withdrawn 5.6×, and it double-counts.
+    The correction this module makes is to the <b>composition</b> of the 12&nbsp;<span class="u">gp</span> — the
+    service and tax lines — and not a scaling of the total.
+    <span class="bdg dbt" title="the record figures here are ranges from the secondary literature, not a single reconstruction; the direction is solid and the second digit is not">DEBATED</span></p>
+
+    <div class="raw-head" style="margin-top:14px">The structural cause — one yield where there were two estates</div>
+    <p class="note"><b>A manor had two economies under one lord. RAW has one, and it faces the ruler.</b>
+    Demesne production, tenant rent, labour services, monopoly dues (mill, oven, fold) and taxation are collapsed
+    into a single ruler-facing per-family yield. One number is asked to be a rent, a wage-equivalent, a profit and
+    a tax at once — which is why it cannot be calibrated against any of them individually.
+    <span class="bdg his" title="the two-estate structure of the English manor; the compression diagnosis is the module's reading of RAW against it">HISTORY</span></p>
+    <div class="viz">
+      <table class="cmp"><caption class="vh">Who bore the risk on a manor, and what RAW does with the question</caption>
+        <thead><tr><th scope="col"></th><th scope="col">Residual claimant</th><th scope="col">Bears</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Customary tenant holding</th><td>the <b>tenant</b>, after fixed dues</td><td>the initial yield risk</td></tr>
+          <tr><th scope="row">Directly farmed demesne</th><td>the <b>lord</b></td><td>production and market risk</td></tr>
+          <tr><th scope="row">A bad year across the whole manor</th><td>—</td><td>tenant defaults; arrears transfer much of the loss back to the lord anyway</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">⚠ This table replaces a pull-quote the chapter used to carry — <i>"in ACKS the peasant is the
+    residual claimant; on a manor the lord is"</i> — which was <b>reversed against its own consequences</b>. The
+    slogan was memorable and wrong. Four consequences follow, every one visible in the English record and
+    invisible in RAW: <b>peasants accumulate</b> (a good decade leaves the tenant richer, because his obligation
+    did not move — hence the peasant land market, entry fines, dowries and wills); <b>the lord's income does not
+    track prosperity</b> (grain prices roughly doubled 1180–1300 and assized rents did not move, which is why
+    lords turned to direct demesne farming, tallage and entry fines); <b>risk changes hands</b> (a bad year in
+    ACKS is the peasant's problem, on a manor it is the lord's, and manorial court rolls are largely a register of
+    arrears); and <b>custom is a real constraint</b> — legal power over villeins was near-absolute, practical
+    power was not.</p>
+    <p class="note"><b>And the fifth is why this belongs in this module.</b> <i>The remedy is the incident, not
+    the rate.</i> The peasant's assized rent is to his lord exactly what the lord's charter is to the crown: a
+    fixed paper that cannot be revised, with income growing away from it, reached only by event — entry fine,
+    tallage and heriot below; relief, aid and wardship above. <b>The module's own thesis, one level down.</b>
+    Run a manorial superstructure on a fiscal substructure and this is the seam.</p>
+
+    <div class="raw-head" style="margin-top:14px">The date, not the error</div>
+    <p class="note">Here is the part that makes the whole finding less embarrassing and more interesting.
+    <b>Under ACKS RAW revenues every rung of this ladder already matches its historical band — for the
+    <i>fifteenth</i> century</b>:</p>
+    <div class="viz">
+      <table class="cmp"><caption class="vh">The ladder under ACKS RAW revenues, against the 1436 income returns</caption>
+        <thead><tr><th scope="col">Rung</th><th scope="col">Keep</th><th scope="col">Income (ACKS RAW)</th><th scope="col">Sterling</th><th scope="col">The record</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Esquire's fee — ½</th><td>60&nbsp;<span class="u">gp</span></td><td>63&nbsp;<span class="u">gp/mo</span></td><td>£31.5</td><td>1436: ~1,200 esquires averaging £24</td></tr>
+          <tr><th scope="row">Bachelor's fee — 1</th><td>100</td><td>108</td><td>£54</td><td>1436: ~950 knights at £40+</td></tr>
+          <tr><th scope="row">Double fee — 2</th><td>200</td><td>207</td><td>£103</td><td>banneret estates £100–200</td></tr>
+          <tr><th scope="row">Castellany — 4</th><td>400</td><td>405</td><td>£202</td><td>small barony, £200+</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">The £20 fee is a <b>thirteenth-century threshold</b> — the distraint line, the minimum to live
+    as a knight — and the other four are <b>fifteenth-century observed incomes</b>. Comparing a floor to an
+    average across two centuries gives about 3×, and that is most of what the old 2.7× headline was measuring.
+    <b>So the module was never badly built. It was priced on the later returns and labelled with
+    thirteenth-century vocabulary</b> — and it was demographically thin in every century. The customary rent
+    fixes the second and turns the first into a dial: at the customary rent the same four rungs read <b>£30 ·
+    £50 · £100 · £200</b>, which is a thirteenth-century page instead of a fifteenth-century one.</p>
 
     <div class="raw-head" style="margin-top:14px">Worked: what a relief actually costs a fee</div>
     <p class="note">Magna Carta 1215 fixed the heir's relief at <b>100 shillings for a knight's fee</b> —
     120 <span class="u">gp</span> at the rate above. <span class="bdg his" title="Magna Carta 1215, c.2, which also fixes £100 for a barony; 100s was already the customary rate in Glanvill, c.1188. Clause references need a pinpoint against a printed edition before they are relied on">HISTORY</span>
-    Measured against <b>gross income</b> it looks mild — 9.3% of a bachelor's fee's year, against the
-    ~25% a real £5 relief took from a real £20 fee. Measured against what the estate actually
-    <i>clears</i>, which is the quantity every card on this page is built around, it is the second
-    largest capital event in a fee-holder's life. Both columns, <b>at land value 6</b> — the default,
-    and the row this whole passage is worked on:</p>
+    Measured against <b>gross income</b> it looks mild — <b>10%</b> of a bachelor's fee's year at the customary
+    rent, 9.3% under ACKS RAW revenues, against the ~25% a real £5 relief took from a real £20 fee. Measured
+    against what the estate actually <i>clears</i>, which is the quantity every card on this page is built
+    around, it is the second largest capital event in a fee-holder's life — and at the default that measure has
+    no denominator at all. <b>At land value 6</b>, then — the default, and the row this whole passage is worked
+    on:</p>
     <div class="viz">
-      <table class="cmp"><caption class="vh">Relief by rung at land value 6, against gross income and against what the estate clears</caption>
-        <thead><tr><th scope="col">Rung</th><th scope="col">Relief (fees × 120 <span class="u">gp</span>)</th><th scope="col">Clears, a year</th><th scope="col">In months of everything it clears</th></tr></thead>
+      <table class="cmp"><caption class="vh">Relief by rung at land value 6 under the customary rent — and what it is actually paid out of</caption>
+        <thead><tr><th scope="col">Rung</th><th scope="col">Families</th><th scope="col">Relief (fees × 120 <span class="u">gp</span>)</th><th scope="col">Clears, a year</th><th scope="col">Paid from what?</th></tr></thead>
         <tbody>
-          <tr><th scope="row">Esquire's fee — ½</th><td>60</td><td>36 <span class="u">gp/yr</span></td><td><b>20 months</b></td></tr>
-          <tr><th scope="row">Bachelor's fee — 1</th><td>120</td><td>96 <span class="u">gp/yr</span></td><td><b>15 months</b></td></tr>
-          <tr><th scope="row">Double fee — 2</th><td>240</td><td>84 <span class="u">gp/yr</span></td><td><b>34 months</b></td></tr>
-          <tr><th scope="row">Castellany — 4</th><td>480</td><td>60 <span class="u">gp/yr</span></td><td><b>96 months</b></td></tr>
+          <tr><th scope="row">Esquire's fee — ½</th><td>15</td><td>60</td><td><b>0</b></td><td>borrowing, or the lord's grace</td></tr>
+          <tr><th scope="row">Bachelor's fee — 1</th><td>25</td><td>120</td><td><b>0</b></td><td>borrowing, wardship, selling wood</td></tr>
+          <tr><th scope="row">Double fee — 2</th><td>50</td><td>240</td><td><b>0</b></td><td>the <b>margin</b>, if the manor has grown past its paper</td></tr>
+          <tr><th scope="row">Castellany — 4</th><td>100</td><td>480</td><td><b>0</b></td><td>the margin, a wardship falling in, or debt</td></tr>
         </tbody>
       </table>
     </div>
-    <p class="note">Read the last column. Every rung on this ladder sits at the <b>wage-parity floor</b> —
-    the smallest estate that pays its man — so the surplus does not grow with the fee, and a due that
-    <i>does</i> grow with the fee becomes ruinous as you climb. <b>That much holds at every land value.
-    The months themselves do not.</b> What a floor clears is what is left over after the rounding-up to
-    a whole family, so it is a <b>remainder, not a trend</b>: 3 · 8 · 7 · 5 <span class="u">gp/mo</span>
-    at land 6, and <b>zero on all four rungs at land 7</b>, where every keep divides its land value
-    exactly and each rung pays its man to the shilling with nothing over. Read this column as this row.
-    At land 6, then: <b>a castellany at its floor cannot pay its relief at all</b> — eight years of clear
-    income — and the bachelor's fee is the only rung where a succession is survivable out of income,
-    which is a real argument for why the single-knight fee was the standard unit of tenure, and a
-    sharper form of the point the ladder already makes about standing hires. The general form of that
-    argument does not need the months at all: <b>the due scales with the fee and the floor's surplus
-    never does</b>, so anything above the bachelor's fee needs the <b>margin</b> — the grown manor, an
-    estate running above its paper (<b>Muster</b> section). That is what reliefs, aids and wardships
-    were <i>for</i> — they are how a crown reaches an estate whose assessment it cannot revise.</p>
-    <p class="note"><b>In RAW's own currency of demand.</b> Every duty ACKS lets a lord impose is priced
-    at <b>1 <span class="u">gp/family</span></b> — scutage, the loan, the gift, the Call to Arms
-    (p.346). A relief runs about <b>10 <span class="u">gp/family</span></b> across the whole ladder
-    at land 6 (8.6 · 10.0 · 10.4 · 10.7). <b>A relief is ten ordinary duties, at once, and never
-    repaid</b> — which is why it was the grievance Magna Carta opened with. Unlike the months, this
-    ratio is steady across the rungs and moves only with the land: nearer <b>7</b> duties at land 3,
-    nearer <b>13</b> at land 9, because a richer family is a dearer family and the fee needs fewer of
-    them. That is the more portable of the two readings. Either way it holds only at the <b>parity floor</b>,
-    though, and it is the clearest measure of what the margin buys: a grown manor pays its relief on the
-    charter it outgrew, so a 40-family estate on a one-fee paper pays the same 120 <span class="u">gp</span>
-    spread over three times the families — three duties, not ten. The <b>Muster</b> section's card computes
-    that ratio for the estate in hand.</p>
+    <p class="note"><b>Every rung clears exactly zero, and the fourth column is the finding.</b> At the customary
+    rent the pins divide the net exactly — 60÷4, 100÷4, 200÷4, 400÷4 — so every rung sits <i>on</i> its support
+    floor and the margin is nil. <b>At the default land value, no rung on this ladder can pay its relief out of
+    income at all.</b> A relief is paid by borrowing, by wardship, by selling wood, or by the lord's grace — never
+    from income. That is why relief was the grievance Magna Carta opened with, and it is why the <b>margin</b> —
+    the grown manor, an estate running above its paper (<b>Muster</b> section) — is the only thing that makes a
+    succession survivable.</p>
+    <p class="note">⚠ <b>Pin that to land 6 and leave it pinned.</b> The unqualified form — <i>"under the
+    customary rent no rung can pay its relief at all"</i> — is false off the default: at land value 9 the
+    customary margins are <b>3 · 5 · 3 · 6</b> <span class="u">gp/mo</span>, and those estates can accumulate a
+    relief over time. <b>The zero is a divisibility property</b> of net 4 against 60/100/200/400, not a law of
+    the reading. This chapter used to print a "months of clear income" column — 20 · 15 · 34 · 96 under ACKS RAW
+    revenues — and read a trend into it. <b>There was no trend. It was a rounding remainder</b>, and it went to
+    zero on all four rungs at land 7 under those same revenues. The column is retired rather than recomputed.
+    <span class="bdg mod" title="the zero-surplus result and its restriction to land 6 are the module's; the arithmetic is the pin ladder divided by the customary net">MODULE</span></p>
+    <p class="note"><b>In RAW's own currency of demand — the portable reading.</b> Every duty ACKS lets a lord
+    impose is priced at <b>1 <span class="u">gp/family</span></b>: scutage, the loan, the gift, the Call to Arms
+    (p.346). A relief at the parity floor works out at <b>1.2 × the net per family</b>, because the fee's family
+    count is its anchor divided by that same net — so it is <b>4.8 duties at the customary rent</b> and 10.8 under
+    ACKS RAW revenues, steady across all four rungs either way, and moving only with the land: about <b>1.2</b>
+    duties at land 3, about <b>8.4</b> at land 9, because a richer family is a dearer family and the fee needs
+    fewer of them. <b>A relief is five ordinary duties at once, and never repaid.</b></p>
+    <p class="note">That ratio holds only at the <b>parity floor</b>, and the gap is the clearest measure of what
+    the margin buys: a grown manor pays its relief on the charter it outgrew, so a 40-family estate on a one-fee
+    paper pays the same 120&nbsp;<span class="u">gp</span> spread over more than half again the families — <b>three
+    duties, not five</b>. The <b>Muster</b> section's card computes that ratio for the estate in hand. Reliefs,
+    aids and wardships are how a crown reaches an estate whose assessment it cannot revise.</p>
   </div>
   </details>
+  <details class="lib"><summary>Custom — the manorial reading, and its defence <span class="bdg rin" title="RAW's own wording motivates reducing rural service revenue and permits tax 0; the values 1 and 0 are the module's">RAW-INFORMED + MODULE</span></summary>
+  <div class="notecol">
+  <h2>Custom — what the dial actually rules</h2>
+  <p class="intro">
+    The <b>custom of record</b> changes two numbers: a peasant family's <b>service</b> revenue from 4 to
+    <b>1</b>, and its <b>tax</b> revenue from 2 to <b>0</b>. Urban families are untouched. This is the chapter a
+    sceptical reader should open first, because one of those two is a house rule and the other is a RAW dial,
+    and the difference matters more than the values do.
+  </p>
+  <p class="note"><b>⚠ Read the badges, not the sentences.</b> Four claims in this argument have been withdrawn
+    across five rounds of review, and <b>every one failed the same way — claiming RAW's authority for a module
+    choice</b>. That is a class of error, not a run of bad luck, so it gets the same treatment as a duplicated
+    constant: <span class="bdg raw" title="ACKS II, rules as written — page-exact, and cited">RAW</span> must quote
+    the sentence; <span class="bdg rin" title="RAW's own wording motivates this step, but does not supply the value or the setting">RAW-INFORMED</span>
+    must say what RAW supplies <i>and</i> what the module supplies;
+    <span class="bdg mod" title="this module's own ruling. RAW does not say it">MODULE</span> is a ruling and must
+    say what it rules over. The withdrawn four are printed at the foot of this chapter rather than deleted.</p>
+
+  <h2>Service 1 — four arguments, ascending</h2>
+  <p class="note"><b>Provenance, stated before the arguments.</b> RAW identifies skilled freemen and trade rights
+    as the principal basis of service revenue. <span class="bdg raw" title="RR p.341: services revenue derives from the services of skilled tradesmen, most of them freemen buying the right to practise a trade">RAW</span>
+    A customary rural population should therefore yield <b>less</b> service revenue than RAW's commercial profile
+    — the direction, and only the direction. <span class="bdg rin" title="RAW's basis motivates a reduction; it does not derive how far">RAW-INFORMED</span>
+    This module assigns that population service <b>1</b> rather than 4, keeping a residual for mills and rural
+    trades. <span class="bdg mod" title="the value 1 is the module's, and is a residual of the calibration below rather than a free coefficient">MODULE</span>
+    An earlier draft claimed <i>"the house rule is RAW's own sentence."</i> <b>That overclaimed and is
+    withdrawn</b> — RAW says <i>most</i>, not <i>all</i>, is elsewhere agnostic about tenure, and compulsory suit
+    to a lord's mill is not a freeman buying a licence even though both concern milling.</p>
+  <p class="note"><b>(a) RAW's own basis excludes it.</b> <i>"Services revenue derives from the services of
+    skilled tradesmen… Most of these services are provided by <b>freemen</b> who offer a portion of their labor
+    to the ruler <b>in exchange for the right to practice their trade</b> on his domain."</i> (RR&nbsp;p.341) A
+    licence fee paid by free tradesmen. A manorial population is villein — and RAW declines to model tenure at
+    all, so the module is filling the one thing RAW says it left blank, not overruling it.</p>
+  <p class="note"><b>(b) The manorial instrument is a monopoly, not a licence.</b>
+    <span class="bdg his" title="mill soke, multure, the bakehouse and the assize of ale are attested seigneurial monopolies; serjeanty tenure for the smith is likewise attested">HISTORY</span>
+    English lords did not license the miller; they <b>owned the mill and compelled suit to it</b>, paid in
+    multure. Likewise the bakehouse and the assize of ale. The smith usually held by <b>serjeanty</b> — he pays
+    nothing and the lord receives smithing instead of coin, which is land already granted away, not revenue
+    collected.</p>
+  <p class="note"><b>(c) The arithmetic, priced from the record.</b>
+    <span class="bdg his" title="watermill and bakehouse revenues from the manorial literature; ranges, not point estimates">HISTORY</span>
+    A watermill ran 20–40s a year; bakehouse and ale fines a few shillings each. The whole trade complex comes to
+    <b>£2–5 per manor per year</b>, and a fee is two or three manors:</p>
+  <div class="viz">
+    <table class="cmp"><caption class="vh">The fee's service revenue at each setting, against what a manor's trade complex actually yielded</caption>
+      <thead><tr><th scope="col"></th><th scope="col">Fee's service revenue</th><th scope="col">Per manor (2–3 manors)</th><th scope="col">Against the record</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Service 4 — ACKS RAW</th><td>£50/yr</td><td>£17–25</td><td>5–10× over, and equal to the fee's whole income</td></tr>
+        <tr><th scope="row"><b>Service 1 — customary</b></th><td><b>£12.5/yr</b></td><td><b>£4–6</b></td><td>✔ in band</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>(d) It makes RAW right rather than wrong.</b> RAW priced a free, commercial population and
+    priced it correctly. <b>That population is the urban family</b>, and RAW keeps its 4&nbsp;<span class="u">gp</span>
+    there. Nothing in this dial touches a borough.</p>
+
+  <h2>Tax 0 — a residual allocation, not a claim that lords took nothing</h2>
+  <p class="note"><b>The derivation, and it is the load-bearing passage of the whole package.</b>
+    <span class="bdg mod" title="the calibration target of 4 gp is the module's one free number; everything else in this paragraph follows from it">MODULE</span>
+    At land value 6 the customary profile is calibrated to a net receipt of <b>4&nbsp;<span class="u">gp</span></b>
+    per full-tenement unit — the historical input, drawn from the manorial record. After the three fixed expenses
+    that leaves <b>exactly one whole gold piece</b> to divide:</p>
+  <p class="note" style="text-align:center"><code>4 = 6 + service + tax − 3</code> ⟹ <b><code>service + tax = 1</code></b></p>
+  <p class="note">RAW says most service revenue comes from skilled freemen and trade rights, and a manor still
+    receives value from mills and rural trades, so the residual is <b>not zero</b> and belongs on the service
+    line. Tax takes what is left, which is nothing. <b>This is falsifiable three ways</b>, which is the whole
+    reason to prefer it over the four arguments it replaced: move the calibration target and the allocation
+    moves; if rural service ought to round to zero then tax becomes 1; if local cash dues demonstrably require
+    another whole gold piece then the target is too low or the decomposition is wrong. <b>The module's one free
+    number is now the calibration target</b> — an empirical quantity a reader can check against the record —
+    rather than a rate nobody can audit.</p>
+  <p class="note"><b>The booking convention, and only what it claims.</b>
+    <span class="bdg rin" title="RAW's land line derives from labour on the domain's lands; booking week-work there is the module's accounting choice">RAW-INFORMED</span>
+    <span class="bdg mod" title="a module accounting convention, not a historical identity">MODULE</span>
+    Agricultural <b>week-work</b> is represented through the <b>land</b> line, because that labour produces the
+    demesne output RAW's land line already collects. So labour-rent is not priced twice. <b>That is all it
+    claims.</b> The strong form — <i>"customary rent in general is already contained in land revenue"</i> — is
+    withdrawn: customary tenants commonly owed works <b>and</b> a fixed money rent on the same holding, and the
+    thirteenth-century <i>Extenta Manerii</i> instructs its surveyors to record <i>"how much <b>rent of assize</b>
+    be paid yearly <b>besides</b> the works and customs."</i> Cash rent and labour service were two obligations.
+    This module does not resolve them separately; it does not claim they were the same.</p>
+  <p class="note"><b>The note on resolution — a statement about notation, not a defence of a fudge.</b>
+    RAW's domain economy is written in whole gold pieces per family per month, and its smallest possible entry —
+    1&nbsp;<span class="u">gp</span> — is <b>ten shillings a year</b>. An English knight's fee of £20 with about
+    25 recorded entries yielded its lord <b>sixteen shillings per entry per year</b>, and that sixteen shillings
+    is <i>everything</i>: assized rent, the value of works, court perquisites, merchet, heriot, tolls and the
+    mill. The individual dues inside it run <b>one to four shillings apiece</b>. So tax 0 is the statement that
+    <b>no seigneurial due is large enough to earn a line of its own</b> in a ledger written in whole gold pieces
+    — they are collected into the calibrated total rather than resolved separately.</p>
+  <p class="note">⚠ <b>Note what that no longer says.</b> It used to conclude that every due <i>"falls below
+    RAW's resolution"</i>, which silently promoted <i>each is small</i> into <i>all of them together are small</i>
+    — an aggregation fallacy. Sixteen shillings against a ten-shilling digit leaves plenty of room for the
+    aggregate to reach a whole unit, <b>and part of it does: that is precisely the gold piece the module assigns
+    to services.</b> The claim is about what gets its own line, not about what the dues were worth. The reader's
+    objection — <i>but they did take merchet</i> — is conceded inside the argument, which is what makes it land.</p>
+
+  <h2>What the incidents do and do not carry</h2>
+  <p class="note">Relief, aid and wardship model extraction <b>upward</b>, from the fee-holder to his liege, and
+    stand in for recurring <i>tribute</i> at that level. <b>They do not replace, duplicate or excuse peasant dues
+    below it.</b> If this module ever wanted incidents to stand literally in place of RAW's smoothed tax line it
+    would have to model the <i>peasant-level</i> incidents — heriots, merchets, entry fines, court receipts — or
+    annualise an equivalent set. It presently does neither and does not claim to.</p>
+
+  <h2>Demesne and enfeoffed — the difference is total</h2>
+  <p class="note"><b>Enfeoffment is the act of alienating the revenue in exchange for service. The families under
+    a knight are gone from the lord's ledger. That is what the word means.</b>
+    <span class="bdg his" title="the standard structure of an English honour: retained demesne manors alongside enfeoffed fees">HISTORY</span></p>
+  <div class="viz">
+    <table class="cmp"><caption class="vh">A demesne manor and an enfeoffed manor — identical inside, opposite on the lord's books</caption>
+      <thead><tr><th scope="col"></th><th scope="col">Demesne manor</th><th scope="col">Enfeoffed manor</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Who collects land / service / tax</th><td>the lord</td><td><b>the knight</b></td></tr>
+        <tr><th scope="row">What the lord receives</th><td>all of it</td><td><b>nothing recurring</b></td></tr>
+        <tr><th scope="row">Instead</th><td>—</td><td>a lance when called; <b>castle-guard</b></td></tr>
+        <tr><th scope="row">At a death</th><td>—</td><td><b>relief, wardship, marriage</b></td></tr>
+        <tr><th scope="row">Revisable?</th><td>bound by the same custom as any lord</td><td>no — a grant, not a lease</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">The two have <b>identical internal economics</b>. Same land, same service, same tax, same
+    expenses. The only difference is whose purse it lands in. So a feudal lord's income is <b>not</b> families ×
+    rate cascading upward; it is <code>(demesne families × net) + service + incidents</code> — which is why the
+    Realms tab shows the demesne and the honour side by side and never sums them into one figure.</p>
+
+  <h2>Tax 0 at realm scale — not a rounding at all</h2>
+  <p class="note">⚠ <b>This is a claim about the crown, not about RAW's tax line.</b> RAW's tax revenue is
+    seigneurial — coin paid to the ruler by his own peasants — so the absence of a royal land tax is not by
+    itself a reason to zero it, and an earlier draft used it as one. What follows is a true and useful statement
+    about where realm income comes from <i>instead</i>. It is not the justification for the dial; the derivation
+    above is.</p>
+  <p class="note">After Danegeld and carucage lapsed, <b>England had no regular land tax</b>. The king was
+    expected to "live of his own." That absence is why kings needed consent, why scutage and aids mattered, why
+    Magna Carta happened, and why Parliament grew. <b>Tax 0 does not distort the picture; it is the picture.</b>
+    <span class="bdg his" title="the lapse of Danegeld and carucage, and the 'live of his own' expectation, are the conventional account of late-medieval English royal finance">HISTORY</span>
+    And it does not impoverish the realm — it redirects realm income into instruments this module already prices:
+    the <b>demesne</b> (Realms), <b>relief, wardship and marriage</b> (the incidents card), <b>aid</b> (a Duty),
+    <b>scutage</b> (Muster), and <b>justice</b> — the residue of the tax line. The relief that looked light at
+    a tenth of gross becomes load-bearing: it is no longer a decoration on a fat tax base, it is a substantial
+    share of how the lord actually gets paid.</p>
+
+  <h2>Sidebar — Package E, the RAW-legal route to the same rate</h2>
+  <p class="note">The same destination is reachable without the house rule. Set land to <b>5</b> — 22.2% of 3d3,
+    an ordinary roll — keep RAW's service 4 and tax 0, and <b>pay the garrison in coin</b>. Net is <b>4</b>, the
+    fee is 25 families, £50 a year, £0.80 per recorded entry: identical, with <b>zero</b> house rules.</p>
+  <p class="note">⚠ <b>It is a sidebar and not a proof, and the claim that it corroborates the reading is
+    withdrawn.</b> <i>"Two disjoint routes agree, so 4 is right"</i> does not follow: E is another parameter
+    combination <b>selected to solve the same target equation</b>, and many combinations can be made to equal 4.
+    Agreement between them is algebra, not evidence. E is also a <b>different ledger</b> — the customary reading
+    describes an enfeoffed holder whose garrison is discharged in kind, E a landholder paying it in coin — so the
+    two do not even describe the same man.
+    <span class="bdg mod" title="published as an alternative configuration for a table that would rather not carry a house rule; explicitly not offered as independent confirmation">MODULE</span></p>
+  <p class="note"><b>Why the customary reading and not E.</b> E leaves service revenue at £0.80 per entry per
+    year of tradesmen's licences — roughly ten times a real manor's mill-and-oven income — so it is right in
+    total and wrong in its parts. And E has the knight paying £25 a year for a standing garrison on a £50 estate,
+    when <b>English rural policing imposed no standing cash payroll on the lord</b>: frankpledge, the tithing and
+    the hue and cry were obligations of the community, not wage lines. Under the customary reading the militia
+    credit <i>is</i> frankpledge — the community's own armed men discharging the line without coin, exactly as
+    RAW&nbsp;p.341 permits.</p>
+
+  <h2>⚠ The four withdrawn justifications, kept on the page</h2>
+  <p class="note">Each was published, each was wrong, and each failed by <b>claiming RAW's authority for a module
+    choice</b>. They are printed because a reader who has met one of them elsewhere deserves to know it was
+    retired, and because the pattern is the argument for the badge discipline above.</p>
+  <div class="viz">
+    <table class="cmp"><caption class="vh">Four withdrawn justifications for tax 0, and what was wrong with each</caption>
+      <thead><tr><th scope="col">Withdrawn</th><th scope="col">Why it fails</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" class="rname">"There was no recurring royal land tax on an English manor"</th>
+          <td style="text-align:left"><b>RAW's tax line is not a royal land tax.</b> It is explicitly seigneurial — merchet, heriot, entry fine, tallage, the court, the tolls and the rent. The old argument does not touch it</td></tr>
+        <tr><th scope="row" class="rname">"The module already prices those fees as incidents, so charging both bills inheritance twice"</th>
+          <td style="text-align:left">Different levels, different payers, different property interests. A peasant heriot and a knightly relief may both fall at a death, but they are a different deceased paying a different sum to a different recipient, and historically they coexisted. <b>Layered extraction is not double-counting</b>: income on one ledger is an expense on the next</td></tr>
+        <tr><th scope="row" class="rname">"The rent is already in the land line"</th>
+          <td style="text-align:left">True of <b>labour</b> rent and false in general. Assized money rent coexisted with works on the same tenement — the <i>Extenta Manerii</i> settles it. Saying this is not applying RAW's distinction; it <b>reallocates part of RAW's tax category into land</b>, which is a module choice and must be badged as one</td></tr>
+        <tr><th scope="row" class="rname">"The house rule is RAW's own sentence"</th>
+          <td style="text-align:left">RAW's wording <b>motivates the cut; it does not supply the value 1.</b> Direction is not magnitude, and borrowing the rulebook's authority for a coefficient it never states is the failure this whole table records</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>The rule that would have caught all of them.</b> A claim that two payments are the same
+    charge must name <b>seven</b> things, not three: flow type, payer, recipient, institutional level, base or
+    consideration, trigger, and substitution relationship. Week-work and assized rent share the payer, the
+    recipient, the level <i>and</i> the tenement, and are still two obligations — they differ on <b>base</b> and
+    on <b>substitution</b>, and those two rows are the whole argument. The first withdrawal above failed on
+    level, the 2.7×/5.6× headline failed on denominator, and the rent claim failed on base. <b>Fill the table
+    before writing the sentence.</b>
+    <span class="bdg mod" title="the seven-field schema is the module's, adopted after a three-field version proved insufficient against exactly this pair">MODULE</span></p>
+  </div>
+  </details>
+
+  <details class="lib"><summary>The franchise — why RAW's 4 gp is right for burgesses and wrong for villeins <span class="bdg his" title="the market franchise as an institution; no mechanic is added by this chapter">HISTORY</span></summary>
+  <div class="notecol">
+  <h2>The franchise — prose, not mechanics</h2>
+  <p class="intro">
+    <b>No mechanic is added here.</b> This chapter exists to explain why the custom dial has two settings and not
+    a ladder of them — and RAW draws the boundary itself: <i>"If fewer than <b>75 urban families</b> are ever
+    present in a settlement, the urban settlement <b>dissolves into the hamlets of the peasantry and become
+    peasant families</b>."</i> (RR&nbsp;p.352)
+    <span class="bdg raw" title="RR p.352 — the dissolution threshold is RAW's own, and it is what makes a manor unambiguously rural">RAW</span>
+  </p>
+  <p class="note"><b>A manor therefore has no urban families. A manor is service 1, always. There is no service
+    2.</b> No franchise ladder, no charter fines, no tiers — the thing that would have justified an intermediate
+    setting does not exist inside RAW's own model of a settlement.</p>
+  <p class="note"><b>A market was a franchise, not a population effect.</b> In ACKS a market emerges from
+    population. In England it was <b>granted by the crown</b>: it could sit at a village of thirty households and
+    be absent from a large one, and there were over two thousand grants by 1350. That is the deepest difference
+    between the two models of a countryside, and it is worth knowing before you read a market class as a
+    demographic fact.
+    <span class="bdg his" title="market grants as crown franchises; the count of grants by 1350 is the conventional figure from the market-charter literature">HISTORY</span></p>
+  <p class="note"><b>The spacing rule is a hex rule.</b> The rule cited from Bracton is <b>6⅔ miles</b> between
+    markets — a third of a day's walk out, a third at market, a third home. ACKS's hexes are six miles. <b>One
+    chartered market per six-mile hex</b>, to within rounding, which is a usable Judge's rule that falls out of
+    the institution rather than the population.
+    <span class="bdg dbt" title="the 6⅔-mile rule is widely quoted from Bracton but needs a pinpoint against a printed edition before it is relied on">DEBATED</span></p>
+  <p class="note"><b>Charters were named to a weekday</b>, and neighbouring markets took different days, so a
+    circuit of markets is a week rather than a map. <b>And selling charters was crown revenue</b> — the same box
+    as reliefs and aids, which is where this chapter rejoins the module's thesis: the crown reaches a countryside
+    it cannot tax by selling it privileges.</p>
+  <p class="note"><b>The magnitude is below resolution, at the same scale of institution that made tax 0
+    honest.</b> A modest weekly market was worth £1–5 a year; on a 25-family manor that is
+    0.16–0.4&nbsp;<span class="u">gp/family</span>. Only a good market — £10–20 a year — reaches
+    1&nbsp;<span class="u">gp/family</span>, and a market that good implies a settlement, which is exactly where
+    RAW takes over. <b>The same resolution limit, at the same scale.</b></p>
+  <p class="note"><b>The ladder's top rung is an instrument this module already built.</b> A borough bought
+    self-government by paying the crown a fixed annual farm — the <i>firma burgi</i> — which is RAW's fee-farm at
+    the governor pole (JJ&nbsp;p.405–6). <b>A borough is a domain that has bought itself out.</b> The Offices
+    section prices that pole; nothing new is needed here.
+    <span class="bdg mod" title="mapping the firma burgi onto RAW's fee-farm pole is the module's reading; RAW supplies the pole and history supplies the borough">MODULE</span></p>
+  </div>
+  </details>
+
   <details class="lib"><summary>Design — what this module does, and why <span class="bdg mod" title="the module’s own account of itself — what it builds on RAW, and what it declines to build">MODULE</span></summary>
 
 
@@ -2187,8 +2547,9 @@
     9–16 vassals, half at 17–63, and 99% in the Drakomir example's 21,600 — while <b>service in kind never passes
     through a collector's hands</b>. Only ≤8 vassals pay in full, and that band coincides with the henchman cap:
     RAW's own economics wants the feudal shape — a handful of sworn tribute-vassals, and below them, men who pay in
-    person. <b>Density</b>: by c.1300 England ran ~1 knight's <i>fee</i> per ~170 households (dubbed knights were
-    rarer still) — the drivers were demesne retention, the fragmentation of fees, and the fact that a fee's land fed
+    person. <b>Density</b>: by c.1300 England ran ~1 knight's <i>fee</i> per ~170 <b>recorded entries</b> — about
+    <b>68 families</b> at the 2.5 convention, which against a customary fee of 25 families says the crown, church
+    and demesne held roughly <b>two thirds un-enfeoffed</b> (dubbed knights were rarer still) — the drivers were demesne retention, the fragmentation of fees, and the fact that a fee's land fed
     many more households than the one that named it; many fees were held by
     scutage-paying esquires, widows, and wards — the <b>demesne share</b> — what fraction of a realm its lord keeps in hand rather than enfeoffing — is
     exactly that dial. <b>This page does not model it:</b> every rung here prices a fee that <i>is</i> enfeoffed
@@ -2418,7 +2779,7 @@
   <div class="scroll"><table class="audit"><caption class="vh">The rungs and their historical anchors</caption>
     <thead><tr><th scope="col">Rung</th><th scope="col">Historical figure</th><th scope="col">The evidence</th></tr></thead>
     <tbody>
-      <tr><th scope="row"><b>Esquire's fee</b><br>7 fam · 60 gp · ½ fee</th>
+      <tr><th scope="row"><b>Esquire's fee</b><br><b>15 fam</b> customary · 7 at ACKS RAW<br>60 gp · ½ fee</th>
         <td>The landed esquire; the mounted serjeant (serjeanty — a service-tenure below the knight's fee; not the troop type)</td>
         <td>The 1436 English income returns count <b>~1,200 landed esquires averaging £24/yr</b> against ~950 knights
         (£40+) — the sub-knightly landed man-at-arms was roughly half the armigerous class, not a rarity. (Two honest
@@ -2430,22 +2791,27 @@
         recognition (1363) — and this one: £20 <i>was</i> the 13th-century knight's fee, and when the distraint
         threshold doubled to £40, the men on single old fees stayed below the line as "esquires." Below it, he
         owes no dubbing.</td></tr>
-      <tr><th scope="row"><b>Bachelor's fee</b><br>12 fam · 100 gp · 1 fee</th>
+      <tr><th scope="row"><b>Bachelor's fee</b><br><b>25 fam</b> customary · 12 at ACKS RAW<br>100 gp · 1 fee</th>
         <td>The knight bachelor on the minimal fee</td>
         <td>The classic <i>feodum militis</i> was reckoned at <b>5 hides ≈ 600 acres</b> (the old Anglo-Saxon thegn
         threshold — a notional legal figure; real fees ranged 1½ to 20+ hides) or <b>£20/yr</b> — and this rung works
         ≈560 acres at <b>47 acres per family</b>, this page's fitted settled-ground constant.
         Distraint of knighthood (£20, later £40) pressured exactly this holder to take up his spurs; some dodged and
         remained fee-holding esquires. His pay: the veteran's 2s/day ↔ our 100 gp.</td></tr>
-      <tr><th scope="row"><b>Double fee</b><br>23 fam · 200 gp · 2 fees</th>
+      <tr><th scope="row"><b>Double fee</b><br><b>50 fam</b> customary · 23 at ACKS RAW<br>200 gp · 2 fees</th>
         <td>The substantial county knight (law-French: <i>vavasour</i>)</td>
         <td>Fees were fiscal units, not walls and fields: a double fee is usually <b>one great working manor</b>,
-        occasionally a pair of small ones. Crucially, this is where <b>typical working manors actually sat</b> —
-        20–40 households in England — clustering at ~2× the minimal fee; the margin over the holder's own grade is
-        what paid for his lance. The pay-banneret's <b>4s/day = 2× a knight</b> matches this rung's 200 gp exactly.
+        occasionally a pair of small ones. ⚠ <b>This row used to claim that typical working manors sat here</b> —
+        "20–40 households in England, clustering at ~2× the minimal fee." <b>That compared households to families
+        without converting either.</b> A typical English manor of 20–40 <i>recorded entries</i> is <b>8–16
+        families</b>, which brackets the customary <b>esquire's half-fee</b> (15) and sits below the bachelor's
+        (25). So a typical manor is about <b>half a knight's fee, not twice one</b>, and a fee is two to three
+        manors — which is what the fee's own trade arithmetic assumed and what the record says. The margin over
+        the holder's own grade is still what paid for his lance. The pay-banneret's <b>4s/day = 2× a knight</b>
+        matches this rung's 200 gp exactly.
         ("Vavasour" is attested in English law for exactly this stratum, though its continental cousin could mean a
         far more modest rear-vassal — the estate-scale is solid, the word is slippery.)</td></tr>
-      <tr><th scope="row"><b>Castellany</b><br>45 fam · 400 gp · 4 fees</th>
+      <tr><th scope="row"><b>Castellany</b><br><b>100 fam</b> customary · 45 at ACKS RAW<br>400 gp · 4 fees</th>
         <td>The great fief below the barony; the estate-banneret</td>
         <td>A castellany is <b>a fief, not an office</b> — territory, as a barony is territory: the multi-manor
         estate gathered about a castle, held and inherited like any fee (Domesday's <i>castellaria</i>; the French
@@ -2476,13 +2842,13 @@
       <tbody>
         <tr><th scope="row">Esquire : knight</th><td>a band, ⅓–⅗: poll tax ⅓ (1379, 6s8d : 20s) · war pay ½ (1s : 2s) · estates 0.60 (1436, £24 avg : £40 floor)</td><td>60 : 100 = <b>0.60</b> — the top edge of a wide band: a consistency check, not a prediction</td></tr>
         <tr><th scope="row">Pay ladder</th><td>1s : 2s : 4s (esquire : knight : banneret)</td><td>60 : 100 : 200 — knight : banneret exact; the esquire rides ~20% rich</td></tr>
-        <tr><th scope="row">Quota convention</th><td>two half-fees = one knight's fee</td><td>2 × 7 fam ≈ 12 fam; 2 × 60 ≈ 100 gp</td></tr>
+        <tr><th scope="row">Quota convention</th><td>two half-fees = one knight's fee</td><td><i>at ACKS RAW revenues</i> 2 × 7 fam ≈ 12 fam; at the customary rent 2 × 15 ≈ 25 — either way 2 × 60 ≈ 100 gp, because the <b>anchors</b> are what the convention is about</td></tr>
         <tr><th scope="row">Banneret estate : knight's fee</th><td>£100–200 vs the £20 fee = 5–10×; vs the £40 distraint line = 2.5–5× — the honest band is 2.5–10×</td><td>45 : 12 = 3.75× — inside the band</td></tr>
-        <tr><th scope="row">Baron : knight (income)</th><td>£200+ vs £20 = ~10×; vs £40 = ~5× — the honest band is 5–10×+</td><td>1,120 gp : 108 gp ≈ 10× — the £20 end of the band</td></tr>
+        <tr><th scope="row">Baron : knight (income)</th><td>£200+ vs £20 = ~10×; vs £40 = ~5× — the honest band is 5–10×+</td><td><i>at ACKS RAW revenues</i> 1,120 gp : 108 gp ≈ 10× — the £20 end of the band. At the customary rent the same ratio is 640 : 100 ≈ 6.4×, nearer the £40 end</td></tr>
         <tr><th scope="row"><b>Whole-barony valuation</b> <i>(hedged — two readings in the record)</i></th><td><b>13⅓ fees</b> — the <i>baronia integra</i>: barony relief ÷ knight's relief (a <i>relief</i> is the fine an heir pays to inherit; the knight's was 100s = £5, a mark is ⅔£, so 100 marks = £66⅔ ÷ £5 = 13⅓). The relief is the hedge: the 1215 and official 1225 texts of Magna Carta cl. 2 read <b>£100</b> (→ 20 fees, no match); the reduction to <b>100 marks</b> (→ 13⅓) enters with the later-13th-century confirmations (1265 on) and variant 1225 copies — the mature, distraint-era rate, which is the era this module models. Read this row as era-matched, not exact — and as one fiscal ratio echoing another: the 13⅓ is itself an antiquarian derivation from relief rates, not a census of real baronies, which ranged from a couple of fees to near a hundred (Sanders)</td><td>160-family baronial floor ÷ 12-family fee = <b>13.3</b> — matching the mature rate from unrelated inputs; how much of a real barony was enfeoffed rather than kept in demesne is the <b>demesne share</b>, which this page leaves to the Judge</td></tr>
-        <tr><th scope="row"><b>Personal Authority equilibrium</b></th><td>"A ruler of a realm will tend to advance in level of experience until he reaches a personal authority of 0, and then stop advancing" (RR p.348, Designer's Note) — the book's own portrait of the settled ruler</td><td>every rung's wage-grade sits at <b>exactly PA 0</b> over its own manor — 63 gp/L2, 108/L3, 207/L4, 405/L5, the 160-family baron at 1,120/L6: wages double per level and the PA-0 bands double per level, the same diagonal at any land value. The knight's contract grows each dubbed man one level shy of the diagonal — he reads <b>PA −1 until war completes him; PA 0 is the proven knight</b>, the book's equilibrium as the mature state. The esquire reaches his by rents alone. No fee-holder borrows his lord's authority — the grade is his own</td></tr>
+        <tr><th scope="row"><b>Personal Authority equilibrium</b></th><td>"A ruler of a realm will tend to advance in level of experience until he reaches a personal authority of 0, and then stop advancing" (RR p.348, Designer's Note) — the book's own portrait of the settled ruler</td><td>every rung's wage-grade sits at <b>exactly PA 0</b> over its own manor — <i>at ACKS RAW revenues</i> 63 gp/L2, 108/L3, 207/L4, 405/L5, the 160-family baron at 1,120/L6 (at the customary rent the incomes fall to the pins themselves — 60/100/200/400, and the baron to 640): wages double per level and the PA-0 bands double per level, the same diagonal at any land value. The knight's contract grows each dubbed man one level shy of the diagonal — he reads <b>PA −1 until war completes him; PA 0 is the proven knight</b>, the book's equilibrium as the mature state. The esquire reaches his by rents alone. No fee-holder borrows his lord's authority — the grade is his own</td></tr>
         <tr><th scope="row">Minimal fee, acreage <i>(a consistency test, not a prediction)</i></th><td>5 hides ≈ 600 acres — notional geld-acres, a tax reckoning; real fees ran 1,000–5,000 ground-acres with their waste</td><td>12 fam × 47 ac/fam ≈ 560 — and 47 ac/family is a fitted settled-ground constant used throughout this page: the match is scale-consistency between two conventions, not a derivation</td></tr>
-        <tr><th scope="row">Typical manor</th><td>20–40 households (England)</td><td>the double fee, 23</td></tr>
+        <tr><th scope="row">Typical manor <i>(restated in families — see source typing)</i></th><td>20–40 <b>recorded entries</b> (England) = <b>8–16 families</b> at the 2.5 convention, band 6–27</td><td>the customary <b>esquire's half-fee, 15</b> — so a knight's fee is <b>two to three manors</b>, not one</td></tr>
         <tr><th scope="row"><b>Assize of Arms, 1181</b> <i>(a resonance, not a cross-check)</i></th><td>a knight owes <b>as many hauberks as he holds fees</b> — mail scales with fee-count in statute; the 10-mark freeman owes the lesser habergeon (a chattels assessment — the half-fee mapping borrows his kit-grade, not his tenure)</td><td>the rungs' heavy-foot yeomen at land 6 — RAW's printed average — count <b>0 / 1 / 2 / 4</b> on the ½-, 1-, 2-, and 4-fee rungs: the statute's scaling out of RAW's own qualifying numbers (p.431), untuned. But the counts shift off the average (land 3 reads 1/1/3/6), and the statute's hauberks armed the <b>knight</b>, not his foot-levy — the row repurposes the object of the obligation. Read it as an analogy the module liked, holding at one calibration point — not evidence</td></tr>
         <tr><th scope="row">Landed esquires : knights</th><td>~1,200 : ~950 (1436)</td><td>a realm dial — set by the <b>demesne share</b>, which this page does not model</td></tr>
       </tbody>
@@ -2496,7 +2862,7 @@
 
   <h2>Comparison — Cuxham, Oxfordshire</h2>
   <p class="intro">
-    <b>None of the module's numbers were tuned to Cuxham.</b> The 23-household double fee was derived from the
+    <b>None of the module's numbers were tuned to Cuxham.</b> The rung family counts were derived from the
     ACKS wage table before this example was chosen; what follows sets a real manor beside the model to show that
     the model is not absurd, which is the most a single case can do. It is a comparison, not a calibration, and
     not a validation.
@@ -2512,14 +2878,14 @@
       <thead><tr><th scope="col"></th><th scope="col">The record</th><th scope="col">This module (land 6 defaults)</th></tr></thead>
       <tbody>
         <tr><th scope="row" class="rname">The fiscal unit</th>
-          <td style="text-align:left">Domesday (1086) assesses Cuxham at <b>5 hides</b> — 15 recorded households (7 villagers, 4 bordars, 4 slaves), 5 ploughs, 3 mills, value <b>£6</b> (£3 in 1066)</td>
+          <td style="text-align:left">Domesday (1086) assesses Cuxham at <b>5 hides</b> — <b>15 recorded entries</b> (7 villagers, 4 bordars, 4 slaves) = <b>~6 families</b> at the 2.5 convention, band 4–10; 5 ploughs, 3 mills, value <b>£6</b> (£3 in 1066), which is <b>£0.40 per entry</b></td>
           <td style="text-align:left">5 hides is the notional <b>single fee</b> (anchors above) — and the assessment holds still while the population under it moves: a fee is a fiscal quantity, not a headcount</td></tr>
         <tr><th scope="row" class="rname">The working manor</th>
           <td style="text-align:left"><b>23 tenants in 1279</b> (3 free tenants, ~7 villein half-yardlanders, 13 cottagers), plus demesne servants — the mature shape: 13 half-yardlands, 8 cottages</td>
-          <td style="text-align:left">the <b>double fee: 23 families</b> — the "typical working manor at ~2× the minimal fee," here to the household. One great manor assessed as a fees-count, exactly the vavasour pattern</td></tr>
+          <td style="text-align:left">⚠ <b>This row used to read "the double fee: 23 families… here to the household."</b> It set 23 <i>tenant holdings</i> beside 23 ACKS <i>families</i> and called the coincidence a convergence. The 1279 count <b>is</b> a holdings count, so it does not convert — but the module's own side does: at the customary rent 23 families is <b>just under a single knight's fee</b> (25). <b>Cuxham reads as one fee, not two</b>, which is also what its acreage and its lord's rank say</td></tr>
         <tr><th scope="row" class="rname">The income</th>
-          <td style="text-align:left">net profit <b>just over £40/yr</b> in the early 14th century (gross ~£60, of which rents and court profits ~£5 — the rest is the demesne's corn)</td>
-          <td style="text-align:left">by the module's ratio map (£20 fee floor ↔ 100-gp wage): £40 ↔ <b>200 gp — the double fee's wage-grade</b> (207 gp at land 6). £40 is also the later distraint threshold: a county knight's estate, priced as one. (Once the household count matches, this follows arithmetically from the ratio map — households and income are <b>one</b> convergence, not two)</td></tr>
+          <td style="text-align:left">net profit <b>just over £40/yr</b> in the early 14th century (gross ~£60, of which rents and court profits ~£5 — the rest is the demesne's corn). ⚠ <b>a whole-manor numerator</b>: demesne corn, tenant rents and works, mill and market. Not the same quantity as customary dues off tenant holdings</td>
+          <td style="text-align:left">at the customary rent, 23 families × 4 <span class="u">gp</span> = <b>£46/yr</b> against the record's £40 — <b>1.15×, at the plain coin rate, with no mapping constant at all</b>. Under ACKS RAW revenues the same ground reads £103.5, or <b>2.6×</b>. ⚠ The old row reached its answer through a bespoke "ratio map" (£20 fee ↔ 100 <span class="u">gp</span>); <b>the customary reading does not need one</b>, and that — not the closeness — is the result worth having. £40 is also the later distraint threshold: a county knight's estate, priced as one</td></tr>
         <tr><th scope="row" class="rname">The man</th>
           <td style="text-align:left">Walter Foliot, lord of Cuxham c.1190–1233, serves as <b>sheriff of Oxfordshire</b> (1225)</td>
           <td style="text-align:left">the Offices section’s claim in one career: crowns commission sheriffs and constables from the substantial-knight bench — the double-fee/castellany stratum</td></tr>
@@ -2541,6 +2907,56 @@
     The disclaimer at the head of this section is the important one, and it is repeated here on purpose: these
     figures were never a target the module was fitted to.</p>
   </div>
+
+  <h2>Source typing — why every count on this page now names its unit</h2>
+  <p class="intro">
+    <b>"Recorded household" is retired as a general term. Use <i>recorded entry</i>.</b> A Domesday entry can be
+    a tenant holding, a household head, a smallholding, a dependant, or a <i>servus</i> counted individually.
+    They are not one observation type, and calling them all households <b>smuggles a conversion into the
+    noun</b> — which is exactly how this page came to publish a 5.6× gap that was really 2.25×, by dividing the
+    module's income by ACKS families and the record's by entries.
+  </p>
+  <p class="note"><b>The convention, and the scope rule that keeps it honest.</b> One ACKS peasant family ≈
+    <b>2.5 recorded entries</b>; the honest band is <b>1.5–3.5</b>. <b>Apply it when converting a source that
+    counts people under a roof. Never apply it to a source that counts holdings. Never apply it inside the
+    engine</b> — it lives at the point of citation and nowhere else, which is why no computed field on this page
+    contains the number 2.5.
+    <span class="bdg mod" title="the 2.5 central estimate and the 1.5–3.5 band are the module's reading of the manorial literature; the scope rule is the module's discipline">MODULE</span></p>
+  <div class="viz">
+    <table class="cmp"><caption class="vh">Which sources count roofs, which count holdings, and what to do with each</caption>
+      <thead><tr><th scope="col">Source</th><th scope="col">Counts</th><th scope="col">Convention</th></tr></thead>
+      <tbody>
+        <tr><th scope="row">Domesday — villagers, bordars, cottars, slaves</th><td>roofs</td><td><b>÷ 2.5</b></td></tr>
+        <tr><th scope="row">13th-c. manorial extent, incl. cottars and famuli</th><td>roofs</td><td><b>÷ 2.5</b></td></tr>
+        <tr><th scope="row">"Households per manor" in scholarship</th><td>roofs</td><td><b>÷ 2.5</b></td></tr>
+        <tr><th scope="row"><b>Hârn manor listings</b> — tenants with acreage attached</th><td><b>holdings</b></td><td><b>× 1 — do not convert</b></td></tr>
+        <tr><th scope="row">ACKS peasant families — the Judges Journal's 30-acre model</th><td><b>holdings</b></td><td><b>× 1</b></td></tr>
+        <tr><th scope="row">1377 poll tax — individuals over 14</th><td>persons</td><td>a third conversion — <b>flag it, do not guess</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>Six fields, not a number.</b> Every comparison in this Library carries
+    <code>raw count · source unit · conversion · converted range · date · numerator definition</code>. Worked, for
+    the row above:</p>
+  <p class="note" style="font-family:ui-monospace,monospace;font-size:12px">
+    Cuxham, 1086 — raw count <b>15 recorded entries, mixed status</b> · conversion <b>1.5–3.5 entries per
+    tenement</b> · converted <b>4.3–10 families, central 6</b> · lordly value <b>£6</b> · numerator
+    <b>whole-manor value, Domesday valuation</b></p>
+  <p class="note"><b>Propagate the range, not the point.</b> 2.5 is a <i>central estimate</i>. A card that says
+    "£0.80 per entry" where the underlying band spans <b>£0.57–£1.33</b> is claiming a precision the conversion
+    cannot carry. The customary rent's calibration lands on £0.80 as a <b>chosen point inside a wide range</b> —
+    the evidence itself runs £0.40 (Cuxham 1086) to £1.74 (Cuxham, 13th-c. tenants against 14th-c. profit).
+    <b>"Matches exactly" is withdrawn</b> wherever it appeared.</p>
+  <p class="note"><b>Two repairs Cuxham needed, both visible in the table above.</b> First, the 23-tenant count is
+    <b>1279</b> and the ~£40 net profit is chiefly <b>early-14th-century</b> accounting: dividing one by the other
+    is a <b>cross-period ratio</b> and must say so on its face. Second, that £40 is a <b>whole-manor</b> numerator
+    — directly farmed demesne, tenant rents and works, mill and appurtenances, market sales. It can benchmark
+    total estate return; <b>it cannot by itself set the service and tax lines</b>, and the service-1 argument does
+    not lean on it.</p>
+  <p class="note"><b>The diagnostic, if you are ever unsure whether a conversion has been applied twice:</b> any
+    figure implying more than about <b>30 acres per recorded entry</b> has had the convention misapplied. 15–25
+    acres is a correct mixed manor of yardlanders, half-yardlanders and cottars; 47–60 means it was applied to a
+    <i>tenement</i> count that was already right; 120–150 means a tenement count has been divided.</p>
 
   <h2>The three counts of a fee — grant, stock, fragment</h2>
   <p class="intro">
@@ -2626,7 +3042,7 @@
           <td>Land climbs with clearance and peace; second-generation heirs pass from the household circle to the knight's contract — base 0 riding the fee, the personal bond gone; fosterage develops as the manufactory of the next household men; the cartae freeze the counts — the first margins open (assessments ancient)</td></tr>
         <tr><th scope="row"><b>The distraint century</b><br>13th</th>
           <td>Knighthood dear and honorable, numbers falling; the crown compels the £20 men (distraint, 1224); the dubbed minority become the county elite — sheriffs, jurors, knights of the shire; Quia Emptores (1290 — the statute that ended the creation of new sub-fees) freezes the tenure ladder: the module's subinfeudated pyramid is the <i>pre-1290</i> shape</td>
-          <td>The full ladder, honest: <b>L3</b> distraint-line bachelor (12 fam), <b>L4</b> county knight (23–40), <b>L5</b> castellany (45); the esquire rung is the £24 man who dodged the dubbing</td>
+          <td>The full ladder, honest: <b>L3</b> distraint-line bachelor (25 fam at the customary rent, 12 at ACKS RAW), <b>L4</b> county knight, <b>L5</b> castellany; the esquire rung is the £24 man who dodged the dubbing</td>
           <td>Land 6; the full fidelity spread; offices staffed from the castellany bench; distraint taxes growth by income, so the paper effectively tracks the land (assessments current)</td></tr>
         <tr><th scope="row"><b>Indenture and after</b><br>14th–15th</th>
           <td>The fee stops producing soldiers: service commuted wholesale, armies raised by contract and wages, livery replaces tenure; by 1436, ~950 knights and ~1,200 esquires hold status land while war goes professional</td>
@@ -2806,7 +3222,7 @@
       <tr><th scope="row">The lesser esquire at ⅓ of a knight</th><td>the graduated poll tax</td><td>1379</td><td><b>Statute</b> (tax schedule)</td></tr>
       <tr><th scope="row">The notional 5-hide / ~600-acre fee; real fees 1½–20+ hides</th><td>Domesday scholarship (Round, Stenton)</td><td>—</td><td><b>Notional figure</b>, presented as such</td></tr>
       <tr><th scope="row">The Domesday <i>miles</i> barely above the peasantry, on 1.5–2 hides</th><td>S. Harvey, "The Knight and the Knight's Fee in England," <i>Past &amp; Present</i></td><td>1970</td><td><b>Scholarship, contested</b> — a famous argument that drew replies, not a consensus datum; the Domesday-era rungs lean on it</td></tr>
-      <tr><th scope="row">Typical manor 20–40 households; baronies £200+; banneret estates £100–200; ~1 fee per 170 households</th><td>English manorial and baronial studies (Painter, Sanders, and successors)</td><td>—</td><td><b>Scholarship ranges</b> — the module aims inside the band, not at a point</td></tr>
+      <tr><th scope="row">Typical manor 20–40 <b>recorded entries</b>; baronies £200+; banneret estates £100–200; ~1 fee per 170 <b>recorded entries</b> <i>(both counts are entries, not families — convert before comparing)</i></th><td>English manorial and baronial studies (Painter, Sanders, and successors)</td><td>—</td><td><b>Scholarship ranges</b> — the module aims inside the band, not at a point</td></tr>
       <tr><th scope="row">Estates quit of geld and castle-guard; quit-rents; scutage rates ratcheting; wardships and widows paying scutage</th><td>charter and exchequer commonplace</td><td>12th–13th c.</td><td><b>Standard diplomatic</b></td></tr>
       <tr><th scope="row">The castellany as heritable fief (<i>castellaria</i>, <i>châtellenie</i>), distinct from the constable's commission</th><td>Domesday; French institutional history</td><td>—</td><td><b>Scholarship</b></td></tr>
       <tr><th scope="row">The 40-day host term at the vassal's cost, wages beyond; charter variance (60 days, castle-guard in lieu)</th><td>English and continental service customs — M. Powicke, <i>Military Obligation in Medieval England</i> (1962)</td><td>12th–13th c.</td><td><b>Standard scholarship</b>; quantized here to one month of service (caveats above)</td></tr>
@@ -2866,10 +3282,9 @@
   <div class="scroll"><table class="audit"><caption class="vh">Hârn's canon institutions mapped to the manors</caption>
     <thead><tr><th scope="col">Hârn institution</th><th scope="col">Manor</th><th scope="col">The fit</th></tr></thead>
     <tbody>
-      <tr><th scope="row"><b>The working manor</b> (canon 23–34 families)</th><td>Double fee (23 fam)</td>
-        <td>The ordinary Hârnic manor IS the double fee: its margin over the bachelor's floor is exactly the lance
-        canon describes — squire, yeomen, remounts. A poor manor in the low teens is a bachelor's fee.</td></tr>
-      <tr><th scope="row"><b>Esquires</b> (mostly unlanded household men)</th><td>Esquire's fee (7 fam)</td>
+      <tr><th scope="row"><b>The working manor</b> (canon 23–34 families)</th><td><b>Bachelor’s fee</b> (25 fam) at the customary rent<br><i>Double fee (23 fam) at ACKS RAW</i></td>
+        <td>⚠ <b>This row used to read “the ordinary Hârnic manor IS the double fee.” That was the revenue error, not the setting.</b> Canon’s 23–34 tenant households sit almost exactly on the customary <b>single</b> fee of 25 — so the ordinary Hârnic manor owes <b>one</b> knight, which is what Kaldor 21 says it owes. The margin that pays for squire, yeomen and remounts is the manor’s growth <i>past</i> that paper, not a second fee. See <i>Canon’s two rules</i>.</td></tr>
+      <tr><th scope="row"><b>Esquires</b> (mostly unlanded household men)</th><td>Esquire’s fee — 15 fam at the customary rent, 7 at ACKS RAW</td>
         <td>Canon Hârnic esquires serve in households; the esquire's fee seats a landed man-at-arms where the poorer
         marches want one — the constable's sergeant with dirt under his nails.</td></tr>
       <tr><th scope="row"><b>Yeomen</b> (double tenancy, 60 days' service, own kit)</th><td>Trained militia</td>
@@ -2879,7 +3294,7 @@
         <td>Kitted as medium horse (knights ride heavy, mounted yeomen light) and worth 45 gp of wage-value in the
         lance's service — but in the line of battle he does not stand: squires are the lance's train. The fosterage
         lever is canon practice made mechanical.</td></tr>
-      <tr><th scope="row"><b>The great vassal knight</b> (a multi-manor fief)</th><td>Castellany (45 fam)</td>
+      <tr><th scope="row"><b>The great vassal knight</b> (a multi-manor fief)</th><td>Castellany — 100 fam at the customary rent, 45 at ACKS RAW</td>
         <td>Four fees in one pair of hands — the greatest man who is still anyone's knight: the old vassal family
         holding several manors of its baron or of the crown, inherited as one fief. Hârn's <b>constables of royal
         castles</b> are the neighboring, different thing — appointed officers, nearer sheriffs than lords — and
@@ -2900,6 +3315,23 @@
     households</b>. Because canon chose this manor itself, running it through the module is a like-for-like test
     nobody picked for convenience.
   </p>
+  <p class="note">⚠ <b>Touvant is an illustration, not the calibration — and it used to be the calibration.</b>
+    Among 574 individually-listed Kaldoric knight's manors it sits at the <b>75th percentile for households, the
+    87th for acres and the 94th for land quality</b>: a large, rich manor, and a poor single point to fit a rate
+    to. <b>The fit that matters is pooled.</b> Across <b>64 holdings in three kingdoms — 50,758 households</b> —
+    the customary rent fits canon's own acreage rule at <b>0.99</b>, and ACKS RAW revenues are <b>excluded in
+    every one of the 64</b>. Nothing in the corpus comes within 1.66× of the RAW rate. The argument below gets
+    stronger, not weaker, for resting on 64 holdings instead of on this one.
+    <span class="bdg hrn" title="the 64-holding reconciliation across Kaldor, Melderyn and Chybisa; the per-holding scatter is ±0.13 SD in Kaldor, so the third digit is not established">HÂRN</span></p>
+  <p class="note"><b>And Kaldor stays at land value 6.</b> Canon grades Touvant's land 21% rich, and an earlier
+    draft read that as a case for land 7. <b>No canon source ties service or scutage to land quality</b> — only
+    to gross acres — and land 7 makes the fit <i>worse</i>. The land-quality aside is dropped rather than
+    hedged.</p>
+  <p class="note"><b>The acreage row below is unchanged, and it is worth saying why.</b> Canon's 2,220 acres over
+    37 tenant holdings is 60 acres apiece, against this page's Kaldor dial of 57 — <b>both sides are holdings</b>,
+    so the 2.5 convention does not apply and there is nothing to convert. Canon says so itself: Kaldor&nbsp;22's
+    legend reads <i>"Each household averages 20 tenant acres."</i> This is the single most load-bearing canon
+    check in the corpus and the revenue correction does not touch it.</p>
   <div class="viz">
     <table class="cmp"><caption class="vh">Touvant Manor — canon's own figures beside this module at Kaldor's dials</caption>
       <thead><tr><th scope="col"></th><th scope="col">Canon (Kaldor 21 &amp; 30, Gardiren 27)</th><th scope="col">This module (Kaldor dials: land 6, 57 ac/fam)</th></tr></thead>
@@ -2908,8 +3340,8 @@
           <td style="text-align:left">2,220 acres · 37 households → <b>60 acres per household</b></td>
           <td style="text-align:left">the Kaldor density dial is <b>57 ac/family</b> — canon's own example ratifies the constant within 5%</td></tr>
         <tr><th scope="row" class="rname">The assessment</th>
-          <td style="text-align:left">obligations run on <b>Gross Acres</b> — fiefs are fiscal quantities, not headcounts</td>
-          <td style="text-align:left">37 families × 9 = <b>333 gp/mo ≈ 3⅓ fees</b> — a castellany short of its fourth fee, keeping an <b>L4</b> county knight (canon grades the land 21% rich; at land 7 the manor reads 370 gp — still L4)</td></tr>
+          <td style="text-align:left">obligations run on <b>Gross Acres</b> — fiefs are fiscal quantities, not headcounts. And canon assesses them <b>two ways at once</b>: the manor rule owes <b>1 knight</b> (Kaldor&nbsp;21), the acreage rule <b>2,220 ÷ 1,200 = 1.85 spears</b> (Gardiren&nbsp;29). See <i>Canon's two rules</i></td>
+          <td style="text-align:left">at the <b>customary rent</b> — the page's default — 37 families × 4 = <b>148 <span class="u">gp/mo</span> = 1.48 fees</b>, which lands <b>between canon's two rules</b>: above the paper it holds, below the assessment its acres imply. That is the grown manor, in canon's own numbers.<br>Under <b>ACKS RAW revenues</b> the same ground reads 37 × 9 = <b>333 <span class="u">gp/mo</span> = 3.33 fees</b> — above <i>both</i> canon rules by 1.8× to 3.3×, which is the error, not the setting <span class="bdg mod" title="the fee counts are the module's arithmetic; canon supplies the manor rule, the acreage rule and the acreage">MODULE</span></td></tr>
         <tr><th scope="row" class="rname">The lance</th>
           <td style="text-align:left">1 knight (medium horse — himself), 1 squire (light horse); the crown's payroll lists <b>"Squires (unpaid)"</b> (Kaldor 16–17)</td>
           <td style="text-align:left">the fee's knight + the fosterage squire — the same two men, and the squire's wage is his education: canon's payroll states the module's ruling in two words</td></tr>
@@ -2937,13 +3369,102 @@
   <h2>Kaldor at kingdom scale</h2>
   <p class="intro">
     Kaldor's ~17,000 families yield a feudal host of armored men in the <b>meaningful hundreds</b> — consistent with
-    how the Kingdom of Kaldor module portrays its musters. Knight density is the realm dial: Hârn canonically runs
-    <b>hot</b> — a knight on nearly every manor — where England ran ~1 fee per 170 households because crown, church,
-    and demesne held half to two-thirds un-enfeoffed; set the demesne share accordingly. Manor acreage uses
-    <b>57 acres per family</b> for Kaldor against this page's baronial default of 47.
+    how the Kingdom of Kaldor module portrays its musters. <i>A Kaldoric Succession Crisis</i> tabulates the whole
+    kingdom's feudal levy by shire (pp.&nbsp;16–19, 64 rows): <b>636 knights</b>, 545 lay and 91 church. Against that
+    census, the <b>customary rent</b> puts the kingdom's capacity at <b>1.25–1.30×</b> what canon actually enfeoffs;
+    <b>ACKS RAW revenues</b> put it at <b>2.8–2.9×</b>. A realm that has enfeoffed 80% of what it can bear is
+    ordinary. One that has enfeoffed 35% is not. Manor acreage uses <b>57 acres per family</b> for Kaldor against
+    this page's baronial default of 47.
   </p>
+  <p class="note"><b>⚠ Retracted: "Hârn canonically runs hot."</b> This paragraph used to say that canon put a
+    knight on nearly every manor where England ran about one fee per 170 households, and told you to set the
+    demesne share accordingly. <b>Canon was not running hot; this module was reading it hot</b> — by 2.23×, in all
+    64 holdings, across three kingdoms. The excess was the revenue rate, wearing a setting explanation. The number
+    it was measured against was mis-stated too: <b>"1 fee per 170 households" is an English figure in recorded
+    entries</b>, which is about <b>68 families</b> per fee — and since a customary fee is 25 families, that ratio is
+    saying the crown, the church and the demesne held roughly <b>two thirds un-enfeoffed</b>, which is the standard
+    picture rather than a contrast.
+    <span class="bdg his" title="the ~1-fee-per-170 figure is an English observation in recorded entries; converting it to families is this module's counting convention, applied at the citation">HISTORY</span></p>
+  <p class="note"><b>The tenure contrast survives; only the magnitude was false.</b> Across 515 manor rows the
+    Hârnic kingdom aggregate sits at <b>59% enfeoffed</b> clan manors, against England's roughly one third. Hârn
+    really does carry more enfeoffed land per household than England did. What it does not carry is a knight on
+    nearly every manor, and the module was supplying that difference out of its own arithmetic.
+    <span class="bdg hrn" title="the 59% aggregate is measured off canon's own fief tables; the English one-third is the conventional estimate">HÂRN</span></p>
 
-  
+
+  </details>
+
+  <details class="lib"><summary>Canon's two rules — a second tradition with the same architecture <span class="bdg hrn" title="Hârnic canon assesses knight service two ways at once; the module's charter-versus-muster model was built from English evidence and canon contains it independently">HÂRN</span></summary>
+  <div class="notecol">
+  <h2>Canon's two rules — the charter and the assessment, in print</h2>
+  <p class="intro">
+    This module built <b>charter against muster</b> from English evidence and its own doctrine: a paper obligation
+    fixed at a grant, and a countryside that grows away from it. That is an argument, and arguments can be
+    convenient. <b>So it is worth knowing that a second tradition — written decades later, by different authors,
+    from different sources — contains the same architecture and quantifies the gap.</b> Hârnic canon assesses
+    knight service <i>two ways, both live at once</i>, and never reconciles them, because the tension is the point.
+  </p>
+  <div class="viz">
+    <table class="cmp"><caption class="vh">Canon's two assessments of knight service, and the module's name for each</caption>
+      <thead><tr><th scope="col">Canon</th><th scope="col">What it measures</th><th scope="col">This module calls it</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" class="rname">The manor rule</th>
+          <td style="text-align:left"><i>"each manor provides one knight… one squire"</i> (Kaldor&nbsp;21); <i>"all manors can provide one knight and one squire"</i> (Melderyn&nbsp;29) — a headcount fixed by the unit of tenure, <b>insensitive to yield</b></td>
+          <td style="text-align:left"><b>the charter</b></td></tr>
+        <tr><th scope="row" class="rname">The acreage rule</th>
+          <td style="text-align:left">£1 per 120 acres, £10 per spear ⇒ <b>1 knight per 1,200 gross acres</b> (Gardiren&nbsp;29); <i>"roughly one knight per 1200 acres"</i> (Melderyn&nbsp;29); <i>"one mounted knight per 1,500 gross acres"</i> (Chybisa&nbsp;20) — <b>an assessment on the resource</b>, which re-counts as the land is measured</td>
+          <td style="text-align:left"><b>the current assessment</b></td></tr>
+        <tr><th scope="row" class="rname">The gap between them</th>
+          <td style="text-align:left">the mean Kaldoric knight's manor runs <b>1,681 gross acres</b>. Against the 1,200-acre spear that is <b>1.40</b>, where the paper says <b>1</b></td>
+          <td style="text-align:left"><b>the margin — the grown manor</b></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note"><b>The acreage rule closes on itself, which is how you know it is a rate and not a slogan.</b>
+    A light foot costs <b>300 gross acres</b> (Kaldor&nbsp;21). At £1 per 120 acres that is <b>£2.50</b>, and four
+    of them are <b>£10</b> — one spear, at Gardiren's own price. <b>The £10 spear and the £1-per-120-acres scutage
+    are one rate written twice</b>, in two books, and they agree.</p>
+
+  <h2>Two holdings where canon does the module's work for it</h2>
+  <p class="intro">
+    Both are worked examples of machinery this page already ships, preserved in print with the dispute intact.
+  </p>
+  <p class="note"><b>Vemion — both rules applied to identical ground.</b> Minarsas&nbsp;29 assesses the holding at
+    <b>120 spears</b>. Kaldor&nbsp;21 lists <b>60 manors</b> for the same four holdings. The two books agree on the
+    acreage — <b>133,700</b> — to the digit, and 133,700 ÷ 1,200 is <b>111</b>. So one book is keeping the current
+    assessment and the other the paper, on the same land, in the same century. That is the <b>two-definition
+    model</b> the Muster section computes, sitting in canon as a discrepancy nobody resolved.</p>
+  <div class="viz">
+    <table class="cmp"><caption class="vh">Neph — three counts of one obligation, and canon names the deficit itself</caption>
+      <thead><tr><th scope="col">Source</th><th scope="col">Count</th><th scope="col">The module's word for it</th></tr></thead>
+      <tbody>
+        <tr><th scope="row" class="rname">Gardiren 29, the levy table</th><td><b>77</b></td><td>what the <b>muster</b> actually produces</td></tr>
+        <tr><th scope="row" class="rname">The crown's obligation</th><td><b>100</b></td><td>the <b>charter</b></td></tr>
+        <tr><th scope="row" class="rname">The acreage rule on 144,755 acres</th><td><b>120.6</b></td><td>the <b>current assessment</b></td></tr>
+      </tbody>
+    </table>
+    <p class="note"><b>Muster &lt; charter &lt; current assessment</b> — the module's exact ordering, and canon states
+      the adequacy deficit in its own prose: <i>"the earl does not have sufficient vassal knights to meet his full
+      obligation"</i> (Gardiren&nbsp;29). The page's Household section calls that the <b>make-good</b>, and prices the
+      remedies. Canon leaves it standing, which is the more realistic ending.</p>
+  </div>
+
+  <h2>What this is evidence of, and what it is not</h2>
+  <p class="note">It is <b>not</b> independent evidence about England. HârnManor was itself built from English
+    manorial data, so both traditions descend from one source and cannot confirm each other about the record.
+    What it <i>is</i>: two systems built from that tradition, decades apart, arriving at the <b>same
+    architecture</b> — a fixed paper obligation, a resource assessment that outgrows it, and a muster that meets
+    neither. That is a structural finding rather than a numerical one, and it is the stronger of the two things
+    Hârn contributes to this page.
+    <span class="bdg hrn" title="canon's two rules are quoted; the mapping onto charter / assessment / margin is the module's reading of them">HÂRN</span></p>
+  <p class="note"><b>Two caveats that must travel with any levy priced against canon.</b> First, <b>a spear is four
+    yeomen in Gardiren and five in Minarsas</b>, and <b>only the four-yeoman version closes the scutage
+    arithmetic</b> above — so the five-yeoman spear is either a different unit or an error, and this page uses four.
+    Second, <b>the yeoman rate is realm-specific</b>: one per 300 acres in Kaldor and Chybisa, one per 600 in
+    Melderyn, with the <i>knight</i> rate unchanged. A levy computed with Kaldor's yeoman rate on Melderyn's ground
+    is out by a factor of two, and nothing in the books flags it.
+    <span class="bdg dbt" title="canon prints both spear compositions without reconciling them; the module chooses four on the arithmetic, which is a judgement and not a citation">DEBATED</span></p>
+  </div>
   </details>
 </section>
 </div><!-- /#tab-domains -->
