@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.6.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.7 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -3805,6 +3805,18 @@ so is <b>how many of each grade render coin instead of a body</b>.</p>
 <label class="tick"><input type="checkbox" id="oppmil" checked>
   <span style="font-style:normal;color:var(--ink)" id="feenote"></span></label>
 
+<!-- CASTLE-GUARD (Phase 4, spec §5.4). The dial is in LANCES, not days, and that is the ruling:
+     this module has exactly one calendar — the month of service, history's forty days rounded to
+     ACKS's month — and a "ward days" input would smuggle a second one in through the reader's
+     hand. §5.4 proposed `days ÷ 365`; on a lance that is 10.96 gp/mo against 8.75, a 25% swing
+     on every ward line, and it would sit two cards away from the term the rest of the module
+     prices, argues and names. Withdrawn.
+     ⚠ THE SERVICE IS SPENT ONCE. A lance on ward is not in the field host that term. -->
+<div class="field"><label for="r_ward">Lances standing <b>castle-guard</b>
+  <span class="hint">(of the <span id="w_bodily">—</span> that serve in kind — the rest ride with the host)</span></label>
+  <input type="number" id="r_ward" min="0" max="9999" step="1" value="0"></div>
+<div id="wardCard"></div>
+
 </section>
 
 <section id="sec-reckoning">
@@ -3851,6 +3863,14 @@ const THRESH = {1:25, 2:75, 3:150, 4:300, 5:600, 6:1200};                // RR p
 const CUMXP  = {1:0, 2:2000, 3:4000, 4:8000, 5:16000, 6:32000};          // fighter XP
 const GARR   = [2,3,4];                                                  // RR p.341 (2gp base; borderlands 3, outlands 4)
 const SQUIRE_WAGE = 45;                          // squire ≈ medium cavalry wage-value (RR p.169) — garrison ledger only
+// ⚠ KNIGHT_WAGE and LANCE_WAGE arrived with Phase 4, and the shared-scalar register CALLED IT: its
+// KNIGHT_WAGE entry read "the mirror declares SQUIRE_WAGE but NOT KNIGHT_WAGE — it prices the squire
+// as an addition to a fee it never pays a wage for. Asymmetric by design, and worth re-reading if
+// the fee's own pricing ever changes." Castle-guard is that change — it prices the fee's whole
+// lance, knight and squire, against the lord's garrison line — so the asymmetry's own stated
+// condition has arrived and the register was re-read rather than worked around.
+const KNIGHT_WAGE = 60;                          // heavy cavalry (RR p.169) — the fee's man-at-arms
+const LANCE_WAGE  = KNIGHT_WAGE + SQUIRE_WAGE;   // a manor's lance: knight + squire (Kaldor 21)
 
 // ---- the militia ceiling, and the rounding RAW does not settle --------------------------------
 // RAW (RR p.430) permits "up to 2 additional peasants per 10 families". Two integer readings of
@@ -7756,7 +7776,41 @@ function model(){
   const sqCastle  = Math.min(sqWard * SQUIRE_WAGE, Math.max(0, garrReq - milCred));
   const sqService = sqFee * SQUIRE_WAGE;
 
-  const garrCoin  = Math.max(0, garrReq - milCred - sqCastle);
+  // --- CASTLE-GUARD — the fee's term, spent at the lord's castle (Phase 4, spec §5.4) ------------
+  //
+  // ⚠ CONSERVATION OF SERVICE, one level up from the squires. The module already spends each fee's
+  // service three ways — it discharges the enfeoffed families' own garrison (the quittance), it
+  // supplies the field host, and where commuted it yields scutage. Letting ward reduce the demesne
+  // garrison as well would count the same knight a FOURTH time. RULED (2026-08-03): ward is an
+  // ALTERNATIVE USE of the one annual term, not an addition to it. The identity is
+  //
+  //     lancesAll  = lancesCoin + lancesKind          (commuted or bodily — already asserted)
+  //     lancesKind = wardLances + fieldLances         (bodily, and spent ONCE)
+  //
+  // and what falls out of it: a lance on ward is NOT in the field host that term; a commuted fee
+  // supplies no body at all; the credit lands on the DEMESNE line only, because the fee's own
+  // locality is quit by its own service already. A charter that demands ward ON TOP of field
+  // service is a doubling, and would have to be declared and priced as one — the module refuses
+  // that shape everywhere else and refuses it here by default.
+  //
+  // ⚠ ONE CALENDAR. The term is the module's own — ONE MONTH OF SERVICE, history's forty days
+  // rounded to ACKS's month — and it is the term the walkthrough, the sidenotes, the scutage
+  // doctrine and the fee's own 12-gp pricing all use. §5.4 proposed `days ÷ 365` for this card
+  // alone; on a lance that is 10.96 gp/mo against 8.75, and it would put a second convention two
+  // cards from the first. Withdrawn. The dial is in LANCES for the same reason: a "ward days"
+  // input would let a reader re-introduce the calendar the module just ruled out.
+  const WARD_TERM   = 1/12;                                        // the month of service, per year
+  const wardLances  = Math.min(clampInt("r_ward", 0, 9999, 0), lancesKind);
+  const fieldLances = lancesKind - wardLances;
+  const wardValue   = wardLances * LANCE_WAGE * WARD_TERM;
+  // Capped by what is LEFT of the line, exactly as the ward-boys are: a lord cannot bank garrison
+  // credit he has no obligation to spend it against, and service beyond the line is service given
+  // away. `wardSpare` is that overflow, and it is reported rather than silently dropped.
+  const wardRoom    = Math.max(0, garrReq - milCred - sqCastle);
+  const wardCred    = Math.min(wardValue, wardRoom);
+  const wardSpare   = wardValue - wardCred;
+
+  const garrCoin  = Math.max(0, garrReq - milCred - sqCastle - wardCred);
   const garrEff   = dem ? garrCoin / dem : Math.max(0, garrRate - (dmil ? MIL_PER_FAM : 0));
   const lordFam   = perFam - garrEff;
   const feesQuit  = enfFams * garrRate;
@@ -7808,6 +7862,7 @@ function model(){
           cfPayers, cfB, cfNet,
           demGross, demFixed, demIncome, demNet, coin, garrRate, garrReq, milMen, milCred, milKit, garrCoin, garrEff,
           sqDen, sqConv, sqPlace, sqPool, sqClaims, sqWard, sqFee, sqPlaced, sqIdle, sqCastle, sqService, sqByRung,
+          wardLances, fieldLances, wardValue, wardRoom, wardCred, wardSpare, WARD_TERM,
           lordFam, feesQuit, vassOwn, oppmil, oppGarr, oppFam, feeCost, netFeeCost,
           perLanceGross, perLanceGarr, perLanceScut, perLanceNet, level, dmil,
           // RR p.352: urban families are added to the realm total for tribute — so the TITLE bands
@@ -7835,6 +7890,23 @@ function render(){
     const out = FM.realmLast;
     TOWNS = was; drawTowns(); render();
     return out;
+  };
+  // Same contract as realmTowns and for the same reason: the ward dial is a control, so a test that
+  // wants a realm WITH ward has to drive it and put it back. Always restores, including on the
+  // arithmetic below throwing — a hook that leaves a dial moved poisons every later assertion in
+  // the suite, which is how the urban tests came to be compared against a stale baseline.
+  // ⚠ `fam` is optional and exists for ONE reason: the credit's cap is unreachable at the shipped
+  // realm. Every bodily lance on ward is worth ~389 gp/mo against ~756 gp/mo of room, so a test of
+  // the cap written at the default passes without ever exercising it — which is how a seeded fault
+  // that removed the cap altogether came back GREEN on its first run. Shrinking the realm shrinks
+  // the demesne, the line and the room with it, and the cap finally binds. Both dials restore.
+  FM.realmWard = (n, fam) => {
+    const w = dG("r_ward"), f = dG("fam"), wasW = w.value, wasF = f.value;
+    try {
+      w.value = String(n);
+      if(fam !== undefined) f.value = String(fam);
+      render(); return FM.realmLast;
+    } finally { w.value = wasW; f.value = wasF; render(); }
   };
 
   // --- the urban settlements, each priced on its OWN size
@@ -7910,6 +7982,30 @@ function render(){
     fee-equivalents and quantizes it to the year's one month — both departures from RAW's letter, argued on
     that tab — and it follows that tab's <b>rate lever</b>, which is set here to ${SCUTPT}. Move the lever and
     this column moves with it. ${bdg("mod","the division and quantization of scutage are the module's doctrine; the rate is a lever whose default is RAW exactly")}</span>`;
+
+  // ---- the castle-guard card (Phase 4). Answers ONE question — can this realm garrison itself out
+  // of the fees it has already granted away? — and the answer is not foregone, which is the reason
+  // it is worth a card. ⚠ At the classic honour it is NO, and only just: the shortfall is a few per
+  // cent, which is the interesting shape. A card that always cleared would be a decoration.
+  setT("w_bodily", one(m.lancesKind) + " lances");
+  const wardShort = Math.max(0, m.garrReq - m.milCred - m.sqCastle - m.wardCred);
+  dG("wardCard").innerHTML = `<div class="card"><h4>Castle-guard<span>can the honour garrison itself from what it has granted?</span></h4>
+    <div class="lrow"><span class="lk">The obligation — ${fmt(m.demesne)} demesne families at ${m.garrRate} ${U("gp")} ${bdg("raw")}</span><span class="lvv">${fmt(m.garrReq)} ${U("gp/mo")}</span></div>
+    <div class="lrow"><span class="lk">Demesne militia — ${fmt(m.milMen)} men</span><span class="lvv">−${fmt(m.milCred)} ${U("gp/mo")}</span></div>
+    ${m.sqCastle?`<div class="lrow"><span class="lk">Ward-boys on the castle watch — ${fmt(m.sqWard)}</span><span class="lvv">−${fmt(m.sqCastle)} ${U("gp/mo")}</span></div>`:""}
+    <div class="lrow"><span class="lk">Castle-guard — ${one(m.wardLances)} of ${one(m.lancesKind)} bodily lances</span><span class="lvv">−${fmt(m.wardCred)} ${U("gp/mo")}</span></div>
+    <div class="lrow ${wardShort?"hi":"gold"}"><span class="lk">${wardShort?"<b>Short</b>":"<b>Covered</b>"}</span><span class="lvv">${wardShort?fmt(wardShort)+" "+U("gp/mo"):"by "+fmt(-wardShort||0)+" "+U("gp/mo")}</span></div>
+    <div class="lrow sub"><b>The service is spent once.</b> ${one(m.wardLances)} lances on ward are ${one(m.wardLances)} lances
+      <i>not</i> in the host: ${one(m.fieldLances)} ride. A commuted fee sends no body at all — it sends the scutage
+      above. And the fee's own country is held by its yeomen, not by its absent knight, which is the quittance
+      doing the work it always did. ${bdg("mod","the allocation identity — total = bodily + commuted, bodily = field + ward — is this module's, because RAW prices a garrison line and never says whose body stands it")}</div>
+    <div class="lrow sub"><b>Why so little per lance.</b> A lance is worth ${LANCE_WAGE} ${U("gp")} a month standing, but it
+      is owed for <b>one month of service a year</b> — the year's forty days, rounded to ACKS's month — so it
+      carries <b>${(LANCE_WAGE*m.WARD_TERM).toFixed(2)} ${U("gp/mo")}</b> of a standing line. Thirty fees are worth
+      ${fmt(30*LANCE_WAGE*m.WARD_TERM)} ${U("gp/mo")}, and a demesne of 375 families at the civilised rate owes 750. <b>The fees
+      cannot garrison the honour.</b> That is the finding, and it is why lords hired.</div>
+    <div class="lrow sub">Set the dial above to <b>0</b> and every lance rides; set it to ${one(m.lancesKind)} and none do.
+      Neither is free — the term is the same term.</div></div>`;
 
   // --- the one readout: his standing, then where his land actually sits
   const T = m.title.t, paV = pa(m.coin, m.level);
@@ -8044,6 +8140,13 @@ function render(){
     <div class="lrow"><span class="lk">Demesne militia — ${mixed}</span><span class="lvv">${fmt(m.milMen)} men</span></div>
     <div class="lrow"><span class="lk">…their credit against the line ${bdg("raw")}</span><span class="lvv">−${fmt(m.milCred)} ${U("gp/mo")}</span></div>
     ${m.milKit?`<div class="lrow"><span class="lk">…one-time to train &amp; equip them</span><span class="lvv">${gpo(m.milKit)}</span></div>`:""}
+    ${m.wardLances?`<div class="lrow"><span class="lk"><b>${one(m.wardLances)} lances</b> standing castle-guard ${bdg("mod","castle-guard is not an ACKS institution — RAW prices garrison as a protection-value line and leaves who stands it open. The term is the module's own month of service, and the ruling is that ward SPENDS that term rather than adding to it")}</span><span class="lvv">−${fmt(m.wardCred)} ${U("gp/mo")}</span></div>
+    <div class="lrow sub">A lance is worth ${LANCE_WAGE} ${U("gp")} a month standing — knight and squire — but it is owed for
+      <b>one month of service a year</b>, so a fee on ward carries ${(LANCE_WAGE*m.WARD_TERM).toFixed(2)} ${U("gp/mo")} of the line, not ${LANCE_WAGE}.
+      ⚠ <b>And it is the same month it would have ridden in.</b> ${one(m.fieldLances)} lances remain for the host.</div>
+    ${m.wardSpare?`<div class="lrow sub">⚠ <b>${fmt(m.wardSpare)} ${U("gp/mo")} of it is given away</b> — the line was already covered before these
+      lances reached it. Ward beyond the obligation buys the lord nothing he owed; it is service he could have
+      taken in the field.</div>`:""}`:""}
     <div class="lrow"><span class="lk">Still to find in coin</span><span class="lvv">${fmt(m.garrCoin)} ${U("gp/mo")}</span></div>
     <div class="lrow gold"><span class="lk">Scutage toward it — <b>earmarked for troops</b> ${bdg("raw")}</span><span class="lvv">−${fmt(m.scutNet)} ${U("gp/mo")}</span></div>
     <div class="lrow hi"><span class="lk">He must still find ${bdg("mod","the fees carry no garrison line at all — the quittance again. Strict RAW would charge every enfeoffed family the same rate the demesne pays")}</span><span class="lvv">${fmt(Math.max(0, m.garrCoin - m.scutNet))} ${U("gp/mo")}</span></div>
@@ -8112,6 +8215,11 @@ function render(){
     <div class="lrow"><span class="lk">Lances owed on paper</span><span class="lvv">${one(m.lancesAll)}</span></div>
     <div class="lrow"><span class="lk">…discharged in kind</span><span class="lvv">${one(m.lancesKind)}</span></div>
     <div class="lrow"><span class="lk">…under scutage</span><span class="lvv">${one(m.lancesCoin)}</span></div>
+    ${m.wardLances?`<div class="lrow"><span class="lk">…of the bodily lances, <b>standing castle-guard</b></span><span class="lvv">−${one(m.wardLances)}</span></div>
+    <div class="lrow hi"><span class="lk"><b>Lances in the field host</b></span><span class="lvv">${one(m.fieldLances)}</span></div>
+    <div class="lrow sub"><b>The term is spent once.</b> A fee owes one month of service a year; a month
+      spent on the lord's walls is not available to his host. The ward credit on the garrison card is the
+      same month, seen from the other side of the account — it is not a second one.</div>`:""}
     <div class="lrow"><span class="lk">Fees paying scutage</span><span class="lvv">${fmt(m.scutEst)} of ${fmt(m.estates)}</span></div>
     <div class="lrow hi"><span class="lk">Trained levy standing ${bdg("raw")}</span><span class="lvv">${fmt(m.levyAll)} yeomen</span></div>
     <div class="lrow sub">Levy at RAW's militia ceiling (2 per 10 families, p.431–2) — standing watch on
@@ -8124,9 +8232,10 @@ function render(){
     <div class="lrow"><span class="lk">Scutage back off the bill</span><span class="lvv">−${one(m.perLanceScut)} ${U("gp/mo")}</span></div>
     <div class="lrow hi"><span class="lk">Net, per lance <b>delivered</b></span><span class="lvv">${fmt(m.perLanceNet)} ${U("gp/mo")}</span></div>
     <div class="lrow gold"><span class="lk">The same veteran, hired standing ${bdg("raw")}</span><span class="lvv">100 ${U("gp/mo")}</span></div>
-    <div class="lrow sub">Read against the <b>${one(m.lancesKind)} lances that ride</b>, not the
+    <div class="lrow sub">Read against the <b>${one(m.lancesKind)} lances that serve in kind</b>, not the
       ${one(m.lancesAll)} owed: a commuted fee still costs its land, so its share falls on the bodies
-      that do turn out.${m.perLanceNet>100?` At this rate of commutation a delivered lance costs
+      that do turn out. ${m.wardLances?`<b>All ${one(m.lancesKind)}, not the ${one(m.fieldLances)} in the host</b> — a
+      lance on ward is serving, and the cost of the fee is the same whichever wall its month is spent on.`:""}${m.perLanceNet>100?` At this rate of commutation a delivered lance costs
       <b>more than hiring one</b> — which is the lord's argument against scutage, in a number.`:""}
       Not counted here: the ${fmt(m.levyAll)} trained yeomen standing watch, and a squire to each lance
       where the custom runs.</div>
@@ -8169,7 +8278,7 @@ function render(){
   dG("flags").innerHTML = F;
 }
 
-["fam","r_land","cls","lvl","dmil","oppmil","l_scut","r_scutmo","r_fost","r_place"]
+["fam","r_land","cls","lvl","dmil","oppmil","l_scut","r_scutmo","r_fost","r_place","r_ward"]
   .concat(ROSTER.map(r => "fn_"+r.key)).concat(ROSTER.map(r => "fc_"+r.key))
   .forEach(id => dG(id).addEventListener("input", render));
 drawVassals();
@@ -8544,6 +8653,87 @@ function selfTest(){
            const el = dG("l_cust"), was = el.value;
            el.value = "raw"; const b = town(500).urbanNet; el.value = was; none();
            return a === b ? true : `${a} customary vs ${b} under RAW`; });
+
+  // ---- 10a3. CASTLE-GUARD — conservation of service, and the one calendar (Phase 4, §5.4) -----
+  //
+  // The whole point of this group is the IDENTITY, not the totals. §5.4's flaw was that the module
+  // already spends each fee's service three ways, and a fourth credit would have looked right on
+  // every card in isolation — exactly as a double-counted squire would have. So: every bodily lance
+  // is in the host or on ward, never both and never neither, and the credit lands on the demesne
+  // line alone. The baseline is a render with ward at ZERO, in the same dial state — the lesson the
+  // urban group learned the hard way one release ago.
+  // ⚠ TWO PARAMETERS, and the second one cost an hour. This read `n => FM.realmWard(n)`, so every
+  // `ward(9999, f)` in the cap search below silently dropped its realm size and re-measured the
+  // same realm forty-five times. JavaScript does not complain about the extra argument, the sweep
+  // ran, and the tests failed with "the cap is unreachable" — a true statement about a realm the
+  // test never actually built. A helper that quietly discards an argument is the same defect class
+  // as an assertion that discards its left-hand side.
+  const ward = (n, fam) => FM.realmWard(n, fam);
+  const w0   = () => FM.realmWard(0);
+  T("no lance stands ward at the default", ()=> ifVirgin(()=> eq(R.wardLances, 0)));
+  // The allocation identity, both halves, at three settings including the extremes.
+  T("every lance is commuted or bodily — total = coin + kind",
+    ()=> eq(R.lancesAll, R.lancesCoin + R.lancesKind));
+  T("every BODILY lance is in the host or on ward — kind = field + ward",
+    ()=> [0, 5, 9999].every(n => { const s = ward(n); return s.lancesKind === s.fieldLances + s.wardLances; })
+      ? true : "the identity breaks at one of 0 / 5 / all");
+  T("…and ward cannot exceed the bodily lances — the dial clamps, it does not invent service",
+    ()=> eq(ward(9999).wardLances, w0().lancesKind));
+  T("a commuted fee sends NO body to ward — the dial cannot reach it",
+    ()=> ward(9999).wardLances <= w0().lancesAll - w0().lancesCoin ? true : "ward reached a commuted fee");
+  // ⚠ THE FOURTH COUNT, asserted directly: a lance on ward leaves the host. If this ever passes
+  // while the host is unchanged, castle-guard has become a free credit and §5.4's flaw is live.
+  T("a lance on ward is NOT in the field host — the host falls by exactly the ward",
+    ()=> eq(w0().lancesKind - ward(5).fieldLances, ward(5).wardLances));
+  // The calendar, asserted as a value rather than trusted to a comment. 105/12 = 8.75; §5.4's
+  // withdrawn `days ÷ 365` would give 10.96 on the same lance.
+  T("the term is the month of service — a lance on ward carries 8.75 gp/mo, not 10.96",
+    ()=> near(ward(1).wardValue, LANCE_WAGE / 12, 1e-9));
+  T("…and the module has exactly one calendar: WARD_TERM is a twelfth, not 40/365",
+    ()=> near(R.WARD_TERM, 1/12, 1e-12));
+  // The credit is capped by what is LEFT of the line, like the ward-boys' — service beyond the
+  // obligation is given away, and the overflow is reported rather than banked.
+  // ⚠ NOT `wardCred <= wardRoom` — that recomputes the Math.min above it and cannot fail. And NOT
+  // at the shipped realm either: every bodily lance on ward is worth ~389 gp/mo against ~756 gp/mo
+  // of room, so the cap never binds there and a test written at the default passes without ever
+  // touching it. A seeded fault that DELETED the cap came back green on exactly that mistake. The
+  // realm is shrunk until the line is smaller than the service offered to it, and then the cap has
+  // to do something: the credit stops at the line, and the surplus is service given away.
+  // ⚠ AND IT MUST FIND THAT STATE, NOT BE TOLD IT. A fixed family count was tried first and read a
+  // realm two dial-changes away from the one it was written against: earlier groups drive the
+  // Domains dials, the fee's family size moves with the custom, and the demesne — hence the whole
+  // garrison line — moves with it. The same stale-baseline mistake the urban group made, arriving
+  // by a different road. So the suite SEARCHES for a realm where the line is smaller than the
+  // service offered to it, and if no such realm exists it says so and fails, rather than passing
+  // because the cap was never touched. Requiring `wardRoom > 0` keeps it off the degenerate state
+  // where the demesne has been granted away entirely and there is no line to cap against.
+  const capState = (()=>{
+    for(let f = 4600; f >= 200; f -= 100){
+      const s = ward(9999, f);
+      if(s.wardRoom > 0 && s.wardValue > s.wardRoom) return s;
+    }
+    return null;
+  })();
+  T("the cap is REACHABLE — some realm owes a smaller line than its fees offer",
+    ()=> capState ? true : "no realm size makes the offered ward exceed the line; the cap is untestable");
+  T("ward credit is capped by the line — offered more service than the line owes, it takes the line",
+    ()=> capState ? eq(capState.wardCred, capState.wardRoom) : "no cap state to test");
+  T("…and the surplus is SERVICE GIVEN AWAY, reported rather than banked",
+    ()=> capState ? (capState.wardSpare > 0 && near(capState.wardValue, capState.wardCred + capState.wardSpare, 1e-9)
+           ? true : `spare ${capState.wardSpare}`) : "no cap state to test");
+  T("…and the line it filled is discharged exactly, not over-discharged",
+    ()=> capState ? eq(capState.garrCoin, 0) : "no cap state to test");
+  // Where the credit lands. The demesne line only — the fee's own country is quit by its own
+  // service, and crediting it twice is the doubling this whole group exists to forbid.
+  T("ward credit lands on the DEMESNE garrison and nowhere else",
+    ()=> eq(w0().garrCoin - ward(5).garrCoin, ward(5).wardCred));
+  T("…it does not touch the fees' own quittance",
+    ()=> eq(ward(5).feesQuit, w0().feesQuit));
+  // The purse DOES move, and by exactly the credit — the garrison coin is subtracted from the
+  // demesne net, so relieving the line is income. Asserting "unchanged" here would have been
+  // wrong and would have hidden a double credit rather than caught one.
+  T("…and the purse moves by exactly the credit, because garrison coin comes off the demesne net",
+    ()=> near(ward(5).coin - w0().coin, ward(5).wardCred, 1e-9));
 
   // ---- 10b. the demesne row, decomposed — the two identities that make it a decomposition ----
   // One row labelled "gross revenue" printed a figure already net of the fixed expenses, so three
