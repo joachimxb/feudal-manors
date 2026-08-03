@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.4.2 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.4.3 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -3769,6 +3769,28 @@ const levyPrice = (mil, medReq) => {
     lvCost:   Math.round(medReq*mhCost + lvH*hfCost + lvL*lfCost)};
 };
 
+// ---- the assize's mounted-serjeant rule, owned once ---------------------------------------------
+// Queue item 9, priority 2 — the register called this "the most load-bearing of the queue", and it
+// was four lines written out verbatim in BOTH `renderLadder` and `quotaOf`. Two implementations of
+// one rule drift silently, because each is right on its own card; the scutage name maps did exactly
+// that before they were caught printing "(undefined)".
+//
+// The rule, in one place:
+//   CAP      — a family base of 120 mounts 20 (RR p.431), so no estate can field more than
+//              floor(mil × 20/120) however much the assize asks.
+//   REQUIRED — two serjeants per lance beyond the first, the 2:1 that makes each a ½-lance credit,
+//              and ONLY under the Angevin and distraint definitions: the Domesday custom predates
+//              1181 and has no assize to keep, and the ordinance commutes the duty to coin.
+//   STANDING — what is actually credited. In default the serjeant is required but does NOT stand,
+//              which is the distinction the two copies existed to express and the one a single
+//              owner must not lose: `medReq` prices the watch and the re-arming, `med` is credited.
+const assizeMounted = (mil, xtra, def, asz) => {
+  const medCap = Math.floor(mil*20/120);
+  const medReq = (xtra>0 && (def==="ang"||def==="dis")) ? Math.min(medCap, Math.ceil(xtra*2)) : 0;
+  const med    = asz ? medReq : 0;
+  return {medCap, medReq, med, rem: Math.max(0, xtra - med*0.5)};
+};
+
 function renderLadder(){
   const land = clampInt("land", 3, 9, 6);            // the slider's own range
   const fost = document.getElementById("l_sq").checked;
@@ -3871,10 +3893,7 @@ function renderLadder(){
     // The instrument is the assize's own (1181/1285): no credit under the Domesday custom or the ordinance's coin.
     // REQUIRED vs STANDING: the required composition (what the assize demands) prices the watch and the
     // re-arming; the quota credits only what stands — in default the serjeant is required but not credited.
-    const medCap = Math.floor(mil*20/120);
-    const medReq = (xtra>0 && (def==="ang"||def==="dis")) ? Math.min(medCap, Math.ceil(xtra*2)) : 0;
-    const med    = asz ? medReq : 0;
-    const rem    = Math.max(0, xtra - med*0.5);
+    const {medCap, medReq, med, rem} = assizeMounted(mil, xtra, def, asz);
     const {lvH, lvL, lvCredit, lvCost} = levyPrice(mil, medReq);         // the watch, priced once (levyPrice)
     let quota, quotaSub;
     if(ord){
@@ -4280,6 +4299,23 @@ function renderUnits(){
 
 // ================= TAB 2½: household =================
 const FEEANCHOR = {0.5:60, 1:100, 2:200, 4:400};
+// ---- the definitions in HISTORICAL order, owned once --------------------------------------------
+// Queue item 9, priority 4. This map was written out twice — `DEFORD` inside `renderHousehold` and
+// `S_ORD` beside the self-test's name tables — and both existed to answer one question: is the
+// charter's definition LATER than the muster's, i.e. is the paper anachronistic (`anach`)? Two
+// copies of an ordering is how a fourth definition gets added to one and not the other, which is the
+// failure the SCUT name maps had already had, printing "(undefined)" from a drifted copy.
+//
+// ⚠ It sits ABOVE both consumers deliberately. The comment inside `renderHousehold` records why a
+// local copy was tolerated once before: the boot sequence reaches that function before the
+// canonical table further down had been evaluated, so centralizing DOWNWARD reintroduces a TDZ.
+//
+// `ord` is deliberately absent. The ordinance is not a later point on this line — it commutes the
+// duty to coin — and every consumer gates it separately (`ordH`) before consulting the order. A key
+// for it here would read as "the ordinance is the fourth definition", which is the thing the module
+// argues it is not.
+const DEF_ORDER = {dom:0, ang:1, dis:2};
+
 function renderHousehold(){
   const land = clampInt("land", 3, 9, 6);
   const REV  = ruralRevenue(land, customOf());    // the custom of record — Customary or ACKS RAW
@@ -4327,10 +4363,8 @@ function renderHousehold(){
   const quotaOf = (fam, lances) => {
     const mil  = militiaCount(fam);
     const xtra = Math.max(0, lances-1);
-    const medCap = Math.floor(mil*20/120);
-    const medReq = (xtra>0 && (def==="ang"||def==="dis")) ? Math.min(medCap, Math.ceil(xtra*2)) : 0;
-    const med  = asz ? medReq : 0;      // required vs standing — in default the serjeant is required, not credited
-    const rem  = Math.max(0, xtra - med*0.5);
+    // required vs standing — in default the serjeant is required, not credited (assizeMounted)
+    const {medReq, med, rem} = assizeMounted(mil, xtra, def, asz);
     const scutL = scutTerm(fam, lances, REQH, smode)/12;
     return {mil, xtra, med, medReq, rem, scutL};
   };
@@ -4419,12 +4453,11 @@ function renderHousehold(){
   const CDEFN = {dom:"the Survey's mailed rider (60 " + U("gp/mo") + ")",
                ang:"the 1181 knight (100 " + U("gp/mo") + ")",
                dis:"the statute knight of 1285 (100 " + U("gp/mo") + ")"};
-  const DEFORD = {dom:0, ang:1, dis:2};
   const bOld = reqOf(cdef), bNow = REQH;
   const defc = ordH ? 0 : Math.max(0, bNow - bOld);
   const lagOn = anc && !ordH && defc>0;                  // the lag binds only while the old paper is legally current
   const musterOn = sel.grown && anc && !ordH;            // the muster selectors apply here and nowhere else
-  const anach = !ordH && DEFORD[cdef] > DEFORD[def];     // a later charter under an earlier muster
+  const anach = !ordH && DEF_ORDER[cdef] > DEF_ORDER[def];     // a later charter under an earlier muster
   const paperVal = gChart * bOld;
   const padGp = sel.grown ? sel.ancn.anchor - HENCH[sel.ancn.keep] : 0;
 
@@ -5375,7 +5408,7 @@ function chromeY(){
 // a sentence and doubled the article in the commutation clause below
 const S_DEFN  = {dom:"the 60-gp rider", ang:"the 1181 knight", dis:"the statute knight", ord:"the ordinance lance"};
 const S_DEFSH = {dom:"60-gp rider", ang:"1181 knight", dis:"statute knight", ord:"fee commuted"};
-const S_ORD   = {dom:0, ang:1, dis:2};
+const S_ORD   = DEF_ORDER;   // one ordering, owned above renderHousehold (queue item 9)
 // the CENTURY's name, which is not the definition of record's name: "Domesday" survives as the
 // label of a 60-gp body (a standard of kit), but as the label of a 34-year period it named a
 // single year — 1086 — and a survey taken in it
