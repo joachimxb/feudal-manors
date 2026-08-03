@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.5.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.6 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -3651,7 +3651,9 @@
 <div class="rpanel">
 <div class="readout" id="readout"></div>
 <div class="dials">
-  <div class="field"><label for="fam">Families in the realm <span class="hint">(peasant households)</span></label>
+  <!-- ⚠ THE FIELD IS TYPED NOW. It always meant rural families and never said so; urban
+       settlements are counted below, in their own pool, and the two never share a revenue line. -->
+  <div class="field"><label for="fam">Rural families <span class="hint">(peasant households — towns are counted separately, below)</span></label>
     <input type="number" id="fam" min="24" max="500000" step="10" value="4600"></div>
 
   <div class="field"><label for="r_land">Land value <span class="hint">(3d3 per hex, avg 6 — RR p.338)</span></label>
@@ -3740,6 +3742,21 @@
       <option value="7">7</option><option value="8">8</option><option value="9" selected>9</option>
       <option value="10">10</option><option value="11">11</option><option value="12">12</option>
     </select></div>
+</div>
+
+<!-- URBAN SETTLEMENTS — RAW's second population, and the reason the field above had to be typed.
+     The spec (§5.3) refused to let this be written until the schema was: add urban families to one
+     pooled total and they silently earn RURAL land income, incur the district garrison at 2/3/4,
+     raise rural militia, consume fee acreage and enter the density check. Every one of those is
+     wrong, and not one of them would have shown on a card. So the model carries two populations and
+     four rules keep them apart — printed on the card itself, because a typing discipline nobody can
+     see is a typing discipline nobody keeps. -->
+<div class="towns" style="margin-top:18px;border-top:1px solid var(--rule);padding-top:14px">
+  <h3 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--gold)">Urban settlements <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--mute)">· RAW's second population <span class="bdg raw" title="RR p.352 — the Domains chapter's own Settlement Population and Paying Expenses tables">RAW</span></span></h3>
+  <p class="pnote" style="margin:0 0 8px">A settlement is <b>not</b> a big village. It has its own revenue line (trade, by market class), its own expenses, and a <b>flat garrison of 2</b> that does not follow the district class — a town in the outlands garrisons at 2, not 4. Below <b>75 families</b> RAW dissolves it into the peasantry, so the editor will not let one exist; its families belong in the rural field above, and moving them is yours to do rather than the page's to do quietly.</p>
+  <div id="ttable"></div>
+  <p style="margin:8px 0"><button id="addt" type="button">+ Found a settlement</button></p>
+  <p class="pnote" id="tnote" style="margin:0"></p>
 </div>
 
 </div>
@@ -3966,6 +3983,53 @@ function ruralRevenue(land, custom){
     // the lord who HIRES the garrison instead of receiving it in service
     demesneNet: (cls, credit) => feeNet - Math.max(0, GARR[cls] - (credit||0))
   };
+}
+
+// ---- the URBAN profile — RAW's SECOND population, and its own revenue line -------------------
+//
+// MIRROR of fm_core's; the core is the owner of record and `check_rule_owners --core` compares the
+// two by VALUE over every band. The manorial reading stops at the town wall: urban service is 4 and
+// urban tax is 2 whatever the custom of record says, because a borough really IS free, taxed and
+// commercial — which is exactly why the manor is not. RAW propagates the domain's tax setting to
+// its urban families ("If the domain is levying higher or lower taxes, this will apply to the urban
+// settlement", RR p.352); this module overrides that and argues it in the Library's *The franchise*.
+//
+// The expenses are RAW's own four lines: garrison 2, liturgies 1, tithes 1, upkeep 1. ⚠ THE URBAN
+// GARRISON IS A FLAT 2 and is NOT the domain's 2/3/4 by district class — a town in the outlands
+// garrisons at 2, not 4. That is the first of the four typing rules below, and the one a single
+// pooled population would have got wrong without ever showing it.
+const URBAN = {service:4, tax:2, garrison:2, fixed:3, min:75};
+// ⚠⚠ RAW PRINTS TWO MARKET-CLASS SCALES AND THEY DISAGREE. This is the DOMAIN scale — the
+// Settlement Population table (RR p.352), banded in FAMILIES — which is the one that governs trade
+// revenue and so everything on this ledger. The Mercantile Ventures chapter defines the same six
+// classes in INHABITANTS (RR p.310), and at 5 per family that is a different ladder: III begins at
+// 1,750 families there and 2,500 here. They agree at I and II and disagree at III, IV and V. See
+// fm_core's header, and the Library's note: neither may be called "the market class" unqualified.
+const MARKETS = [
+  {cls:"VI",  lo:75,     hi:249,     trade:1},
+  {cls:"V",   lo:250,    hi:499,     trade:1.5},
+  {cls:"IV",  lo:500,    hi:2499,    trade:1.5},
+  {cls:"III", lo:2500,   hi:4999,    trade:1.5},
+  {cls:"II",  lo:5000,   hi:19999,   trade:2},
+  {cls:"I",   lo:20000,  hi:100000,  trade:2.5}
+];
+const MARKET_NONE = "VI*";      // below the floor there is no settlement to class
+function marketClass(fam){
+  for(let i = MARKETS.length - 1; i >= 0; i--) if(fam >= MARKETS[i].lo) return MARKETS[i].cls;
+  return MARKET_NONE;
+}
+const TRADE_RATE = Object.fromEntries(MARKETS.map(m => [m.cls, m.trade]).concat([[MARKET_NONE, 1]]));
+// One settlement's month, after RAW's four expense lines and before tribute. `net` is the figure
+// RAW's own Villages/Towns/Cities benchmark prints — a small village of 75–99 families yields
+// 150–199 gp/mo, and 75 × 2 = 150. The manorial reading changes nothing here, and RAW's table
+// continues to check: the card says so on its face.
+function urbanRevenue(fam){
+  const cls   = marketClass(fam);
+  const trade = TRADE_RATE[cls];
+  const gross = fam * (trade + URBAN.service + URBAN.tax);
+  const garr  = fam * URBAN.garrison;
+  const fixed = fam * URBAN.fixed;
+  return {fam, cls, trade, gross, garr, fixed, net: gross - garr - fixed, dissolved: fam < URBAN.min};
 }
 
 // ---- the equation drawer ---------------------------------------------------------------------
@@ -7386,6 +7450,65 @@ function drawVassals(){
 dG("addv").addEventListener("click", ()=>{ VASS.push({id:vNext++, fam:160, parent:null});
                                            drawVassals(); render(); });
 
+// ---- URBAN SETTLEMENTS (Phase 3) ---------------------------------------------------------------
+//
+// ⚠ NONE BY DEFAULT, and that is a decision rather than an omission. A release that opened with a
+// town would move every realm figure on load — the title band, the tribute population, the purse —
+// and the module's discipline is that a release proves itself numerically inert at its own default
+// before it asks anyone to trust the new arithmetic. With no settlement founded, `urbanTotal` is 0
+// and `titlePop === ruralTotal`, so this build computes exactly what the last one did. Found one
+// and the card shows its work.
+//
+// THE FIVE QUESTIONS the spec left open (§5.3), ruled — because rule 4 cannot be written until they
+// are, and an unruled question in a shipped model is a guess with no name on it:
+//
+//   1. Held in demesne, or inside a vassal's domain?  → IN DEMESNE, and only in demesne. A town
+//      inside a vassal's realm is HIS town: it enters this card through his tribute, which RAW
+//      already keys on his realm's family count — a number the reader types. Modelling it here
+//      would put a second population on every vassal row to answer a question this card does not
+//      ask. Stated as a BOUND, on the card, not hidden in a comment.
+//   2. Who receives the revenue?  → The lord, directly, exactly as the demesne does. A vassal's
+//      own boroughs are already inside the family count he is banded and tributed on, so nothing
+//      changes there — which is the answer, and it is worth saying rather than leaving inferred.
+//   3. Whose morale?  → The realm's. RAW is explicit ("urban settlements share the base and current
+//      morale score of the domain within which they are located"), and ruling 1 makes that the
+//      lord's own domain.
+//   4. Does dropping below 75 convert its families to rural?  → RAW dissolves the settlement; this
+//      editor REFUSES one below the floor instead of converting it. Converting would move families
+//      between two typed pools behind the reader's back, and the typing exists precisely to stop
+//      that. The families are his to place.
+//   5. One settlement or many?  → MANY. Market class is per settlement: two towns of 200 are two
+//      Class V markets, not one Class IV. Pooling them would be the single most tempting
+//      simplification here and would overstate trade revenue on every realm that has two towns.
+let TOWNS = [];
+let tNext = 1;
+function drawTowns(){
+  const wrap = dG("ttable");
+  if(!TOWNS.length){
+    wrap.innerHTML = `<p class="pnote" style="margin:0"><i>No urban settlement. The realm is entirely rural — every figure on this tab is the one it was before this editor existed.</i></p>`;
+  } else {
+    wrap.innerHTML = `<div class="scroll"><table><caption class="vh">The realm's urban settlements — families, market class and monthly income</caption><thead><tr>
+      <th scope="col">Settlement</th><th scope="col">Urban families</th><th scope="col">Market</th>
+      <th scope="col">Trade</th><th scope="col">Gross</th><th scope="col">Expenses</th><th scope="col">Income</th><th scope="col"></th></tr></thead><tbody>` +
+      TOWNS.map((t,i) => `<tr>
+        <th scope="row">Settlement ${i+1}</th>
+        <td class="edit"><input type="number" id="tf_${t.id}" aria-label="Settlement ${i+1} — urban families" min="${URBAN.min}" max="100000" step="5" value="${t.fam}"></td>
+        <td id="tc_${t.id}">—</td><td id="tt_${t.id}">—</td><td id="tg_${t.id}">—</td>
+        <td id="te_${t.id}">—</td><td id="ti_${t.id}">—</td>
+        <td><button type="button" class="mini" data-trm="${t.id}" aria-label="Remove settlement ${i+1}">×</button></td>
+      </tr>`).join("") + `</tbody></table></div>`;
+  }
+  TOWNS.forEach(t => { const e = dG("tf_"+t.id); if(e) e.addEventListener("input", ()=>{
+    // the floor is RAW's dissolution rule and the control enforces it rather than converting
+    t.fam = clampInt("tf_"+t.id, URBAN.min, 100000, URBAN.min); render(); }); });
+  wrap.querySelectorAll("[data-trm]").forEach(b => b.addEventListener("click", ()=>{
+    TOWNS = TOWNS.filter(x => x.id !== +b.dataset.trm); drawTowns(); render(); }));
+}
+dG("addt").addEventListener("click", ()=>{
+  // seeded at RAW's own floor — the smallest thing that is a settlement at all, and the row of the
+  // benchmark table the card quotes back (75 × 2 = 150 gp/mo)
+  TOWNS.push({id:tNext++, fam:URBAN.min}); drawTowns(); render(); });
+
 // ---- the fee table: built ONCE with its inputs, so typing never loses focus ------------------
 dG("feeTable").innerHTML = `<div class="scroll"><table><caption class="vh">The fees of this realm — count, families, cost and service by rung</caption><thead><tr>
     <th scope="col">Rung</th><th scope="col">Families each</th><th scope="col">Estates</th><th scope="col">Under scutage</th><th scope="col">Families</th>
@@ -7466,9 +7589,28 @@ function model(){
   const scutGross = rungs.reduce((s,r) => s + r.scut, 0);   // RR p.346 Call-to-Arms parity
   const lancesCoin= lancesAll - lancesKind;
 
-  // --- the land account
+  // --- the TWO populations, typed (Phase 3, spec §5.3) --------------------------------------------
+  // `famTotal` is and always was the RURAL total; it kept its name because it is on the wire in
+  // every shared link, and `ruralTotal` is the name the rest of this function reasons with.
+  //   ruralTotal      peasant families — the only ones that earn land income, garrison at 2/3/4,
+  //                   raise militia, consume fee acreage, or enter the density check
+  //   urbanTotal      Σ of the settlements, each classed and priced on its OWN size
+  //   ruralGranted    vassal + fee families, all rural by construction
+  //   ruralDemesne    ruralTotal − ruralGranted
+  //   titlePop        ruralTotal + urbanTotal — "urban families are added to the total in the realm
+  //                   for purposes of tribute" (RR p.352), so the TITLE bands on this, not on rural
+  const ruralTotal = famTotal;
+  const towns      = TOWNS.map((t, i) => ({...urbanRevenue(t.fam), id:t.id, n:i+1}));
+  const urbanTotal = towns.reduce((s,t) => s + t.fam, 0);
+  const urbanGross = towns.reduce((s,t) => s + t.gross, 0);
+  const urbanGarr  = towns.reduce((s,t) => s + t.garr, 0);
+  const urbanFixed = towns.reduce((s,t) => s + t.fixed, 0);
+  const urbanNet   = towns.reduce((s,t) => s + t.net, 0);
+  const titlePop   = ruralTotal + urbanTotal;
+
+  // --- the land account — RURAL only, and the whole point of the typing above
   const granted  = enfFams + vassFams;
-  const demesne  = famTotal - granted;
+  const demesne  = ruralTotal - granted;
   const illegal  = demesne < 0;
   const dem      = Math.max(0, demesne);
 
@@ -7614,7 +7756,12 @@ function model(){
   const demFixed  = dem * REV.fixed;
   const demIncome = dem * perFam;
   const demNet    = dem * lordFam;
-  const coin      = demNet + coinIn;
+  // The urban net is the lord's income like the demesne's, and it enters the purse on the same
+  // footing — RAW: "Add the urban settlement's income to the domain income to determine the ruler's
+  // personal authority modifier" (RR p.352). It does NOT pass through `lordFam`: the town's garrison
+  // is already off its own line at the flat 2, and running it through the rural rate is exactly the
+  // pooling error the typed schema exists to prevent.
+  const coin      = demNet + coinIn + urbanNet;
 
   // --- the OPPORTUNITY rate: what the lord would have paid in garrison on the ENFEOFFED land had he
   //     kept it. Separate from garrEff above, because whether he would have raised militia there is a
@@ -7634,7 +7781,8 @@ function model(){
   const perLanceNet   = lancesKind ? netFeeCost / lancesKind : 0;
 
   return {famTotal, land, cls, perFam, REVname:REV.customName, REVcustom:REV.custom,
-          granted, demesne:dem, rawDem:demesne, demShare:demesne/famTotal,
+          ruralTotal, urbanTotal, titlePop, towns, urbanGross, urbanGarr, urbanFixed, urbanNet,
+          granted, demesne:dem, rawDem:demesne, demShare:demesne/ruralTotal,
           illegal, vass, vassN, vassFams, vassGross, vassOver, rungs, estates, scutEst, enfFams, lancesAll,
           lancesKind, lancesCoin, levyAll, scutGross, scutNet, tribNet, payers, fB, coinIn,
           scutMo, realmScut, realmScutStand,
@@ -7643,7 +7791,10 @@ function model(){
           sqDen, sqConv, sqPlace, sqPool, sqClaims, sqWard, sqFee, sqPlaced, sqIdle, sqCastle, sqService, sqByRung,
           lordFam, feesQuit, vassOwn, oppmil, oppGarr, oppFam, feeCost, netFeeCost,
           perLanceGross, perLanceGarr, perLanceScut, perLanceNet, level, dmil,
-          title:titleOf(famTotal)};
+          // RR p.352: urban families are added to the realm total for tribute — so the TITLE bands
+          // on the whole population, not on the rural half. With no settlement founded the two are
+          // the same number, which is why this release moves nothing at its own default.
+          title:titleOf(titlePop)};
 }
 
 // ---- render ---------------------------------------------------------------------------------
@@ -7653,6 +7804,38 @@ function render(){
   // results (the three RAW functions go with it, so the tests can check the tables directly)
   FM.realmLast = m;
   FM.realm = {band, pa, tribute, titleOf};
+  // The settlements are closure state, so the self-test cannot found one without a door. It drives
+  // the REAL editor — same array, same draw, same render — and hands back the model that came out,
+  // rather than a second computation of it. `withTowns` always restores, because the realm suite's
+  // later assertions are written against the opening state and a test that leaves a town behind
+  // would fail them from three groups away, where nobody would look for the cause.
+  FM.realmTowns = fams => {
+    const was = TOWNS;
+    TOWNS = fams.map((f, i) => ({id:10000 + i, fam:f}));
+    drawTowns(); render();
+    const out = FM.realmLast;
+    TOWNS = was; drawTowns(); render();
+    return out;
+  };
+
+  // --- the urban settlements, each priced on its OWN size
+  m.towns.forEach(t => {
+    setT("tc_"+t.id, "Class " + t.cls);
+    setT("tt_"+t.id, t.trade + " gp/family");
+    setT("tg_"+t.id, fmt(t.gross) + " gp/mo");
+    setT("te_"+t.id, fmt(t.garr + t.fixed) + " gp/mo");
+    setT("ti_"+t.id, fmt(t.net) + " gp/mo");
+  });
+  // The note is the card's own audit against RAW, printed rather than asserted in a test nobody
+  // reads: the rulebook's Villages, Towns and Cities table says a settlement of this size yields
+  // this much, and the module reproduces it. The manorial reading changes nothing on the urban side.
+  setT("tnote", m.towns.length
+    ? `${m.towns.length} settlement${m.towns.length>1?"s":""} · ${fmt(m.urbanTotal)} urban families · `
+      + `${fmt(m.urbanNet)} gp/mo after RAW's four expense lines — trade + 1 a family, `
+      + `which is the figure RAW's own benchmark table prints. They are counted for the realm's `
+      + `TITLE (${fmt(m.titlePop)} families in all) and for nothing else: no land income, no `
+      + `district garrison, no militia, no fee acreage, no density.`
+    : "");
 
   // --- vassal table
   m.vass.forEach(v => {
@@ -7971,6 +8154,7 @@ function render(){
   .concat(ROSTER.map(r => "fn_"+r.key)).concat(ROSTER.map(r => "fc_"+r.key))
   .forEach(id => dG(id).addEventListener("input", render));
 drawVassals();
+drawTowns();
 render();
 
 })();
@@ -8265,6 +8449,57 @@ function selfTest(){
   // every boy to the fees and none to the demesne.
   T("realm default — PA 0 at level 9 (the ward-boys' 180 gp crossed the band)",
     ()=> ifVirgin(()=> eq(FM.realm.pa(R.coin, R.level), 0)));
+
+  // ---- 10a2. URBAN SETTLEMENTS — the second population, and the four ways it must not leak ----
+  // Every assertion here is about TYPING, not about arithmetic. The arithmetic is RAW's and the
+  // parity check compares it to fm_core over every band boundary. What no comparison can see is a
+  // town's families quietly earning rural land income, garrisoning at the district rate, raising
+  // militia or entering the density check — the four errors §5.3 refused to let this ship without,
+  // each of which produces a plausible number on a card that shows nothing wrong.
+  const town = (...f) => FM.realmTowns(f);
+  // ⚠ The baseline is a RENDER WITH NO TOWN, not the R captured at the top of this suite. Earlier
+  // groups drive the Domains dials, and the realm reads the custom of record and the land value
+  // from them — so R and a fresh render can differ by 2.25x for reasons that have nothing to do
+  // with settlements. Two renders in the SAME dial state, differing only in the town, is the only
+  // comparison that isolates what these tests claim to isolate. The first version compared against
+  // R and failed by exactly the custom's factor, which read as a leak and was a stale baseline.
+  const none = () => FM.realmTowns([]);
+  T("no settlement is founded at the default",  ()=> ifVirgin(()=> eq(R.urbanTotal, 0)));
+  T("…so the title bands on the same number it always did",
+    ()=> ifVirgin(()=> eq(R.titlePop, R.ruralTotal)));
+  // RAW's own benchmark, read off the card the reader sees: a small village of 75-99 urban
+  // families yields 150-199 gp/mo (RR p.352, Villages Towns and Cities).
+  T("RAW's benchmark village — 75 families yield 150 gp/mo", ()=> eq(town(75).urbanNet, 150));
+  T("…and 99 of them yield 198",                             ()=> eq(town(99).urbanNet, 198));
+  T("a settlement is classed on ITS OWN size — 300 is Class V",
+    ()=> { const t = town(300).towns[0]; return t.cls === "V" ? true : `Class ${t.cls}`; });
+  // The single most tempting simplification in this whole feature, and the one that would
+  // overstate trade revenue on every realm with two towns.
+  T("two towns of 300 are two Class V markets, not one Class IV",
+    ()=> { const m2 = town(300, 300);
+           return m2.towns.every(t => t.cls === "V") && m2.urbanNet === 2 * town(300).urbanNet
+             ? true : `pooled to Class ${m2.towns[0].cls}`; });
+  // --- the four leaks, each asserted against the state that has no town at all
+  T("urban families earn NO rural land income",
+    ()=> eq(town(2000).demNet, none().demNet));
+  T("…incur NO district garrison — the town's is a flat 2 on its own line",
+    ()=> eq(town(2000).garrReq, none().garrReq));
+  T("…raise NO rural militia",
+    ()=> eq(town(2000).milMen, none().milMen));
+  T("…and consume NO fee acreage — the land account is untouched",
+    ()=> eq(town(2000).demesne, none().demesne));
+  // …but they ARE counted where RAW says to count them, which is the other half of the typing
+  T("they ARE added to the realm total for tribute (RR p.352)",
+    ()=> eq(town(2000).titlePop, none().ruralTotal + 2000));
+  T("…and their income IS the lord's — the purse moves by exactly the settlement's net",
+    ()=> eq(town(2000).coin - none().coin, town(2000).urbanNet));
+  // §2.2's override, which is the whole reason the Library has a chapter called The franchise:
+  // the manorial reading stops at the town wall. A borough is free, taxed and commercial.
+  T("the custom of record does not reach the town wall",
+    ()=> { const a = town(500).urbanNet;
+           const el = dG("l_cust"), was = el.value;
+           el.value = "raw"; const b = town(500).urbanNet; el.value = was; none();
+           return a === b ? true : `${a} customary vs ${b} under RAW`; });
 
   // ---- 10b. the demesne row, decomposed — the two identities that make it a decomposition ----
   // One row labelled "gross revenue" printed a figure already net of the fixed expenses, so three
