@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.5 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.5.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -4239,19 +4239,19 @@ const QUAL = [
 ];  // [role, qualify per 120, train+equip gp, monthly wage]
 
 const RUNGS = [
-  {key:"esq", name:"Esquire's fee", fees:"½ fee",  anchor:60,  lvl:"0-level",
+  {key:"esq", name:"Esquire's fee", feesN:0.5, anchor:60,  lvl:"0-level",
    recruits:"fee-holding esquire / mounted serjeant", anchorSrc:"regular heavy cavalry, F0 — 60 <span class='u'>gp/mo</span> (RR p.438): the 1s-a-day man-at-arms of the muster rolls",
    life:"Comfortable", retain:"L2 (wage 50 <span class=\"u\">gp/mo</span>)", succ:"heir squires out like any gentry son — and inherits an esquire's duty, not a knight's",
    note:"The 1436 English returns count ~1,200 landed esquires (avg £24) against ~950 knights (£40+) — the armored gentry below knighthood roughly equalled the knights. History prices him at ⅓–⅗ of a knight; this rung's 60-to-100 sits at the top of that band. Below the distraint line, he owes no dubbing; four or five years' tenure make him a L2 veteran in knight's harness all the same."},
-  {key:"kt1", name:"Bachelor's fee", fees:"1 fee",  anchor:100, lvl:"L1–L3",
+  {key:"kt1", name:"Bachelor's fee", feesN:1, anchor:100, lvl:"L1–L3",
    recruits:"knight bachelor, L1–L3", anchorSrc:"veteran heavy cavalry, F1 — 100 <span class='u'>gp/mo</span> (RR p.440); floor for any dubbed knight",
    life:"Comfortable", retain:"L3 (wage 100 <span class=\"u\">gp/mo</span>)", succ:"heir squires out at ~14, inherits at L1–L2, grows into grade",
    note:"The single-manor knight bachelor — historically the ~600-acre, £20 minimal fee, and this rung works ≈560 acres at baronial density. One rung serves three levels (any dubbed knight commands at least the veteran's 100 gp). Some holders dodge the dubbing and remain fee-holding esquires — the crown's answer was distraint of knighthood."},
-  {key:"kt2", name:"Double fee",     fees:"2 fees", anchor:200, lvl:"L4",
+  {key:"kt2", name:"Double fee",     feesN:2, anchor:200, lvl:"L4",
    recruits:"substantial county knight, L4", anchorSrc:"L4 henchman wage — 200 <span class='u'>gp/mo</span> (RR p.168)",
    life:"Prosperous", retain:"L4 (wage 200 <span class=\"u\">gp/mo</span>)", succ:"heir squires out, inherits L1–L2 — the estate awaits his prime",
    note:"The substantial county knight — an estate assessed at two fees. Fees are fiscal units, not walls and fields: usually this is one great working manor, occasionally a pair of small ones (English law called such men vavasours). Real manors clustered here, at ~2× the minimal fee — the margin over the holder's own grade is what paid for his lance. Two fees = level 4 by the doubling law; such men captain banners of lesser knights. And at the land-6 parity floor, under the distraint-century definition, the quota's residual margin funds scutage or a term-hired sergeant, not a knight's month — in practice <b>the second man of a double fee was usually a sergeant or money</b>; enfeoffed and household knights served multi-fee quotas only where an estate ran above its floor (the margin, Muster section)."},
-  {key:"kt4", name:"Castellany",     fees:"4 fees", anchor:400, lvl:"L5", top:true,
+  {key:"kt4", name:"Castellany",     feesN:4, anchor:400, lvl:"L5", top:true,
    recruits:"senior knight, L5 — castle-worthy", anchorSrc:"L5 henchman wage — 400 <span class='u'>gp/mo</span> (RR p.168)",
    life:"Prosperous", retain:"L5 (wage 400 <span class=\"u\">gp/mo</span>)", succ:"heir squires out, inherits L1–L2 — a long climb to his father's grade",
    note:"The greatest of knights: four fees in one pair of hands — and a fief, not an office. A castellany is territory, as a barony is territory: the multi-manor estate gathered about a castle, held and inherited like any fee (Domesday's castellaria; the French châtellenie, often hereditary — historical castleries often ran far larger; the name is borrowed for the ladder's top rung). Do not confuse it with the constable's commission — crowns staff castle-offices from exactly this bench, but the office is ministerial and revocable; the castellany is his own. When he leads a banner in the field men call him a banneret — a role, not a rank. Owing four lances under the distraint-century definition, he discharges in kind and coin — himself, the levy's mounted serjeant (credited ½ at 2:1), scutage for the rest; even this rung's surplus is too thin at its parity floor for standing hired men, which is why the true standing mesnie is a magnate's instrument (Muster section). Other definitions re-count him: the card above follows the lever. The next doubling (L6, 800 gp) is barony income; such a man is no longer anyone's knight."}
@@ -4272,7 +4272,41 @@ function plateau(inc, deduct){
 const vassalPlateau = inc => plateau(inc, true);
 const indepPlateau  = inc => plateau(inc, false).L;
 
-const FEESN = {esq:0.5, kt1:1, kt2:2, kt4:4};   // the canonical (distraint-century) fee-counts, kept for reference — the live count follows the definition lever (FEECOUNT, in renderLadder)
+// ---- every other statement of the rung table, DERIVED from it ---------------------------------
+// RUNGS above is the owner of record for the four rungs: their keys, names, wage anchors, and
+// canonical (distraint-century) fee-counts. Everything below is a VIEW of it.
+//
+// ⚠ Queue item 9's last debt read "RUNGANCH / RUNGFEE and a third rung map" — three sites. There
+// were THIRTEEN, and the register could only ever have said three: the shadow scan's key-signature
+// rule required IDENTIFIER keys, so every map keyed by the ANCHOR (`{60:0.5, 100:1, …}`, twice in
+// renderLadder and once more inline in renderHousehold) and every map keyed by the FEE-COUNT
+// (`{0.5:60, …}`, `{"0.5":"½ fee", …}`) was invisible to the tool that reported the count. Widened
+// 2026-08-03, both key kinds and string arrays; this block is what it found.
+//
+// `FEESN` lived on this line and is DELETED, not migrated: nothing read it. Its own comment said
+// "kept for reference", which is a comment wearing a const's clothes — and a reference copy is a
+// copy. `RUNGS[i].fees` ("½ fee") was dead in the same way, and is now `feesN` (0.5), read.
+const byRung    = f => Object.fromEntries(RUNGS.map(r => [r.key, f(r)]));
+const RUNGANCH  = byRung(r => r.anchor);          // the wage grade — never moves with the definition
+const RUNGFEE   = byRung(r => String(r.feesN));   // the charter count, spelt as the h_chart select spells it
+const RUNGNAME  = byRung(r => r.name);
+const FEEANCHOR = Object.fromEntries(RUNGS.map(r => [r.feesN, r.anchor]));   // count → anchor
+const ANCHFEE   = Object.fromEntries(RUNGS.map(r => [r.anchor, r.feesN]));   // anchor → count
+// What a given anchor OWES, under a definition of record: the Survey counts 60-gp riders (whole
+// estates count in him), the later definitions count the charter's own fees. It was two literal
+// maps in renderLadder and a third inline copy in renderHousehold; one function, all callers.
+const feeCountAt = (a, def) => def==="dom" ? a/60 : (ANCHFEE[a] ?? a/100);
+// The numerals the cards write their fractions in — ONE table and ONE formatter. It was three of
+// each (SIX/cstr, SIXH/lstr, S_SIX/lfm), in plain sight of a shadow scan that read NUMERIC arrays
+// only. A scan covering one literal type reads as covering literals.
+const SIXTHS  = ["","⅙","⅓","½","⅔","⅚"];
+const sixStr  = v => { const t = Math.round(v*6), w = Math.floor(t/6), r = t%6; return `${w||(r?"":"0")}${SIXTHS[r]}`; };
+// "½ fee" · "1 fee" · "2 fees" · "1⅔ fees" — the plural turns on MORE THAN ONE, not on "not one".
+// ⚠ One of the four sites spelling this out read `!==1`, and so printed "½ fees" on the household
+// card while every other surface printed "½ fee" for the same rung. Two transcriptions of one rule,
+// disagreeing on the one value where they could — which is this whole block's argument, live.
+const feeWord = n => `${sixStr(n)} fee${n>1?"s":""}`;
+const S_CHARTN= Object.fromEntries(RUNGS.map(r => [r.feesN, feeWord(r.feesN)]));   // ½ fee · 1 fee · 2 fees · 4 fees
 
 // ---- the assize's watch, priced once ---------------------------------------------------------
 // Given the militia bodies a manor raises and the serjeants the assize requires of it, this is
@@ -4322,11 +4356,11 @@ function renderLadder(){
   const REQ  = reqOf(def);                                 // the required body's wage-value
   const smode = scutMode();                                // the scutage rate lever
   const ord  = def==="ord";                                // the ordinance era: the fee commuted, the lance a paybook unit
-  const FEECOUNT = def==="dom" ? {60:1, 100:5/3, 200:10/3, 400:20/3} : {60:0.5, 100:1, 200:2, 400:4};
-  const FEESTR   = def==="dom" ? {60:"1 fee", 100:"1⅔ fees", 200:"3⅓ fees", 400:"6⅔ fees"}
-                               : {60:"½ fee", 100:"1 fee", 200:"2 fees", 400:"4 fees"};
-  const SIX = ["","⅙","⅓","½","⅔","⅚"];
-  const cstr = n => { const t = Math.round(n*6), w = Math.floor(t/6), r6 = t%6; return `${w||(r6?"":"0")}${SIX[r6]}`; };
+  // both maps derived from RUNGS through feeCountAt — they were four literals, and the dom branch's
+  // 5/3 · 10/3 · 20/3 are exactly a/60 to the last bit (checked, not assumed)
+  const FEECOUNT = Object.fromEntries(RUNGS.map(r => [r.anchor, feeCountAt(r.anchor, def)]));
+  const FEESTR   = Object.fromEntries(RUNGS.map(r => [r.anchor, feeWord(feeCountAt(r.anchor, def))]));
+  const cstr = sixStr;   // the sixths formatter is owned once, beside RUNGS
   const DEFS = {
     dom:{name:"the mailed rider — hauberk, horse, spear (the Survey's miles)",
       sub:"knighthood is not yet an income class: the 60-gp rider is the era's whole fee, and greater estates simply owe more of him. No assize yet stands — kit is custom, not statute; read the assize rows as the custom the statutes will later write"},
@@ -4819,7 +4853,7 @@ function renderUnits(){
 }
 
 // ================= TAB 2½: household =================
-const FEEANCHOR = {0.5:60, 1:100, 2:200, 4:400};
+// FEEANCHOR (count → anchor) lived here as a literal; it derives from RUNGS, beside its inverse
 // ---- the definitions in HISTORICAL order, owned once --------------------------------------------
 // Queue item 9, priority 4. This map was written out twice — `DEFORD` inside `renderHousehold` and
 // `S_ORD` beside the self-test's name tables — and both existed to answer one question: is the
@@ -4861,11 +4895,10 @@ function renderHousehold(){
   // The local SCUTNAME that used to sit here was a transcription, kept because S_SCUTN lived far
   // below and the boot sequence reached this function first. The canonical SCUT table now sits above
   // every consumer, so the TDZ reason is gone with the copy.
-  const feeCountOf = a => def==="dom" ? a/60 : ({60:0.5,100:1,200:2,400:4})[a] ?? a/100;
+  const feeCountOf = a => feeCountAt(a, def);   // the anchor→count map is owned beside RUNGS
   const gradeOf = v => { let g=0; for(let L=1; L<=8; L++) if(HENCH[L]<=v) g=L; return g; };
   const f1 = n => (Math.round(n*10)/10).toString();
-  const SIXH = ["","⅙","⅓","½","⅔","⅚"];
-  const lstr = v => { const t = Math.round(v*6), w = Math.floor(t/6), r6 = t%6; return `${w||(r6?"":"0")}${SIXH[r6]}`; };
+  const lstr = sixStr;   // the sixths formatter is owned once, beside RUNGS
 
   // quota mechanics — the same shape the Ladder cards compute
   // the rate in force, named — the prose below explains a figure the rate lever can move, and it
@@ -4890,11 +4923,12 @@ function renderHousehold(){
     return {mil, xtra, med, medReq, rem, scutL};
   };
 
+  // the four rungs are RUNGS' rows, not a fifth transcription of them. Their `fees` and `lances`
+  // were written out here too and were DEAD — both are reassigned below from the definition of
+  // record before anything reads them, so the literals could disagree with the live count for as
+  // long as they liked and no surface would ever show it.
   const HH = {
-    esq:{name:"Esquire's fee", fees:"½ fee", anchor:60, lances:0.5},
-    kt1:{name:"Bachelor's fee", fees:"1 fee", anchor:100, lances:1},
-    kt2:{name:"Double fee", fees:"2 fees", anchor:200, lances:2},
-    kt4:{name:"Castellany", fees:"4 fees", anchor:400, lances:4},
+    ...byRung(r => ({name:r.name, anchor:r.anchor})),
     lag:{name:"The grown manor", grown:true},
     bar:{name:"Barony", fees:"a lordship, not a fee", anchor:800, lances:0, fam:160, baron:true}
   };
@@ -4936,7 +4970,8 @@ function renderHousehold(){
       o.income = o.baron ? o.fam*REV.demesneNet(cls, 0) : o.fam*perFam;
       if(!o.baron){
         o.lances = feeCountOf(o.anchor);       // the count follows the definition of record
-        o.fees = `${lstr(o.lances)} fee${o.lances!==1?"s":""}${ordH?" — ancient paper":""}`;
+        // ⚠ this read `!==1`, so the esquire's half-fee printed "½ feeS" on this card alone
+        o.fees = `${feeWord(o.lances)}${ordH?" — ancient paper":""}`;
       }
     }
     o.head = o.income - o.anchor;
@@ -5329,7 +5364,7 @@ function renderHousehold(){
               "raw", "the keep is the RR p.168 wage of the grade; which anchor a grown manor is held to is the assessment lever, and the module's"),
         sel.noCount ? dstep(`no fee-count`, `a lordship is not assessed in fees at all — the ladder's ceiling`)
         : dstep(`${lstr(sel.lances || 0)} lance${(sel.lances||0)>1?"s":""} demanded`,
-              `= ${sel.grown ? `${lstr(gChart)} fee${gChart>1?"s":""} on the charter` : sel.fees}, counted under ${DEFNAME[def]}${sel.grown?` on the ${anc?"ancient":"current"} reading`:""}`,
+              `= ${sel.grown ? `${feeWord(gChart)} on the charter` : sel.fees}, counted under ${DEFNAME[def]}${sel.grown?` on the ${anc?"ancient":"current"} reading`:""}`,
               "mod", "one lance per fee counted — the servitium debitum, transplanted. RAW gives a domain no fee-count and no quota"),
         (!sel.noCount && levyN>0) ? dstep(`${lstr(levyN)} credited to the levy`,
               `${q.med} mounted serjeant${q.med>1?"s":""} at two-for-one — the assize's own men, standing`,
@@ -5934,9 +5969,9 @@ const S_ORD   = DEF_ORDER;   // one ordering, owned above renderHousehold (queue
 // label of a 60-gp body (a standard of kit), but as the label of a 34-year period it named a
 // single year — 1086 — and a survey taken in it
 const S_ERAN  = {domesday:"Post-Conquest", angevin:"Angevin", distraint:"Distraint", indenture:"Indenture"};
-const S_HOLDN = {esq:"Esquire's fee", kt1:"Bachelor's fee", kt2:"Double fee", kt4:"Castellany",
-                 lag:"the grown manor", bar:"Barony"};
-const S_CHARTN= {"0.5":"½ fee", "1":"1 fee", "2":"2 fees", "4":"4 fees"};
+// the four rung names are RUNGS'; only the two off-ladder entries are this map's own. S_CHARTN
+// (count → "½ fee") lived on the next line as a literal and is derived beside RUNGS.
+const S_HOLDN = {...RUNGNAME, lag:"the grown manor", bar:"Barony"};
 const S_CLSN  = {"0":"civilized", "1":"borderlands", "2":"outlands"};
 const S_DENSN = {"780":"the civilized cap","425":"historical England","375":"the borderlands cap",
                  "350":"Kaldor","185":"the outlands cap","120":"Domesday England"};
@@ -6050,9 +6085,7 @@ const densNeeds = n => n <= 185 ? 2 : n <= 375 ? 1 : 0;
 // lfm is the one survivor of the old scraping apparatus: the writ still SAYS its fractions in
 // sixths, it simply no longer reads them back. Its inverse (lnum), the numeral-finder (numOf),
 // and the two card-readers (cardVal, cardHeadBits) are gone with the scrapers — see FM.
-const S_SIX  = ["", "⅙", "⅓", "½", "⅔", "⅚"];
-const lfm  = v => { const t = Math.round(v*6), w = Math.floor(t/6), r = t%6;
-                    return `${w || (r ? "" : "0")}${S_SIX[r]}`; };
+const lfm  = sixStr;   // the sixths formatter is owned once, beside RUNGS
 // a signed one-decimal round, matching the card's own f1 — so the writ prints the figure the
 // card printed, rather than a fuller-precision one that disagrees with it in the last place
 const r1 = n => (n < 0 ? -1 : 1) * Math.round(Math.abs(n) * 10) / 10;
@@ -6265,8 +6298,8 @@ function facts(st){
 // (where a Double fee is also 23 families) it looked as though it were driving the rung. Show the
 // derived count instead, and offer the move the question implies: one family past the minimum is
 // income the paper does not see, which is the grown manor's whole definition.
-const RUNGFEE   = {esq:"0.5", kt1:"1", kt2:"2", kt4:"4"};
-const RUNGANCH  = {esq:60, kt1:100, kt2:200, kt4:400};   // the wage grade — never moves with the definition
+// RUNGFEE (key → charter count) and RUNGANCH (key → wage anchor) were declared here as literals
+// and derive from RUNGS, beside it.
 const famOf = st => st.cardFam || 0;
 // The guidance sentence — derived from the LIVE profile, printed rather than enforced. Both figures
 // are read from what the engine already computed (st.perFam is FM.last's, stashed by the card), so
@@ -6511,7 +6544,7 @@ function renderSheet(st, F){
     // could lie dispersed across manors, a manor could owe a fraction of one, and the two drifted
     // apart precisely because paper freezes where land does not — which is what the grown manor is.
     shCell("Assessment", st.noCount ? DASH
-        : `${lfm(C.quotaN)} fee${C.quotaN === 1 ? "" : "s"}`,
+        : feeWord(C.quotaN),
       st.noCount ? "a lordship is not assessed in fees"
         : `${F.def.word} · ${st.grown ? (st.anc ? "the charter's frozen count — the land has since outgrown it"
                                                 : "recounted by survey, the charter superseded")
@@ -6619,7 +6652,7 @@ function renderLedger(st, F){
          isNaN(st.margin) ? DASH : `${Math.abs(st.margin)} ${U("gp/mo")}`,
          st.margin < 0 ? "below its keep — the threadbare fee" : "above the holder's keep"),
     st.noCount ? lrow("Assessment", DASH, "a lordship is not assessed in fees")
-               : lrow("Assessment", `${lfm(C.quotaN)} fee${C.quotaN === 1 ? "" : "s"}`, F.def.word),
+               : lrow("Assessment", feeWord(C.quotaN), F.def.word),
     st.noCount ? "" : lrow("Duty", `${lfm(st.demand)} lance${st.demand === 1 ? "" : "s"}`, "one month a year"),
     st.noCount ? "" : lrow("Found", `${lfm(st.demand - st.owed)} lance${(st.demand - st.owed) === 1 ? "" : "s"}`,
          st.levy > 0 ? "the holder, and the levy's credit" : "the holder's own body"),
@@ -7077,11 +7110,13 @@ const TABNAV = {
   realms:  [["sec-realm","The realm"],["sec-vassals","Vassals"],["sec-fees","Fees"],
             ["sec-reckoning","The reckoning"]]
 };
+// the three tabs, said once: the nav table already names them, in order
+const TABS = Object.keys(TABNAV);
 let TAB = "domains";
 function showTab(name){
   if(!TABNAV[name]) return;
   TAB = name;
-  ["domains","officers","realms"].forEach(t=>{
+  TABS.forEach(t=>{
     const panel = dG("tab-"+t), btn = dG("tb-"+t);
     if(panel) panel.hidden = (t !== name);
     if(btn){
@@ -7115,7 +7150,7 @@ document.querySelectorAll(".tabbtn").forEach(b =>
   b.addEventListener("click", ()=> showTab(b.dataset.tab)));
 // arrow-key movement along the tab strip, as a tablist should
 document.querySelector(".tabbar")?.addEventListener("keydown", ev=>{
-  const order = ["domains","officers","realms"], i = order.indexOf(TAB);
+  const order = TABS, i = order.indexOf(TAB);
   // Home and End belong to the tablist pattern as much as the arrows do, and the choice-box
   // radiogroups already answer them — two keyboard idioms on one page, differing by accident.
   const n = ev.key === "ArrowRight" ? order[(i + 1) % order.length]
@@ -7217,8 +7252,8 @@ FM.announceDial = announceDial;   // the live reading, tested without a real key
 
 
 // ================= TAB 3: Feudal Realms =================
-// Scoped in a closure: its RUNGS/model/render are its own, and cannot collide with the
-// Domains engine above. Shared constants (HENCH, GARR, fmt, dG) are read from that engine.
+// Scoped in a closure: its ROSTER/model/render are its own, and cannot collide with the
+// Domains engine above. Shared constants (RUNGS, HENCH, GARR, fmt, dG) are read from that engine.
 (function(){
 
 // ---- constants, copied verbatim from feudal_manors_v3f.html --------------------------------
@@ -7226,7 +7261,7 @@ FM.announceDial = announceDial;   // the live reading, tested without a real key
 const CLSN  = ["civilized","borderlands","outlands"];
 const MIL_PER_FAM = 1.8;   // 2 men per 10 families, half heavy foot (12gp) half light (6gp) = 1.8/family
 
-const RUNGS = [
+const ROSTER = [
   // The opening roster was 5 / 92 / 15 / 2 — 132.5 fee-equivalents on 1,574 families, sized for
   // the RAW rate. Under the customary rent those same fees need 3,325 families, and the realm
   // has 2,360 to give: the fresh page would have opened ILLEGAL, over-granted by 965.
@@ -7238,11 +7273,15 @@ const RUNGS = [
   // The cost is the finding, and the card says it out loud: the same ~1,580 families support
   // 63 fee-equivalents where they supported 132.5 — the customary rent buys HALF the knights off
   // the same ground. That is a substantive historical claim and it must not arrive silently.
-  {key:"esq", name:"Esquire's fee",  anchor:60,  fees:0.5, dflt:2,  sc:1},
-  {key:"kt1", name:"Bachelor's fee", anchor:100, fees:1,   dflt:34, sc:12},
-  {key:"kt2", name:"Double fee",     anchor:200, fees:2,   dflt:10, sc:3},
-  {key:"kt4", name:"Castellany",     anchor:400, fees:4,   dflt:2,  sc:0}
-];
+  // ⚠ This declared `const RUNGS` — the SAME NAME as the engine's ladder, one scope out, with a
+  // `fees` field that held a NUMBER where the engine's held a string. Two tables, one name, two
+  // types, and the closure's shadowed the engine's so completely that nothing could compare them.
+  // Only `dflt` and `sc` are the roster's own; key, name and anchor are the engine's rungs.
+  ["esq", 2, 1], ["kt1", 34, 12], ["kt2", 10, 3], ["kt4", 2, 0]
+].map(([key, dflt, sc]) => {
+  const r = RUNGS.find(x => x.key === key);
+  return {key, name:r.name, anchor:r.anchor, fees:r.feesN, dflt, sc};
+});
 
 // RAW Titles of Nobility (RR p.346). lo/hi = overall realm families; pd = personal domain;
 // dom = domains ruled. The printed bands have GAPS — a realm in a gap is named for the grade
@@ -7351,8 +7390,8 @@ dG("addv").addEventListener("click", ()=>{ VASS.push({id:vNext++, fam:160, paren
 dG("feeTable").innerHTML = `<div class="scroll"><table><caption class="vh">The fees of this realm — count, families, cost and service by rung</caption><thead><tr>
     <th scope="col">Rung</th><th scope="col">Families each</th><th scope="col">Estates</th><th scope="col">Under scutage</th><th scope="col">Families</th>
     <th scope="col">Costs the lord</th><th scope="col">Lances</th><th scope="col">Scutage</th><th scope="col">Levy</th></tr></thead><tbody>` +
-  RUNGS.map(r => `<tr>
-    <th scope="row">${r.name} <span style="color:var(--hint)">(${r.fees===0.5?"½ fee":r.fees+" fee"+(r.fees>1?"s":"")})</span></th>
+  ROSTER.map(r => `<tr>
+    <th scope="row">${r.name} <span style="color:var(--hint)">(${feeWord(r.fees)})</span></th>
     <td id="ff_${r.key}">—</td>
     <td class="edit"><input type="number" id="fn_${r.key}" aria-label="${r.name} — estates" min="0" max="9999" step="1" value="${r.dflt}"></td>
     <td class="edit"><input type="number" id="fc_${r.key}" aria-label="${r.name} — under scutage" min="0" max="9999" step="1" value="${r.sc}"></td>
@@ -7407,7 +7446,7 @@ function model(){
   const vassOver  = vass.some(v => v.over);
 
   // --- fees, with scutage chosen PER GRADE
-  const rungs = RUNGS.map(r => {
+  const rungs = ROSTER.map(r => {
     const n   = clampInt("fn_"+r.key, 0, 9999, 0);
     const sc  = Math.min(n, clampInt("fc_"+r.key, 0, 9999, 0));
     const fam = Math.ceil(r.anchor / perFam);
@@ -7929,7 +7968,7 @@ function render(){
 }
 
 ["fam","r_land","cls","lvl","dmil","oppmil","l_scut","r_scutmo","r_fost","r_place"]
-  .concat(RUNGS.map(r => "fn_"+r.key)).concat(RUNGS.map(r => "fc_"+r.key))
+  .concat(ROSTER.map(r => "fn_"+r.key)).concat(ROSTER.map(r => "fc_"+r.key))
   .forEach(id => dG(id).addEventListener("input", render));
 drawVassals();
 render();
@@ -8008,6 +8047,13 @@ function selfTest(){
   T("the esquire keeps no squire",       ()=> eq(rung("esq").svc, 60));
   T("income is families × (land+3)",     ()=> FM.rungs.every(r => r.income === r.fam*(6+3)) || "a rung's income is not its families' worth");
   T("families are ⌈anchor ÷ (land+3)⌉",  ()=> FM.rungs.every(r => r.fam === Math.ceil(r.anchor/(6+3))) || "a rung is not the smallest estate that pays it");
+  // CHART_MAX_ANCHOR is declared far above RUNGS — famGuide closes over it — so it cannot be
+  // derived from the owner without a TDZ, and it stays a literal. Two independent declarations
+  // compared, then, rather than one recomputing the other: the chart's ceiling IS the top
+  // charter's own anchor, and a fifth rung would otherwise leave the guidance sentence sized for
+  // a ladder that no longer ends there.
+  T("the chart's ceiling is the top charter's anchor",
+    ()=> eq(CHART_MAX_ANCHOR, FEEANCHOR[Math.max(...RUNGS.map(r => r.feesN))]));
 
   // ---- 1a. the equation drawer says what the engine did ------------------------------------
   // A drawer that narrates the model is a second description of it, and the failure mode is that
@@ -8694,7 +8740,7 @@ function selfTest(){
   // rather than a constant — the earlier spec draft asserted "coverage == 2.0, invariant" and it
   // was true only at land 6 civilized, which is precisely the kind of claim a sweep would kill.
   T("the profile's identities hold, every land × custom", ()=> {
-    for(const cu of ["cust","raw"]) for(let L = 3; L <= 9; L++){
+    for(const cu of Object.keys(CUSTOMS)) for(let L = 3; L <= 9; L++){
       const R = ruralRevenue(L, cu), c = CUSTOMS[cu];
       if(R.gross     !== L + c.service + c.tax) return `${cu} land ${L}: gross ${R.gross}`;
       if(R.feeNet    !== R.gross - 3)           return `${cu} land ${L}: feeNet ${R.feeNet}`;
@@ -8800,7 +8846,7 @@ function selfTest(){
   // The tripwire the round-4 review asked for: if a future profile ever puts feeNet below 1, this
   // fails and forces an explicit decision instead of dividing by zero inside a template.
   T("every supported guidance value fits the static maximum", ()=> {
-    for(const cu of ["cust","raw"]) for(let L = 3; L <= 9; L++){
+    for(const cu of Object.keys(CUSTOMS)) for(let L = 3; L <= 9; L++){
       const net = ruralRevenue(L, cu).feeNet;
       if(net < 1)              return `${cu} land ${L}: feeNet ${net} — the guide would divide by ≤0`;
       if(famGuide(net) > FAM_MAX) return `${cu} land ${L}: guide ${famGuide(net)} exceeds FAM_MAX ${FAM_MAX}`;
