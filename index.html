@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.9 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.9.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -8073,7 +8073,10 @@ function render(){
   // which economy this honour is costed in — read-only, and it says so
   const rcr = dG("r_custread");
   if(rcr) rcr.innerHTML =
-    `Costed at the <b>${m.REVname}</b> — ${one(m.perFam)} gp a family net to a fee-holder. ` +
+    // ⚠ "gp a family" until 2026-08-03 — an unmarked COMPOUND unit spelled in words, in the one
+    // region the unit audit had been told to skip. MR-VER-06 is what found it: the exclusion was
+    // taken to bound a commit, and reading it was the whole of the debt.
+    `Costed at the <b>${m.REVname}</b> — ${one(m.perFam)} <span class="u">gp/family</span> net to a fee-holder. ` +
     `Set on the Domains tab’s <a href="#sec-dials">custom of record</a>; this tab reads it.` +
     (m.REVcustom === "raw"
       ? ` <b>This is the comparison profile</b>, not the module’s reading of a manor.` : ``);
