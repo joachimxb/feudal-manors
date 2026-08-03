@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.7 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.8 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -712,6 +712,21 @@
        demesne rate. The general ratchet (how a class is won, and that it is never lost to
        population) belongs to the Dials section, which argues it in full. -->
   <p class="pnote" id="pop-ground-read"></p>
+</div>
+<!-- The custom of record. It is NOT a century's dial — the era presets are forbidden to carry it
+     (see ERAS and its self-tests), because the economy is not a property of the century. It sits
+     here because it reprices every figure in the sentence that opens it. -->
+<div class="pop" id="pop-cust" hidden>
+  <button type="button" class="pclose" data-popclose aria-label="close">×</button>
+  <div class="ptitle">The custom of record — what a family yields</div>
+  <label for="m_cust">Two peasantries, one rulebook: it reprices every gp on this page</label>
+  <select id="m_cust">
+    <option value="cust">Customary — villeins by custom of the manor (service 1, tax 0)</option>
+    <option value="raw">ACKS RAW — a free, taxed, commercial peasantry (4, 2)</option>
+  </select>
+  <p class="pnote">A realm's economy, not a century's — the era presets leave it alone, and ACKS RAW
+  is offered as a <b>comparison</b> rather than as a rival period. Argued in full in the
+  <a href="#sec-library">Library</a>'s Custom chapter and at <a href="#sec-dials">the Dials</a>.</p>
 </div>
 <div class="pop" id="pop-sq" hidden>
   <button type="button" class="pclose" data-popclose aria-label="close">×</button>
@@ -4934,11 +4949,11 @@ function renderUnits(){
 
     <div class="ucard">
       <h4>The cost of the muster<span>RR p.442 · wages p.168</span></h4>
-      <div class="big">${fmt(field)} <small>gp/mo to field, if hired for cash</small></div>
+      <div class="big">${fmt(field)} <small>${U("gp/mo")} to field, if hired for cash</small></div>
       <div class="lrow"><span class="lk">Wages (${N}× ${fmt(kWage)} + ${fmt(HENCH[bl])})</span><span class="lvv">${fmt(wage)}</span></div>
       ${kl<3?`<div class="lrow sub"><span>L1–2 dubbed knights floored at the definition's required body — ${REQU} gp (manor doctrine; the definition lever, Dials panel)</span></div>`:""}
       <div class="lrow"><span class="lk">Specialists</span><span class="lvv">${fmt(spec)}</span></div>
-      <div class="lrow"><span class="lk">Supply (4 gp/wk each — squires eat too)</span><span class="lvv">${fmt(supplyWk)} /wk</span></div>
+      <div class="lrow"><span class="lk">Supply (4 ${U("gp/wk")} each — squires eat too)</span><span class="lvv">${fmt(supplyWk)} /wk</span></div>
       <div class="lrow hi"><span class="lk">Or enfeoffed instead</span><span class="lvv">${fmt(famTot)} families of fees${famB===null?" + a barony (≥160 fam)":""}</span></div>
       <div class="lrow sub"><span>${N}× ${famPer}-family fees${famB!==null?` + the banneret's ${famB}`:` — the L${bl} banneret is baron-grade: he holds a barony (160+ fam), not a fee`}, at land ${land} (Dials panel) — sustainment costs no coin, only land${S?`; the ${S} squires ride as unpaid train (fostered sons — their wage is their education)`:""}</span></div>
       <div class="lrow gold"><span class="lk">The term (month 1)</span><span class="lvv">wages 0 — service in kind, provider-pays</span></div>
@@ -6378,6 +6393,38 @@ function facts(st){
                  `demands on the ${E("pop-assess","ancient")} assessment: paper and muster agree.`};
   }
 
+  // --- THE CUSTOM OF RECORD: the dial that reprices every figure in the rest of the sentence ---
+  // §4.6 asked for `custom` and `moraleNet`. **`moraleNet` is WITHDRAWN**, and the register is why:
+  // MR-REV-05 (SHIPPED) requires morale to be carried "as components and never as a total", on
+  // §2.4's own reasoning — the garrison side varies by district, the quantization of a fractional
+  // shortfall into an integer step is unruled, and a total "turns one modifier into a claim about
+  // domain morale". So this fact carries the TAX modifier, named as the tax line's and no more.
+  //
+  // ⚠ §4.6's draft sentence also read "its lord takes 16s a household a year". That figure is real
+  // and it is not this one: 16s is per RECORDED HOUSEHOLD — a citation-side figure at 2.5× (§2.4's
+  // parity table, £50 ÷ 62) — while the engine's unit is the FAMILY, whose whole seigneurial due
+  // here is 1 gp/mo, ten shillings a year. Printing 16s against a family would have asserted the
+  // aggregation the Library's Custom chapter explicitly withdraws, at the page's most-read surface;
+  // and MR-CONV-01 forbids the noun in the script at all, so the writ could not have said it.
+  //
+  // The noun and its qualification both come out of CUSTOMS.glance ("ACKS RAW revenues —
+  // comparison"), split rather than restated: a second spelling of a profile's own name is exactly
+  // the shadow the rung table cost this file to learn.
+  const cg = CUSTOMS[st.cust].glance.split(" — ");
+  F.custom = {pop:"pop-cust", live:true, word:cg[0], note:cg[1] || "",
+    // consumed from the stash, never recomputed: gross is land + service + tax, so what is left
+    // when the land is taken out is the seigneurial due — the part the custom of record sets.
+    dues: st.gross - st.land,
+    // THE QUITTANCE, Model A (§2.4a, decision #7): a fee's net does not move with its district,
+    // because the fee is quit of the garrison line by service. A barony holds no fee and hires.
+    quit: st.aszBites,
+    net:  st.aszBites ? st.perFam : S_RATE_OF(st)[st.cls],
+    // the shilling clause is gated on the ARITHMETIC, not on the dial's key: shillings are worth
+    // saying exactly when the whole due fits inside RAW's smallest entry, which is the Custom
+    // chapter's actual claim. A third profile would be handled by its number, not by its name.
+    digit: st.gross - st.land <= 1,
+    morale: st.taxMorale};
+
   // --- the estate on the ground ---------------------------------------------------------
   F.holder = {pop:"pop-holder", live:true, word:S_HOLDN[st.holder], size:sizeOf(st)};
   F.land   = {pop:"pop-land",   live:true, word:`land value ${st.land}`};
@@ -6507,6 +6554,18 @@ const E = (pop, txt, bad) => `<button type="button" class="wed${bad ? " bad" : "
 const V = (txt, bad, why) => `<span class="wv${bad ? " bad" : ""}"` +
   (why ? ` title="${why.replace(/"/g, "&quot;")}"` : ``) + `>${txt}</span>`;
 
+// --- sterling, AT THE POINT OF CITATION -------------------------------------------------------
+// The rate is the Library's (Money chapter): 1 shilling = 12sp = 1.2 gp. It lives HERE, beside the
+// only sentence that spends it, and not beside ruralRevenue — the same discipline MR-CONV-01 sets
+// for the 2.5 convention: a conversion belongs where it is cited, never inside the engine.
+// ⚠ The Library states this rate in a static table, so this constant is a SECOND statement of it.
+// A self-test reads that table's own row back and compares, which is the only version of a shared
+// literal this file accepts (see the rung table, and every shadow it cost to learn).
+const SHILLING_GP = 1.2;
+// gp a month → shillings a year. At RAW's smallest possible entry, 1 gp/mo, this is exactly TEN
+// shillings a year — the digit the Custom chapter's whole argument turns on.
+const shillingYear = gpMo => `${fmt(Math.round(gpMo * 12 / SHILLING_GP))} shillings`;
+
 // --- THE WRIT — the state as one live sentence, every bold term its own control ---------------
 // Grammar is all this adds. A sentence cannot assert the same fact twice without reading absurdly,
 // and a clause that does not apply is simply not written — so the two faults the chip bar was
@@ -6536,6 +6595,24 @@ function renderWrit(st, F){
     `${W("land")} ground in ${art(F.ground.word)}${W("ground")} district of ${st.dens} a hex` +
     (st.over ? ` — ${V("over its " + S_CAP[st.cls] + "-family cap", true)}, which RAW forbids`
              : `, ${densRead(st)}`) + `.`);
+
+  // — THE ECONOMY. The custom of record reprices every gp below this line, and until now the one
+  // live sentence on the page never named it: readState had stashed `st.cust` with the comment
+  // "the dial, for the writ's prose" and the writ had no prose for it. Three clauses, each gated
+  // on its own number rather than on the dial's key, so the sentence degrades where the arithmetic
+  // does: the shilling when the due outgrows a single gold digit, the regard when the tax line
+  // leaves its floor, the quittance when the holder is a barony and holds no fee to be quit of.
+  const cu = F.custom;
+  S.push(`It is priced by ${W("custom")}${cu.note ? ` <span class="wq">(${cu.note})</span>` : ``}, so a ` +
+    `family nets it ${V(cu.net + " " + U("gp/mo"))} ` +
+    (cu.quit
+      ? `<span class="wq">(the same in any district — the fee is quit of that line by service)</span>`
+      : `<span class="wq">(the ${S_CLSN[st.cls]} garrison at ${S_GARR[st.cls]} already out of it — ` +
+        `a barony holds no fee to be quit of)</span>`) +
+    (cu.digit ? ` — dues of ${V(cu.dues + " " + U("gp/mo"))}, ${V(shillingYear(cu.dues))} a year` : ``) +
+    (cu.morale > 0
+      ? `${cu.digit ? `, and` : ` —`} a tax line on RAW's floor worth ${V("+" + cu.morale)} ` +
+        `in its people's regard` : ``) + `.`);
 
   // — the paper against the muster: whichever branch facts() chose, as its own sentence
   S.push(F.recon.sent(W));
@@ -6586,12 +6663,12 @@ function renderWrit(st, F){
   // sentence has to say so, or two different kinds of number wear the same words.
   if(!isNaN(st.margin))
     S.push(st.margin < 0
-      ? `The estate is ${V(Math.abs(st.margin) + " gp/mo short", true)} of its obligations` +
+      ? `The estate is ${V(Math.abs(st.margin) + " " + U("gp/mo") + " short", true)} of its obligations` +
         `${st.post ? " after remedy" : ""} — the threadbare state.`
       : st.post
-      ? `It clears ${V(st.margin + " gp/mo")} — the remedy already deducted.`
-      : `It clears ${V(st.margin + " gp/mo")} above the holder's keep` +
-        (st.leftAfter ? `, ${V(st.leftAfter + " gp/mo")} of it once the reserve is set aside.`
+      ? `It clears ${V(st.margin + " " + U("gp/mo"))} — the remedy already deducted.`
+      : `It clears ${V(st.margin + " " + U("gp/mo"))} above the holder's keep` +
+        (st.leftAfter ? `, ${V(st.leftAfter + " " + U("gp/mo"))} of it once the reserve is set aside.`
          : st.cheapBreaks ? ` — ${V("less than the reserve the balance demands", true)}.`
          : `, with nothing owed against it.`));
 
@@ -6810,6 +6887,9 @@ function updateEstate(){ updateStateBar(); }
 // dSync pass, and whichever hand moved writes through to the real dial and fires its event.
 const D_MIRRORS = [["m_era","l_era"],["m_def","l_def"],["m_assess","l_assess"],
                    ["m_asz","l_asz"],["m_land","land"],["m_dens","dens"],["m_sq","l_sq"],
+                   // the custom of record. It is not in LINK_DIALS' clearing list and it is not an
+                   // era dial, but as a MIRROR it is ordinary: write through, fire the real event.
+                   ["m_cust","l_cust"],
                    // the estate chips' popovers — Step 1's own controls, reachable from the bar
                    // m_fam is NOT a plain mirror: on a ladder rung it shows the derived count,
                    // which syncMirrors would overwrite with h_fam. holderRead owns its value.
@@ -9244,6 +9324,81 @@ function selfTest(){
   T("…and the district popover adds up",   ()=> {
     base({l_cust:"cust", h_cls:1}); const st = readState();
     return eq(S_RATE_OF(st)[1], st.perFam - GARR[1]); });
+
+  // ---- 22a. MODEL A — the quittance, and the test that can tell it from Model B ---------------
+  // §2.4a put decision #7 as a blocking doctrine question: Model A, the fee is quit of its garrison
+  // line BY SERVICE and nets land−2 flat; or Model B, the line is offset explicitly by militia and
+  // knight credit and the remainder is paid, borne, or costs morale. The module ships A. The
+  // requirement register carried it UNVERIFIED for want of anything checkable — a doctrine with no
+  // token — which is queue item 20's whole subject.
+  //
+  // What makes this a TEST and not a restatement: the two models DISAGREE observably. Under A a
+  // fee's net cannot move with its district, because the district only ever set a garrison the fee
+  // does not pay. Under B it must, because the credit and the line both move with the class. So
+  // sweep the classes and require the fee's net to sit still while the demesne's moves by exactly
+  // the garrison rate — a Model B engine fails the first half, and an engine that simply forgot to
+  // charge anyone fails the second.
+  T("Model A — a fee's net does not move with its district", ()=> {
+    for(const cu of Object.keys(CUSTOMS)){
+      const seen = [];
+      for(let c = 0; c <= 2; c++){ base({l_cust:cu, h_cls:c}); seen.push(readState().perFam); }
+      if(new Set(seen).size !== 1)
+        return `${cu}: a fee's net moved with the district — ${seen.join(" / ")}`;
+    }
+    return true;
+  });
+  T("…because it is quit of that line by service, and the demesne is not", ()=> {
+    for(const cu of Object.keys(CUSTOMS)) for(let L = 3; L <= 9; L++){
+      const R = ruralRevenue(L, cu);
+      for(let c = 0; c <= 2; c++)
+        if(R.feeNet - R.demesneNet(c, 0) !== GARR[c])
+          return `${cu} land ${L} class ${c}: fee ${R.feeNet}, demesne ${R.demesneNet(c,0)}, ` +
+                 `garrison ${GARR[c]} — the gap is not the garrison, so the quittance is not what is priced`;
+    }
+    return true;
+  });
+
+  // ---- 22b. the writ names the custom of record — §4.6, and it was NOT built until now --------
+  // ⚠ The register said UNVERIFIED and the reason was not "no token": readState had been stashing
+  // `st.cust` since the writ was written, with the comment "the dial, for the writ's prose", and
+  // the writ had no prose for it. A dead write is invisible to every gate on this board.
+  T("the writ names the custom of record, as a chip", ()=> {
+    base({l_cust:"cust"});
+    const st = readState(), w = renderWrit(st, facts(st));
+    return /data-pop="pop-cust"/.test(w) ? true : "the writ does not open the custom dial";
+  });
+  T("…and it degrades under ACKS RAW — no shilling clause, no regard clause", ()=> {
+    base({l_cust:"raw"});
+    const st = readState(), w = renderWrit(st, facts(st));
+    if(/shilling/.test(w))            return "the shilling clause survived into ACKS RAW";
+    if(/people's regard/.test(w))     return "the regard clause survived into ACKS RAW";
+    return /ACKS RAW revenues/.test(w) ? true : "the writ does not name the profile it is under";
+  });
+  T("…while under the custom it states both", ()=> {
+    base({l_cust:"cust"});
+    // ⚠ read the RENDERED TEXT, not the markup. Written against the markup this asserted
+    // "10 shillings a year" and failed on a correct page: every figure is wrapped, so the string
+    // the reader sees is split by a </span> the test could not see. Strip, then read.
+    const w = renderWrit(readState(), facts(readState())).replace(/<[^>]*>/g, "").replace(/\s+/g, " ");
+    if(!/10 shillings a year/.test(w)) return `no shilling clause under the customary rent — "${w.slice(0,160)}"`;
+    if(!/people's regard/.test(w))     return "no regard clause under the customary rent";
+    return true;
+  });
+  // the morale clause is the TAX modifier and says so. MR-REV-05 forbids a morale TOTAL (§2.4:
+  // "display the components rather than a total"), which is why §4.6's `moraleNet` is withdrawn —
+  // two shipped requirements constrained the unbuilt one, and this is the assertion that keeps it.
+  T("the writ's regard is the TAX modifier, never a morale total", ()=> {
+    base({l_cust:"cust"});
+    const w = renderWrit(readState(), facts(readState()));
+    if(/net morale|morale net|total morale/i.test(w)) return "the writ states a morale TOTAL";
+    return /tax line on RAW's floor/.test(w) ? true : "the regard clause does not say whose modifier it is";
+  });
+  // ⚠ The shilling RATE is stated twice — here as SHILLING_GP, and in the Library's Money table,
+  // which is static markup in the BODY. The cross-check therefore belongs in a tool and not here:
+  // a self-test runs inside the script, where `document.body.innerHTML` is the real page in a
+  // browser and an empty stub in the Node harness, so the same assertion would be a real check in
+  // one and vacuously green in the other. Gated by check_rule_owners' `SHILLING_GP` rule instead.
+  T("one gp a month is exactly ten shillings a year", ()=> eq(shillingYear(1), "10 shillings"));
 
   // ---- 28. the militia ceiling — the boundaries RAW does not settle -------------------------
   // The two readings of "2 per 10" agree on every complete ten and part company on every half-ten,
