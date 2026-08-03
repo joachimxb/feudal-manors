@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.4.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.4.2 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -1760,9 +1760,16 @@
         </select></div>
       <div class="field"><label for="u_sq">Squires per knight <span class="hint">(fosterage — they ride with the host as train)</span></label>
         <select id="u_sq">
+          <!-- ⚠ THE VALUE IS THE DENOMINATOR — knights per squire, an exact integer, 0 = none.
+               Same change as `r_fost` and the same reason, with one honest difference: this one was
+               never wrong on screen. Its consumer ROUNDS where the realm's pool FLOORS, and rounding
+               absorbs the 0.3333 error completely — swept N = 1…5000, `round(N × 0.3333)` disagrees
+               with `round(N ÷ 3)` in 0 cases, while `floor` disagrees in 1,666. Fixed anyway: a
+               constant that is only correct because of what happens to consume it is a defect that
+               has not been reached yet. -->
           <option value="0">none — bare lances</option>
-          <option value="0.3333">1 per 3 knights</option>
-          <option value="0.5" selected>1 per 2 knights (typical demographics)</option>
+          <option value="3">1 per 3 knights</option>
+          <option value="2" selected>1 per 2 knights (typical demographics)</option>
           <option value="1">every lance — the full muster</option>
         </select></div>
       <div class="field"><label for="u_scale">Muster fights as <span class="hint">(scale sets unit size &amp; officer floors, RR p.437)</span></label>
@@ -3164,9 +3171,14 @@
        ~1.4 sons reaching adolescence per inheriting son — about one boy per three households. -->
   <div class="field"><label for="r_fost">Fosterage — boys of squiring age <span class="hint">(a realm's convention, per household of the class)</span></label>
     <select id="r_fost">
+      <!-- ⚠ THE VALUE IS THE DENOMINATOR — households per boy, an exact integer, 0 = none. It used
+           to be the RATE (0.3333), and that cost a boy at every household count divisible by three:
+           48 × 0.3333 = 15.9984, floored to 15, under a label that says one per three. A fraction
+           written as a truncated decimal is a different number from the fraction, and `Math.floor`
+           turns the difference into a whole boy. Carry the ratio; divide, do not multiply. -->
       <option value="0">none — every attendant is a hired groom</option>
-      <option value="0.3333" selected>~1 per 3 households — the demographic band</option>
-      <option value="0.5">1 per 2 households</option>
+      <option value="3" selected>~1 per 3 households — the demographic band</option>
+      <option value="2">1 per 2 households</option>
       <option value="1">1 per household — Hârn's assessed spear</option>
     </select></div>
 
@@ -4144,8 +4156,8 @@ function renderUnits(){
   const ldrp = document.getElementById("u_ldr").checked;
   const mnt  = document.getElementById("u_mount").checked;
   const land = clampInt("land", 3, 9, 6);
-  const sqr  = clampNum("u_sq", 0, 1, 0.5);
-  const S    = Math.round(N * sqr);                // squires: fostered sons, ride with the host as TRAIN (not troops)
+  const sqrDen = clampInt("u_sq", 0, 3, 2);        // KNIGHTS PER SQUIRE — exact integer, 0 = none
+  const S    = sqrDen ? Math.round(N / sqrDen) : 0; // squires: fostered sons, ride with the host as TRAIN (not troops)
   const REQU = reqOf(document.getElementById("l_def").value);   // the definition's required body
   const kWage = Math.max(HENCH[kl], REQU);         // dubbed floor: any knight ≥ the definition of record (manor doctrine)
 
@@ -6921,14 +6933,19 @@ function model(){
   // realm budget), PLACEMENT (which halls, skewed by standing) and CREDIT (whose garrison) — in
   // deliberately the same shape as this tab's garrisoning-by-service-months: **a realm-level pool
   // spent against household-level claims**.
-  const sqConv  = +dG("r_fost").value;          // boys per HOUSEHOLD of the class — a realm convention
+  // ⚠ HOUSEHOLDS PER BOY, an exact integer (0 = none) — not the rate. The rate is derived from it
+  // for display and for the record, never the other way round: one third has no terminating decimal,
+  // so a rate written into the markup is necessarily a rounded one, and `sqPool` floors it. Read the
+  // denominator, divide by it, and the arithmetic is integer throughout.
+  const sqDen   = +dG("r_fost").value;          // households per boy of squiring age — a realm convention
+  const sqConv  = sqDen ? 1 / sqDen : 0;        // the rate, DERIVED — display and the state record only
   const sqPlace = dG("r_place").value;
   // ⚠ Per HOUSEHOLD, not per fee-equivalent, and the distinction is load-bearing at exactly the
   // place the pooling happens. Boys are bred by families; a castellany is FOUR fees and ONE
   // household, so counting fee-equivalents would breed its holder four sons. The design note says
   // "per fee" — true only while every holding is one fee, which is the case this dial exists to
   // stop assuming.
-  const sqPool  = Math.floor(estates * sqConv);
+  const sqPool  = sqDen ? Math.floor(estates / sqDen) : 0;
   // Claims come from halls whose lance actually RIDES. A commuted holding's lance is not in the
   // field, and its boy would stand a manor watch the fee is quit of anyway — worth nothing on the
   // realm's ledger. Keeping commuted halls out of the claim is what stops that nothing being
@@ -7030,7 +7047,7 @@ function model(){
           scutMo, realmScut, realmScutStand,
           cfPayers, cfB, cfNet,
           demGross, demFixed, demIncome, demNet, coin, garrRate, garrReq, milMen, milCred, milKit, garrCoin, garrEff,
-          sqConv, sqPlace, sqPool, sqClaims, sqWard, sqFee, sqPlaced, sqIdle, sqCastle, sqService, sqByRung,
+          sqDen, sqConv, sqPlace, sqPool, sqClaims, sqWard, sqFee, sqPlaced, sqIdle, sqCastle, sqService, sqByRung,
           lordFam, feesQuit, vassOwn, oppmil, oppGarr, oppFam, feeCost, netFeeCost,
           perLanceGross, perLanceGarr, perLanceScut, perLanceNet, level, dmil,
           title:titleOf(famTotal)};
@@ -7260,7 +7277,7 @@ function render(){
     const bare = rows.filter(x => x.boys === 0);
     cards.push(`<div class="card"><h4>The spread of squires<span>supply, placement, and whose ledger the boy lands on</span></h4>
     <div class="lrow"><span class="lk">Households of the class</span><span class="lvv">${fmt(m.estates)} halls</span></div>
-    <div class="lrow"><span class="lk">Boys of squiring age — ${m.sqConv >= 1 ? "one per household" : m.sqConv ? `one per ${one(1/m.sqConv)} households` : "none, by this realm's custom"}${bdg("mod","the SUPPLY band is demography, not RAW: a seven-year window (14–21) over a generation of ~30, times ~1.4 sons reaching adolescence per inheriting son. Hârn's own 1-per-lance is an ASSESSMENT — canon's spear is 'traditionally set at' one knight, one squire and four yeomen — which is why this is a realm's convention and not a fact")}</span><span class="lvv">${fmt(m.sqPool)} boys</span></div>
+    <div class="lrow"><span class="lk">Boys of squiring age — ${m.sqDen === 1 ? "one per household" : m.sqDen ? `one per ${m.sqDen} households` : "none, by this realm's custom"}${bdg("mod","the SUPPLY band is demography, not RAW: a seven-year window (14–21) over a generation of ~30, times ~1.4 sons reaching adolescence per inheriting son. Hârn's own 1-per-lance is an ASSESSMENT — canon's spear is 'traditionally set at' one knight, one squire and four yeomen — which is why this is a realm's convention and not a fact")}</span><span class="lvv">${fmt(m.sqPool)} boys</span></div>
     <div class="lrow"><span class="lk">Halls whose lance actually rides</span><span class="lvv">${fmt(m.sqClaims)} claims</span></div>
     ${m.sqPool === 0 ? `<div class="lrow sub">Every attendant in this realm is a hired groom. He costs the fee coin,
       stands no watch as a man-at-arms, and earns nothing on either ledger — the knight still has him, because three or
@@ -7673,14 +7690,29 @@ function selfTest(){
                                    dG("r_fost").dispatchEvent(new Event("input", {bubbles:true}));
                                    return FM.realmLast; };
   {
-    const S = realm("0.3333", "hall");
+    const S = realm("3", "hall");
     // CONSERVATION OF SERVICE (spec §5.4) in its new location. One boy credited to both the hall
     // that holds him and the fee that bred him would look right on each card in isolation — this
     // identity is the only thing that can see it.
     T("squires — every boy is placed exactly once (ward + fee + idle = pool)",
       ()=> eq(S.sqWard + S.sqFee + S.sqIdle, S.sqPool));
+    // ⚠ This assertion USED to read `eq(S.sqPool, Math.floor(S.estates * S.sqConv))`, and that is
+    // the whole lesson of queue item 18: it recomputed the line it was guarding, so it could not
+    // fail, and it passed for two releases while the pool ran a boy short at every household count
+    // divisible by three. An assertion that restates its implementation is a tautology wearing a
+    // test's name. What follows states the PROPERTY the card's own label claims — N halls at one boy
+    // per D households breed as many boys as D goes into N, and no more — which is checkable without
+    // knowing how the pool is computed.
     T("squires — the pool is bred per HOUSEHOLD, not per fee-equivalent",
-      ()=> eq(S.sqPool, Math.floor(S.estates * S.sqConv)));
+      ()=> S.sqDen === 0 ? eq(S.sqPool, 0)
+         : (S.sqPool * S.sqDen <= S.estates && S.estates < (S.sqPool + 1) * S.sqDen)
+           ? true : `${S.estates} halls at one per ${S.sqDen} bred ${S.sqPool} boys`);
+    // And the control itself, because the defect lived in the MARKUP and every check downstream of
+    // it was consistent with the wrong number. One third has no terminating decimal, so a dial that
+    // carries a rate necessarily carries a rounded one; a dial that carries a denominator cannot.
+    T("squires — every fosterage option is an exact ratio, not a rounded rate",
+      ()=> { const bad = [...dG("r_fost").options].map(o => o.value).filter(v => !Number.isInteger(+v));
+             return bad.length ? `non-integer denominator(s): ${bad.join(", ")}` : true; });
     T("squires — a commuted hall makes no claim (its lance is not in the field)",
       ()=> eq(S.sqClaims, S.rungs.reduce((s,r) => s + (r.n - r.sc), 0)));
     T("squires — no hall takes more boys than it has lances riding",
@@ -7713,7 +7745,7 @@ function selfTest(){
 
     // THE COMPARISON. Same pool, same claims, different picture — which is the whole argument for
     // separating placement from supply. A test on the totals alone would see nothing here.
-    const E = realm("0.3333", "even");
+    const E = realm("3", "even");
     T("squires — 'even' places the SAME number of boys as 'up the ladder'",
       ()=> eq(E.sqFee + E.sqWard + E.sqIdle, S.sqFee + S.sqWard + S.sqIdle));
     T("squires — …and yet the DISTRIBUTION differs, which the mean cannot see",
@@ -7733,7 +7765,7 @@ function selfTest(){
       return H.sqPool === H.estates && H.sqIdle > 0 ? true
              : `pool ${H.sqPool} of ${H.estates} halls, ${H.sqIdle} idle — the assessment should exceed the claims`;
     });
-    realm("0.3333", "hall");
+    realm("3", "hall");
   }
 
   // ---- 11. the office: the conservation claim, on the engine's own numbers -----------------
