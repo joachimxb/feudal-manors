@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.6 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.6.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -2417,6 +2417,16 @@
     between the two models of a countryside, and it is worth knowing before you read a market class as a
     demographic fact.
     <span class="bdg his" title="market grants as crown franchises; the count of grants by 1350 is the conventional figure from the market-charter literature">HISTORY</span></p>
+  <p class="note"><b>And RAW gives the class boundary twice, in two chapters, with two different answers.</b>
+    The Domains chapter bands settlements in families and begins <b>Class III at 2,500</b>; Mercantile Ventures
+    defines the same six classes and begins it at <b>1,750</b>. Every other rung agrees, so it is one contested
+    line and not two ladders. This page reads <b>2,500</b>, because RAW's own <i>Villages, Towns and Cities</i>
+    table settles the disputed band outright — a small city of <b>1,250&nbsp;–&nbsp;2,499</b> families is printed
+    there as <b>Class&nbsp;IV</b> — because the investment ladder's caps are the same band ceilings rung for rung
+    with no rung at 1,750, and because the sandbox procedure in the <i>Judges Journal</i> uses 2,500 in the very
+    step that goes on to set range of trade. The errata corrects neither statement. Worth knowing if you carry a
+    settlement between 1,750 and 2,499 families across from another table.
+    <span class="bdg raw" title="RR p.352 — the Settlement Population table and the Villages, Towns and Cities benchmarks; the second reading is RR pp.370-1 and, in inhabitants, p.310. Ruled for 2,500 on 2026-08-03.">RAW</span></p>
   <p class="note"><b>The spacing rule is a hex rule.</b> The rule cited from Bracton is <b>6⅔ miles</b> between
     markets — a third of a day's walk out, a third at market, a third home. ACKS's hexes are six miles. <b>One
     chartered market per six-mile hex</b>, to within rounding, which is a usable Judge's rule that falls out of
@@ -3999,12 +4009,15 @@ function ruralRevenue(land, custom){
 // garrisons at 2, not 4. That is the first of the four typing rules below, and the one a single
 // pooled population would have got wrong without ever showing it.
 const URBAN = {service:4, tax:2, garrison:2, fixed:3, min:75};
-// ⚠⚠ RAW PRINTS TWO MARKET-CLASS SCALES AND THEY DISAGREE. This is the DOMAIN scale — the
-// Settlement Population table (RR p.352), banded in FAMILIES — which is the one that governs trade
-// revenue and so everything on this ledger. The Mercantile Ventures chapter defines the same six
-// classes in INHABITANTS (RR p.310), and at 5 per family that is a different ladder: III begins at
-// 1,750 families there and 2,500 here. They agree at I and II and disagree at III, IV and V. See
-// fm_core's header, and the Library's note: neither may be called "the market class" unqualified.
+// ⚠⚠ RAW STATES THE III/IV BOUNDARY TWICE AND THE TWO STATEMENTS DISAGREE — 2,500 families in the
+// Domains chapter (RR p.352), 1,750 in Mercantile Ventures (RR pp.370–1). Every other rung agrees,
+// so it is ONE contested line, not two ladders. RULED 2026-08-03 for 2,500, on four witnesses to
+// two: RAW's own Villages, Towns and Cities table rules the disputed band outright ("Small city
+// (1,250 – 2,499) … Class IV"), the Total Investment caps are the band ceilings rung for rung with
+// no rung at 1,750, and JJ's sandbox step uses 2,500 in the very step that feeds range of trade.
+// The 1,750 side is one sentence printed twice, and its p.310 copy is corrupt at its other end.
+// Errata r4 is silent. fm_core's header carries the full citation table; the Library's note says it
+// in prose. There is no second scale, so `marketClass` takes no scale argument.
 const MARKETS = [
   {cls:"VI",  lo:75,     hi:249,     trade:1},
   {cls:"V",   lo:250,    hi:499,     trade:1.5},
@@ -4013,19 +4026,25 @@ const MARKETS = [
   {cls:"II",  lo:5000,   hi:19999,   trade:2},
   {cls:"I",   lo:20000,  hi:100000,  trade:2.5}
 ];
-const MARKET_NONE = "VI*";      // below the floor there is no settlement to class
-function marketClass(fam){
-  for(let i = MARKETS.length - 1; i >= 0; i--) if(fam >= MARKETS[i].lo) return MARKETS[i].cls;
-  return MARKET_NONE;
+const MARKET_NONE = "VI*";      // RAW's own footnote (RR p.352): "Class VI market at domain's
+                                // stronghold only". Below the floor there is no settlement to class.
+// ⚠ CLASS AND TRADE RATE ARE TWO READINGS OF THE POPULATION, not one of the other. This was
+// TRADE_RATE[cls] — the rate looked up by class — which let a judgement about the class drag the
+// tolls with it. RAW keys both columns on the same population (RR p.352). No settlement on this
+// card is bumped, so nothing here moves; the models are where it was worth real money.
+function marketBand(fam){
+  for(let i = MARKETS.length - 1; i >= 0; i--) if(fam >= MARKETS[i].lo) return MARKETS[i];
+  return null;
 }
-const TRADE_RATE = Object.fromEntries(MARKETS.map(m => [m.cls, m.trade]).concat([[MARKET_NONE, 1]]));
+function marketClass(fam){ const b = marketBand(fam); return b ? b.cls : MARKET_NONE; }
+function tradeRate(fam){ const b = marketBand(fam); return b ? b.trade : 1; }
 // One settlement's month, after RAW's four expense lines and before tribute. `net` is the figure
 // RAW's own Villages/Towns/Cities benchmark prints — a small village of 75–99 families yields
 // 150–199 gp/mo, and 75 × 2 = 150. The manorial reading changes nothing here, and RAW's table
 // continues to check: the card says so on its face.
 function urbanRevenue(fam){
   const cls   = marketClass(fam);
-  const trade = TRADE_RATE[cls];
+  const trade = tradeRate(fam);
   const gross = fam * (trade + URBAN.service + URBAN.tax);
   const garr  = fam * URBAN.garrison;
   const fixed = fam * URBAN.fixed;
@@ -8449,6 +8468,31 @@ function selfTest(){
   // every boy to the fees and none to the demesne.
   T("realm default — PA 0 at level 9 (the ward-boys' 180 gp crossed the band)",
     ()=> ifVirgin(()=> eq(FM.realm.pa(R.coin, R.level), 0)));
+
+  // ---- 10a1. THE RULED LADDER — RAW gives the III/IV boundary twice and the two disagree -------
+  // 2,500 (Domains) against 1,750 (Mercantile Ventures). Ruled for 2,500 on 2026-08-03. These four
+  // assertions are the ruling standing in the page's own suite rather than only in a comment: the
+  // ladder must be FLAT across 1,750 — the value the other reading puts a step at — and must step
+  // at 2,500. The row that rules it is RAW's own: "Small city (1,250 – 2,499) … Class IV", p.352.
+  // ⚠ ONE ASSERTION PER T, and that is not a style note. These were written as
+  // `eq(a,"IV") && eq(b,"III")`, and the seeded revert below caught only ONE of the two: `eq`
+  // returns TRUE or a MESSAGE STRING, and a non-empty string is truthy, so a failing left-hand
+  // side is swallowed by `&&` and the pass/fail comes from the right-hand side alone. An assertion
+  // that reports its neighbour's verdict is this project's own named defect class, arrived at from
+  // a new direction — and it was found only because the seeded fault was run rather than assumed.
+  T("the ruled ladder — 1,749 families is Class IV", ()=> eq(marketClass(1749), "IV"));
+  T("the ruled ladder — 1,750 families is STILL Class IV: there is no step where the other reading puts one",
+    ()=> eq(marketClass(1750), "IV"));
+  T("the ruled ladder — 2,499 families is Class IV, the row RAW prints",
+    ()=> eq(marketClass(2499), "IV"));
+  T("the ruled ladder — 2,500 families is Class III: the step is here",
+    ()=> eq(marketClass(2500), "III"));
+  T("the trade rate comes off the BAND, not the class — 2,499 families pay 1.5",
+    ()=> eq(tradeRate(2499), 1.5));
+  T("the trade rate comes off the BAND, not the class — 2,500 families pay 1.5 across the step",
+    ()=> eq(tradeRate(2500), 1.5));
+  T("RAW's own benchmark still checks — 75 families yield 150 gp/mo",
+    ()=> eq(urbanRevenue(75).net, 150));
 
   // ---- 10a2. URBAN SETTLEMENTS — the second population, and the four ways it must not leak ----
   // Every assertion here is about TYPING, not about arithmetic. The arithmetic is RAW's and the
