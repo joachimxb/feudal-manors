@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.8 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.9 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -874,9 +874,11 @@
 
 <section id="sec-terms">
   <h2 class="sechead">The terms</h2>
-  <p class="seclede">Twelve words carry the module. Plain definitions here — the doctrine behind each lives in the <a href="#sec-library">Library</a>.</p>
+  <p class="seclede">Fourteen words carry the module. Plain definitions here — the doctrine behind each lives in the <a href="#sec-library">Library</a>.</p>
   <div class="notecol">
   <div class="gloss">
+    <div><b>tenement</b> — a full 30-acre holding, worked by one peasant family: ACKS’s revenue unit, and what every gp on this page is counted in.</div>
+    <div><b>household</b> — anyone under a roof. It is what a survey counts, not what a manor rents, and the two are different numbers.</div>
     <div><b>fee</b> — land granted to keep a fighting man: the smallest estate whose income pays his wage.</div>
     <div><b>lance</b> — one knight’s service: the man himself, horsed and mailed, squire and remounts behind him.</div>
     <div><b>quota</b> — how many lances an estate owes: as many as it counts fees.</div>
@@ -890,8 +892,9 @@
     <div><b>make-good</b> — the coin that books an old-standard body as the equal of a current one.</div>
     <div><b>the month of service</b><sup class="snref">12</sup> — the year’s one month in kind, served at the fee’s own cost (history’s forty days); past it, the lord pays wages.</div>
   </div>
+  <p class="intro" style="max-width:1080px;margin-top:10px"><b>The scope rule, in one sentence:</b> convert between the two <i>only</i> where a figure crosses from a source into this page — about <b>2.5 recorded entries to the family</b>, honest band 1.5–3.5 — and never inside the page’s own arithmetic, which is in families throughout. The conversion, its band, and the 5.6× headline this page once published by forgetting it are in the <a href="#sec-library">Library</a>’s <i>Custom</i> chapter.</p>
 
-  <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin:22px 0 4px">And four marks</h3>
+  <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin:22px 0 4px">And six marks</h3>
   <p class="intro" style="max-width:1080px">Every consequential figure on this page is marked with where it
   comes from. The distinction matters more here than in most supplements, because the module is a
   <b>synthesis</b>: an ACKS II house-rule framework built on English military tenure, and the seams between the
@@ -3873,7 +3876,13 @@ so is <b>how many of each grade render coin instead of a body</b>.</p>
 <script>
 // ================= shared =================
 const fmt = n => Math.round(n).toLocaleString();
-const HENCH  = {1:25, 2:50, 3:100, 4:200, 5:400, 6:800, 7:1600, 8:3000}; // RR p.168
+const HENCH  = {1:25, 2:50, 3:100, 4:200, 5:400, 6:800, 7:1600, 8:3000,
+                9:7250, 10:12000, 11:32000, 12:50000, 13:135000, 14:350000}; // RR p.168
+// ⚠ L9–14 added 2026-08-03 for the appropriate-domain ceiling (MR-REALM-03), read off RR p.168’s
+// own table — the ladder STOPS DOUBLING past L8 (×2.42, 1.66, 2.67, 1.56, 2.70), which is the whole
+// reason a uniform revenue cut cannot produce a uniform level drop. ⚠ RAW’s L0 = 12 gp is
+// deliberately NOT here: the module’s esquire is a flagged extrapolation priced elsewhere, and
+// folding RAW’s L0 into this table would silently re-price him under cover of “completing” it.
 const THRESH = {1:25, 2:75, 3:150, 4:300, 5:600, 6:1200};                // RR p.423
 const CUMXP  = {1:0, 2:2000, 3:4000, 4:8000, 5:16000, 6:32000};          // fighter XP
 const GARR   = [2,3,4];                                                  // RR p.341 (2gp base; borderlands 3, outlands 4)
@@ -7503,6 +7512,23 @@ function pa(income, level){
   return Math.max(-4, Math.min(4, level - b - 1));
 }
 
+// ---- the APPROPRIATE-DOMAIN CEILING (RR p.168) -------------------------------------------------
+// "Henchmen cannot themselves have henchmen unless they rule domains appropriate to their level.
+//  A domain is appropriate to their level if monthly domain income is at least equal to 50% of
+//  their wage."  So the ceiling is the highest wage grade at or under TWICE the monthly income.
+//
+// ⚠ RR p.168 CARRIES TWO DIFFERENT RULES AND THEY ARE EASY TO MERGE BY ACCIDENT. The other one —
+// "a henchman who is given a domain to rule as a vassal does not need to be paid a wage if the
+// domain income is equal to or greater than his wage" — is the WAGE-RELIEF rule, and this module
+// already leans on it in the Terms section (the fee buys the living; RAW limits the service to the
+// call). One is income ≥ wage, the other is income ≥ half the wage. They answer different
+// questions and neither is the other's approximation.
+//
+// **Equality qualifies, and that is RAW's wording rather than a ruling of ours**: "at least equal
+// to 50%". It is not a `>` softened for convenience — it decides an entire row of the comparison,
+// because a Duke's 6,000 gp/mo doubles to exactly L10's 12,000.
+const ceilOf = income => { let L = 0; for(let n = 1; n <= 14; n++) if(HENCH[n] <= 2 * income) L = n; return L; };
+
 const one = n => (Math.round(n*10)/10).toLocaleString();
 const setT = (id, v) => { const e = dG(id); if(e) e.textContent = v; };
 
@@ -7957,7 +7983,7 @@ function render(){
   // the realm as computed, handed out for the self-test — the closure keeps its code, not its
   // results (the three RAW functions go with it, so the tests can check the tables directly)
   FM.realmLast = m;
-  FM.realm = {band, pa, tribute, titleOf};
+  FM.realm = {band, pa, tribute, titleOf, ceilOf};
   // The settlements are closure state, so the self-test cannot found one without a door. It drives
   // the REAL editor — same array, same draw, same render — and hands back the model that came out,
   // rather than a second computation of it. `withTowns` always restores, because the realm suite's
@@ -8088,7 +8114,7 @@ function render(){
       Neither is free — the term is the same term.</div></div>`;
 
   // --- the one readout: his standing, then where his land actually sits
-  const T = m.title.t, paV = pa(m.coin, m.level);
+  const T = m.title.t, paV = pa(m.coin, m.level), ceilL = ceilOf(m.coin);
   const pc = n => Math.round(n / m.famTotal * 100) + "%";
   dG("readout").innerHTML = (T ? `
     <div><span class="tk">Rank ${bdg("raw")}</span>
@@ -8098,11 +8124,22 @@ function render(){
     <div><span class="tk">To vassals</span><span class="tv">${fmt(m.vassFams)} <small>· ${pc(m.vassFams)}</small></span></div>
     <div><span class="tk">To fees</span><span class="tv">${fmt(m.enfFams)} <small>· ${pc(m.enfFams)}</small></span></div>
     <div><span class="tk">Coin in hand</span><span class="tv">${fmt(m.coin)} ${U("gp/mo")}</span></div>
-    <div><span class="tk">Personal authority</span><span class="tv">${paV>=0?"+":""}${paV}</span></div>`
+    <div><span class="tk">Personal authority</span><span class="tv">${paV>=0?"+":""}${paV}</span></div>
+    <div><span class="tk">Appropriate-domain ceiling ${bdg("raw","RR p.168: \"a domain is appropriate to their level if monthly domain income is at least equal to 50% of their wage\" — so the ceiling is the highest wage grade at or under TWICE the coin in hand above. Equality qualifies, in RAW's own words. This is NOT his Rank, which bands on realm families, and NOT his Personal Authority")}</span>
+      <span class="tv${ceilL < m.level ? " bad" : ""}">L${ceilL}</span></div>`
     : `<div><span class="tk">Rank</span><span class="big">—</span></div>
        <div style="font-size:12.5px;font-style:italic">${m.title.note}: this is a manor, not a realm.</div>`)
     + (T && m.title.note ? `<div class="sep"></div><div style="flex-basis:100%;font-size:11.5px;
-       font-style:italic;opacity:.8">${m.title.note} — RAW's grades leave gaps between them.</div>` : "");
+       font-style:italic;opacity:.8">${m.title.note} — RAW's grades leave gaps between them.</div>` : "")
+    // Three answers that look alike and are not: Rank counts FAMILIES, personal authority bands
+    // INCOME against level, and the ceiling asks what level this income could support at all. The
+    // page states all three because a reader who sees only one will read it as the other two.
+    + (T ? `<div class="sep"></div><div style="flex-basis:100%;font-size:11.5px;font-style:italic;opacity:.8">
+       <b>Rank</b> is what his ${fmt(m.famTotal)} families make him; the <b>ceiling</b> is what his
+       ${fmt(m.coin)} <span class="u">gp/mo</span> could support — ${ceilL >= m.level
+         ? `at L${ceilL} it carries the L${m.level} he is`
+         : `at L${ceilL} it does <b>not</b> reach the L${m.level} he is, and RAW's consequence is that
+            his own henchmen may hold none`}. They are different questions and the page keeps them apart.</div>` : "");
 
   // --- cards
   const cards = [];
@@ -8657,6 +8694,48 @@ function selfTest(){
   // every boy to the fees and none to the demesne.
   T("realm default — PA 0 at level 9 (the ward-boys' 180 gp crossed the band)",
     ()=> ifVirgin(()=> eq(FM.realm.pa(R.coin, R.level), 0)));
+
+  // ---- 10a0. THE APPROPRIATE-DOMAIN CEILING (RR p.168) — and the claim it withdraws -----------
+  // RAW: "a domain is appropriate to their level if monthly domain income is at least equal to 50%
+  // of their wage." Ceiling = the highest wage grade at or under 2 × income.
+  //
+  // ⚠ THE POINT OF THIS GROUP IS A CLAIM THIS PROJECT ONCE MADE AND WITHDREW: that moving from ACKS
+  // RAW revenues to the customary rent drops "the whole ladder exactly one level, uniformly". It is
+  // false at two rows of five, and the reason is in the wage table rather than in the revenue: past
+  // L8 the ladder stops doubling (×2.42, 1.66, 2.67, 1.56, 2.70), so a uniform ×2.25 income cut
+  // CANNOT produce a uniform level drop. The five rows below are the withdrawal made checkable —
+  // prose can be re-asserted by a later reader; a red test cannot.
+  {
+    const C = FM.realm.ceilOf;
+    // RAW's Titles of Nobility personal domains (RR p.346) at the two revenue profiles' fee-nets.
+    const ROWS = [["Baron",160,6,7],["Viscount",320,7,8],["Count",780,8,10],
+                  ["Duke",1500,10,10],["King",12500,12,13]];
+    for(const [name, pd, cust, fisc] of ROWS){
+      T(`${name}'s ${fmt(pd)}-family personal domain — L${cust} on the customary rent`,
+        ()=> eq(C(pd * 4), cust));
+      T(`…and L${fisc} on ACKS RAW revenues`, ()=> eq(C(pd * 9), fisc));
+    }
+    T("the drop is NOT uniform — it is −1, −1, −2, 0, −1",
+      ()=> eq(ROWS.map(([,pd,c,f]) => c - f).join(","), "-1,-1,-2,0,-1"));
+    // the single boundary the whole table turns on, and RAW settles it in words: "at least equal
+    // to 50%". A `>` here would move the Duke to L9 and quietly restore the uniform drop.
+    T("EQUALITY QUALIFIES — 6,000 gp/mo doubles to exactly L10's 12,000",
+      ()=> eq(C(6000), 10));
+    T("…and one gp less does not", ()=> eq(C(5999), 9));
+    T("below any wage grade the ceiling is L0, not L1",
+      ()=> eq(C(12), 0));
+    T("the ceiling is monotonic in income",
+      ()=> { let last = 0;
+             for(const inc of [0,12,13,25,400,1500,3000,6000,20000,200000])
+               { const c = C(inc); if(c < last) return `${inc} fell to L${c} from L${last}`; last = c; }
+             return true; });
+    // ⚠ the requirement is that this is its OWN readout: it must be able to disagree with Rank, or
+    // it is Rank wearing a different label. The opening realm is a Count at L9 — the two numbers
+    // are not even the same KIND of thing, so the test asserts they are computed apart.
+    T("the ceiling is not the Rank — a 4,600-family Count on 12 gp/mo still reads L0",
+      ()=> FM.realm.titleOf(4600).t.name === "Count" && C(12) === 0 ? true
+           : "the ceiling moved with the family count");
+  }
 
   // ---- 10a1. THE RULED LADDER — RAW gives the III/IV boundary twice and the two disagree -------
   // 2,500 (Domains) against 1,750 (Mercantile Ventures). Ruled for 2,500 on 2026-08-03. These four
