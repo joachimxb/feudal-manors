@@ -302,6 +302,16 @@
   .writ .wed:hover{border-bottom-color:var(--goldlit);background:rgba(247,233,184,.12)}
   .writ .wed.open{background:var(--goldlit);color:#1a1409;border-bottom-color:transparent}
   .writ .wed.bad{color:#ffbfa8;border-bottom-color:rgba(255,191,168,.6)}
+  /* the same chip in PROSE, in the body's light idiom rather than the writ's parchment-on-dark.
+     A term the reader meets in a sentence opens the dial that sets it. Dashed, not solid, so it
+     reads as "definition" and not as "link" — the page's real links are solid green. */
+  .termchip{display:inline;font:inherit;background:none;border:0;padding:0 1px;margin:0;
+    color:var(--green);border-bottom:1px dashed var(--green);cursor:pointer;font-weight:600}
+  .termchip:hover{background:rgba(47,93,63,.10)}
+  /* the open state is a pale WASH with the ink kept dark — `--gold` (#7d6218) is a dark gold, and
+     using it as a background here would have put dark text on a dark field. */
+  .termchip.open{background:var(--goldlit);color:var(--ink);border-bottom-color:transparent}
+  .termchip:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   /* a computed figure, never a control — the writ's only unclickable emphasis */
   .writ .wv{color:#fff;font-weight:700;background:rgba(247,233,184,.15);border-radius:3px;
     padding:0 4px;font-variant-numeric:tabular-nums}
@@ -616,7 +626,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.11.2 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.12.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -850,6 +860,15 @@
     <b>History</b>, and Hârn, the first application, has its own chapter. All of these are in the
     <b>Library</b> at the foot of this page, with the rest of its chapters beside them — Money, Custom,
     the franchise, and canon's two rules; the working numbers are above it, in the ladder and the muster.
+    <br><br>
+    <b>And the economy itself is one of the rulings.</b> Every gp on this page is priced at a
+    <button type="button" class="termchip" data-pop="pop-cust" aria-expanded="false" aria-controls="pop-cust">custom of record</button> —
+    villeins by custom of the manor, not RAW's free taxed peasantry — which is a choice this module
+    made and defends, not a figure it inherited. It moves every number on the page: the same
+    bachelor's fee is <b>25 families</b> here and <b>12</b> under RAW revenues, because a customary
+    family yields less and it takes more of them to keep one knight. <b>A sceptical reader should
+    open <i>Custom</i> first</b>,
+    before the ladder makes any of the rest look like arithmetic.
   </p>
   </details>
 </section>
@@ -860,7 +879,7 @@
   <b>at the default dials</b> (the customary rent, land 6, borderlands density, distraint century, assize kept, squires ride). Move a
   dial below and the live cards re-price; the figures here are the defaults’, exactly as the engine computes them.</p>
   <div class="walkthrough">
-    <div class="wrow"><span class="wk">The estate</span><span><b>25 families</b> at the customary rent — the smallest estate whose income pays a knight: 25 × 4 gp (land 6 − 2) = <b>100 gp/mo</b>. <i>Under ACKS RAW revenues the same rung is 12 families at 9 gp = 108 gp/mo.</i></span></div>
+    <div class="wrow"><span class="wk">The estate</span><span><b>25 families</b> at the <button type="button" class="termchip" data-pop="pop-cust" aria-expanded="false" aria-controls="pop-cust">customary rent</button> — the smallest estate whose income pays a knight: 25 × 4 gp (land 6 − 2) = <b>100 gp/mo</b>. <i>Under ACKS RAW revenues the same rung is 12 families at 9 gp = 108 gp/mo.</i></span></div>
     <div class="wrow"><span class="wk">What he earns</span><span>100 gp a month against his own 100-gp keep (the L3 henchman wage) — <b>nothing over</b>. The fee pays its man exactly and clears no surplus, which is why a relief is paid by borrowing rather than out of income. <i>Under ACKS RAW revenues, 108 against 100 — 8 gp/mo, less than one family’s output.</i></span></div>
     <div class="wrow"><span class="wk">What he owes</span><span><b>One lance — himself</b>, mounted and mailed, squire and remounts behind him: one month of service a year in kind, and the quota is met the day he rides.</span></div>
     <div class="wrow"><span class="wk">The levy</span><span>5 yeomen (2 heavy foot, 3 light foot), trained and kitted once (≈510 gp, heirloom — kit and skills pass to their sons): <b>42 gp/mo of standing watch</b>, part of the service that keeps the fee quit. <i>Under ACKS RAW revenues the same rung’s 12 families raise 2 yeomen — ≈211 gp once, 18 gp/mo.</i></span></div>
@@ -875,9 +894,10 @@
 
 <section id="sec-terms">
   <h2 class="sechead">The terms</h2>
-  <p class="seclede">Fourteen words carry the module. Plain definitions here — the doctrine behind each lives in the <a href="#sec-library">Library</a>.</p>
+  <p class="seclede">Fifteen words carry the module. Plain definitions here — the doctrine behind each lives in the <a href="#sec-library">Library</a>.</p>
   <div class="notecol">
   <div class="gloss">
+    <div><b>the custom of record</b> — what a family yields its lord: villeins by custom of the manor (the default), or RAW’s free taxed peasantry as a comparison. It is a realm’s economy rather than a century’s, and it reprices every gp on this page.</div>
     <div><b>tenement</b> — a full 30-acre holding, worked by one peasant family: ACKS’s revenue unit, and what every gp on this page is counted in.</div>
     <div><b>household</b> — anyone under a roof. It is what a survey counts, not what a manor rents, and the two are different numbers.</div>
     <div><b>fee</b> — land granted to keep a fighting man: the smallest estate whose income pays his wage.</div>
@@ -3872,7 +3892,24 @@
      see is a typing discipline nobody keeps. -->
 <div class="towns" style="margin-top:18px;border-top:1px solid var(--rule);padding-top:14px">
   <h3 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--gold)">Urban settlements <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--mute)">· RAW's second population <span class="bdg raw" title="RR p.352 — the Domains chapter's own Settlement Population and Paying Expenses tables">RAW</span></span></h3>
-  <p class="pnote" style="margin:0 0 8px">A settlement is <b>not</b> a big village. It has its own revenue line (trade, by market class), its own expenses, and a <b>flat garrison of 2</b> that does not follow the district class — a town in the outlands garrisons at 2, not 4. Below <b>75 families</b> RAW dissolves it into the peasantry, so the editor will not let one exist; its families belong in the rural field above, and moving them is yours to do rather than the page's to do quietly.</p>
+  <p class="pnote" style="margin:0 0 8px">A settlement is <b>not</b> a big village. It has its own revenue line (<b>trade, by its population band</b> — the market class is printed beside it, but the band is what sets the rate), its own expenses, and a <b>flat garrison of 2</b> that does not follow the district class — a town in the outlands garrisons at 2, not 4. Below <b>75 families</b> RAW dissolves it into the peasantry, so the editor will not let one exist; its families belong in the rural field above, and moving them is yours to do rather than the page's to do quietly.</p>
+  <!-- The five questions §5.3 left open are RULED in the comment above `TOWNS`, and four of them were
+       ruled only there. A ruling a reader cannot see is a guess with his name on it, so the ones that
+       change what he should type are stated here, on the card, where he decides. Ruling 4 was already
+       in the paragraph above; ruling 2 belongs with the purse and is said in the live note below. -->
+  <p class="pnote" style="margin:0 0 8px"><b>Three rulings this card makes, said out loud.</b>
+  <b>In demesne only.</b> A town inside a vassal's realm is <i>his</i>: it reaches you through his
+  tribute, which is already keyed on the family count you typed for him — so do not found it here.
+  <b>Many, never pooled.</b> Market class is per settlement: two towns of 200 are two Class&nbsp;V
+  markets, not one Class&nbsp;IV, and pooling them would overstate trade on every realm with two
+  towns. <b>The realm's morale, not its own.</b> RAW is explicit that a settlement shares the base
+  and current morale of the domain it sits in — and because it sits in your demesne, that domain is
+  yours.</p>
+  <p class="pnote" style="margin:0 0 8px"><i>And the class boundary the module rules on does not
+  move your money.</i> Classes&nbsp;V, IV and III all trade at the same rate, so whether a
+  2,000-family town is Class&nbsp;IV or Class&nbsp;III — the boundary RAW gives twice and this module
+  rules at 2,500 — its trade income is identical either way. The class is a label on the market; the
+  band is the rate. The argument is in the Library's <i>franchise</i> chapter.</p>
   <div id="ttable"></div>
   <p style="margin:8px 0"><button id="addt" type="button">+ Found a settlement</button></p>
   <p class="pnote" id="tnote" style="margin:0"></p>
@@ -7185,37 +7222,60 @@ function placePop(el, popId){
   if(top + h > window.innerHeight - 8) top = c.top - h - 6;
   p.style.top = Math.max(8, top) + "px";
 }
-function popTwins(pop){
-  return Array.prototype.slice.call(document.querySelectorAll('#statebar [data-pop="' + pop + '"]'));
+// ---- TWO PLACES A DIAL'S CHIP CAN SIT, and the scope is remembered rather than guessed ----------
+// The writ's chips live in #statebar. Since v3.12.0 a dial can also be chipped IN PROSE, where the
+// reader first meets its name (`.termchip`) — and the two must not be pooled. ⚠ `reanchorPop()`
+// re-places the open popover against `popTwins(pop)[0]`, so a single document-wide query would
+// silently re-anchor a bar-opened popover onto a prose chip halfway up the page the moment the
+// reader scrolled. The scope the reader opened it from is therefore recorded on `dPopOpen` and
+// asked for by name. `popMark` still marks BOTH, because the dial really is open wherever its chip
+// appears — that is a statement about the dial, not about which button was pressed.
+const POPSEL = {bar: '#statebar [data-pop="%"]', prose: '.termchip[data-pop="%"]'};
+const popIn = (pop, scope) =>
+  Array.prototype.slice.call(document.querySelectorAll(POPSEL[scope].replace("%", pop)));
+// the opener's own scope, and the OTHER one behind it: the writ re-renders while a popover is open
+// and a prose chip can be on a tab the reader has since left, so a scope that has gone empty falls
+// back rather than dropping the reader's popover on the floor.
+function popTwins(pop, scope){
+  const mine = popIn(pop, scope === "prose" ? "prose" : "bar");
+  if(mine.length) return mine;
+  return popIn(pop, scope === "prose" ? "bar" : "prose");
 }
+const popAll = pop => popIn(pop, "bar").concat(popIn(pop, "prose"));
 // .open is the state a sighted reader sees; aria-expanded is the same fact for everyone else,
 // and the two are only ever written together.
 function popMark(pop, open){
-  popTwins(pop).forEach(e => {
+  popAll(pop).forEach(e => {              // both scopes: the DIAL is open, whichever chip was pressed
     e.classList.toggle("open", open);
     e.setAttribute("aria-expanded", open ? "true" : "false");
   });
 }
 function closePop(){
   if(!dPopOpen) return;
-  const pop = dPopOpen.pop;
+  const pop = dPopOpen.pop, scope = dPopOpen.scope;   // read BEFORE the state is cleared
   dG(pop).hidden = true;
   popMark(pop, false);
   dPopOpen = null;
   // focus must not be left on a hidden control: if the hand that closed this was inside the
   // popover (Escape, or the × button), hand it back to the chip that opened it — and look the
   // chip up again rather than holding it, since the writ re-renders while a popover is open.
+  // ⚠ Back to the chip in the scope it was opened FROM: a reader who opened the dial from a
+  // sentence has not asked to be sent to the foot of the window.
   const ae = document.activeElement;
-  if(ae && ae.closest && ae.closest(".pop")){ const t = popTwins(pop)[0]; if(t) t.focus(); }
+  if(ae && ae.closest && ae.closest(".pop")){
+    const t = popTwins(pop, scope)[0]; if(t) t.focus(); }
 }
 function reanchorPop(){
   if(!dPopOpen) return;
-  const all = popTwins(dPopOpen.pop);
+  const all = popTwins(dPopOpen.pop, dPopOpen.scope);
   if(!all.length){ closePop(); return; }              // neither view offers that dial now
   popMark(dPopOpen.pop, true);
   placePop(all[0], dPopOpen.pop);
 }
-dG("statebar").addEventListener("click", ev=>{
+// ⚠ DELEGATED ON THE DOCUMENT since v3.12.0, not on #statebar, because a dial's chip can now sit in
+// prose as well as in the writ. The scope is taken from where the click LANDED and recorded, so that
+// scroll-reanchoring and focus-return go back to the chip the reader actually pressed.
+document.addEventListener("click", ev=>{
   const t = ev.target.closest("[data-pop]");
   if(!t) return;
   ev.stopPropagation();
@@ -7223,7 +7283,7 @@ dG("statebar").addEventListener("click", ev=>{
   if(dPopOpen && dPopOpen.pop === pop){ closePop(); return; }
   closePop();
   syncMirrors();                                       // the popover reads the real control on opening
-  dPopOpen = {pop: pop};
+  dPopOpen = {pop: pop, scope: t.closest("#statebar") ? "bar" : "prose"};
   popMark(pop, true);
   placePop(t, pop);
   // a click from the keyboard (Enter or Space on the chip) reports detail 0. Only then does
@@ -7234,7 +7294,11 @@ dG("statebar").addEventListener("click", ev=>{
   }
 });
 document.querySelectorAll("[data-popclose]").forEach(b=>b.addEventListener("click", closePop));
-document.addEventListener("click", ev=>{ if(dPopOpen && !ev.target.closest(".pop")) closePop(); });
+// ⚠ …and this one must not undo the one above. Both are now on `document`, so the opener's
+// stopPropagation() cannot reach a sibling listener on the same node — only the chip test can.
+// Without it, every prose chip would open its popover and close it again in the same click.
+document.addEventListener("click", ev=>{
+  if(dPopOpen && !ev.target.closest(".pop") && !ev.target.closest("[data-pop]")) closePop(); });
 document.addEventListener("keydown", ev=>{ if(ev.key === "Escape") closePop(); });
 addEventListener("scroll", ()=>{ if(dPopOpen) reanchorPop(); }, {passive:true});
 addEventListener("resize", ()=>{ barFit(); if(dPopOpen) reanchorPop(); });
@@ -7906,6 +7970,15 @@ dG("addv").addEventListener("click", ()=>{ VASS.push({id:vNext++, fam:160, paren
 // THE FIVE QUESTIONS the spec left open (§5.3), ruled — because rule 4 cannot be written until they
 // are, and an unruled question in a shipped model is a guess with no name on it:
 //
+// ⚠ WHERE EACH IS SAID, and the claim that used to be false. Ruling 1 ended "Stated as a BOUND, on
+// the card, not hidden in a comment" — written inside the comment, and nothing rendered said it.
+// Four of the five were in that position: only ruling 4 (the 75-family refusal) reached the reader.
+// ⚠ **A comment asserting that its own content is not a comment is the strongest form of this
+// defect**, because it reads as evidence the work was done. Since v3.12.0 the card states rulings
+// 1, 3 and 5 in the settlements block, ruling 2 in the live note under the table, and 4 stays where
+// it was — and `check_settlement_rulings` (gate G9) binds each of the five to rendered text, so the
+// next ruling added here cannot be ruled in a comment alone.
+//
 //   1. Held in demesne, or inside a vassal's domain?  → IN DEMESNE, and only in demesne. A town
 //      inside a vassal's realm is HIS town: it enters this card through his tribute, which RAW
 //      already keys on his realm's family count — a number the reader types. Modelling it here
@@ -8307,7 +8380,16 @@ function render(){
     const was = TOWNS;
     TOWNS = fams.map((f, i) => ({id:20000 + i, fam:f}));
     drawTowns(); render();
-    const out = {m:FM.realmLast, cards:dG("cards").innerHTML, readout:dG("readout").innerHTML};
+    // ⚠ `tnote` joined this door at v3.12.0. It is the live note under the settlements table and it
+    // is where §5.3's ruling 2 (the town's income reaches the lord DIRECTLY, untributed) is stated
+    // — so gate G9 needs to read it, and a surface no door opens is a surface no gate can bind.
+    // ⚠ tnote is read through textContent because `setT` WRITES textContent. A browser reflects one
+    // into the other and either would work there; the Node harness's element stub keeps them apart,
+    // so reading innerHTML here returns "" and a gate bound to this surface reports the text absent
+    // while the page renders it perfectly. Read the property the writer wrote.
+    const out = {m:FM.realmLast, cards:dG("cards").innerHTML, readout:dG("readout").innerHTML,
+                 tnote:dG("tnote").textContent || dG("tnote").innerHTML || "",
+                 ttable:dG("ttable").innerHTML};
     TOWNS = was; drawTowns(); render();
     return out;
   };
@@ -8343,7 +8425,9 @@ function render(){
   setT("tnote", m.towns.length
     ? `${m.towns.length} settlement${m.towns.length>1?"s":""} · ${fmt(m.urbanTotal)} urban families · `
       + `${fmt(m.urbanNet)} gp/mo after RAW's four expense lines — trade + 1 a family, `
-      + `which is the figure RAW's own benchmark table prints. They are counted for the realm's `
+      + `which is the figure RAW's own benchmark table prints. It reaches you DIRECTLY, on the same `
+      + `footing as the demesne — a settlement in demesne is not tributed and nothing is withheld. `
+      + `They are counted for the realm's `
       + `TITLE (${fmt(m.titlePop)} families in all) and for nothing else: no land income, no `
       + `district garrison, no militia, no fee acreage, no density.`
     : "");
