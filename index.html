@@ -517,15 +517,39 @@
     padding:9px 13px;font-size:12.5px;color:var(--mute);margin:14px 0;max-width:900px}
   #tab-realms .proto b{color:var(--ink)}
   /* a fixed three-column grid, not auto-fit: six dials sit as two even rows instead of a ragged
-     five-and-one, and every control bottom-aligns however many lines its label runs to */
+     five-and-one, and every control aligns with its neighbours' however many lines its label runs to.
+     ⚠ THE CONTROLS USED TO BE BOTTOM-ALIGNED — `margin-top:auto` on the input, against a cell
+     stretched to the row's height — and that rule bought the alignment from the wrong quantity.
+     It aligns the LAST item in the cell, so it only ever worked for cells whose control IS the last
+     item: measured at 1400px with every fold shut, the controls in a row already stood 65–71px
+     apart, because `r_land` carries an explanatory line after its select and `r_scutmo` a fold.
+     Opening a ⚖ Deeper took that to 576px — the neighbour's control fell most of a screen below its
+     own label, which is what a reader sees as the grid breaking.
+     The fix is to stop distributing the row's spare height at all (`align-items:start`) and to buy
+     the alignment from the LABEL instead: a two-line floor, which is what every label runs to at
+     every width the geometry gate measures except 1024–1280, where one or three run to three lines
+     and sit one line lower than their neighbours — local, self-evident, and not 576px. A fold now
+     grows its own cell downward and moves nothing. */
   #tab-realms .dials{display:grid;grid-template-columns:repeat(3,1fr);gap:13px 18px;
+    align-items:start;
     background:var(--alt);border:1px solid var(--rule);border-radius:6px;padding:14px}
   @media (max-width:860px){ #tab-realms .dials{grid-template-columns:repeat(2,1fr)}  }
   @media (max-width:540px){ #tab-realms .dials{grid-template-columns:1fr}  }
   #tab-realms .field{display:flex;flex-direction:column}
   #tab-realms .field label{display:block;font-size:12px;color:var(--mute);margin-bottom:3px;font-weight:600}
+  /* the two-line floor that now carries the alignment — see the note on .dials above */
+  #tab-realms .dials .field label{min-height:2.9em}
+  /* …and a three-line floor in the band where three columns are still shown but are narrow enough
+     that the longest hints wrap to three. Scoped to the band that needs it rather than paid for
+     everywhere, and the band was MEASURED rather than reasoned about: removing this rule and
+     sweeping twenty widths puts 15px back at 900, 960 and 1024 and nowhere else. The lower bound
+     sits just above the 3→2 column breakpoint at 860. */
+  @media (min-width:861px) and (max-width:1320px){
+    #tab-realms .dials .field label{min-height:4.3em}
+  }
   #tab-realms .field .hint{font-weight:400;color:var(--hint);font-style:italic}
-  #tab-realms .field input, #tab-realms .field select{margin-top:auto}
+  /* a ⚖ Deeper sits under its control, not against the bottom of a stretched cell */
+  #tab-realms .dials .field details.deeper{margin:9px 0 0}
   /* one explicit height on both, or a number input and a select disagree by a pixel */
   #tab-realms .field input[type=number], #tab-realms .field select{width:100%;height:32px;padding:4px 7px;
     border:1px solid var(--rule2);border-radius:4px;font:inherit;font-size:14px;background:#fff;
@@ -635,7 +659,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.17.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.17.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -3912,7 +3936,7 @@
       <option value="2">outlands — 4 gp/family</option>
     </select></div>
 
-  <div class="field"><label for="dmil"><span class="bdg raw" title="RR p.432 sets the militia at up to 2 per 10 families; RR pp.341–2 grants the garrison credit for troops &quot;even if the militia is not called up&quot;. Both halves are RAW; that the FEE is quit of the line by this service is the module's, and is badged in the ⚖ doctrine table">RAW</span> The demesne militia <span class="hint">(2 per 10 families, trained — credit counts even uncalled, RR p.341/432)</span></label>
+  <div class="field"><label for="dmil"><span class="bdg raw" title="RR p.432 sets the militia at up to 2 per 10 families; RR pp.341–2 grants the garrison credit for troops &quot;even if the militia is not called up&quot;. Both halves are RAW; that the FEE is quit of the line by this service is the module's, and is badged in the ⚖ doctrine table">RAW</span> The demesne militia <span class="hint">(2 per 10 families, trained — RR&nbsp;p.341/432)</span></label>
     <select id="dmil">
       <option value="1" selected>raised and trained — the credit runs</option>
       <option value="0">not raised — the garrison is paid in coin</option>
@@ -3991,7 +4015,7 @@
        ⚠ AND THE PROHIBITION IS NOW ASSERTED, not merely enforced by the dial's absence from the
        fee tier. Self-test 32 drives this dial to 12 and requires every Domains-tab figure to be
        unmoved. It is trivially true today; that is the point of writing it down. -->
-  <div class="field"><label for="r_scutmo"><span class="bdg raw" title="RR p.346 — RAW's scutage is a standing monthly rate on a tribute vassal, running until the duty is revoked. The ~6-month expectation is read off RAW's own Favor/Duty clock; that it is never offered at the fee tier is the module's ruling">RAW</span> Months the levy stands <span class="hint">(scutage runs until revoked — RR p.346; the table's clock makes ~6 the expectation)</span></label>
+  <div class="field"><label for="r_scutmo"><span class="bdg raw" title="RR p.346 — RAW's scutage is a standing monthly rate on a tribute vassal, running until the duty is revoked. The ~6-month expectation is read off RAW's own Favor/Duty clock; that it is never offered at the fee tier is the module's ruling">RAW</span> Months the levy stands <span class="hint">(runs until revoked — RR&nbsp;p.346)</span></label>
     <select id="r_scutmo">
       <option value="1" selected>1 — a single month</option>
       <option value="3">3 — a season</option>
