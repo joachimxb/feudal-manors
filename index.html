@@ -95,8 +95,13 @@
   .eracard .body .req{color:var(--gold);font-weight:700}
   .walkthrough{background:#fff;border:1px solid var(--rule);border-left:4px solid var(--green);border-radius:6px;
     padding:12px 18px;max-width:820px;margin:12px 0}
-  .walkthrough .wrow{display:flex;gap:12px;padding:6px 0;border-top:1px solid var(--alt);font-size:13px}
-  .walkthrough .wrow:first-of-type{border-top:none}
+  /* ⚠ `.rrow` IS THE SAME ROW. The Realms example was given its own class so gate G10 could parse it
+     without matching the manor's rows, and the class was then never given the layout — so its keys
+     ran inline into their own text ("The honour4,600 families"). G10 was green throughout: it reads
+     the FIGURES, and a figure is right whether or not the reader can tell where the key ends. Two
+     names for one row is fine; two names and one stylesheet entry is not. */
+  .walkthrough .wrow, .walkthrough .rrow{display:flex;gap:12px;padding:6px 0;border-top:1px solid var(--alt);font-size:13px}
+  .walkthrough .wrow:first-of-type, .walkthrough .rrow:first-of-type{border-top:none}
   .walkthrough .wk{min-width:160px;font-weight:700;color:var(--green);flex-shrink:0}
   .stepper{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:12px;margin:12px 0;align-items:start}
   .stepcard{background:#fff;border:1px solid var(--rule);border-top:4px solid var(--gold);border-radius:6px;padding:10px 13px}
@@ -659,7 +664,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.17.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.17.2 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -8277,6 +8282,17 @@ dG("addv").addEventListener("click", ()=>{ VASS.push({id:vNext++, fam:160, paren
 //      simplification here and would overstate trade revenue on every realm that has two towns.
 let TOWNS = [];
 let tNext = 1;
+// ⚠ THE REMOVE BUTTON IS class="x", NOT class="mini". It was written in v3.6 asking for a class the
+// stylesheet has never had, while the rule it wanted — #tab-realms button.x, small and red — had
+// been sitting there since v3 carrying the vassal table's identical ×. So two remove buttons in
+// adjacent tables rendered differently for eight releases. Nothing was missing: the markup was
+// asking for a name nobody had written, which is why no gate that reads the CSS could see it.
+// Gate G8's Q7 asks the question now — every class in use has a rule, or a declared reason not to.
+//
+// ⚠ And this note lives HERE rather than inside the row template, where it was first written: the
+// template is a template literal, the note quoted class names in backticks, and the first backtick
+// ended the string. The page stopped running; G8's positive control aborted instead of sweeping a
+// dead document. Nothing in a template literal may carry a backtick.
 function drawTowns(){
   const wrap = dG("ttable");
   if(!TOWNS.length){
@@ -8302,7 +8318,7 @@ function drawTowns(){
         <td class="edit"><input type="number" id="tf_${t.id}" aria-label="Settlement ${i+1} — urban families" min="${URBAN.min}" max="100000" step="5" value="${t.fam}"></td>
         <td id="tc_${t.id}">—</td><td id="tt_${t.id}">—</td><td id="tg_${t.id}">—</td>
         <td id="te_${t.id}">—</td><td id="ti_${t.id}">—</td>
-        <td><button type="button" class="mini" data-trm="${t.id}" aria-label="Remove settlement ${i+1}">×</button></td>
+        <td><button type="button" class="x" data-trm="${t.id}" aria-label="Remove settlement ${i+1}">×</button></td>
       </tr>`).join("") + `</tbody></table></div>`;
   }
   TOWNS.forEach(t => { const e = dG("tf_"+t.id); if(e) e.addEventListener("input", ()=>{
