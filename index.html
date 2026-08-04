@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.9.3 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.9.4 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -8130,6 +8130,21 @@ function render(){
     TOWNS = was; drawTowns(); render();
     return out;
   };
+  // ⚠ A SECOND DOOR, because the first one hands back the MODEL and B7/B8 were defects of the
+  // RENDER. Both cards computed correctly all along: `coin` always included `urbanNet`, and Rank
+  // always banded on `titlePop`. What shipped wrong was the surface — the lord's-coin card printed
+  // a total 5,000 gp/mo above the sum of its own visible rows, and the readout said "Rank is what
+  // his 4,600 families make him" beside a Duke that 4,600 families cannot make. A model assertion
+  // could not have caught either, and `realmTowns` restores before anything can read the DOM.
+  // This returns the rendered HTML of both surfaces, taken while the settlement stands.
+  FM.realmTownsRendered = fams => {
+    const was = TOWNS;
+    TOWNS = fams.map((f, i) => ({id:20000 + i, fam:f}));
+    drawTowns(); render();
+    const out = {m:FM.realmLast, cards:dG("cards").innerHTML, readout:dG("readout").innerHTML};
+    TOWNS = was; drawTowns(); render();
+    return out;
+  };
   // Same contract as realmTowns and for the same reason: the ward dial is a control, so a test that
   // wants a realm WITH ward has to drive it and put it back. Always restores, including on the
   // arithmetic below throwing — a hook that leaves a dial moved poisons every later assertion in
@@ -8255,7 +8270,8 @@ function render(){
   dG("readout").innerHTML = (T ? `
     <div><span class="tk">Rank ${bdg("raw")}</span>
       <span class="big">${T.name}</span></div>
-    <div><span class="tk">Realm</span><span class="tv">${fmt(m.famTotal)} <small>families</small></span></div>
+    <div><span class="tk">Realm</span><span class="tv">${fmt(m.titlePop)} <small>families${
+      m.urbanTotal ? ` · ${fmt(m.ruralTotal)} rural + ${fmt(m.urbanTotal)} urban` : ""}</small></span></div>
     <div><span class="tk">In hand</span><span class="tv${m.illegal?" bad":""}">${fmt(m.rawDem)} <small>· ${pc(m.rawDem)}</small></span></div>
     <div><span class="tk">To vassals</span><span class="tv">${fmt(m.vassFams)} <small>· ${pc(m.vassFams)}</small></span></div>
     <div><span class="tk">To fees</span><span class="tv">${fmt(m.enfFams)} <small>· ${pc(m.enfFams)}</small></span></div>
@@ -8271,7 +8287,12 @@ function render(){
     // INCOME against level, and the ceiling asks what level this income could support at all. The
     // page states all three because a reader who sees only one will read it as the other two.
     + (T ? `<div class="sep"></div><div style="flex-basis:100%;font-size:11.5px;font-style:italic;opacity:.8">
-       <b>Rank</b> is what his ${fmt(m.famTotal)} families make him; the <b>ceiling</b> is what his
+       <b>Rank</b> is what his ${fmt(m.titlePop)} families make him${m.urbanTotal
+         ? ` — <b>rural and urban together</b>, because RAW adds a settlement's people to the realm total
+            for these purposes (p.352), so the ${fmt(m.ruralTotal)} on the land alone would name him
+            ${titleOf(m.ruralTotal).t ? titleOf(m.ruralTotal).t.name : "no rank at all"}; the shares above are of
+            the <b>rural</b> families, which are the only ones that hold land`
+         : ""}; the <b>ceiling</b> is what his
        ${fmt(m.coin)} <span class="u">gp/mo</span> could support — ${ceilL >= m.level
          ? `at L${ceilL} it carries the L${m.level} he is`
          : `at L${ceilL} it does <b>not</b> reach the L${m.level} he is, and RAW's consequence is that
@@ -8289,6 +8310,8 @@ function render(){
     <div class="lrow"><span class="lk">Demesne — net</span><span class="lvv">${gpm(m.demNet)}</span></div>
     <div class="lrow"><span class="lk">Vassal tribute — gross ${bdg("raw")}</span><span class="lvv">${fmt(m.vassGross)} ${U("gp/mo")}</span></div>
     <div class="lrow"><span class="lk">…after Tribute Inefficiency (${Math.round(m.fB*100)}% on ${fmt(m.payers)} vassal${m.payers===1?"":"s"})</span><span class="lvv">${fmt(m.tribNet)} ${U("gp/mo")}</span></div>
+    ${m.urbanNet ? `<div class="lrow"><span class="lk">Urban settlements — net ${bdg("raw","RR p.352 — ‘add the urban settlement’s income to the domain income’. It enters the purse on the same footing as the demesne and does NOT pass through the rural rate: the town’s garrison is already off its own line")}</span><span class="lvv">${fmt(m.urbanNet)} ${U("gp/mo")}</span></div>
+    <div class="lrow sub">${m.towns.length} settlement${m.towns.length===1?"":"s"} holding ${fmt(m.urbanTotal)} families, priced on the urban schema — gross ${fmt(m.urbanGross)}, less garrison ${fmt(m.urbanGarr)} and ${fmt(m.urbanFixed)} fixed (the settlements card below itemizes each).</div>` : ""}
     <div class="lrow hi"><span class="lk">Coin in hand — his to spend ${bdg("mod","the quittance — enfeoffed land renders no coin and carries no garrison line. This module’s doctrine, not RAW’s: argued, bounded and priced in the ⚖ table on Feudal Domains")}</span><span class="lvv">${fmt(m.coin)} ${U("gp/mo")}</span></div>
     <div class="lrow sub">Scutage is <b>not here</b>: RAW earmarks it — "a lord who receives scutage
       must spend the funds on troops" (p.346) — so its ${fmt(m.scutNet)} ${U("gp/mo")} is reported against the
@@ -8941,6 +8964,65 @@ function selfTest(){
     ()=> eq(town(2000).titlePop, none().ruralTotal + 2000));
   T("…and their income IS the lord's — the purse moves by exactly the settlement's net",
     ()=> eq(town(2000).coin - none().coin, town(2000).urbanNet));
+  // --- B7 / B8: the two defects that were RENDER and not model -------------------------------
+  // Both were invisible at the shipped default (no towns) and to every numeric gate: `cmprealm`
+  // compares model fields and never renders a card, and the sweep's manifest records the realm
+  // readout as "covered by cmprealm", which was true of the numbers and false of the surface.
+  // A reader who founds one settlement met a card whose printed total exceeded the sum of its own
+  // visible rows by the town's entire net — a 100% discrepancy on screen, using a shipped feature.
+  const rend = fams => FM.realmTownsRendered(fams);
+  const gpOf = s => Number(String(s).replace(/[^0-9.]/g, ""));
+  const rowsOf = html => {
+    // the lord's-coin card only: from its own heading to the next card
+    const card = (html.split(/<div class="card pur"/)[0] || "");
+    const txt = card.replace(/<span class=['"]u['"]>([\s\S]*?)<\/span>/g, "$1")
+                    .replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+    // ⚠ A BADGE RENDERS ITS KIND AS TEXT between the label and the value ("… — net RAW 5,000 gp/mo"),
+    // so a pattern that put the number straight after the label read null and the first draft of
+    // these tests failed on the parser rather than on the page. Same class as check_vassal_card's
+    // `.u` unwrap: a gate that reads markup instead of values keeps finding new ways to say so.
+    const grab = re => { const m = txt.match(re); return m ? gpOf(m[1]) : null; };
+    const V = "(?:[A-Z]+ )?(−?[\\d,.\\s]+?) gp\\/mo";
+    return {
+      dem:   grab(new RegExp("Demesne — net " + V)),
+      trib:  grab(new RegExp("after Tribute Inefficiency \\([^)]*\\) " + V)),
+      urban: grab(new RegExp("Urban settlements — net " + V)),
+      total: grab(new RegExp("Coin in hand — his to spend " + V)) };
+  };
+  T("B8 — the lord's coin card ADDS UP with a settlement founded", ()=> {
+    const r = rowsOf(rend([2000]).cards);
+    if(r.urban === null) return "no urban row on the card — the total includes income nothing itemizes";
+    const sum = r.dem + r.trib + r.urban;
+    return Math.abs(sum - r.total) <= 1 ? true
+      : `rows ${r.dem} + ${r.trib} + ${r.urban} = ${sum}, card prints ${r.total}`; });
+  T("…and still adds up with no settlement at all — the row is conditional, not always-on", ()=> {
+    const r = rowsOf(rend([]).cards);
+    if(r.urban !== null) return "an urban row rendered with no settlement founded";
+    return Math.abs((r.dem + r.trib) - r.total) <= 1 ? true
+      : `rows ${r.dem} + ${r.trib} = ${r.dem + r.trib}, card prints ${r.total}`; });
+  T("…and with two, by exactly the two nets together", ()=> {
+    const r = rowsOf(rend([300, 300]).cards);
+    return Math.abs((r.dem + r.trib + r.urban) - r.total) <= 1 ? true
+      : `rows sum ${r.dem + r.trib + r.urban}, card prints ${r.total}`; });
+  T("B7 — the readout's Rank sentence names the population Rank actually bands on", ()=> {
+    const {m, readout} = rend([20000]);
+    const txt = readout.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+    const said = (txt.match(/Rank is what his ([\d,.  ]+?) families/) || [])[1];
+    // the rank itself was always right; the sentence explaining it named the rural count
+    return gpOf(said) === m.titlePop ? true
+      : `sentence says ${said}, Rank bands on ${m.titlePop} (and prints ${m.title.t.name})`; });
+  T("…and this is the state where the old sentence CONTRADICTED the rank above it", ()=> {
+    const {m} = rend([20000]);
+    const ruralTitle = FM.realm.titleOf(m.ruralTotal).t;
+    return (m.title.t.name === "Duke" && ruralTitle.name === "Count") ? true
+      : `titlePop ${m.titlePop} → ${m.title.t.name}, rural ${m.ruralTotal} → ${ruralTitle && ruralTitle.name}`; });
+  T("…and the Realm row prints the same total, split when there are towns", ()=> {
+    const {m, readout} = rend([2000]);
+    const txt = readout.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ");
+    const shown = (txt.match(/Realm ([\d,.  ]+?) families/) || [])[1];
+    return (gpOf(shown) === m.titlePop && /rural \+/.test(txt)) ? true
+      : `Realm row shows ${shown}, titlePop ${m.titlePop}, split ${/rural \+/.test(txt)}`; });
+
   // §2.2's override, which is the whole reason the Library has a chapter called The franchise:
   // the manorial reading stops at the town wall. A borough is free, taxed and commercial.
   T("the custom of record does not reach the town wall",
