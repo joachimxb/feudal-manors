@@ -186,7 +186,7 @@
   /* --- provenance: where a claim comes from, printed where the claim is made ---------------
      The module's honesty was already written down — in the ⚖ doctrine tables, in the Library,
      at the foot of the argument. A reader forms his belief at the switch, though, not in the
-     appendix, so the mark goes on the row. Four marks, one vocabulary, every tab. */
+     appendix, so the mark goes on the row. Six marks, one vocabulary, every tab. */
   .bdg{display:inline-block;font-family:ui-monospace,"Consolas",monospace;font-size:8.5px;
     font-weight:700;text-transform:uppercase;letter-spacing:.07em;line-height:1.6;
     padding:0 4px;border-radius:3px;border:1px solid;vertical-align:1px;white-space:nowrap;
@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.10.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.11.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -847,8 +847,9 @@
     2nd&nbsp;printing and its Major Errata. The rulings that depart from strict RAW are not buried: each is
     named, priced, and defended in the <b>⚖ doctrine tables</b> and the <b>Design</b> chapter — where the
     module argues against itself, the deviations are the honest part. The dated sources sit in
-    <b>History</b>, and Hârn, the first application, has its own chapter. All four are in the
-    <b>Library</b> at the foot of this page; the working numbers are above it, in the ladder and the muster.
+    <b>History</b>, and Hârn, the first application, has its own chapter. All of these are in the
+    <b>Library</b> at the foot of this page, with the rest of its chapters beside them — Money, Custom,
+    the franchise, and canon's two rules; the working numbers are above it, in the ladder and the muster.
   </p>
   </details>
 </section>
@@ -1040,11 +1041,11 @@
 
 <section id="sec-dials">
   <h2 class="sechead">The dials</h2>
-  <p class="seclede">Eight levers set the world; every card, table, and flag below re-computes as they move. Each
+  <p class="seclede"><span class="ct" data-ct="levers" data-cap></span> levers set the world; every card, table, and flag below re-computes as they move. Each
   carries its plain-language effect up front and its full reasoning — the module's actual argument, unabridged — in
-  a ⚖ <b>Deeper</b> inset. The two live readouts (the standing-manor line under the land lever, the parceling check
-  under density) recompute with everything else. <b>You need not scroll back here to move them:</b> the campaign-state
-  bar at the top of the page carries the seven that describe the estate, and clicking any chip opens that dial's control beside the manor
+  a ⚖ <b>Deeper</b> inset. The <span class="ct" data-ct="reads"></span> live readouts (the standing-manor line under the land lever, the parceling
+  check under density, the scutage reading and the era reading) recompute with everything else. <b>You need not scroll back here to move them:</b> the campaign-state
+  bar at the top of the page carries the <span class="ct" data-ct="terms"></span> that describe the estate, and clicking any chip opens that dial's control beside the manor
   cards you are reading.</p>
   <!-- THE MANOR SHEET — the estate as a sheet rather than a sentence. Written by renderSheet(),
        from the same st + F that write the writ, so the two can never disagree. Everything in it
@@ -1074,7 +1075,7 @@
     <div class="ldesc">3d3 per hex, rolled when the domain is secured (RR p.338) — average 6. What a fee-holder <i>nets</i> from a family depends on the <b>custom of record</b> below — <b>land + 3</b> under ACKS RAW revenues, <b>land − 2</b> under the customary rent — and the live figure is printed beside the slider. The slider prices the <b>floor at grant-time</b>: on rich dirt a lord seats the same man on fewer families — and will, since every family he grants away costs him more demesne there. Standing manors don't shrink — moving the slider reprices a <i>fresh grant</i>, it does not follow one manor through changing fortunes; the grown manor (Muster section) does that.</div></details>
     <div class="rangewrap"><input type="range" id="land" min="3" max="9" step="1" value="6" aria-labelledby="ln-land"><output class="val" id="landv" for="land"></output></div>
     <div class="rollrow"><button type="button" class="sbtn" id="rolland">Roll 3d3</button><output class="rolled" id="rolledv" for="rolland"></output></div>
-    <div class="ldesc" id="standing" style="margin-top:6px"></div>
+    <div class="ldesc liveread" id="standing" style="margin-top:6px"></div>
   </div>
 
   <div class="lever">
@@ -1082,8 +1083,9 @@
     <div class="ldesc" style="font-weight:700;color:var(--green);margin-bottom:2px">How crowded is it? — how much ground one fee takes up</div>
     <div class="ldesc lead">Turns families into ground: how many families a 6-mile hex carries, and how much of a hex each fee occupies (the parceling check below). Doubles as a reading of the century.
     <b>These are ACKS's own class settings</b> — 185 / 375 / 780 families a hex, RR&nbsp;p.340 — and <b>not</b>
-    demographic estimates of England: the two entries that name real places (425, 120) are the module's
-    readings, offered for comparison, and every figure here is a dial the Judge may overrule.</div>
+    demographic estimates of England: the <span class="ct" data-ct="places"></span> entries that name real places
+    (425, 350, 120) are the module's readings, offered for comparison, and every figure here is a dial the Judge
+    may overrule.</div>
     <details class="deeper"><summary>⚖ Deeper — RAW’s hex caps, the class ladder, and the century</summary>
     <div class="ldesc">RAW caps a 6-mile hex — ~31 sq mi, ~20,000 acres — at <b>185 / 375 / 780</b> families for
     outlands / borderlands / civilized (RR p.340, Limits of Growth). Density turns a fee's families into <b>ground</b>,
@@ -1103,14 +1105,14 @@
     <div class="field" style="margin:4px 0;max-width:340px">
       <select id="dens" aria-labelledby="ln-dens">
         <option value="780">Civilized cap — 780 fam/hex (~26 ac per family)</option>
-        <option value="425">Historical England — 425 fam/hex (47 ac)</option>
+        <option value="425" data-place>Historical England — 425 fam/hex (47 ac)</option>
         <option value="375" selected>Borderlands cap — 375 fam/hex (~53 ac)</option>
-        <option value="350">Kaldor — 350 fam/hex (57 ac)</option>
+        <option value="350" data-place>Kaldor — 350 fam/hex (57 ac)</option>
         <option value="185">Outlands cap — 185 fam/hex (~108 ac)</option>
-        <option value="120">Domesday England — 120 fam/hex (~166 ac)</option>
+        <option value="120" data-place>Domesday England — 120 fam/hex (~166 ac)</option>
       </select>
     </div>
-    <div class="ldesc" id="parcel" style="margin-top:2px"></div>
+    <div class="ldesc liveread" id="parcel" style="margin-top:2px"></div>
   </div>
 
   <div class="lever">
@@ -1275,11 +1277,12 @@
 
 
   <div class="lever">
-    <div class="lname"><span id="ln-scut">The scutage rate — what coin buys off a lance</span> <span class="bdg mod" title="the DEFAULT is RAW to the gold piece — the Call to Arms at 1 gp per family (p.346), divided by fee-equivalents and quantized to the year's one month. The other two settings are the module's, and the rate is a lever because historically it was one">MODULE</span></div>
+    <div class="lname"><span id="ln-scut">The scutage rate — what coin buys off a lance</span> <span class="bdg mod" title="the DEFAULT is RAW to the gold piece — the Call to Arms at 1 gp per family (p.346), divided by fee-equivalents and quantized to the year's one month. The other settings are the module's, and the rate is a lever because historically it was one">MODULE</span></div>
     <div class="ldesc" style="font-weight:700;color:var(--green);margin-bottom:2px">What does it cost to commute one missing lance?</div>
     <div class="ldesc lead">What a fee pays when no body rides. <b>RAW anchor</b>: the estate's own Call-to-Arms
     value, 1 gp a family — the default, and RAW exactly. <b>Customary Angevin</b>, <b>John's</b> and <b>later
-    negotiated</b> price the century's postures, from about a quarter of a substitute's hire down to a decayed
+    negotiated</b> price the century's postures, from <b>John's</b> half of a substitute's hire — raised, resisted,
+    and a cause of 1215 — through the customary quarter down to a decayed
     sixth. <b>The requirement in full</b>: the crown charges the whole recorded requirement, and commutation
     stops being a bargain — though under the ordinance even that buys no lance, the paper standing at 100 and
     the lance costing 145.</div>
@@ -1307,7 +1310,7 @@
         <option value="full">The requirement in full — the whole recorded paper, in coin</option>
       </select>
     </div>
-    <div class="ldesc" id="scutread" style="margin-top:4px"></div>
+    <div class="ldesc liveread" id="scutread" style="margin-top:4px"></div>
   </div>
   <div class="lever" style="grid-column:1/-1;max-width:none">
     <div class="lname">The century — era presets <span class="bdg his" title="each preset is a deliberate composite of one century’s tendencies, not a snapshot of a year. The densities are ACKS class settings, not English demography">HISTORY</span></div>
@@ -1317,7 +1320,7 @@
     beside what each century actually meant — it is not repeated here.</div>
     <details class="deeper"><summary>⚖ Deeper — what the presets set and what they leave alone</summary>
     <div class="ldesc">The era table (<b>History</b> chapter, Library) read as dial settings: pick a century and the land, density,
-    assize, and assessment dials move to its values — a starting point, not a lock; every dial stays live after, and
+    assize, assessment, and definition-of-record dials move to its values — a starting point, not a lock; every dial stays live after, and
     touching one clears the preset back to "dial your own." Fosterage is left out of the presets on purpose: it is a
     realm's custom, not a century's. Kaldor's home setting is the distraint century.</div></details>
     <select id="l_era" class="srsel" aria-hidden="true" tabindex="-1" aria-label="The century — era preset">
@@ -1327,7 +1330,7 @@
       <option value="distraint" selected>The distraint century, 13th — the full ladder (Kaldor)</option>
       <option value="indenture">Indenture &amp; after, 14th–15th — the margin universal</option>
     </select>
-    <div class="ldesc" id="eraread" style="margin-top:2px"></div>
+    <div class="ldesc liveread" id="eraread" style="margin-top:2px"></div>
   </div>
   </div><!-- /levers -->
 </section>
@@ -1737,9 +1740,10 @@
     The margin that funds all of this has a legal engine, and the module dials it (the assessment lever, Dials section). A charter writes <b>three things — the count of lances, the definition of a lance, and the term</b> —
     once, at the grant ("holds by the service of N knights," priced from the
     land's income by this module's own table), and the assize then polices <b>kit against the paper</b>, never
-    wealth: no one re-rates a manor for prospering. The paper is rewritten at exactly four events: <b>escheat and
-    re-grant</b> (the new charter prices at current income — the same event where recruitment logic runs, Ladder section); <b>new enfeoffment</b>, including subinfeudation; <b>royal inquest</b> (Domesday, the cartae of 1166,
-    Kirkby's Quest — generational, resisted, dear); and <b>distraint</b>, the crown's cheap workaround — which
+    wealth: no one re-rates a manor for prospering. The paper is rewritten at exactly three events: <b>escheat and
+    re-grant</b> (the new charter prices at current income — the same event where recruitment logic runs, Ladder section); <b>new enfeoffment</b>, including subinfeudation; and <b>royal inquest</b> (Domesday, the cartae of 1166,
+    Kirkby's Quest — generational, resisted, dear). <b>Distraint</b> is the crown's cheap workaround and is
+    deliberately <i>not</i> on that list: it
     rewrites nothing and instead taxes <b>income directly</b> (the £20/£40 lines), forcing the dubbing and with it
     the knight's ledger, converting the holder's margin from household money into the crown's service. Under
     <b>current</b> assessments the survey is fresh and the module behaves as it always has. Under <b>ancient</b>,
@@ -1838,12 +1842,13 @@
 <section id="sec-library">
   <h2 class="sechead">The library — for the analyst</h2>
   <p class="seclede">The module against RAW and history, at full depth — everything the primer folded away:
-  the ⚖ doctrine tables, the RAW audits, the FAQ, and the three chapters (Design, History, Hârn). Open what you need.
+  the ⚖ doctrine tables, the RAW audits, the FAQ, and the <span class="ct" data-ct="chapters"></span> chapters (Money,
+  Custom, the franchise, Design, History, Hârn, and canon's two rules). Open what you need.
   <b>This is where the marks lead:</b> every <span class="bdg mod" title="this module’s own ruling; RAW does not say it">MODULE</span> on the page is
   argued in the ⚖ tables below, every <span class="bdg raw" title="ACKS II, rules as written — page-exact, and cited">RAW</span> is verified
   against the rulebook in the audits, and every <span class="bdg his" title="a historical institution, borrowed as an analogy — not a rule of the game">HISTORY</span>
   has its record in the History chapter.</p>
-  <details class="lib"><summary>⚖ Module doctrine — where we deviate from RAW, and why <span class="bdg mod" title="every ruling in this table is the module’s, not ACKS’s — stated, bounded and priced">MODULE</span></summary>
+  <details class="lib" data-lib="doctrine" data-doc="module"><summary>⚖ Module doctrine — where we deviate from RAW, and why <span class="bdg mod" title="every ruling in this table is the module’s, not ACKS’s — stated, bounded and priced">MODULE</span></summary>
 <div class="raw-sect">
     <div class="raw-head">⚖ Module doctrine — where we deviate from RAW, and why</div>
     <div class="scroll"><table class="audit"><caption class="vh">Module doctrine — where this module deviates from RAW, and why</caption>
@@ -1893,9 +1898,9 @@
     </table></div>
   </div>
   </details>
-  <details class="lib"><summary>⚖ Household doctrine — the three rulings the muster adds <span class="bdg mod" title="three further rulings the muster machinery needs; RAW supplies none of them">MODULE</span></summary>
+  <details class="lib" data-lib="doctrine" data-doc="household"><summary>⚖ Household doctrine — the <span class="ct" data-ct="hrulings"></span> rulings the muster adds <span class="bdg mod" title="the further rulings the muster machinery needs; RAW supplies none of them">MODULE</span></summary>
 <div class="raw-sect">
-    <div class="raw-head">⚖ Household doctrine — the three rulings the muster adds</div>
+    <div class="raw-head">⚖ Household doctrine — the <span class="ct" data-ct="hrulings"></span> rulings the muster adds</div>
     <div class="scroll"><table class="audit"><caption class="vh">Household doctrine — the rulings the muster adds</caption>
       <thead><tr><th scope="col">Ruling</th><th scope="col">What RAW says</th><th scope="col">Why we rule it</th></tr></thead>
       <tbody>
@@ -1945,10 +1950,11 @@
     per family against strict accounting. Around it stand a set of explicit rulings — no per-fee tribute and its inefficiency side-step, service booked at
     full wage, the assize, the quota with its definition of record, the knight's contract, the squire, heroic-unit pricing, the household's keep and
     the assessment (Muster section), and the fisc oversight (its corruption
-    dial lives in the Offices section) — each quoted against RAW in the ⚖ doctrine tables (both in the Library). Count them all and the tally is twelve rulings,
+    dial lives in the Offices section) — each quoted against RAW in the ⚖ doctrine tables (both in the Library). Count the rows of those two tables and the tally is
+    <span class="ct" data-ct="rulings"></span> rulings,
     not one: the difference is that the rest are extensions where RAW prices nothing, not overrides of what it does.</p>
   </details>
-  <details class="lib"><summary>RAW under the hood — manors</summary>
+  <details class="lib" data-lib="raw"><summary>RAW under the hood — manors</summary>
 <div class="raw-sect">
     <div class="raw-head">RAW under the hood — manors</div>
     <div class="scroll"><table class="audit"><caption class="vh">RAW under the hood — the manor rules, their source, and what each is used as</caption>
@@ -1972,7 +1978,7 @@
     </table></div>
   </div>
   </details>
-  <details class="lib"><summary>RAW under the hood — units</summary>
+  <details class="lib" data-lib="raw"><summary>RAW under the hood — units</summary>
 <div class="raw-sect">
     <div class="raw-head">RAW under the hood — units</div>
     <div class="scroll"><table class="audit"><caption class="vh">RAW under the hood — the unit rules, their source, and what each is used as</caption>
@@ -1994,7 +2000,7 @@
     </table></div>
   </div>
   </details>
-  <details class="lib"><summary>RAW under the hood — household</summary>
+  <details class="lib" data-lib="raw"><summary>RAW under the hood — household</summary>
 <div class="raw-sect">
     <div class="raw-head">RAW under the hood — household</div>
     <div class="scroll"><table class="audit"><caption class="vh">RAW under the hood — the household rules, their source, and what each is used as</caption>
@@ -2011,7 +2017,7 @@
     </table></div>
   </div>
   </details>
-  <details class="lib"><summary>RAW under the hood — offices</summary>
+  <details class="lib" data-lib="raw"><summary>RAW under the hood — offices</summary>
 <div class="raw-sect">
     <div class="raw-head">RAW under the hood — offices</div>
     <div class="scroll"><table class="audit"><caption class="vh">RAW under the hood — the office rules, their source, and what each is used as</caption>
@@ -2028,7 +2034,7 @@
     </table></div>
   </div>
   </details>
-  <details class="lib"><summary>Money — the gold piece against the pound sterling <span class="bdg raw" title="the coin table is RAW (p.123); the penny equivalence is the designer's own, stated outside the rulebook; the calibration reading is the module's">RAW + MODULE</span></summary>
+  <details class="lib" data-lib="chapter"><summary>Money — the gold piece against the pound sterling <span class="bdg raw" title="the coin table is RAW (p.123); the penny equivalence is the designer's own, stated outside the rulebook; the calibration reading is the module's">RAW + MODULE</span></summary>
   <div class="raw-sect">
     <div class="raw-head">Money — the gold piece against the pound sterling</div>
     <p class="note">This page quotes sterling in a dozen places — the £20 minimal fee, the 1436 returns'
@@ -2071,22 +2077,26 @@
 
     <div class="raw-head" style="margin-top:14px">The rate is not the problem — four anchors, one dial</div>
     <p class="note">Before blaming the conversion, test it. Macris's rate was checked at four independent
-    points, and it is <b>calibrated at the floor and drifts rich as you climb</b>:</p>
+    points — every row below in which the rate actually appears — and it is <b>calibrated at the floor
+    and drifts rich as you climb</b>. The fifth row is <b>not</b> a fifth test: the grain wage is the
+    wheat price divided by the labourer's, both in ACKS's own coin, so no exchange rate enters it and
+    rescaling one could not move it. It is a cross-check on the two anchors that pass, not an anchor.</p>
     <div class="viz">
-      <table class="cmp"><caption class="vh">The gold-to-sterling rate tested at four independent anchors</caption>
+      <table class="cmp"><caption class="vh">The gold-to-sterling rate tested at four independent anchors, with one rate-free cross-check</caption>
         <thead><tr><th scope="col">Anchor</th><th scope="col">ACKS</th><th scope="col">England, 13th c.</th><th scope="col">Verdict</th></tr></thead>
         <tbody>
           <tr><th scope="row">Unskilled labour (RR&nbsp;p.174)</th><td>1&nbsp;<span class="u">sp</span>/day = <b>1d/day</b></td><td>1–1½d/day</td><td>✔ lands</td></tr>
           <tr><th scope="row">Wheat (RR&nbsp;p.123)</th><td>4&nbsp;<span class="u">gp</span>/quarter = <b>3s&nbsp;4d</b></td><td>~5–6s</td><td>✔ cheap by ~1.5×</td></tr>
-          <tr><th scope="row">Grain wage — days per quarter</th><td><b>40</b></td><td>~48</td><td>✔ lands</td></tr>
+          <tr><th scope="row">Grain wage — days per quarter <i title="the wheat price divided by the labourer's wage, both in ACKS's own coin. No exchange rate enters, so this row cannot break when the rate is rescaled — it checks the two rows above rather than testing the rate">(derived, not an anchor)</i></th><td><b>40</b></td><td>~48</td><td>✔ lands — rate-free</td></tr>
           <tr><th scope="row">Heavy cavalry (RR&nbsp;p.176)</th><td>60&nbsp;<span class="u">gp/mo</span> = <b>20d/day</b></td><td>serjeant 12d, knight 24d</td><td>1.7× rich</td></tr>
           <tr><th scope="row">L3 henchman (RR&nbsp;p.168)</th><td>100&nbsp;<span class="u">gp/mo</span> = <b>33d/day</b></td><td>knight 24d/day on campaign</td><td>1.4× rich</td></tr>
         </tbody>
       </table>
     </div>
     <p class="note"><b>A labourer and a loaf are right.</b> Rescaling the rate would fix the fee and break the two
-    anchors that currently work — three good anchors, one dial, over-determined. <b>The rate is not to be
-    touched</b>, and the fault has to be somewhere else.</p>
+    anchors that currently work — while the grain wage, carrying no coin, would not move at all and would go
+    on agreeing with the pair it is made of. Two anchors that land, two that drift rich, one dial:
+    over-determined. <b>The rate is not to be touched</b>, and the fault has to be somewhere else.</p>
 
     <div class="raw-head" style="margin-top:14px">One error, one face — the lord's revenue per holding</div>
     <p class="note">It is. The defect is a <b>rate</b>, and it reads the same at every denominator you choose,
@@ -2245,7 +2255,7 @@
     aids and wardships are how a crown reaches an estate whose assessment it cannot revise.</p>
   </div>
   </details>
-  <details class="lib"><summary>Custom — the manorial reading, and its defence <span class="bdg rin" title="RAW's own wording motivates reducing rural service revenue and permits tax 0; the values 1 and 0 are the module's">RAW-INFORMED + MODULE</span></summary>
+  <details class="lib" data-lib="chapter"><summary>Custom — the manorial reading, and its defence <span class="bdg rin" title="RAW's own wording motivates reducing rural service revenue and permits tax 0; the values 1 and 0 are the module's">RAW-INFORMED + MODULE</span></summary>
   <div class="notecol">
   <h2>Custom — what the dial actually rules</h2>
   <p class="intro">
@@ -2434,7 +2444,7 @@
   </div>
   </details>
 
-  <details class="lib"><summary>The franchise — why RAW's 4 gp is right for burgesses and wrong for villeins <span class="bdg his" title="the market franchise as an institution; no mechanic is added by this chapter">HISTORY</span></summary>
+  <details class="lib" data-lib="chapter"><summary>The franchise — why RAW's 4 gp is right for burgesses and wrong for villeins <span class="bdg his" title="the market franchise as an institution; no mechanic is added by this chapter">HISTORY</span></summary>
   <div class="notecol">
   <h2>The franchise — prose, not mechanics</h2>
   <p class="intro">
@@ -2487,7 +2497,7 @@
   </div>
   </details>
 
-  <details class="lib"><summary>Design — what this module does, and why <span class="bdg mod" title="the module’s own account of itself — what it builds on RAW, and what it declines to build">MODULE</span></summary>
+  <details class="lib" data-lib="chapter"><summary>Design — what this module does, and why <span class="bdg mod" title="the module’s own account of itself — what it builds on RAW, and what it declines to build">MODULE</span></summary>
 
 
   <h2>What this module does</h2>
@@ -2813,7 +2823,7 @@
 
   
   </details>
-  <details class="lib"><summary>History — the anchors, the cross-checks, the record <span class="bdg his" title="the record side: history enters this module as a consistency check, never as an input">HISTORY</span></summary>
+  <details class="lib" data-lib="chapter"><summary>History — the anchors, the cross-checks, the record <span class="bdg his" title="the record side: history enters this module as a consistency check, never as an input">HISTORY</span></summary>
 
 
   <h2>How history is used here</h2>
@@ -3317,7 +3327,7 @@
 
   
   </details>
-  <details class="lib"><summary>Hârn — the first application <span class="bdg hrn" title="setting-specific: Kaldor and the Hârnic canon, fitted to the ladder">HÂRN</span></summary>
+  <details class="lib" data-lib="chapter"><summary>Hârn — the first application <span class="bdg hrn" title="setting-specific: Kaldor and the Hârnic canon, fitted to the ladder">HÂRN</span></summary>
 
 
   <h2>Hârn — the first application</h2>
@@ -3448,7 +3458,7 @@
 
   </details>
 
-  <details class="lib"><summary>Canon's two rules — a second tradition with the same architecture <span class="bdg hrn" title="Hârnic canon assesses knight service two ways at once; the module's charter-versus-muster model was built from English evidence and canon contains it independently">HÂRN</span></summary>
+  <details class="lib" data-lib="chapter"><summary>Canon's two rules — a second tradition with the same architecture <span class="bdg hrn" title="Hârnic canon assesses knight service two ways at once; the module's charter-versus-muster model was built from English evidence and canon contains it independently">HÂRN</span></summary>
   <div class="notecol">
   <h2>Canon's two rules — the charter and the assessment, in print</h2>
   <p class="intro">
@@ -3923,10 +3933,17 @@ so is <b>how many of each grade render coin instead of a body</b>.</p>
 <script>
 // ================= shared =================
 const fmt = n => Math.round(n).toLocaleString();
+// a count spelled out, for prose that GENERATES its number instead of restating it. See COUNTED /
+// paintCounts() near the tab machinery for what this is for and why it exists at all.
+const NUMWORD = ["no","one","two","three","four","five","six","seven","eight","nine","ten","eleven",
+                 "twelve","thirteen","fourteen","fifteen","sixteen","seventeen","eighteen",
+                 "nineteen","twenty"];
+const numWord = n => NUMWORD[n] !== undefined ? NUMWORD[n] : String(n);
+const capWord = s => s.charAt(0).toUpperCase() + s.slice(1);
 const HENCH  = {1:25, 2:50, 3:100, 4:200, 5:400, 6:800, 7:1600, 8:3000,
                 9:7250, 10:12000, 11:32000, 12:50000, 13:135000, 14:350000}; // RR p.168
 // ⚠ L9–14 added 2026-08-03 for the appropriate-domain ceiling (MR-REALM-03), read off RR p.168’s
-// own table — the ladder STOPS DOUBLING past L8 (×2.42, 1.66, 2.67, 1.56, 2.70), which is the whole
+// own table — the ladder STOPS DOUBLING past L8 (×2.42, 1.66, 2.67, 1.56, 2.70, 2.59), which is the whole
 // reason a uniform revenue cut cannot produce a uniform level drop. ⚠ RAW’s L0 = 12 gp is
 // deliberately NOT here: the module’s esquire is a flagged extrapolation priced elsewhere, and
 // folding RAW’s L0 into this table would silently re-price him under cover of “completing” it.
@@ -3964,7 +3981,7 @@ const militiaCount = fam => Math.floor(fam * 2 / 10);
 // ---- how large an estate this card will model: a STATIC bound and a MOVING guide ---------------
 // The grown manor's family count needs a ceiling, and the honest ceiling moves with the economy: a
 // four-fee charter anchors at 400 gp, so parity with its own paper costs ⌈400 ÷ feeNet⌉ families —
-// 100 at RAW land 9, 100 at Customary land 6, 400 at Customary land 4, 400 at land 3. An estate
+// 34 at RAW land 9, 100 at Customary land 6, 200 at Customary land 4, 400 at land 3. An estate
 // capped below its own paper can only ever be modelled as in arrears, which is an expressiveness
 // loss the profile change itself would have caused.
 //
@@ -3998,7 +4015,7 @@ const famGuide = feeNet => Math.ceil(CHART_MAX_ANCHOR / Math.max(1, feeNet)) * 2
 //   Customary ("cust") land + service 1 + tax 0   — villeins holding by custom of the manor
 //
 // WHY 1 AND 0 — a residual allocation inside a calibrated whole-gp model. Not four arguments, not
-// two; one derivation, and it is falsifiable, which is what three withdrawn justifications were not.
+// two; one derivation, and it is falsifiable, which is what the withdrawn justifications were not.
 //
 //   the historical calibration fixes the target:   feeNet = 4 at land 6
 //   the ledger fixes the rest:                     4 = 6 + service + tax − 3
@@ -4021,8 +4038,10 @@ const famGuide = feeNet => Math.ceil(CHART_MAX_ANCHOR / Math.max(1, feeNet)) * 2
 // rural service ought to round to zero then tax becomes 1; if local cash dues demonstrably need
 // another whole gp then the target is too low or this decomposition is wrong.
 //
-// THREE JUSTIFICATIONS WITHDRAWN, and they are recorded because the pattern is the lesson —
-// all three lent RAW's authority to a module choice (spec §2.6, provenance discipline):
+// FOUR JUSTIFICATIONS WITHDRAWN, and they are recorded because the pattern is the lesson —
+// all four lent RAW's authority to a module choice (spec §2.6, provenance discipline). The record
+// of them is the Library's own four-row table, "⚠ The four withdrawn justifications, kept on the
+// page" (Custom chapter); this list is that table, in the place the decomposition is written:
 //   ✗ "England had no recurring royal land tax." RAW's tax line is not a royal tax; it is "coin paid
 //     directly to the ruler by his peasants" — the same pocket the land line fills.
 //   ✗ "The module already prices those fees as incidents, so charging tax too is a double-count."
@@ -4032,6 +4051,9 @@ const famGuide = feeNet => Math.ceil(CHART_MAX_ANCHOR / Math.max(1, feeNet)) * 2
 //     True of LABOUR rent and false in general — assized money rent coexisted with works on the same
 //     tenement. The Extenta Manerii asks surveyors for "how much rent of assize be paid yearly
 //     BESIDES the works and customs", which settles it. What survives is the narrow convention below.
+//   ✗ "The house rule is RAW's own sentence." RAW's wording motivates the CUT and does not supply the
+//     VALUE 1 — direction is not magnitude, and borrowing the rulebook's authority for a coefficient
+//     it never states is the failure the whole set records.
 //
 // THE SURVIVING CONVENTION — RAW-INFORMED plus MODULE, and it is bookkeeping, not history:
 // agricultural week-work is represented through LAND revenue, because that labour produces the
@@ -4318,7 +4340,7 @@ document.addEventListener("change", ev=>{
 }, true);
 
 // ---- provenance, and units ------------------------------------------------------------------
-// Four marks and one vocabulary, used by all three tabs. The rule for applying them: a badge goes
+// Six marks and one vocabulary, used by all three tabs. The rule for applying them: a badge goes
 // where a reader could get the PROVENANCE of a claim wrong — never on arithmetic whose source the
 // row already names, and never so thickly that the card reads as a rash. RAW figures that the
 // module merely adds up carry the RAW mark once, at the head of their group.
@@ -5361,7 +5383,7 @@ function renderHousehold(){
        ${sel.lances>1?`<div class="lrow"><span class="lk">Levy credited</span><span class="lvv">${q.med? `${lstr(levyN)} — ${levyWhat}, assize kept` : (asz? "0 — the family base mounts none" : (def==="dom"? "0 — no assize yet stands (1181); the levy is unraised, not in default" : (q.medReq? `0 — the required serjeant${q.medReq>1?"s":""} uncredited, assize in default` : "0 — the assize stands in default")))}</span></div>`:""}
        <div class="lrow hi"><span class="lk">Still owed</span><span class="lvv">${remS}</span></div>
        ${q.rem>0?`<div class="lrow gold"><span class="lk">Cheapest lawful discharge</span><span class="lvv">${cheapPhrase} — ${cheapFits?`fits, ${cheapLeft} <span class='u'>gp/mo</span> left`:"breaks the margin"}</span></div>
-       <div class="lrow sub"><span><b>the rate in force:</b> ${scutWhy}.${smode === "raw" ? `` : ` <b>Two of the three settings are the module's own</b>, offered because the rate is the thing kings and barons actually argued about — the division and the quantization below apply whichever is chosen.`} <b>why ${f1(sel.scAll*12)} and not ${sel.fam}?</b> RAW's scutage is <b>1 gp per family in the realm</b> — ${sel.fam} gp here, undivided, and payable <i>every month</i> until the duty is revoked (p.346). This module renders it two steps differently, and both are doctrine, not RAW's letter. <b>It divides:</b> scutage was historically assessed per knight's fee, and a tenant who served part of his quota in person paid only on the balance — so the ${remS} still owed carries ${f1(sel.scAll*12)} of the ${sel.fam}, the holder's own body discharging the rest. <b>It quantizes:</b> the render is one month of service a year rather than a standing monthly tax, so that ${f1(sel.scAll*12)} gp falls due when the host is called and the ${f1(sel.scAll)} ${U("gp/mo")} is the reserve set against it. Strict RAW would charge the whole ${sel.fam} gp a month, credit no personal service, and make scutage ruinous beside the lance — which is why the module divides (History chapter, Library)</span></div>`:""}
+       <div class="lrow sub"><span><b>the rate in force:</b> ${scutWhy}.${smode === "raw" ? `` : ` <b>${capWord(numWord(Object.keys(SCUT).length - 1))} of the ${numWord(Object.keys(SCUT).length)} settings are the module's own</b>, offered because the rate is the thing kings and barons actually argued about — the division and the quantization below apply whichever is chosen.`} <b>why ${f1(sel.scAll*12)} and not ${sel.fam}?</b> RAW's scutage is <b>1 gp per family in the realm</b> — ${sel.fam} gp here, undivided, and payable <i>every month</i> until the duty is revoked (p.346). This module renders it two steps differently, and both are doctrine, not RAW's letter. <b>It divides:</b> scutage was historically assessed per knight's fee, and a tenant who served part of his quota in person paid only on the balance — so the ${remS} still owed carries ${f1(sel.scAll*12)} of the ${sel.fam}, the holder's own body discharging the rest. <b>It quantizes:</b> the render is one month of service a year rather than a standing monthly tax, so that ${f1(sel.scAll*12)} gp falls due when the host is called and the ${f1(sel.scAll)} ${U("gp/mo")} is the reserve set against it. Strict RAW would charge the whole ${sel.fam} gp a month, credit no personal service, and make scutage ruinous beside the lance — which is why the module divides (History chapter, Library)</span></div>`:""}
        ${musterOn?`<div class="lrow sub"><span>this ledger is <b>default performance</b> — service as written; the muster selectors below choose what actually rides, and the reconciled block prices it</span></div>`:""}`;
 
   // the read — computed from the same arrays as the rows
@@ -6941,9 +6963,11 @@ function renderSheet(st, F){
   // the one line on the sheet that is not about the estate: where these dials came from. A
   // reader who opened someone else's manor has to be told, or the FIXED EXAMPLE walk-through
   // above silently describes a different one than the cards below.
-  // Three things can be wrong with an opened link and they are three different sentences: a field
+  // Four things can be wrong with an opened link and they are four different sentences: a field
   // this build does not have (REFUSED — left at the default), a field out of its declared range
-  // (BOUNDED — admitted at the bound, which is not the number the author sent), and a link written
+  // (BOUNDED — admitted at the bound, which is not the number the author sent), a dial this build
+  // has and the link's build did not (ABSENT — the link predates it, so it is at today's default
+  // and the author never chose it), and a link written
   // by a build whose formulas have since moved (DRIFT — every dial legal, every figure possibly
   // different). Only the first was ever said.
   const nOf = (a, w) => `${a.length} ${w}${a.length > 1 ? "s" : ""} (${a.join(", ")})`;
@@ -7421,6 +7445,59 @@ function queuePlace(){                                        // renders change 
 }
 addEventListener("resize", queuePlace);
 new MutationObserver(queuePlace).observe(document.body, {childList:true, subtree:true, characterData:true});
+
+// ================= page furniture counts itself =================
+// Gate G5, 2026-08-04. Seven sentences on this page stated the size of a list standing beside them
+// — "Eight levers set the world", "the three rulings the muster adds", "the tally is twelve
+// rulings" — and every one of them had drifted, because a list grows in one place and the sentence
+// about it lives in another. Binding them in a gate was the second-best fix and the gate said so at
+// the point of failure: the durable answer is to GENERATE the number from the list, at which point
+// the sentence cannot be wrong and there is nothing left to keep in step.
+//
+// So each of these sentences now carries an empty `<span class="ct" data-ct="…">` and the number is
+// counted here, from the thing itself — the `.lever` blocks, the `<tr>`s of the two ⚖ doctrine
+// tables, the `F.*` terms `facts()` actually declares. Adding a lever moves the word.
+//
+// ⚠ THE FAILURE MODE MOVED RATHER THAN VANISHING, and it is written down here because it is now
+// the only one: a count that does not run leaves the sentence reading "levers set the world" with a
+// hole where the number was. That is loud rather than silent — which is the trade — but nothing in
+// `tools/harness.mjs` can see it, because its DOM stub returns `[]` from every querySelectorAll and
+// so every count here is 0 in Node by construction. The witness is `tools/check_geometry.mjs`,
+// which drives a real browser and asserts every `.ct` span rendered a word. A count with no witness
+// is the defect this block exists to end, one layer up.
+const COUNTED = {
+  levers:   () => document.querySelectorAll("#sec-dials .lever").length,
+  reads:    () => document.querySelectorAll("#sec-dials .liveread").length,
+  places:   () => document.querySelectorAll("#dens option[data-place]").length,
+  chapters: () => document.querySelectorAll('#sec-library [data-lib="chapter"]').length,
+  rulings:  () => document.querySelectorAll('[data-lib="doctrine"] tbody > tr').length,
+  hrulings: () => document.querySelectorAll('[data-doc="household"] tbody > tr').length,
+  // the one list that is NOT markup: the campaign-state bar is painted from whatever `facts()`
+  // declares, so the bar's own function is the only honest census of it.
+  //
+  // ⚠ `Object.keys(F).length` IS THE WRONG COUNT and shipped for about an hour. facts() also sets
+  // `F.recon` — the charter-against-muster branch, a SENTENCE the writ prints and not a chip a
+  // reader can click — so the keys are 9 and the terms are 8. What makes a term a term here is
+  // `pop`: the popover it opens is the thing that makes it a dial the bar reaches. Counted that
+  // way, this agrees with check_rule_owners' independent source count. It was the DISAGREEMENT
+  // between the two witnesses that found it — neither alone would have.
+  terms:    () => { const F = facts(readState());
+                    return Object.keys(F).filter(k => F[k] && F[k].pop).length; }
+};
+function paintCounts(){
+  const got = {};
+  for(const key in COUNTED){
+    let n = 0;
+    try { n = COUNTED[key](); } catch(e){ n = 0; }
+    got[key] = n;
+    document.querySelectorAll('.ct[data-ct="' + key + '"]').forEach(el => {
+      const w = numWord(n);
+      el.textContent = el.hasAttribute("data-cap") ? capWord(w) : w;
+    });
+  }
+  return got;
+}
+FM.counts = paintCounts();
 
 barFit();
 if(window.ResizeObserver){
