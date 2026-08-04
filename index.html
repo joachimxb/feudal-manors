@@ -635,7 +635,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.14.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.15.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -1715,6 +1715,12 @@
     <b>anchors</b> — 60 against 100, three to five exactly — and the realised counts sit a little either side of it, because each
     rung rounds its own remainder up.
   </p>
+  <p class="intro"><b>And this is where the doctrine is argued; it is priced on the other tab.</b>
+  Feudal Realms carries <a href="#sec-ward">the ward</a> as a line of its own: enter how many lances
+  stand at the walls and the realm's ledger takes them out of the host and puts their service against
+  the castellan's garrison. The dial is in <b>lances, not days</b> — this module keeps one calendar,
+  the month of service — and the service is <b>spent once</b>, which is what makes ward a decision
+  rather than a second bill.</p>
   </details>
   <details class="fold"><summary>At the barony, RAW resumes</summary>
 
@@ -3811,7 +3817,27 @@
 
 <section id="sec-realm">
 <h2 class="sechead">The realm</h2>
-<p class="seclede">Three ways to hold land, and a realm is the choice between them: keep it in <b>demesne</b> and take coin, grant it to a <b>vassal</b> and take tribute, grant it as a <b>fee</b> and take service. The tables below are yours to type into — the honour is a design, not a roll.</p>
+<p class="seclede">Three ways to hold land, and a realm is the choice between them: keep it in <b>demesne</b> and take coin, grant it to a <b>vassal</b> and take tribute, grant it as a <b>fee</b> and take service. <b>Two populations</b> hold that land — the rural families here and the <a href="#sec-towns">settlements</a> below — and the honour musters a <a href="#sec-ward">ward</a> as well as a host. The tables are yours to type into: the honour is a design, not a roll.</p>
+
+<!-- THE REALM'S OWN WORDS. The Terms gloss on the Domains tab defines the manor's vocabulary and
+     stops there, so six words this tab uses constantly were defined nowhere — and one of them
+     COLLIDES across tabs, which is worse than undefined. Written in the Terms idiom deliberately:
+     one strip, one line each, the word in green. -->
+<div class="gloss">
+  <div><b>Ward (castle-guard)</b> — service owed <i>at a castle's walls</i> rather than in the field.
+    Counted here in <b>lances, not days</b>, and spent once: a lance on ward is not in the host.</div>
+  <div><b>The host</b> — the army the realm musters for its term. Every bodily lance is in it that is
+    not standing ward.</div>
+  <div><b>Market class</b> — RAW's size grade for a settlement (VI up to I). A <i>label on the
+    market</i>: the <b>population band</b> is what sets the trade rate, and three classes share one.</div>
+  <div><b>The title population</b> — the figure your <b>rank</b> is read from, which is
+    <i>everyone</i>: rural families and urban together. Not the same as the families in hand.</div>
+  <div><b>The ceiling</b> — the largest realm the lord's own level can hold without a vassal beneath
+    him. A bound on the design, not a tax.</div>
+  <div><b>⚠ "Settlement" means two things on this page</b>, and they are unrelated. Here it is a
+    <b>town</b> — RAW's second population. On the Domains tab, Muster Step 3 <i>settles the count</i>,
+    which is an act of bookkeeping: fixing how many lances the paper owes.</div>
+</div>
 
 <div class="rpanel">
 <div class="readout" id="readout"></div>
@@ -3958,9 +3984,21 @@
      wrong, and not one of them would have shown on a card. So the model carries two populations and
      four rules keep them apart — printed on the card itself, because a typing discipline nobody can
      see is a typing discipline nobody keeps. -->
-<div class="towns" style="margin-top:18px;border-top:1px solid var(--rule);padding-top:14px">
-  <h3 style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--gold)">Urban settlements <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--mute)">· RAW's second population <span class="bdg raw" title="RR p.352 — the Domains chapter's own Settlement Population and Paying Expenses tables">RAW</span></span></h3>
-  <p class="pnote" style="margin:0 0 8px">A settlement is <b>not</b> a big village. It has its own revenue line (<b>trade, by its population band</b> — the market class is printed beside it, but the band is what sets the rate), its own expenses, and a <b>flat garrison of 2</b> that does not follow the district class — a town in the outlands garrisons at 2, not 4. Below <b>75 families</b> RAW dissolves it into the peasantry, so the editor will not let one exist; its families belong in the rural field above, and moving them is yours to do rather than the page's to do quietly.</p>
+
+
+</div>
+
+</section>
+
+<section id="sec-towns">
+<h2 class="sechead">Settlements — the realm's second population <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--mute)">· RAW's own tier <span class="bdg raw" title="RR p.352 — the Domains chapter's own Settlement Population and Paying Expenses tables. A settlement is a second population with its own revenue, its own expenses, and a garrison that does not follow the district class">RAW</span></span></h2>
+<p class="seclede">RAW gives a domain <b>two</b> populations, and this is the other one: burgesses, not
+peasants — priced on their own schema, garrisoned at a flat 2 whatever the district class, and
+dissolved into the countryside below 75 families. The rural field above counts the first population;
+nothing here is counted twice. <b>Six rulings this card makes are stated on it</b>, because the
+arithmetic a Judge types depends on them.</p>
+<div class="towns">
+    <p class="pnote" style="margin:0 0 8px">A settlement is <b>not</b> a big village. It has its own revenue line (<b>trade, by its population band</b> — the market class is printed beside it, but the band is what sets the rate), its own expenses, and a <b>flat garrison of 2</b> that does not follow the district class — a town in the outlands garrisons at 2, not 4. Below <b>75 families</b> RAW dissolves it into the peasantry, so the editor will not let one exist; its families belong in the rural field above, and moving them is yours to do rather than the page's to do quietly.</p>
   <!-- The five questions §5.3 left open are RULED in the comment above `TOWNS`, and four of them were
        ruled only there. A ruling a reader cannot see is a guess with his name on it, so the ones that
        change what he should type are stated here, on the card, where he decides. Ruling 4 was already
@@ -3995,9 +4033,6 @@
   <p style="margin:8px 0"><button id="addt" type="button">+ Found a settlement</button></p>
   <p class="pnote" id="tnote" style="margin:0"></p>
 </div>
-
-</div>
-
 </section>
 
 <section id="sec-vassals">
@@ -4032,6 +4067,17 @@ so is <b>how many of each grade render coin instead of a body</b>.</p>
 <label class="tick"><input type="checkbox" id="oppmil" checked>
   <span style="font-style:normal;color:var(--ink)" id="feenote"></span></label>
 
+
+
+</section>
+
+<section id="sec-ward">
+<h2 class="sechead">The ward — service spent at the walls <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--mute)">· the module's own line <span class="bdg mod" title="RAW prices no castle-guard at all. The institution is history's; counting it in LANCES rather than days, and spending each lance once, are this module's rulings">MODULE</span></span></h2>
+<p class="seclede">Castle-guard is the one render RAW does not price, and the one the castellany's
+arithmetic cannot do without: <b>the castle is warded by other men's service, not the castellan's
+purse.</b> The doctrine is argued on the Domains tab — see <a href="#sec-muster">the warded walls</a> —
+and this is where it costs something. <b>The service is spent once:</b> a lance standing here is not
+in the host above.</p>
 <!-- CASTLE-GUARD (Phase 4, spec §5.4).
      ⚠ THE ARGUMENT IS NOW ON THE PAGE — see the ⚖ Deeper inset in this field: lances not days, the
      one calendar, the withdrawn days÷365 proposal and the 25% swing it carried, and the fact that
@@ -4052,7 +4098,6 @@ so is <b>how many of each grade render coin instead of a body</b>.</p>
   out of the muster above it, and the ward card beneath shows both sides of the trade.</div></details>
   </div>
 <div id="wardCard"></div>
-
 </section>
 
 <section id="sec-reckoning">
@@ -7737,8 +7782,8 @@ const TABNAV = {
             ["sec-eras","Eras"],["sec-dials","Dials"],["sec-ladder","Ladder"],
             ["sec-muster","Muster"],["sec-units","Units"],["sec-library","Library"]],
   officers:[["sec-offices","The office"],["sec-office-history","In history"]],
-  realms:  [["sec-realm","The realm"],["sec-vassals","Vassals"],["sec-fees","Fees"],
-            ["sec-reckoning","The reckoning"]]
+  realms:  [["sec-realm","The realm"],["sec-towns","Settlements"],["sec-vassals","Vassals"],
+            ["sec-fees","Fees"],["sec-ward","The ward"],["sec-reckoning","The reckoning"]]
 };
 // the three tabs, said once: the nav table already names them, in order
 const TABS = Object.keys(TABNAV);
@@ -8640,7 +8685,13 @@ function render(){
       ${fmt(30*LANCE_WAGE*m.WARD_TERM)} ${U("gp/mo")}, and a demesne of 375 families at the civilized rate owes 750. <b>The fees
       cannot garrison the honour.</b> That is the finding, and it is why lords hired.</div>
     <div class="lrow sub">Set the dial above to <b>0</b> and every lance rides; set it to ${one(m.lancesKind)} and none do.
-      Neither is free — the term is the same term.</div></div>`;
+      Neither is free — the term is the same term.</div>
+    <div class="lrow sub"><b>Where this comes from.</b> The quittance the ward is discharged by is the
+      module's structural deviation, argued in full in the <a href="#lib-doctrine-module">⚖ module
+      doctrine table</a>; the institution behind it — fees bound to a castle owing ward in rotation,
+      and the serjeanties that cluster at castles because the castle-holder is the one lord land-rich
+      enough to carve them — is on the Domains tab at <a href="#sec-muster">the warded walls</a>.
+      This card is where either of them costs anything.</div></div>`;
 
   // --- the one readout: his standing, then where his land actually sits
   const T = m.title.t, paV = pa(m.coin, m.level), ceilL = ceilOf(m.coin);
