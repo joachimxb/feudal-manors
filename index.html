@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.9.2 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.9.3 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -3589,7 +3589,7 @@
           <option value="2">2 gp/family — heavy exaction</option>
           <option value="3">3 gp/family — war levy</option>
         </select></div>
-      <div class="field"><label for="o_pay">Payers through the office <span class="hint">(0 = estimate at one per 23-family working manor; or count the actual vassals, manors, and farmers of revenue)</span></label>
+      <div class="field"><label for="o_pay">Payers through the office <span class="hint">(0 = estimate at one per 23-family working manor — a holdings count, not a fee, so it does not move with the custom of record; or count the actual vassals, manors, and farmers of revenue)</span></label>
         <input type="number" id="o_pay" min="0" max="20000" step="1" value="0"></div>
     </div>
   </div>
@@ -4385,6 +4385,30 @@ const scutMode = () => { const e = document.getElementById("l_scut"); return e ?
 const TRIBBAND = payers =>
   payers<=8?1 : payers<=16?.66 : payers<=63?.5 : payers<=216?.33 :
   payers<=1024?.2 : payers<=4095?.1 : payers<16384?.05 : .01;
+
+// ---- the payer denominator, and why it is GROUND and not money -----------------------------
+// ⚠ THIS NUMBER MUST NOT BE MADE READING-DEPENDENT, and it has been filed as a defect twice for
+// wanting to be. It is canon's tenant-HOLDING floor — the working manor, canon 23–34 households
+// (Canon institutions table, Hârn chapter) — and a holdings count does not convert between customs
+// of record. **The module has already ruled exactly this confusion**, at the Cuxham row: setting
+// "23 tenant holdings beside 23 ACKS families and calling the coincidence a convergence" IS the
+// error that row was rewritten to retract. Making the denominator move with `l_cust` would put it
+// straight back.
+//
+// The substantive reason: a PAYER is an estate or a person rendering into the fisc — the field says
+// so, "vassals, manors, and farmers of revenue" — not a fiscal assessment. How many peasant families
+// a manor holds is a settlement fact; what a family's labour is worth in coin is the custom of
+// record. The second reprices the render, and does not repartition the countryside.
+//
+// TWO INDEPENDENT AUDITS read this literal as RAW's double fee (2 × 12 ≈ 23) and filed it as a
+// mechanical defect (queue B15 / companion A5), asserting the Officers estimate was "off ~2.25× at
+// the page's own default". Driven through this ladder, it is not: at the default 600 bound families
+// the canon manor, the customary fee and the RAW fee give 26, 24 and 50 payers — all inside the
+// same ≤63 step, so the band, the spread, the skim and the crown's net are IDENTICAL. The band is a
+// step function, which is what makes a denominator argument settle by measurement rather than by
+// reasoning about ratios. **The literal was right and the LABEL was the defect** — it stated the
+// number without stating its kind, so a careful reader could only guess. It states its kind now.
+const WORKING_MANOR_FAM = 23;              // canon's tenant-holding floor — ground, never repriced
 
 // primer navigation — scroll-spy (replaces the tab system)
 let NAVSECS = ["sec-idea","sec-manor","sec-terms","sec-eras","sec-dials","sec-ladder","sec-muster","sec-units","sec-library"];
@@ -5716,7 +5740,7 @@ function renderOffice(){
   // corruption dial: the unsworn officer skims a share of the SPREAD — the gap between the lawful 12.5%
   // and the district's Tribute Inefficiency band (p.347) — on the fisc line only
   const payIn  = clampInt("o_pay", 0, 20000, 0);
-  const payers = payIn > 0 ? payIn : Math.max(1, Math.round(bnd/23));   // counted, or ≈ one payer per working manor of 23
+  const payers = payIn > 0 ? payIn : Math.max(1, Math.round(bnd/WORKING_MANOR_FAM));   // counted, or ≈ one payer per canon working manor — see WORKING_MANOR_FAM
   const fB     = TRIBBAND(payers);            // the shared p.347 ladder — Realms bands on the same one
   const spread = Math.max(0, (1-fB) - 0.125);
   const K      = {h:0, a1:0.25, a2:0.5, a3:0.75, a4:1}[mode];
@@ -5739,7 +5763,7 @@ function renderOffice(){
       <div class="lrow"><span class="lk">Fisc line (${fmt(bnd)} fam × ${rate})${bdg("mod","RAW’s magistrates oversee EXPENSE lines only; putting a revenue line under the same 12.5% is the module’s extension, priced at Call-to-Arms parity (p.346)")}</span><span class="lvv">${fmt(trib)} → ${fmt(trib*0.125)} <span class='u'>gp/mo</span></span></div>
       <div class="lrow sub"><span>bound knight-fees send lances, not coin — they join his command, not his percentage: the two-colored ledger (demesne garrisoned in coin, fees in men — Design chapter, Library)</span></div>
       ${skim ? `<div class="lrow warn"><span class="lk">The skim (${Math.round(K*100)}% of the spread)${bdg("mod","the corruption dial: RAW’s inefficiency bands are unconditional, and nothing in the book says a sworn officer recovers them. The floor is exact — at the hostile pole the crown receives precisely the naked band")}</span><span class="lvv">+${fmt(skim)} <span class='u'>gp/mo</span></span></div>` : ""}
-      <div class="lrow sub"><span>${payers} payers (${payIn>0 ? "counted at the exchequer" : "estimated — ≈ one per 23-family working manor; enter the real count of vassals, manors, and revenue-farmers above when known"}) put the district in the ${Math.round(fB*100)}% band (RR p.347)${spread>0 ? `: ungoverned collection would lose ${fmt(trib*(1-fB))}; the spread over the lawful fee is ${fmt(spread*trib)}` : ` — ≤8 payers pay in full: there is no inefficiency to cure, and the office costs its lawful eighth`}</span></div>
+      <div class="lrow sub"><span>${payers} payers (${payIn>0 ? "counted at the exchequer" : "estimated — ≈ one per 23-family working manor, canon's count of tenant holdings, which is ground and does not move with the custom of record; enter the real count of vassals, manors, and revenue-farmers above when known"}) put the district in the ${Math.round(fB*100)}% band (RR p.347)${spread>0 ? `: ungoverned collection would lose ${fmt(trib*(1-fB))}; the spread over the lawful fee is ${fmt(spread*trib)}` : ` — ≤8 payers pay in full: there is no inefficiency to cure, and the office costs its lawful eighth`}</span></div>
       <div class="lrow"><span class="lk">The garrison it keeps</span><span class="lvv">≈ ${men} heavy foot, or ${lances} hired heavy horsemen (60 <span class='u'>gp/mo</span> each)</span></div>
       <div class="lrow hi"><span class="lk">The crown nets</span><span class="lvv">${fmt(crownF)} <span class='u'>gp/mo</span> of the render</span></div>
       <div class="lrow sub"><span>the garrison salary is free money (p.342 — troops unreduced)${skim ? (mode==="a4" ? "; the band has returned in full" : `; the fisc leaks, yet still beats the naked band's ${fmt(trib*fB)}`) : "; the fisc costs the lawful fee alone"}</span></div>
@@ -9682,6 +9706,31 @@ function selfTest(){
   // The honest form is the identity that really is invariant, and these tests are the difference
   // between believing that and knowing it. A prose invariance claim is a testable claim; this group
   // is where it gets tested, and anything added to the walk-through's vocabulary belongs here.
+  // ⚠ The payer denominator is an invariance claim too, and it is the one this page has been asked
+  // to break twice. B15 / companion A5 both read `bnd/23` as a RAW literal and asked for it to be
+  // made reading-dependent. It is canon's tenant-HOLDING floor: ground, not money, and the module
+  // already retracted the opposite reading at the Cuxham row. A prose ruling is a comment; this is
+  // the enforcement, and it belongs in the group that tests invariance claims themselves.
+  T("INVARIANT — the payer count is GROUND: no custom of record moves it", ()=> {
+    const bad = [];
+    for(const bnd of [0, 50, 200, 600, 1500, 6000, 20000]){
+      const seen = new Set();
+      for(const cu of Object.keys(CUSTOMS)){
+        at22c(cu, 6);
+        set("o_bnd", bnd); set("o_pay", 0);
+        dG("o_bnd").dispatchEvent(new Event("input"));
+        renderOffice();
+        seen.add(FM.office.payers + "/" + FM.office.fB);
+      }
+      if(seen.size !== 1) bad.push(`bnd ${bnd}: ${[...seen].join(" vs ")}`);
+    }
+    return bad.length ? bad.join(" · ") : true; });
+  T("…and the denominator is the NAMED canon constant, not a bare literal", ()=> {
+    set("o_bnd", 600); set("o_pay", 0);
+    dG("o_bnd").dispatchEvent(new Event("input"));
+    renderOffice();
+    return eq(FM.office.payers, Math.round(600 / WORKING_MANOR_FAM)); });
+
   T("INVARIANT — a relief is six-fifths of the ANCHOR, every land × custom, every rung", ()=> {
     const bad = [];
     for(const cu of Object.keys(CUSTOMS)) for(let L = 3; L <= 9; L++){
