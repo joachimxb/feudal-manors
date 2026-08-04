@@ -616,7 +616,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.11.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.11.2 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -3966,7 +3966,16 @@ so is <b>how many of each grade render coin instead of a body</b>.</p>
 
 <script>
 // ================= shared =================
-const fmt = n => Math.round(n).toLocaleString();
+// ---- THE LOCALE PIN. `toLocaleString()` with no argument formats in the READER'S machine locale,
+// not the document's: the same page renders "1,542 gp" here and "1.542 gp" on a German default,
+// beside prose whose hard-typed figures use the separators the other way round. The document is
+// written in English and its typed figures group with a comma, so the formatters name that locale
+// explicitly. ⚠ It is the DOCUMENT's locale, not the author's — pinning is not a claim that this
+// separator is correct anywhere but on this page. Gate G6 (tools/check_locale_pin.mjs) paints every
+// surface twice, under a simulated de-DE and en-GB platform, and requires the two to be identical;
+// it detects the missing argument behaviourally, so a new formatter that forgets it goes red without
+// anyone having to grep. Both formatters, and `shGp` below, are the same rule at three sites.
+const fmt = n => Math.round(n).toLocaleString("en-GB");
 // a count spelled out, for prose that GENERATES its number instead of restating it. See COUNTED /
 // paintCounts() near the tab machinery for what this is for and why it exists at all.
 const NUMWORD = ["no","one","two","three","four","five","six","seven","eight","nine","ten","eleven",
@@ -6912,8 +6921,17 @@ function renderWrit(st, F){
 const shCell = (k, v, n, dim) =>
   `<div class="sheetcell${dim ? " dim" : ""}"><span class="sk">${k}</span>` +
   `<span class="sv">${v}</span>${n ? `<span class="sn">${n}</span>` : ""}</div>`;
+// ⚠ This was the codebase's FIRST locale fix, applied at one call site while the two functions that
+// format everything else stayed unpinned — a symptom treated, and the reason G6 exists. Its old note
+// read *"toLocaleString: '11,5' is not a price"*, which was the hazard before `fmt` named a locale
+// and is not the hazard now. What the branch does today is keep a tenth out of a grouping formatter
+// altogether. The two branches would group differently above 999 — `fmt(1542)` gives "1,542" where
+// `String(1542.5)` gives "1542.5" — but a sweep of 864 states across holder, definition, land value,
+// density and family count finds 115 fractional figures and 26 grouped ones, and NOT ONE that is
+// both: every fraction the sheet renders is a rate or a lance-count under 200. Measured, not assumed,
+// and left alone on that evidence rather than fixed on the strength of the arithmetic.
 const shGp = n => { const r = Math.round(n*10)/10;             // a tenth never goes through
-  return Number.isInteger(r) ? fmt(r) : String(r); };          // toLocaleString: "11,5" is not a price
+  return Number.isInteger(r) ? fmt(r) : String(r); };          // a locale-free rendering by construction
 const DASH = "—";
 function renderSheet(st, F){
   const grid = dG("sheetgrid"); if(!grid) return;
@@ -7810,7 +7828,7 @@ function pa(income, level){
 // because a Duke's 6,000 gp/mo doubles to exactly L10's 12,000.
 const ceilOf = income => { let L = 0; for(let n = 1; n <= 14; n++) if(HENCH[n] <= 2 * income) L = n; return L; };
 
-const one = n => (Math.round(n*10)/10).toLocaleString();
+const one = n => (Math.round(n*10)/10).toLocaleString("en-GB");   // locale-pinned; see `fmt`
 const setT = (id, v) => { const e = dG(id); if(e) e.textContent = v; };
 
 // ---- vassals are a TREE: a vassal may enfeoff vassals of his own, and RAW's band applies at
@@ -8751,20 +8769,35 @@ function selfTest(){
   const paint = o => { Object.keys(o).forEach(k => set(k, o[k]));
                        renderLadder(); renderUnits(); renderHousehold(); return FM.last; };
   const rung = k => FM.rungs.find(r => r.key === k);
-  // l_cust is pinned to "raw" ON PURPOSE, and the pin is load-bearing: every figure asserted below
-  // §1–§25 was calibrated against the RAW economy, so pinning it here makes this entire suite the
-  // CLEAN-SWITCH proof — under ACKS RAW the page must still compute exactly what it always did, and
-  // any drift is a bug in the custom-of-record work. The Customary figures are asserted separately
-  // in §26, and the identities are SWEPT across both customs in §27, because tools/README's rule
-  // stands: a dial pinned in the fixture is a dial the suite is otherwise blind to.
+  // l_cust is pinned to "raw" ON PURPOSE, and the pin is load-bearing: every figure asserted in
+  // §1–§22 and its lettered continuations was calibrated against the RAW economy, so pinning it here
+  // makes those groups the CLEAN-SWITCH proof — under ACKS RAW the page must still compute exactly
+  // what it always did, and any drift is a bug in the custom-of-record work. The Customary figures
+  // are asserted separately in §22 and §22c, and the identities are SWEPT across both customs in
+  // §22d, because tools/README's rule stands: a dial pinned in the fixture is a dial the suite is
+  // otherwise blind to. (§28–§31 do not run on this fixture at all — each drives `l_cust` itself.)
+  // ⚠ This sentence cited "§1–§25", "§26" and "§27" until v3.11.2. Those groups have never existed:
+  // the Customary work landed as lettered continuations of §22 and the citation was never
+  // re-pointed. A justification that names a section by a number nobody can find is unreadable
+  // exactly where it matters most — it is the only defence of a pinned dial, and a pinned dial is
+  // the thing the suite is otherwise blind to. Gate G7 now diffs every §N against the group list.
   const DEFAULT = {l_era:"", l_def:"dis", l_assess:"current", l_asz:true, land:6, dens:375,
                    l_sq:true, h_holder:"kt1", h_cls:1, h_fam:23, h_chart:"1", h_cdef:"ang",
                    l_cust:"raw"};
   const base = o => paint(Object.assign({}, DEFAULT, o || {}));
 
-  // ---- 1. the published worked example — the bachelor's fee at land 6, borderlands ---------
+  // ---- 1. the published worked example, ITS RAW COMPARISON COLUMN — bachelor's fee, land 6 ---
   // These are the figures the module prints in its own prose. If one of them moves, either the
   // engine has drifted or the page is now telling the reader something it does not compute.
+  //
+  // ⚠ WHICH COLUMN, and why the name had to say so. The walk-through prints every row twice — the
+  // default reading in roman, the ACKS RAW comparison in italic — and this group is pinned to `raw`,
+  // so the figures below are the ITALIC ones: "12 families at 9 gp = 108 gp/mo", "108 against 100 —
+  // 8 gp/mo", "2 yeomen — ≈211 gp once, 18 gp/mo", "24 / 36 / 48", "≈42 gp … ≈39%". Every one is
+  // published prose. The group was never mis-pointed; its NAME just predated the second column, and
+  // a title that says "the published worked example" when there are two of them names neither.
+  // The default column is guarded too, by gate G7 against the engine — so both readings are held,
+  // in different places, which is the fact the old title obscured.
   base();
   T("bachelor's fee — 12 families",      ()=> eq(rung("kt1").fam, 12));
   T("bachelor's fee — 108 gp/mo income", ()=> eq(rung("kt1").income, 108));
