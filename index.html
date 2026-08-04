@@ -635,7 +635,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.15.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.16.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -4106,6 +4106,42 @@ in the host above.</p>
 <div class="cards" id="cards"></div>
 
 <div id="flags"></div>
+
+<!-- ONE REALM, LINE BY LINE. The Domains tab's two best teaching devices are a FIXED worked
+     example and a LIVE writ, and the Realms tab — eight interacting dials and two populations —
+     had neither. This is the first: the page as a reader meets it, with nothing touched.
+     ⚠ EVERY FIGURE HERE IS ASSERTED against the running engine at the DEFAULT dials by gate G10
+     (tools/check_realm_walk.mjs). It is not a transcription that happened to be right on the day
+     it was typed; if a default moves, this block goes red before the release does. -->
+<h3 style="margin:22px 0 4px;font-size:14px;color:var(--green)">One realm, line by line</h3>
+<p class="pnote" style="margin:0 0 8px">The honour below is the page <b>as it opens</b> — no dial
+touched. Read down and the argument is the arithmetic.</p>
+<div class="walkthrough" id="realmwalk">
+  <div class="rrow"><span class="wk">The honour</span><span><b>4,600 families</b> on land worth
+    <b>6</b>, in the <b>borderlands</b>, under a lord of <b>level 9</b>. One population; found a
+    settlement above and there are two.</span></div>
+  <div class="rrow"><span class="wk">How it is held</span><span><b>780</b> in hand — barely
+    <b>17%</b> — <b>2,240</b> under vassals, <b>1,580</b> in fees. <b>The lord of a great honour
+    holds almost none of it</b>, and that is the finding, not a mis-set dial.</span></div>
+  <div class="rrow"><span class="wk">What the fees are</span><span><b>48 estates</b> owing
+    <b>63 lances</b>. Of those, <b>44.5 serve in kind</b> and <b>18.5 render coin</b> — the fraction
+    is real: a half-fee owes joint service, and half a lance is what the paper says.</span></div>
+  <div class="rrow"><span class="wk">What comes in</span><span>Demesne <b>2,364</b> net of its own
+    expenses, tribute from the vassals <b>2,728</b>, scutage <b>39</b>. <b>5,092 gp a month</b> —
+    and the smallest of the three lines is the one every rules argument is about.</span></div>
+  <div class="rrow"><span class="wk">What the walls cost</span><span>The garrison line asks
+    <b>2,340</b>. The demesne militia — <b>156 men</b>, trained — carries <b>1,404</b> of it, the
+    ward-boys <b>180</b>, and <b>756 gp</b> is left to pay in coin.</span></div>
+  <div class="rrow"><span class="wk">And what it never asks</span><span><b>4,740 gp a month</b>: the
+    garrison line the enfeoffed families would have carried, quit by service. <b>It is the largest
+    number on this page and it is never billed</b> — which is the whole of the module's structural
+    deviation, in one row.</span></div>
+</div>
+
+<!-- THE REALM'S WRIT — the live half. One sentence, rebuilt from the model on every dial move, and
+     derived from `FM.realmLast` alone so there is exactly one root. Not pinned like the estate's
+     writ: two writs fighting for the foot of the window is one too many. -->
+<p class="pnote" id="realmwrit" style="margin:12px 0 0"></p>
 </section>
 
 
@@ -8981,6 +9017,48 @@ function render(){
 
 
   dG("flags").innerHTML = F;
+
+  // ---- THE REALM'S WRIT ------------------------------------------------------------------------
+  // One sentence, rebuilt on every dial move, derived from `m` and NOTHING ELSE — the same
+  // single-root discipline the estate's writ has, and the reason it can be checked at all: a
+  // sentence assembled from two sources is a sentence that can disagree with itself.
+  //
+  // ⚠ CLAUSES ARE GATED ON ARITHMETIC, NOT ON DIAL KEYS. "If a settlement stands" is `urbanTotal`,
+  // not "if the towns list is non-empty"; "if any lance stands ward" is `wardLances`, not the dial's
+  // value. A clause keyed on the control tells the reader what he SET; a clause keyed on the figure
+  // tells him what is TRUE, and those part company the moment a setting stops reaching the ledger.
+  {
+    const pc  = n => Math.round(n / m.famTotal * 100);
+    const two = m.urbanTotal > 0;
+    const cw  = (m.wardLances || 0) > 0;
+    dG("realmwrit").innerHTML =
+      `<b>The honour in hand.</b> ${fmt(m.famTotal)} famil${m.famTotal === 1 ? "y" : "ies"}` +
+      (two ? ` — ${fmt(m.ruralTotal)} rural and ${fmt(m.urbanTotal)} urban, and the rank is read off
+              the whole of it` : ``) +
+      // ⚠ AN IMPOSSIBLE HOLDING IS NOT A HOLDING. `demesne < 0` means more land has been granted
+      // away than the realm contains, and the readout already marks it. The first draft of this
+      // sentence read "of which −3,520 (−1173%) is in hand" in a confident voice — a writ's whole
+      // value is that it states what is TRUE, and a negative demesne is not a small demesne.
+      (m.illegal
+        ? `, and <b>more land is granted away than the realm holds</b> — the honour below is not a
+           realm yet. `
+        : `, of which <b>${fmt(m.rawDem)}</b> (${pc(m.rawDem)}%) is in hand. `) +
+      (m.enfFams > 0
+        ? `${fmt(m.estates)} estate${m.estates === 1 ? "" : "s"} owe <b>${one(m.lancesAll)}
+           lance${m.lancesAll === 1 ? "" : "s"}</b>` +
+          (m.lancesCoin > 0
+            ? `, ${one(m.lancesKind)} in kind and ${one(m.lancesCoin)} in coin`
+            : `, every one of them in kind`) +
+          (cw ? `; <b>${one(m.wardLances)}</b> stand${m.wardLances === 1 ? "s" : ""} ward, so
+                 ${one(m.fieldLances)} ride with the host` : ``) + `. `
+        : `No land is in fee, so the honour musters no lances of its own. `) +
+      `It takes <b>${fmt(m.coin)} ${U("gp")}</b> a month and owes <b>${fmt(m.garrCoin)} ${U("gp")}</b>
+       of garrison in coin` +
+      (m.feesQuit > 0
+        ? ` — with <b>${fmt(m.feesQuit)} ${U("gp")}</b> more that is never billed, because the fees
+            are quit of it by service`
+        : ``) + `.`;
+  }
 }
 
 ["fam","r_land","cls","lvl","dmil","oppmil","l_scut","r_scutmo","r_fost","r_place","r_ward"]
