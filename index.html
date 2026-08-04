@@ -107,6 +107,15 @@
   details.fold>summary{font-size:12px;color:var(--gold)}
   details.lib{background:#fff;border:1px solid var(--rule);border-radius:6px;margin:10px 0;padding:8px 16px}
   details.lib>summary{font-size:14px;padding:4px 0}
+  /* the Library contents strip — the three kinds of fold, said out loud */
+  .libtoc{background:var(--alt);border:1px solid var(--rule);border-left:4px solid var(--green);
+    border-radius:6px;padding:8px 13px;margin:10px 0;font-size:12.5px}
+  .libtoc .ltrow{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px;padding:3px 0}
+  .libtoc .ltrow+.ltrow{border-top:1px solid var(--rule)}
+  .libtoc .ltk{min-width:104px;font-weight:700;color:var(--green);flex-shrink:0}
+  .libtoc a{color:var(--ink);text-decoration:none;border-bottom:1px dotted var(--rule2)}
+  .libtoc a:hover{color:var(--green);border-bottom-color:var(--green)}
+  .libtoc a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
   .rungnote>summary{font-style:normal;color:var(--gold);font-weight:600;font-size:11px}
   .rungnote>div{padding-top:4px}
   .lever .lquick{font-size:12.5px;color:var(--ink);margin:2px 0 4px}
@@ -626,7 +635,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.12.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.13.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -736,7 +745,7 @@
   </select>
   <p class="pnote">A realm's economy, not a century's — the era presets leave it alone, and ACKS RAW
   is offered as a <b>comparison</b> rather than as a rival period. Argued in full in the
-  <a href="#sec-library">Library</a>'s Custom chapter and at <a href="#sec-dials">the Dials</a>.</p>
+  <a href="#sec-library">Library</a>'s <a href="#lib-custom">Custom chapter</a> and at <a href="#sec-dials">the Dials</a>.</p>
 </div>
 <div class="pop" id="pop-sq" hidden>
   <button type="button" class="pclose" data-popclose aria-label="close">×</button>
@@ -839,7 +848,7 @@
     from the mid-13th century on. All three are ordinary history, and none of them is here: modelling them
     means giving up the one-estate-one-paper assumption the ladder, the muster and the writ are all built
     on. The module's answer is the honest one — it says so, and prices the case it can. The era table
-    (<b>History</b> chapter, Library) says the same thing about the divorce of fee from knight.
+    (<a href="#lib-history"><b>History</b> chapter</a>, Library) says the same thing about the divorce of fee from knight.
   </p>
   <p class="intro">
     <b>The one structural change.</b> RAW puts a monthly <b>garrison line</b> on every domain — 2/3/4 gp per
@@ -855,7 +864,7 @@
     <b>Where the argument is kept.</b> Citations read <b>RR</b> = ACKS II Revised Rulebook,
     <b>JJ</b> = Judges Journal, and every page reference in this module has been checked against the
     2nd&nbsp;printing and its Major Errata. The rulings that depart from strict RAW are not buried: each is
-    named, priced, and defended in the <b>⚖ doctrine tables</b> and the <b>Design</b> chapter — where the
+    named, priced, and defended in the <b>⚖ doctrine tables</b> and the <a href="#lib-design"><b>Design</b> chapter</a> — where the
     module argues against itself, the deviations are the honest part. The dated sources sit in
     <b>History</b>, and Hârn, the first application, has its own chapter. All of these are in the
     <b>Library</b> at the foot of this page, with the rest of its chapters beside them — Money, Custom,
@@ -1055,7 +1064,7 @@
   move land, density, assize, assessment, and the definition of record to the century's values in one click — a
   starting point, not a lock: every dial stays live after, and each carries its own reasoning in
   <a href="#sec-dials">the Dials</a>. The full era table — the knight of the record, the ladder's reading, and the
-  dials, era by era — is the <b>History</b> chapter in the Library; and played forward, domain-seasons deliver these
+  dials, era by era — is the <a href="#lib-history"><b>History</b> chapter</a> in the Library; and played forward, domain-seasons deliver these
   eras <b>in sequence</b>, no dial set by hand (the three counts of a fee, same chapter).</p>
 </section>
 
@@ -1119,8 +1128,8 @@
     permanent “even if the requirements for the classification are no longer being met,” so thin ground under a
     high class is ordinary and the reverse is illegal. The
     dial is RAW's own ladder, and it doubles as a reading of the
-    century: the default sits at the 13th-century heartland (the distraint era — History chapter, Library), Domesday England reads ~120, and a manor itself walks
-    the dial as it stocks and fragments (the three counts of a fee, <b>History</b> chapter, Library). The parceling check below
+    century: the default sits at the 13th-century heartland (the distraint era — <a href="#lib-history">History chapter</a>, Library), Domesday England reads ~120, and a manor itself walks
+    the dial as it stocks and fragments (the three counts of a fee, <a href="#lib-history"><b>History</b> chapter</a>, Library). The parceling check below
     reads the dial in those terms — how many ~1,060-acre manor-territories the hex holds, and how full each has filled.</div></details>
     <div class="field" style="margin:4px 0;max-width:340px">
       <select id="dens" aria-labelledby="ln-dens">
@@ -1176,7 +1185,7 @@
     <div class="ldesc" style="font-weight:700;color:var(--green);margin-bottom:2px">Do knights raise each other's sons? — a realm's custom, free to both sides</div>
     <div class="ldesc lead">Adds each knight’s fostered squire — +45 gp of watch-and-train value at zero land cost, <b>where a boy actually rides</b>. Every lance keeps an attendant; fosterage decides whether it is a boy of the class or a hired groom. A realm’s custom, not a century’s.</div>
     <details class="deeper"><summary>⚖ Deeper — fosterage: the heir’s education as the lance’s train</summary>
-    <div class="ldesc">Knights place their sons in other knights' households at ~14 — typically up the ladder, in the hall of the father's own lord, whose court is the clearinghouse — "fosterage" borrows the Celtic name for what English custom called squiring; attested up the aristocracy, extended here to the whole class as a norm. The heir earns his levels <b>before</b> he inherits, and every lance gains a squire (~45 gp of medium-horse wage-value, RR p.169) at <b>zero land cost</b> — the boy's wage is his education. He keeps his knight horsed and stands the manor's watch, but takes <b>no place in the line of battle</b>. Reciprocal, so it nets out realm-wide. The boy is <b>not</b> a henchman and takes no slot — fosterage is a placement between households, not a retainer's contract, and the contract that carries his knight disowns the slot machinery outright (⚖ <i>the bundle is closed</i>). <b>Every knight in the field keeps an attendant regardless</b>: three or four horses and sixty pounds of mail are not a one-man job. What fosterage decides is <i>which kind</i> — a boy of the class, who costs nothing and can stand the manor's watch, or a hired groom, who costs coin and cannot. <b>So the limit is supply, not permission: all knights may squire, and there are not enough boys to go round</b> — the class carries well under one boy of squiring age per lance (the supply of boys, Design chapter, Library), so a realm at canon's paper rate of one squire per lance is describing its <b>assessment</b>, not its muster. <b>A practice, not an entitlement:</b> the toggle sets the realm's custom, but at any given hour not every lance has a boy in it — heirs come of age, fosterings lapse between sons — and the Judge should feel free to leave particular manors empty. The +45 rides only where a squire actually does.</div></details>
+    <div class="ldesc">Knights place their sons in other knights' households at ~14 — typically up the ladder, in the hall of the father's own lord, whose court is the clearinghouse — "fosterage" borrows the Celtic name for what English custom called squiring; attested up the aristocracy, extended here to the whole class as a norm. The heir earns his levels <b>before</b> he inherits, and every lance gains a squire (~45 gp of medium-horse wage-value, RR p.169) at <b>zero land cost</b> — the boy's wage is his education. He keeps his knight horsed and stands the manor's watch, but takes <b>no place in the line of battle</b>. Reciprocal, so it nets out realm-wide. The boy is <b>not</b> a henchman and takes no slot — fosterage is a placement between households, not a retainer's contract, and the contract that carries his knight disowns the slot machinery outright (⚖ <i>the bundle is closed</i>). <b>Every knight in the field keeps an attendant regardless</b>: three or four horses and sixty pounds of mail are not a one-man job. What fosterage decides is <i>which kind</i> — a boy of the class, who costs nothing and can stand the manor's watch, or a hired groom, who costs coin and cannot. <b>So the limit is supply, not permission: all knights may squire, and there are not enough boys to go round</b> — the class carries well under one boy of squiring age per lance (the supply of boys, <a href="#lib-design">Design chapter</a>, Library), so a realm at canon's paper rate of one squire per lance is describing its <b>assessment</b>, not its muster. <b>A practice, not an entitlement:</b> the toggle sets the realm's custom, but at any given hour not every lance has a boy in it — heirs come of age, fosterings lapse between sons — and the Judge should feel free to leave particular manors empty. The +45 rides only where a squire actually does.</div></details>
     <div class="adv" style="grid-template-columns:1fr 24px;max-width:420px">
       <label for="l_sq">Count the squire in each knight's service (+45 gp)</label><input type="checkbox" id="l_sq" checked>
     </div>
@@ -1195,7 +1204,7 @@
     income, the module's default behavior. <b>Ancient</b> freezes the counts at the charter while incomes grow past
     them — the standing-manor line (land lever, above) then shows <b>the margin</b>, the income the paper never sees.
     The margin is the household's funding (<b>Muster</b> section), distraint is the crown taxing it by income instead
-    of re-surveying, and a realm where the margin is universal has aged into livery (the era table, <b>History</b> chapter, Library).
+    of re-surveying, and a realm where the margin is universal has aged into livery (the era table, <a href="#lib-history"><b>History</b> chapter</a>, Library).
     And the count is not all the paper writes — the <b>definition</b> of the lance rides the same charter (the
     definition lever, below).</div></details>
     <div class="field" style="margin:4px 0;max-width:340px">
@@ -1227,7 +1236,7 @@
     there, not narrated.
     <b>Distraint</b> — the seizure of a man's goods until he performs what he owes — is the crown's definition-reset
     aimed at the man rather than the manor: distraint <i>of knighthood</i> compels the income-qualified to take up
-    current-standard arms and dubbing (defined in full on the Library’s <b>History</b> chapter).</div></details>
+    current-standard arms and dubbing (defined in full on the Library’s <a href="#lib-history"><b>History</b> chapter</a>).</div></details>
     <div class="field" style="margin:4px 0;max-width:380px">
       <select id="l_def" aria-labelledby="ln-def">
         <option value="dom">Domesday — the mailed rider (60 gp; the fees re-count)</option>
@@ -1339,7 +1348,7 @@
     <i>dials set by hand</i>. <b>The picker itself lives in <a href="#sec-eras" style="color:var(--green)">The eras</a></b>,
     beside what each century actually meant — it is not repeated here.</div>
     <details class="deeper"><summary>⚖ Deeper — what the presets set and what they leave alone</summary>
-    <div class="ldesc">The era table (<b>History</b> chapter, Library) read as dial settings: pick a century and the land, density,
+    <div class="ldesc">The era table (<a href="#lib-history"><b>History</b> chapter</a>, Library) read as dial settings: pick a century and the land, density,
     assize, assessment, and definition-of-record dials move to its values — a starting point, not a lock; every dial stays live after, and
     touching one clears the preset back to "dial your own." Fosterage is left out of the presets on purpose: it is a
     realm's custom, not a century's. Kaldor's home setting is the distraint century.</div></details>
@@ -1497,7 +1506,7 @@
     <p class="note">The populations convert: the household youth who proves out is <b>enfeoffed</b> at escheat or new
     land — population two feeding population one, the fosterage loop run forward. And history ran the current the
     other way in the end: as enfeoffment died, the obligation migrated from the first population to the second — the
-    great retinues of the later centuries were retained and paid, not seated on fees (the era table, History chapter, Library).</p>
+    great retinues of the later centuries were retained and paid, not seated on fees (the era table, <a href="#lib-history">History chapter</a>, Library).</p>
   </div>
   </details>
   <details class="fold"><summary>The ledger — what a holder can keep (how to read the card below)</summary>
@@ -1506,7 +1515,7 @@
     Every verdict below measures one number: <b>the surplus</b> — what the estate's income clears above the holder's
     own wage-grade keep (income − anchor). A man whose monthly cost sits inside the surplus is affordable; a man who
     costs more than it eats into the holder's own keep, and the estate can no longer sustain his grade — it slides
-    toward the threadbare fee (Design chapter, Library). Pick a holder: the <b>quota ledger</b> applies the levy's credit and
+    toward the threadbare fee (<a href="#lib-design">Design chapter</a>, Library). Pick a holder: the <b>quota ledger</b> applies the levy's credit and
     shows what is still owed, and the menu prices every way of adding a fighting man — <b>per man and for the whole
     remaining count</b> — at the land value set in the Dials section. The grown manor takes its families and charter
     from the fields above; the assessment lever (Dials section) picks which of its two readings rules.
@@ -1663,7 +1672,7 @@
     valet draws no wage at all — he is the domestic establishment, inside the threshold (next section):
     his wage is his place, as the squire's is his education. (The fifteenth-century paybooks kept the same two
     lines: the ordinance lance <b>paid</b> its coustillier — a fighting rider, this ladder's man-at-arms — and
-    carried its page unpaid; the Library’s History chapter’s lance note has the whole arc.) <b>In war the split follows RAW's own favor-and-duty law</b> (p.345–6) —
+    carried its page unpaid; the Library’s <a href="#lib-history">History chapter</a>’s lance note has the whole arc.) <b>In war the split follows RAW's own favor-and-duty law</b> (p.345–6) —
     two RAW halves and one transplant. RAW's halves: a Call to Arms is <b>provider-pays</b> — the called vassal
     musters at his own wage cost, so the fee’s month of service rides on the knight's purse (priced on every Ladder card:
     about two-fifths of the fee's income, once a year); and the Troops favor runs the other way — what the lord
@@ -1697,7 +1706,7 @@
     The castellany's arithmetic looks like a paradox — a castle-holder who cannot pay watchmen — until the period's
     own answer is priced: <b>the castle is warded by other men's service, not the castellan's purse.</b> Castle-guard
     was a render like any other: fees bound to a castle owed ward in rotation (the honour of Wallingford's fees,
-    History chapter, Library), and <b>serjeanties</b> — small tenures held by the service of a man at the walls — clustered at
+    <a href="#lib-history">History chapter</a>, Library), and <b>serjeanties</b> — small tenures held by the service of a man at the walls — clustered at
     castles because the castle-holder is the one lord land-rich enough to carve them. This is the quittance doctrine
     pointed at the walls: the ward is discharged in kind by tenure, and the garrison line the castellan would pay is
     quit by the same instrument that quits his own. <b>Enfeoffing is the land-rich lord's move; retaining is the
@@ -1744,7 +1753,7 @@
   </p>
   <p class="intro">
     In the module's terms worship is not a new mechanic — it is why the existing ones point the way they do. The
-    loyalty ladder (Design chapter, Library) is the asset being purchased: household henchmen at 0, companions at +2, the
+    loyalty ladder (<a href="#lib-design">Design chapter</a>, Library) is the asset being purchased: household henchmen at 0, companions at +2, the
     affinity's annuitants held near 0 only by continuous good lordship — service must be continuously bought,
     one favor per duty, and the household's keep is that purchase made monthly. Arbitration is its exercise: most
     disputes ended not in a verdict but in a <b>loveday</b> — a settlement imposed by a respected lord under the
@@ -1773,7 +1782,7 @@
     one-fee anchor — no margin at all, and it stays below until land 7 — while <i>under ACKS RAW revenues</i> at that same
     average land those 23 families clear 107 gp/mo. Both halves of that sentence are pinned to land 6, which is exactly
     what the passage used to leave unsaid: 107 was printed as though neither the reading nor the land value entered into it.) <b>Distraint is the crown noticing; the
-    era where the margin is universal is bastard feudalism</b> (the recovered layer, History chapter, Library) — frozen quotas,
+    era where the margin is universal is bastard feudalism</b> (the recovered layer, <a href="#lib-history">History chapter</a>, Library) — frozen quotas,
     grown incomes, and every margin wearing livery. One honest cross-current: the frozen count capped the crown's
     scutage basis too, which is why crowns abandoned the fee for the income tax; and a holder might <i>seek</i>
     re-assessment upward — banner eligibility, a marriage, worship — the social pressure against pocketing the
@@ -1867,8 +1876,28 @@
   <b>This is where the marks lead:</b> every <span class="bdg mod" title="this module’s own ruling; RAW does not say it">MODULE</span> on the page is
   argued in the ⚖ tables below, every <span class="bdg raw" title="ACKS II, rules as written — page-exact, and cited">RAW</span> is verified
   against the rulebook in the audits, and every <span class="bdg his" title="a historical institution, borrowed as an analogy — not a rule of the game">HISTORY</span>
-  has its record in the History chapter.</p>
-  <details class="lib" data-lib="doctrine" data-doc="module"><summary>⚖ Module doctrine — where we deviate from RAW, and why <span class="bdg mod" title="every ruling in this table is the module’s, not ACKS’s — stated, bounded and priced">MODULE</span></summary>
+  has its record in the <a href="#lib-history">History chapter</a>. <b>And every chapter here can be
+  linked to.</b> The contents strip below, and every pointer elsewhere on the page that names a
+  chapter, opens the fold it names rather than dropping the reader at this heading.</p>
+
+  <!-- THE CONTENTS STRIP. Fourteen folds in a flat list is a filing cabinet, not a book: the lede
+       named the groups and then the reader met them shuffled, doctrine and audit and chapter in one
+       column, and the only way to find the franchise argument was to read every summary. The strip
+       says the three kinds out loud and puts the chapters in their own row, where their number can
+       be counted by eye against the sentence above that claims it.
+       Every link here goes through goAnchor, which OPENS the fold it lands on — see FOLDS. -->
+  <nav class="libtoc" aria-label="Library contents">
+    <div class="ltrow"><span class="ltk">⚖ Doctrine</span>
+      <a href="#lib-doctrine-module">Module doctrine</a><a href="#lib-doctrine-household">Household doctrine</a><a href="#lib-faq">FAQ</a></div>
+    <div class="ltrow"><span class="ltk">RAW audits</span>
+      <a href="#lib-raw-manors">Manors</a><a href="#lib-raw-units">Units</a><a href="#lib-raw-household">Household</a><a href="#lib-raw-offices">Offices</a></div>
+    <div class="ltrow"><span class="ltk">Chapters</span>
+      <a href="#lib-money">Money</a><a href="#lib-custom">Custom</a><a href="#lib-franchise">The franchise</a><a href="#lib-design">Design</a><a href="#lib-history">History</a><a href="#lib-harn">Hârn</a><a href="#lib-canon">Canon's two rules</a></div>
+    <div class="ltrow"><span class="ltk">Within Design</span>
+      <a href="#design-engine">The engine</a><a href="#design-lord">The lord's half</a><a href="#design-scutage">Scutage</a><a href="#design-buys">What the fee buys</a><a href="#design-fidelity">Fidelity</a><a href="#design-levels">Levels and XP</a><a href="#design-threadbare">The threadbare fee</a></div>
+  </nav>
+
+  <details class="lib" id="lib-doctrine-module" data-lib="doctrine" data-doc="module"><summary>⚖ Module doctrine — where we deviate from RAW, and why <span class="bdg mod" title="every ruling in this table is the module’s, not ACKS’s — stated, bounded and priced">MODULE</span></summary>
 <div class="raw-sect">
     <div class="raw-head">⚖ Module doctrine — where we deviate from RAW, and why</div>
     <div class="scroll"><table class="audit"><caption class="vh">Module doctrine — where this module deviates from RAW, and why</caption>
@@ -1876,17 +1905,17 @@
       <tbody>
         <tr><th scope="row"><b>The fee is QUIT of the garrison line by service</b> — the lance and the trained levy discharge it in kind, and the fee keeps its whole net — <code>land+3</code> under ACKS RAW revenues, <code>land−2</code> under the
           customary rent. Nothing and no one is priced onto the line.</th>
-          <td>The garrison line is a <b>protection-value floor, not a payroll</b>: RAW itself meets it with unpaid value — trained militia "even if the militia is not called up," scutage, a lord's troops (p.341–2) — though "garrison cost cannot be paid with expenditure on henchman… except actual troops." And the scutage duty (p.346) grants its garrison credit <i>and</i> says "<b>in some realms</b>, a vassal may send troops instead of gp" in the same entry — the cash/kind equivalence is printed, realm-conditional; <b>this module's realms are declared such realms</b>, which is the whole of the Library’s History chapter’s era claim. RAW's channel for the vassal's person is Call to Council, unpriced (p.346)</td>
-          <td><b>This is the module's structural deviation — owned, bounded, priced</b> (the p.342 aside about "spending only the minimum 2gp" reads the line as payable, not zeroable, and we zero it). The form is a <b>quittance</b>, the period's own instrument: charters made estates quit of geld (the land tax) and of castle-guard in consideration of service kept, and quit-rent is the same deal run backward — coin paid to be quit of service. The fee exercises the scutage entry's equivalence <i>standing</i>: troops instead of gp, permanently. Because the discharge is contractual, <b>no valuation of the knight is ever needed</b> — asked who actually defends the manor, the answer is the consideration itself: one knight, his squire, and his armed yeomen (in the yard, <i>the knight is still the garrison</i> — the quittance is how the ledger says it). The quittance is <b>conditional</b> — see the assize row below: a fee in default is quit for the lance only and hires its missing watch. The bound against strict RAW is small: full militia credit already equals the RAW fee-holder's net <code>land+3</code> at civilized; the residue is the frontier increment, 1–2 gp/family — and it expires: the fee's own maturation walks it to the civilized reading (the three counts of a fee, History chapter, Library), amortizing the concession over the manor's life. Equivalently, at realm scale: <b>land held by knight-service carries no garrison line</b> — enfeoffed families garrisoned in men, demesne families in coin; the per-fee quittance and the class exemption are one fact in two ledgers.</td></tr>
+          <td>The garrison line is a <b>protection-value floor, not a payroll</b>: RAW itself meets it with unpaid value — trained militia "even if the militia is not called up," scutage, a lord's troops (p.341–2) — though "garrison cost cannot be paid with expenditure on henchman… except actual troops." And the scutage duty (p.346) grants its garrison credit <i>and</i> says "<b>in some realms</b>, a vassal may send troops instead of gp" in the same entry — the cash/kind equivalence is printed, realm-conditional; <b>this module's realms are declared such realms</b>, which is the whole of the Library’s <a href="#lib-history">History chapter</a>’s era claim. RAW's channel for the vassal's person is Call to Council, unpriced (p.346)</td>
+          <td><b>This is the module's structural deviation — owned, bounded, priced</b> (the p.342 aside about "spending only the minimum 2gp" reads the line as payable, not zeroable, and we zero it). The form is a <b>quittance</b>, the period's own instrument: charters made estates quit of geld (the land tax) and of castle-guard in consideration of service kept, and quit-rent is the same deal run backward — coin paid to be quit of service. The fee exercises the scutage entry's equivalence <i>standing</i>: troops instead of gp, permanently. Because the discharge is contractual, <b>no valuation of the knight is ever needed</b> — asked who actually defends the manor, the answer is the consideration itself: one knight, his squire, and his armed yeomen (in the yard, <i>the knight is still the garrison</i> — the quittance is how the ledger says it). The quittance is <b>conditional</b> — see the assize row below: a fee in default is quit for the lance only and hires its missing watch. The bound against strict RAW is small: full militia credit already equals the RAW fee-holder's net <code>land+3</code> at civilized; the residue is the frontier increment, 1–2 gp/family — and it expires: the fee's own maturation walks it to the civilized reading (the three counts of a fee, <a href="#lib-history">History chapter</a>, Library), amortizing the concession over the manor's life. Equivalently, at realm scale: <b>land held by knight-service carries no garrison line</b> — enfeoffed families garrisoned in men, demesne families in coin; the per-fee quittance and the class exemption are one fact in two ledgers.</td></tr>
         <tr><th scope="row"><b>The assize of the fee</b> — the levy is a term of enfeoffment: mail per fee held, yeomen trained &amp; kitted, view of arms twice yearly; a fee in default hires the levy's watch until re-armed</th>
           <td>RAW militia is optional — a ruler <i>may</i> levy up to 2 per 10 families (p.432) — but the garrison credit's own wording sets the standard: "trained <b>and equipped</b>" (p.341–2), with kit heritable (p.432). The officer delegations include <b>inspecting troops</b> (p.352–3)</td>
-          <td>The Assize of Arms (1181) owed <b>a hauberk per fee held</b> — mail scaling with fee-count in statute — with its 10-mark freeman at the habergeon tier (his was a <i>chattels</i> assessment — movable goods, not land: the half-fee mapping borrows the kit-grade, not the tenure); the Statute of Winchester (1285) added the twice-yearly <b>view of arms</b>. Both were national legislation on all free men, enforced by royal machinery — juries and itinerant justices in 1181, elected hundred-constables in 1285. Writing their content into the charter of the fee, and their enforcement into the lord's household, is this module's deliberate transplant. Hârn's yeomen (double tenancy, own kit) are the same custom in canon. Age works against the assize, too: the mail-grade yeomen are precisely the whole-holding tenants, and fragmentation thins that stratum (the three counts of a fee, History chapter, Library) — the old subdivided manor is where the view finds habergeons pawned and the fee slides toward default. The convergence is a calibration, not a law — and it is a calibration of ONE reading. <i>Under ACKS RAW revenues</i> at land 6 — RAW's own average — the rungs' heavy-foot ceilings count <b>1 / 2 / 4</b> mail-grade yeomen on the 1-, 2-, and 4-fee rungs, the statute's scaling out of RAW's qualifying numbers, the esquire at the habergeon tier (0). At the customary rent the same rungs are larger and the same land value counts <b>2 / 5 / 10</b>, with the esquire at 1: the counts still rise with the fee-count, but they no longer <i>equal</i> it, and the resonance is RAW's alone. Richer or poorer hexes shift both. Default is priced, not forbidden: −levy-credit gp/mo of hired watch until the one-time re-arming is paid — distraint (the seizure of goods to compel a defaulter) as texture, on RAW numbers. And so is delivery: when the service is called, <b>the knight pays his men's wages himself</b> (provider-pays — Call to Arms, p.345–6); the month-of-service bill is on every card, and it cuts into the fee's net for the term — one month of service a year; past the forty days the lord's wages carry the host.</td></tr>
+          <td>The Assize of Arms (1181) owed <b>a hauberk per fee held</b> — mail scaling with fee-count in statute — with its 10-mark freeman at the habergeon tier (his was a <i>chattels</i> assessment — movable goods, not land: the half-fee mapping borrows the kit-grade, not the tenure); the Statute of Winchester (1285) added the twice-yearly <b>view of arms</b>. Both were national legislation on all free men, enforced by royal machinery — juries and itinerant justices in 1181, elected hundred-constables in 1285. Writing their content into the charter of the fee, and their enforcement into the lord's household, is this module's deliberate transplant. Hârn's yeomen (double tenancy, own kit) are the same custom in canon. Age works against the assize, too: the mail-grade yeomen are precisely the whole-holding tenants, and fragmentation thins that stratum (the three counts of a fee, <a href="#lib-history">History chapter</a>, Library) — the old subdivided manor is where the view finds habergeons pawned and the fee slides toward default. The convergence is a calibration, not a law — and it is a calibration of ONE reading. <i>Under ACKS RAW revenues</i> at land 6 — RAW's own average — the rungs' heavy-foot ceilings count <b>1 / 2 / 4</b> mail-grade yeomen on the 1-, 2-, and 4-fee rungs, the statute's scaling out of RAW's qualifying numbers, the esquire at the habergeon tier (0). At the customary rent the same rungs are larger and the same land value counts <b>2 / 5 / 10</b>, with the esquire at 1: the counts still rise with the fee-count, but they no longer <i>equal</i> it, and the resonance is RAW's alone. Richer or poorer hexes shift both. Default is priced, not forbidden: −levy-credit gp/mo of hired watch until the one-time re-arming is paid — distraint (the seizure of goods to compel a defaulter) as texture, on RAW numbers. And so is delivery: when the service is called, <b>the knight pays his men's wages himself</b> (provider-pays — Call to Arms, p.345–6); the month-of-service bill is on every card, and it cuts into the fee's net for the term — one month of service a year; past the forty days the lord's wages carry the host.</td></tr>
         <tr><th scope="row"><b>The quota — a fee owes as many lances as it counts fees</b>: ½ owes joint service, 1 its holder, 2 and 4 the holder and the count beside him. A <b>lance</b> is one knight-service, and discharge is by body: a heavy horseman serves a lance whole, a medium-horse serjeant at <b>two-for-one</b>, light horse and foot not at all, coin at the scutage rate — the assize's mounted serjeants credit ½ each while it is kept. And the definition of a lance is itself the charter's, drifting by era (the definition lever): the Survey's mailed rider (60 gp — the fees re-count in him), the 1181 knight (mail per fee), the statute knight of 1285 (Winchester's enforcement overlay on the same body; the covered-horse summonses pressing past it), and the ordinance lance that absorbed the crew — the fee by then commuted. Priced on every card and in full on the Muster section</th>
           <td>RAW's Call to Arms prices the duty in gp — troops worth 1 gp/family (p.346) — and never counts lances; the wage ladder alone would read "4 fees = one L5 knight" and stop there</td>
           <td>The <i>servitium debitum</i> counted knights — one fee, one knight's service; two fees, two — and the Assize of Arms scaled <b>mail with fee-count</b>: the second hauberk of a two-fee man was a second man-at-arms's mail, not a better coat for the first. The module keeps both truths: the fee <b>retains a grade</b> (the wage ladder) and <b>owes a count</b> (the quota) — the gap between them is where scutage, the term-hire market, and the household live. The discharge is priced, not assumed: at wage-parity floors the count above one is affordable only in coin or for the term, which is the record's own answer — real multi-fee holders scutaged and hired; standing retinues awaited the margin (Muster section). The 2:1 substitution is the servitium's own record — two serjeants accepted for a knight (Pollock &amp; Maitland carry the cases) — but the <b>pinning is the module's calibration</b>, owned here: the historical serjeant was a social and tenurial category, not an equipment tier. We map him to the ACKS medium-horse body, and rule the 60-gp heavy-cavalry man sufficiently equipped to discharge a service whole, as the pay rolls' esquire-grade men-at-arms did.</td></tr>
         <tr><th scope="row"><b>The knight's contract</b> — dubbing puts the fee-holder on the henchman XP ledger (expected wage deducted before the threshold) and raises his base loyalty from −2 to 0 for as long as the fee's service is kept — the same conditions the quittance already audits: homage at succession, the assize, the render. There is no separate bond to track: <b>the loyalty rides the fee</b>. A fee in default of its service is a bond in question — −2 until it re-arms, and still deducted. The esquire's fee sits outside the contract: RAW's plain vassal, undeducted, base −2</th>
           <td>RAW keys the wage deduction to henchman <i>status</i>: "henchmen vassals subtract their expected monthly wage from domain income for purposes of calculating XP" (p.342, Major Errata r4 form); a non-henchman vassal deducts nothing and holds base loyalty −2 (p.347), −4 beyond the range of trade (p.347; the range itself defined JJ p.203). Charisma modifies <i>every</i> loyalty score alike (p.166) — it is no henchman perk</td>
-          <td>Two transplanted clauses, each with a RAW precedent of exactly its shape. <b>The ledger</b>: companions "function as henchmen for all purposes… but do not take up henchmen slots" (p.334–6) — the book's own proof that henchman accounting detaches from the slot system and travels; we move one clause of that bundle onto the dubbed fee-holder. <b>The loyalty</b>: senatorial republics give "non-henchmen assigned to rule vassal domains base loyalty scores of 0 instead of −2" because the <i>institution</i> commands the loyalty (p.355) — and tenure by knight-service is feudal monarchy's same institution. The loyalty attaches to the position, not the person, which is why the heiress's husband who renders the service is as sworn as the man born to it — the exact shape of the senate parallel. The clauses ship together because RAW never sells them apart: nowhere does the book pair the wage deduction with negative base loyalty (henchman 0, companion +2) — a deducted man at −2 would kneel to be made strictly worse off, and no one kneels for that. Dubbing is thus a real exchange: the knight's last level moves to the battlefield, his lord's hall moves closer. What falls out downstream — the esquire as the one man land alone completes, and distraint of knighthood emerging from the arithmetic — has its own section on the Library’s <b>History</b> chapter.</td></tr>
+          <td>Two transplanted clauses, each with a RAW precedent of exactly its shape. <b>The ledger</b>: companions "function as henchmen for all purposes… but do not take up henchmen slots" (p.334–6) — the book's own proof that henchman accounting detaches from the slot system and travels; we move one clause of that bundle onto the dubbed fee-holder. <b>The loyalty</b>: senatorial republics give "non-henchmen assigned to rule vassal domains base loyalty scores of 0 instead of −2" because the <i>institution</i> commands the loyalty (p.355) — and tenure by knight-service is feudal monarchy's same institution. The loyalty attaches to the position, not the person, which is why the heiress's husband who renders the service is as sworn as the man born to it — the exact shape of the senate parallel. The clauses ship together because RAW never sells them apart: nowhere does the book pair the wage deduction with negative base loyalty (henchman 0, companion +2) — a deducted man at −2 would kneel to be made strictly worse off, and no one kneels for that. Dubbing is thus a real exchange: the knight's last level moves to the battlefield, his lord's hall moves closer. What falls out downstream — the esquire as the one man land alone completes, and distraint of knighthood emerging from the arithmetic — has its own section on the Library’s <a href="#lib-history"><b>History</b> chapter</a>.</td></tr>
         <tr><th scope="row"><b>The bundle is closed</b> — the fee makes a <b>sworn fee-holder</b>, and he carries <b>two</b> clauses of RAW's henchman machinery and no others. <b>Scope:</b> this defines what the fee does to the man who holds it. A knight without a fee is not a lesser sworn fee-holder — he is RAW's henchman, governed by RAW's henchman rules entire, and this module rules nothing about him. <b>What attaches:</b> the <b>XP ledger</b> — expected wage deducted from domain income before the threshold (p.342 + p.423, errata r4 form) — and <b>base loyalty 0</b> instead of −2, for as long as the fee's service is kept (p.355). <b>What does not attach:</b> no henchman <b>slot</b> (he does not count against 4 + CHA); no <b>slot-chain prerequisite</b>, including p.168's ≥ 50%-of-wage licence to hold henchmen of his own; no <b>wage entitlement</b> (the fee is his pay, p.168); no hireling <b>morale check</b> (the quittance's conditions are the audit — homage at succession, the assize, the render); <b>not the henchman duty economy</b> (p.345's one free ongoing duty at a time, running until revoked — the fee's standing service rests on its own rule, the next row, not on henchman machinery); and <b>not the inner circle's termless service</b> — the mesnie's true henchmen ride without term, the sworn fee-holder is term-bound. <b>A clause not named here does not attach, and may not be invoked elsewhere in this module to settle a question about him.</b></th>
           <td>RAW has no partial status. It has <b>henchmen</b>, <b>companions</b> and <b>plain vassals</b>, each a complete package, and it never sells a package by the clause — except once, and that exception is this module's whole warrant: companions "function as henchmen for all purposes… but do not take up henchmen slots" (p.334–6). RAW is silent on what a man carries when he is given some henchman accounting and no henchman slot, because RAW never puts anyone in that position</td>
           <td>Because a status defined only by what it <b>adds</b> will keep growing, and this one did — twice, silently, in opposite directions. The contract row above announces "two transplanted clauses." By the time this ruling was written the module was <b>using four</b> — and the count was not the tell, because the count was right. Both extra clauses were borrowed at the point of use, and <b>both were borrowed wrongly</b>. The duty economy (p.345 against p.347) was doing the heaviest work in the module from the <i>Service booked at the knight's full wage</i> row — grounding the fee's entire standing service — and had never been examined, because it had never been declared; declared, it fails, being henchman <b>status</b> machinery that describes a true henchman vassal rather than a fee-holder (the next row grounds that service in tenure instead). And p.168's ≥ 50%-of-wage licence had been transplanted into the fosterage lever to decide which knights may take a boy — <b>slot machinery, and applied backwards at that</b>, since fosterings run <i>up</i> the ladder into the great halls the rule excludes. <b>That is the argument for closure in one line: a clause nobody has to declare is a clause nobody ever checks.</b> Neither of these was caught by being wrong. They were caught by being written down. The contract's own warrant is the companion clause, whose entire content is "…but do not take up henchmen slots" — <b>a transplant that disowns the slot system cannot inherit the slot system's prerequisites</b>. So the negative list is normative rather than illustrative, and the closure rule is the operative sentence: to add a clause, add it <b>here</b>, with its precedent and its price. Borrowing one at the point of use is how the module came to hold two incompatible readings of the same man at once, and how a load-bearing transplant came to sit outside its own definition. This is the doctrinal form of the rule the code already lives under — one rule, one owner — and it is checkable the same way: <b>a normative citation of henchman status machinery outside these rows is a finding</b>. RAW's henchman <b>wage table</b> (p.168's 25 / 50 / 100 / 200 / 400, and the landed-vassal clause that offsets a wage against domain income) is a price list, cited freely and correctly throughout; only the <i>status</i> clauses are closed here.</td></tr>
@@ -1907,7 +1936,7 @@
           <td>The fee is a standing favor⇄duty pair — land held against year-round <b>garrison residence</b> and a <b>term-bound host service</b>: one month of service a year in kind (history's forty days, rounded to ACKS's month), at the vassal's cost — provider-pays is the book's own law — with extension at the lord's wages: the muster-roll pay ladder (1, 2, and 4 shillings a day) ↔ 60/100/200 gp, which the pay rolls show fee-holders drawing <i>atop</i> their fees. The duty is discrete and countable because the <b>tenure</b> makes it so, not because a henchman clause allows it: the service is standing because the fee is standing (⚖ <i>the fee's service stands because the fee stands</i>, above), its consideration having passed once and in land at enfeoffment — so the lord asks in any year without buying the call afresh, and the <b>term</b> is what quantizes it to <b>one month of service a year</b> (both the month-long term and the annual cap are the module's feudal doctrine — RAW's own duties have no duration but revocation). The fee-holder is neither a henchman drawing a free ongoing duty (p.345) nor an outsider bargaining call by call (p.347): he stands outside the favor⇄duty frame altogether, which is what a conveyance with a reserved service is. On the balance of the two military systems RAW is with us — "the favors and duties even out; the rules put a standing army and feudal army on equal footing" (p.346–7). The household exception is the henchman bond: the inner circle rides without term. And the full wage buys what p.168 itself prices at full wage: the man's year-round existence, residence, and call — <b>sustainment, not man-days</b> (the crops sell no man above the L1 veteran at any price — and him at a premium, capped at a quarter of hires, p.428–430). Like RAW's scutage, the render never enters anyone's XP ledger.</td></tr>
         <tr><th scope="row"><b>Squire = watch &amp; train, not a line combatant</b> — 45 gp of medium-horse wage-value on the fee's ledger <b>where a fostered boy actually rides</b>, zero battle BR. <b>Every lance keeps an attendant; not every attendant is a boy</b></th>
           <td>RAW has no squire entry at all</td>
-          <td><b>Start from the horses, because they settle the first half without any convention.</b> A man-at-arms keeps three or four mounts — destrier, palfrey, packhorse — and mail he cannot don unaided, and when he fights someone must hold the remounts. One man cannot do it, so <b>every knight in the field has an attendant, landed or landless, and that is logistics rather than privilege</b>. What varies is <i>who the attendant is</i>, and only one of the two answers is worth 45 gp: a <b>fostered boy of the knightly class</b> (14–21) costs the fee nothing — his wage is his education — and being trained to arms he keeps his knight horsed, rides to war behind the line with the remounts and spare lances, and <b>stands the manor's watch</b>; a <b>hired groom or valet</b> costs coin, stands no watch as a man-at-arms, and earns the fee nothing on the garrison ledger. So the toggle is not asking whether this knight has a servant — he always does — but whether his attendant is a boy of the class who counts as garrison. <b>And the constraint is supply, not permission: all knights may squire, and the class does not hold a boy per fee</b> (the supply of boys, Design chapter, Library). <b>Two questions, which the earlier form of this row ran together.</b> <i>Does this knight have an attendant?</i> — governed by nobody, it is logistics, and the answer is always yes, landed or landless. <i>Is that attendant a</i> henchman? — governed by ACKS natively: a henchman may hold henchmen of his own only if landed with income ≥ 50% of his wage (p.168), so only if the knight's income licenses one. <b>A squire is a position; a henchman is a status</b>, and for the valet-style squire they never coincide — a hired groom is a retainer, not a henchman, and RAW keeps those categories apart already. So p.168 is <b>correct, kept, and not a transplant</b>: it answers the second question about a man who is an actual ACKS henchman, under ACKS's own rules, with nothing borrowed. What follows falls out cleanly. The <b>sworn fee-holder</b> has a fee, so his income licenses a henchman and his fostered boy may be his own — on a track, levelling, the man who will be a knight. The <b>landless household knight</b> is himself an ACKS henchman with no domain income, so by p.168 he holds none of his own — and he <b>still has an attendant</b>: a hired valet, or a gentle boy who is <i>the lord's</i> charge placed to train in his hall, since the lord's court is the clearinghouse. The henchman bond runs to the lord; the training runs to the knight. And <b>the +45 is garrison value, not status</b> — it rides where a boy of the class actually stands the watch, whoever's henchman he is or is not. The adult fighting <b>esquire</b> is a different man entirely and must not be read off this row: the 60-gp man-at-arms of the esquire's fee, an adult armiger holding land. Kit priced as medium horse (p.169/438); light cavalry's javelin skirmisher maps to the mounted yeoman instead. <b>⚠ Withdrawn — one clause, precisely.</b> This row used to say "formally the squire is his knight's henchman." That is the false step, and it is the only one: it made every squire a henchman <b>by definition</b>, so the henchman-chain rule began answering the first question, which it was never asked, and produced the conclusion "the landed knight squires, and the landless household knight does not." The definitional sentence is struck; p.168 is kept for the second question, where it was always right. <b>Read p.168 as necessary, not sufficient</b> — income licenses a boy, standing and a hall attract one, and the boys pool in a few great halls rather than spreading evenly over fees (the supply of boys, Design chapter, Library). A boy in the earl's hall stands the <b>castle's</b> watch and not a manor's, so a flat +45 per lance is wrong in shape as well as level. <b>✅ Fixed, and on the tab where a realm can be seen:</b> Feudal Realms now separates the three quantities this checkbox was answering at once — <b>supply</b> (a realm budget: boys per household of the class, a convention the realm sets, Hârn's assessed one-per-lance among the settings), <b>placement</b> (halls bid by standing, wardships first, so the great halls fill before a bachelor's manor sees a boy) and <b>credit</b> (whose garrison the value lands on). The last is the one that pays: a fee is <b>quit</b> of the garrison line, so its boy adds to what the fee <i>delivers</i>; the demesne <i>pays</i> that line, so a ward-boy on the castle watch is coin the lord does not spend. Same 45 gp, two different accounts, and this row's flat form booked all of it to the second. What stays true here is the <i>ruling</i> — the boy is watch and train, no place in the line of battle, and the ≥50%-of-wage licence answers only whether he is his knight's <b>henchman</b>. The simplification that is gone is the arithmetic, not the doctrine.</td></tr>
+          <td><b>Start from the horses, because they settle the first half without any convention.</b> A man-at-arms keeps three or four mounts — destrier, palfrey, packhorse — and mail he cannot don unaided, and when he fights someone must hold the remounts. One man cannot do it, so <b>every knight in the field has an attendant, landed or landless, and that is logistics rather than privilege</b>. What varies is <i>who the attendant is</i>, and only one of the two answers is worth 45 gp: a <b>fostered boy of the knightly class</b> (14–21) costs the fee nothing — his wage is his education — and being trained to arms he keeps his knight horsed, rides to war behind the line with the remounts and spare lances, and <b>stands the manor's watch</b>; a <b>hired groom or valet</b> costs coin, stands no watch as a man-at-arms, and earns the fee nothing on the garrison ledger. So the toggle is not asking whether this knight has a servant — he always does — but whether his attendant is a boy of the class who counts as garrison. <b>And the constraint is supply, not permission: all knights may squire, and the class does not hold a boy per fee</b> (the supply of boys, <a href="#lib-design">Design chapter</a>, Library). <b>Two questions, which the earlier form of this row ran together.</b> <i>Does this knight have an attendant?</i> — governed by nobody, it is logistics, and the answer is always yes, landed or landless. <i>Is that attendant a</i> henchman? — governed by ACKS natively: a henchman may hold henchmen of his own only if landed with income ≥ 50% of his wage (p.168), so only if the knight's income licenses one. <b>A squire is a position; a henchman is a status</b>, and for the valet-style squire they never coincide — a hired groom is a retainer, not a henchman, and RAW keeps those categories apart already. So p.168 is <b>correct, kept, and not a transplant</b>: it answers the second question about a man who is an actual ACKS henchman, under ACKS's own rules, with nothing borrowed. What follows falls out cleanly. The <b>sworn fee-holder</b> has a fee, so his income licenses a henchman and his fostered boy may be his own — on a track, levelling, the man who will be a knight. The <b>landless household knight</b> is himself an ACKS henchman with no domain income, so by p.168 he holds none of his own — and he <b>still has an attendant</b>: a hired valet, or a gentle boy who is <i>the lord's</i> charge placed to train in his hall, since the lord's court is the clearinghouse. The henchman bond runs to the lord; the training runs to the knight. And <b>the +45 is garrison value, not status</b> — it rides where a boy of the class actually stands the watch, whoever's henchman he is or is not. The adult fighting <b>esquire</b> is a different man entirely and must not be read off this row: the 60-gp man-at-arms of the esquire's fee, an adult armiger holding land. Kit priced as medium horse (p.169/438); light cavalry's javelin skirmisher maps to the mounted yeoman instead. <b>⚠ Withdrawn — one clause, precisely.</b> This row used to say "formally the squire is his knight's henchman." That is the false step, and it is the only one: it made every squire a henchman <b>by definition</b>, so the henchman-chain rule began answering the first question, which it was never asked, and produced the conclusion "the landed knight squires, and the landless household knight does not." The definitional sentence is struck; p.168 is kept for the second question, where it was always right. <b>Read p.168 as necessary, not sufficient</b> — income licenses a boy, standing and a hall attract one, and the boys pool in a few great halls rather than spreading evenly over fees (the supply of boys, <a href="#lib-design">Design chapter</a>, Library). A boy in the earl's hall stands the <b>castle's</b> watch and not a manor's, so a flat +45 per lance is wrong in shape as well as level. <b>✅ Fixed, and on the tab where a realm can be seen:</b> Feudal Realms now separates the three quantities this checkbox was answering at once — <b>supply</b> (a realm budget: boys per household of the class, a convention the realm sets, Hârn's assessed one-per-lance among the settings), <b>placement</b> (halls bid by standing, wardships first, so the great halls fill before a bachelor's manor sees a boy) and <b>credit</b> (whose garrison the value lands on). The last is the one that pays: a fee is <b>quit</b> of the garrison line, so its boy adds to what the fee <i>delivers</i>; the demesne <i>pays</i> that line, so a ward-boy on the castle watch is coin the lord does not spend. Same 45 gp, two different accounts, and this row's flat form booked all of it to the second. What stays true here is the <i>ruling</i> — the boy is watch and train, no place in the line of battle, and the ≥50%-of-wage licence answers only whether he is his knight's <b>henchman</b>. The simplification that is gone is the arithmetic, not the doctrine.</td></tr>
         <tr><th scope="row"><b>Leveled knight units priced by the heroic-unit formula</b>, floored at veteran, company-normalized</th>
           <td>"Heroes" (foray rights) are gated by level — platoon scale NPC L4+ / henchman-of-a-hero L2+; company scale L6+ / L4+ (p.466). The troop tables stop at veteran F1, so RAW prices no L2+ non-hero unit. The formula's divisor is 8 × infantry-per-unit — 960 at company scale, <b>240 at platoon scale</b> (p.466)</td>
           <td>We price every leveled unit by the formula, floored at vet HC 0.169, and display all BR <b>÷960</b> so knights, troop tables, and the "≈ N companies" line stay comparable. Hero status gates <i>forays</i>, not unit pricing — the Knight Units section flags eligibility per muster.</td></tr>
@@ -1918,7 +1947,7 @@
     </table></div>
   </div>
   </details>
-  <details class="lib" data-lib="doctrine" data-doc="household"><summary>⚖ Household doctrine — the <span class="ct" data-ct="hrulings"></span> rulings the muster adds <span class="bdg mod" title="the further rulings the muster machinery needs; RAW supplies none of them">MODULE</span></summary>
+  <details class="lib" id="lib-doctrine-household" data-lib="doctrine" data-doc="household"><summary>⚖ Household doctrine — the <span class="ct" data-ct="hrulings"></span> rulings the muster adds <span class="bdg mod" title="the further rulings the muster machinery needs; RAW supplies none of them">MODULE</span></summary>
 <div class="raw-sect">
     <div class="raw-head">⚖ Household doctrine — the <span class="ct" data-ct="hrulings"></span> rulings the muster adds</div>
     <div class="scroll"><table class="audit"><caption class="vh">Household doctrine — the rulings the muster adds</caption>
@@ -1940,13 +1969,13 @@
     </table></div>
   </div>
   </details>
-  <details class="lib">
+  <details class="lib" id="lib-faq" data-lib="faq">
     <summary>FAQ — the questions this module gets asked, in playtest and debate</summary>
     <div class="scroll"><table class="audit"><caption class="vh">FAQ — the questions this module gets asked in playtest and debate</caption>
       <thead><tr><th scope="col">Question</th><th scope="col">Answer</th></tr></thead>
       <tbody>
         <tr><th scope="row">Can a ruler really count his own person against garrison cost?</th>
-          <td><b>Said plainly: this is the module's structural break with RAW — one line, bounded, priced.</b> Strict RAW puts a garrison line on every domain and treats it as a floor to be paid (its own aside pictures a ruler "spending only the minimum 2gp," p.342). This module rules the fee <b>quit</b> of that line so long as its service is kept: the lance and the trained levy are the consideration, on the model of charters that made estates quit of geld or castle-guard for service kept, and on RAW's own printed, realm-conditional equivalence — "in some realms, a vassal may send troops instead of gp" (p.346; this module's realms declared such) — exercised standing. The size of the break: at civilized, full militia credit zeroes the line by pure RAW; <b>the entire concession is the frontier increment, ~1–2 gp per family</b> — and it is time-bounded as well as small: a fee walks outlands → civilized as it stocks and fragments (the three counts of a fee, History chapter, Library), so the concession is largest at the grant on a raw march and amortizes to zero as the manor matures — a founder's subsidy that expires, not a standing tax. What the quittance form buys is not a smaller break but a cleaner one — the discharge is contractual, so the knight is never priced onto the line and no gp valuation of the man is ever needed; and it has teeth: a fee in default of the assize is quit for the lance only and hires its missing watch until it re-arms. Asked who actually defends the manor: one knight, his squire, and his armed yeomen (the full ruling: ⚖ doctrine table, Library).</td></tr>
+          <td><b>Said plainly: this is the module's structural break with RAW — one line, bounded, priced.</b> Strict RAW puts a garrison line on every domain and treats it as a floor to be paid (its own aside pictures a ruler "spending only the minimum 2gp," p.342). This module rules the fee <b>quit</b> of that line so long as its service is kept: the lance and the trained levy are the consideration, on the model of charters that made estates quit of geld or castle-guard for service kept, and on RAW's own printed, realm-conditional equivalence — "in some realms, a vassal may send troops instead of gp" (p.346; this module's realms declared such) — exercised standing. The size of the break: at civilized, full militia credit zeroes the line by pure RAW; <b>the entire concession is the frontier increment, ~1–2 gp per family</b> — and it is time-bounded as well as small: a fee walks outlands → civilized as it stocks and fragments (the three counts of a fee, <a href="#lib-history">History chapter</a>, Library), so the concession is largest at the grant on a raw march and amortizes to zero as the manor matures — a founder's subsidy that expires, not a standing tax. What the quittance form buys is not a smaller break but a cleaner one — the discharge is contractual, so the knight is never priced onto the line and no gp valuation of the man is ever needed; and it has teeth: a fee in default of the assize is quit for the lance only and hires its missing watch until it re-arms. Asked who actually defends the manor: one knight, his squire, and his armed yeomen (the full ruling: ⚖ doctrine table, Library).</td></tr>
         <tr><th scope="row">The magistrate keeps 12.5% of a line he oversees; the quit fee books the whole line as income — isn't that minting XP?</th>
           <td>RAW already mints campaign XP from the garrison line for a military man: the <b>captain of the guard</b>'s salary is carved from garrison expenditure, "does not decrease the funds available to pay his troops," and "grants campaign XP" (p.342) — precedent for the <i>kind</i> of move, not the amount. Against the RAW-legal baseline — militia credit maxed — the quittance books 0 extra XP-bearing income at civilized, ~11 gp at borderlands, ~23 at outlands (the 12-family fee at the ~2.1-gp credit ceiling, below — this whole comparison is worked <i>at ACKS RAW revenues</i>, the ledger RAW's own baseline is stated in), beside the captain's lawful 4.5–6 gp on those same lines: between 0× and 4×, and <i>less than RAW</i> at civilized. Nor are the two equally secured: the captain's eighth is free money — troops unreduced, nothing extra delivered — while the fee's income books only while the consideration is delivered: a veteran lance and a trained levy actually standing there, on terms the view of arms audits twice a year. Per gp of XP, one buys the realm a garrison, the other an accountant. And a 12.5% share presupposes a domain with a staff; at fee scale the org chart collapses — captain, garrison, and ruler are one man with one purse. You can't pay a man an eighth of himself.</td></tr>
         <tr><th scope="row">Is XP double-counted — does the knights' campaign XP subtract from their lord's?</th>
@@ -1956,7 +1985,7 @@
         <tr><th scope="row">Doesn't the in-kind garrison inflate knightly income?</th>
           <td>Run the full RAW ledger (revenue <code>land+4+2</code>, less the three 1-gp cost lines, less garrison, plus militia credit — p.341–2) at RAW's own militia ceiling — 2 per 10 families at the qualifying numbers' best mix, half heavy foot and half bowmen, ~2.1 gp of credit per family, good even uncalled (richer mixes exist on paper, but the yeoman-and-archer mix is the period's) — and it yields <code>land+3</code> exactly at civilized class. The entire dispute is the frontier increment, ~0.9 gp per family at borderlands and ~1.9 at outlands — call it 1–2; concede it whole and the bachelor's fee moves from 12 families to 13 at borderlands <i>(ACKS RAW revenues; at the customary rent, 25 to 34)</i>. What the gold per family buys is a sworn knight in the manor house <b>above</b> the armed peasantry — and p.432 (rebels are drawn from the militia when a domain turns) is exactly why the assize pairs the levy with a resident lord: the counterweight is a term of the same contract.</td></tr>
         <tr><th scope="row">The enfeoffed knight is no household henchman — why does the wage table bind him?</th>
-          <td>Because the wage table is the market price of a level-L man, and the fee must pay it at every point of contact. At a fee's birth from the household, p.168 applies verbatim: the lord enfeoffs a knight he was already paying, and land replaces wage. At a birth from the market — RAW lets a lord enfeoff non-henchmen outright: "mercenary commanders, adventurers" (p.347) — the fee's income is the recruitment offer, and it must meet the man's open-market wage or he rides on. And at every inheritance the market binds the <b>grade</b>, not the man: an heir on a 96-gp manor doesn't ride off — he stays, poorer, and the estate can no longer sustain the rank's establishment, so the line slides down the kit ladder toward the esquire (the threadbare fee, Design chapter, Library) while standing manors re-grade rather than resize. Netting, offering, retaining: one price — enforced hard at the first two points, and at the third by the slow slide of grade.</td></tr>
+          <td>Because the wage table is the market price of a level-L man, and the fee must pay it at every point of contact. At a fee's birth from the household, p.168 applies verbatim: the lord enfeoffs a knight he was already paying, and land replaces wage. At a birth from the market — RAW lets a lord enfeoff non-henchmen outright: "mercenary commanders, adventurers" (p.347) — the fee's income is the recruitment offer, and it must meet the man's open-market wage or he rides on. And at every inheritance the market binds the <b>grade</b>, not the man: an heir on a 96-gp manor doesn't ride off — he stays, poorer, and the estate can no longer sustain the rank's establishment, so the line slides down the kit ladder toward the esquire (the threadbare fee, <a href="#lib-design">Design chapter</a>, Library) while standing manors re-grade rather than resize. Netting, offering, retaining: one price — enforced hard at the first two points, and at the third by the slow slide of grade.</td></tr>
         <tr><th scope="row">Who pays when the levy is called up?</th>
           <td>Someone does: <b>the provider</b> — RAW's general law (Call to Arms: the vassal musters troops at his own wage cost; Troops favor: the lord pays for what he sends down, p.346). The rung cards price it: afield, the knight pays his yeomen's wages and their plough-teams stand idle. The idle plough is booked at the family's <b>full revenue rate</b> (<code>land+6</code> under ACKS RAW revenues,
             <code>land+1</code> customary — the engine reads the live profile), because RAW's two ledger columns come apart here: p.432 reduces domain <i>revenues</i> by one family per man levied ("produce revenue as if it has [fewer] families"), while p.342's <i>Costs per Family</i> column — liturgies, tithe, maintenance — keeps charging: the family still lives there; only its production marches. Net loss per man is therefore the whole revenue, not the fee's net take. Together roughly <b>two-fifths</b> of the fee's income for the month of service, plus −2 morale — free to keep, dear to call, which is why historical levies were short-term, defensive instruments. And the bill is bounded: the fee owes the term — one month of service a year, the forty days — at its own cost; past it the muster rides on the lord's wages (the pay ladder, 1s/2s/4s ↔ 60/100/200), as the rolls show fee-holders drawing. The knight himself is pre-paid for the term: the fee sustains him year-round — at home always, in the host for the forty days, and beyond them at the lord's coin.</td></tr>
@@ -1974,7 +2003,7 @@
     <span class="ct" data-ct="rulings"></span> rulings,
     not one: the difference is that the rest are extensions where RAW prices nothing, not overrides of what it does.</p>
   </details>
-  <details class="lib" data-lib="raw"><summary>RAW under the hood — manors</summary>
+  <details class="lib" id="lib-raw-manors" data-lib="raw"><summary>RAW under the hood — manors</summary>
 <div class="raw-sect">
     <div class="raw-head">RAW under the hood — manors</div>
     <div class="scroll"><table class="audit"><caption class="vh">RAW under the hood — the manor rules, their source, and what each is used as</caption>
@@ -1998,7 +2027,7 @@
     </table></div>
   </div>
   </details>
-  <details class="lib" data-lib="raw"><summary>RAW under the hood — units</summary>
+  <details class="lib" id="lib-raw-units" data-lib="raw"><summary>RAW under the hood — units</summary>
 <div class="raw-sect">
     <div class="raw-head">RAW under the hood — units</div>
     <div class="scroll"><table class="audit"><caption class="vh">RAW under the hood — the unit rules, their source, and what each is used as</caption>
@@ -2020,7 +2049,7 @@
     </table></div>
   </div>
   </details>
-  <details class="lib" data-lib="raw"><summary>RAW under the hood — household</summary>
+  <details class="lib" id="lib-raw-household" data-lib="raw"><summary>RAW under the hood — household</summary>
 <div class="raw-sect">
     <div class="raw-head">RAW under the hood — household</div>
     <div class="scroll"><table class="audit"><caption class="vh">RAW under the hood — the household rules, their source, and what each is used as</caption>
@@ -2037,7 +2066,7 @@
     </table></div>
   </div>
   </details>
-  <details class="lib" data-lib="raw"><summary>RAW under the hood — offices</summary>
+  <details class="lib" id="lib-raw-offices" data-lib="raw"><summary>RAW under the hood — offices</summary>
 <div class="raw-sect">
     <div class="raw-head">RAW under the hood — offices</div>
     <div class="scroll"><table class="audit"><caption class="vh">RAW under the hood — the office rules, their source, and what each is used as</caption>
@@ -2054,7 +2083,7 @@
     </table></div>
   </div>
   </details>
-  <details class="lib" data-lib="chapter"><summary>Money — the gold piece against the pound sterling <span class="bdg raw" title="the coin table is RAW (p.123); the penny equivalence is the designer's own, stated outside the rulebook; the calibration reading is the module's">RAW + MODULE</span></summary>
+  <details class="lib" id="lib-money" data-lib="chapter"><summary>Money — the gold piece against the pound sterling <span class="bdg raw" title="the coin table is RAW (p.123); the penny equivalence is the designer's own, stated outside the rulebook; the calibration reading is the module's">RAW + MODULE</span></summary>
   <div class="raw-sect">
     <div class="raw-head">Money — the gold piece against the pound sterling</div>
     <p class="note">This page quotes sterling in a dozen places — the £20 minimal fee, the 1436 returns'
@@ -2275,7 +2304,7 @@
     aids and wardships are how a crown reaches an estate whose assessment it cannot revise.</p>
   </div>
   </details>
-  <details class="lib" data-lib="chapter"><summary>Custom — the manorial reading, and its defence <span class="bdg rin" title="RAW's own wording motivates reducing rural service revenue and permits tax 0; the values 1 and 0 are the module's">RAW-INFORMED + MODULE</span></summary>
+  <details class="lib" id="lib-custom" data-lib="chapter"><summary>Custom — the manorial reading, and its defence <span class="bdg rin" title="RAW's own wording motivates reducing rural service revenue and permits tax 0; the values 1 and 0 are the module's">RAW-INFORMED + MODULE</span></summary>
   <div class="notecol">
   <h2>Custom — what the dial actually rules</h2>
   <p class="intro">
@@ -2464,7 +2493,7 @@
   </div>
   </details>
 
-  <details class="lib" data-lib="chapter"><summary>The franchise — why RAW's 4 gp is right for burgesses and wrong for villeins <span class="bdg his" title="the market franchise as an institution; no mechanic is added by this chapter">HISTORY</span></summary>
+  <details class="lib" id="lib-franchise" data-lib="chapter"><summary>The franchise — why RAW's 4 gp is right for burgesses and wrong for villeins <span class="bdg his" title="the market franchise as an institution; no mechanic is added by this chapter">HISTORY</span></summary>
   <div class="notecol">
   <h2>The franchise — prose, not mechanics</h2>
   <p class="intro">
@@ -2517,10 +2546,10 @@
   </div>
   </details>
 
-  <details class="lib" data-lib="chapter"><summary>Design — what this module does, and why <span class="bdg mod" title="the module’s own account of itself — what it builds on RAW, and what it declines to build">MODULE</span></summary>
+  <details class="lib" id="lib-design" data-lib="chapter"><summary>Design — what this module does, and why <span class="bdg mod" title="the module’s own account of itself — what it builds on RAW, and what it declines to build">MODULE</span></summary>
 
 
-  <h2>What this module does</h2>
+  <h2 id="design-what">What this module does</h2>
   <p class="intro">
     ACKS II's Titles of Nobility stop at the <b>160-family baron</b>; everything beneath is a single undifferentiated
     "domain." But the layer beneath the baron is where feudal armies actually came from — the <b>knight's fee</b>.
@@ -2535,7 +2564,7 @@
     ever being tuned to it; where they land, that is corroboration, not proof.
   </p>
 
-  <h2>Lineage</h2>
+  <h2 id="design-lineage">Lineage</h2>
   <p class="intro">
     This is the third generation of an idea. <b>The Wandering Gamist's "ACKS Estates – Nobility" (2017)</b> first
     worked the knight's fee in ACKS terms: a ~10-family estate as the support unit of a lance, with the decisive
@@ -2546,14 +2575,14 @@
     <b>This module</b> refines toward the historical record: a graduated scale of manors (esquire to castellan) sized by
     wage-parity instead of uniform knightholds; the garrison taken in kind (the knight's own lance
     and trained yeomen in place of the coin line); heritable fees with fosterage demographics closing the XP loop;
-    fidelity through the household rather than the senate; and the cross-checks (<b>History</b> chapter, Library). <b>It states the doctrine
+    fidelity through the household rather than the senate; and the cross-checks (<a href="#lib-history"><b>History</b> chapter</a>, Library). <b>It states the doctrine
     as a quittance</b> — the fee is quit of the garrison line so long as its service is kept, the period's own
     instrument (estates quit of geld or castle-guard for service; quit-rent is the same deal run backward) — and
     writes the conditions down as <b>the assize of the fee</b>: mail per fee held, levy trained and kitted, view of
     arms twice yearly, with default priced on every card.
   </p>
 
-  <h2>The engine — levels first, history second</h2>
+  <h2 id="design-engine">The engine — levels first, history second</h2>
   <p class="intro">
     Be clear about the causality: <b>these manors are generated by ACKS character levels, not by history.</b>
     The engine is the henchman wage table (RR p.168), which doubles per level — 25 / 50 / 100 / 200 / 400 gp —
@@ -2588,7 +2617,7 @@
     at L5 because the next doubling (800 gp) is a barony's income (160 families × 7 = 1,120 gp, plateauing at
     L6 against the 1,200 XP threshold): a level-6 man is a lord, not a knight. History enters as
     <b>the check</b> — if the reconstruction is honest, its ratios should land inside the medieval record's own
-    ranges. The cross-checks (<b>History</b> chapter, Library) show where they hit exactly and where they sit at the edge of the
+    ranges. The cross-checks (<a href="#lib-history"><b>History</b> chapter</a>, Library) show where they hit exactly and where they sit at the edge of the
     band. A fee is, throughout, a <b>job posting with a fixed salary</b>: its income must match what the man's
     sword earns on the open market, or he rides elsewhere.
   </p>
@@ -2596,7 +2625,7 @@
   
 
 
-  <h2>Making sense for the lord — the other half of the schema</h2>
+  <h2 id="design-lord">Making sense for the lord — the other half of the schema</h2>
   <p class="intro">
     A rung only exists if the <b>lord</b> profits by granting it — otherwise no fee is ever enfeoffed and the manors
     are a fantasy. The ledger closes from his side too, and it is <b>two-colored</b>: demesne families garrisoned
@@ -2648,7 +2677,7 @@
     made by land, footmen by levy.</b>
   </p>
 
-  <h2>Scutage — the quittance run backward</h2>
+  <h2 id="design-scutage">Scutage — the quittance run backward</h2>
   <p class="intro">
     The fee's standing deal is a coin-obligation discharged by service; <b>scutage is the same equivalence exercised
     the other way, for the term</b> — the year’s month of service discharged in coin (both directions are printed in the one
@@ -2697,16 +2726,16 @@
     settles in coin with no body riding — scutage buys out deployment, never readiness). The
     household inner circle rides, for their bond <i>is</i> the service (priced, at last, in the <b>Muster</b> section); scutage is the instrument of the enfeoffed mass
     and the incapable. Commutation also has a geography the model predicts: the quittance amortizes as manors mature (the
-    three counts of a fee, History chapter, Library), so scutage takes hold first in the old, dense core while the young march
+    three counts of a fee, <a href="#lib-history">History chapter</a>, Library), so scutage takes hold first in the old, dense core while the young march
     fees keep real service — and the record agrees: scutage clustered in the settled heartland, and the marches kept
     genuine knight-service longest. And at realm scale it is the era table's dial: one commuted campaign is a
     footnote, but a realm
     where scutage becomes the norm has slid from the distraint century into the indenture century (the era table,
-    <b>History</b> chapter, Library) — service melting into coin, on schedule. The module does not forbid the slide; it prices it and names the destination. Scutage
+    <a href="#lib-history"><b>History</b> chapter</a>, Library) — service melting into coin, on schedule. The module does not forbid the slide; it prices it and names the destination. Scutage
     works here as what it was: <b>the escape valve whose overuse is the end of the system.</b>
   </p>
 
-  <h2>What the fee buys that coin cannot</h2>
+  <h2 id="design-buys">What the fee buys that coin cannot</h2>
   <p class="intro">
     <b>An army in being, not an army in waiting.</b> In RAW an army is not decided into existence — it is
     <i>recruited</i>: each realm holds a finite <b>crop</b> of every mercenary type, surfaced only by paid searching
@@ -2728,7 +2757,7 @@
     drifts toward <b>Arthurian epic</b> — named riders on every field, and adventure quartered in every manor.
   </p>
 
-  <h2>Fidelity — whose man is he?</h2>
+  <h2 id="design-fidelity">Fidelity — whose man is he?</h2>
   <p class="intro">
     RAW grades a lord's men by their bond, and every loyalty score takes the lord's CHA on top — p.166 applies
     Charisma to <i>all</i> loyalty scores alike; it is no henchman perk. The <b>henchman vassal</b> (base 0) is the
@@ -2806,7 +2835,7 @@
     what moves the boys upward.
   </p>
 
-  <h2>Levels drive everything — and the XP loop closes</h2>
+  <h2 id="design-levels">Levels drive everything — and the XP loop closes</h2>
   <p class="intro">
     The rung sizes are <b>retention</b> prices: the fee that matches a level's wage. ACKS's XP rules then close the
     career loop — and <b>the dubbing decides which ledger his land grows him on</b>. A dubbed knight is on the knight's
@@ -2820,10 +2849,10 @@
     <b>Fosterage</b> is how the field reaches the heir before he inherits either way: squired out at ~14, he comes
     home L1–L2 and grows into his grade. Domain XP alone is glacial — which is the correct result: <b>knights are
     made by war; the fee only keeps them.</b> (Why the esquire's exemption is no favor to the knights, and what it
-    produces, is the Library’s History chapter’s distraint section.)
+    produces, is the Library’s <a href="#lib-history">History chapter</a>’s distraint section.)
   </p>
 
-  <h2>The threadbare fee — below parity</h2>
+  <h2 id="design-threadbare">The threadbare fee — below parity</h2>
   <p class="intro">
     What happens when a fee's income slips under its holder's wage — the manor pillaged, the land value fallen, a
     line seated above its means? Not a vanishing. RAW already prices the state as a <b>gradient</b>: income below
@@ -2843,7 +2872,7 @@
 
   
   </details>
-  <details class="lib" data-lib="chapter"><summary>History — the anchors, the cross-checks, the record <span class="bdg his" title="the record side: history enters this module as a consistency check, never as an input">HISTORY</span></summary>
+  <details class="lib" id="lib-history" data-lib="chapter"><summary>History — the anchors, the cross-checks, the record <span class="bdg his" title="the record side: history enters this module as a consistency check, never as an input">HISTORY</span></summary>
 
 
   <h2>How history is used here</h2>
@@ -3370,18 +3399,18 @@
 
   
   </details>
-  <details class="lib" data-lib="chapter"><summary>Hârn — the first application <span class="bdg hrn" title="setting-specific: Kaldor and the Hârnic canon, fitted to the ladder">HÂRN</span></summary>
+  <details class="lib" id="lib-harn" data-lib="chapter"><summary>Hârn — the first application <span class="bdg hrn" title="setting-specific: Kaldor and the Hârnic canon, fitted to the ladder">HÂRN</span></summary>
 
 
   <h2>Hârn — the first application</h2>
   <p class="intro">
     Kaldor is modeled on 12th–13th-century England, so most of the fit is inheritance — the manors were derived from
     ACKS RAW, and Hârn's canon institutions land on their rungs without adjustment. In the era table's terms
-    (<b>History</b> chapter, Library), Kaldor sits squarely in <b>the distraint century</b>: consolidated fees, honorable and
+    (<a href="#lib-history"><b>History</b> chapter</a>, Library), Kaldor sits squarely in <b>the distraint century</b>: consolidated fees, honorable and
     costly dubbing, service still rendered in kind, and crown offices staffed from the great-fief bench. The density
     dial says the same thing a second way: Kaldor's 350 families per settled hex sits just below the borderlands
     cap — a realm <b>still stocking</b>, its marches active (the three counts of a fee,
-    History chapter, Library) — which is exactly canon's Kaldor: colonized centuries ago, not yet full.
+    <a href="#lib-history">History chapter</a>, Library) — which is exactly canon's Kaldor: colonized centuries ago, not yet full.
   </p>
 
   <h2>Canon institutions mapped to the manors</h2>
@@ -3408,7 +3437,7 @@
         a rank. Hârn has no banneret rank, and neither does this module.</td></tr>
       <tr><th scope="row"><b>The Hârnic baron</b> (a handful of manors)</th><td>The 160-family ceiling</td>
         <td>Demesne manors plus enfeoffed fees — how a real barony splits between them is the <b>demesne share</b>,
-        and the barony floor values at ~13⅓ fees either way (cross-checks, <b>History</b> chapter, Library).</td></tr>
+        and the barony floor values at ~13⅓ fees either way (cross-checks, <a href="#lib-history"><b>History</b> chapter</a>, Library).</td></tr>
     </tbody>
   </table></div>
 
@@ -3512,7 +3541,7 @@
 
   </details>
 
-  <details class="lib" data-lib="chapter"><summary>Canon's two rules — a second tradition with the same architecture <span class="bdg hrn" title="Hârnic canon assesses knight service two ways at once; the module's charter-versus-muster model was built from English evidence and canon contains it independently">HÂRN</span></summary>
+  <details class="lib" id="lib-canon" data-lib="chapter"><summary>Canon's two rules — a second tradition with the same architecture <span class="bdg hrn" title="Hârnic canon assesses knight service two ways at once; the module's charter-versus-muster model was built from English evidence and canon contains it independently">HÂRN</span></summary>
   <div class="notecol">
   <h2>Canon's two rules — the charter and the assessment, in print</h2>
   <p class="intro">
@@ -3866,7 +3895,7 @@
        one month of service a year, and it is quit of the garrison line RAW's monthly rate is netted
        against — so a months multiplier there would double-charge the fee, invert the rate lever, and
        price out the wardships and widows the quittance exists to protect (the scutage rules —
-       Design chapter, Library). -->
+       <a href="#lib-design">Design chapter</a>, Library). -->
   <div class="field"><label for="r_scutmo">Months the levy stands <span class="hint">(scutage runs until revoked — RR p.346; the table's clock makes ~6 the expectation)</span></label>
     <select id="r_scutmo">
       <option value="1" selected>1 — a single month</option>
@@ -3909,7 +3938,20 @@
   move your money.</i> Classes&nbsp;V, IV and III all trade at the same rate, so whether a
   2,000-family town is Class&nbsp;IV or Class&nbsp;III — the boundary RAW gives twice and this module
   rules at 2,500 — its trade income is identical either way. The class is a label on the market; the
-  band is the rate. The argument is in the Library's <i>franchise</i> chapter.</p>
+  band is the rate.</p>
+  <p class="pnote" style="margin:0 0 8px"><b>The manorial reading stops at the town wall.</b>
+  Whatever the custom of record says, an urban family yields RAW's own <b>4 gp of service and 2 gp of
+  tax</b> — the repricing that moves every rural figure on this page is an argument about
+  <i>villeins</i>, labour owed on a lord's demesne and valued as rent, and a burgess owes none of it.
+  He is free, taxed and commercial, which is precisely why the manor is not. So a realm with a town
+  in it runs two economies on purpose, and the urban one is the line the module did <i>not</i> touch.
+  Those are ACKS RAW's own two numbers, unchanged: switch the custom of record to
+  <i>ACKS RAW revenues</i> and the rural family rises from 1 and 0 to meet them, while the town has
+  been sitting on them all along. <b>Which makes it a deviation, not an omission</b>
+  <span class="bdg mod" title="RAW propagates the domain’s tax setting to its urban families (RR p.352); this module holds the urban service and tax fixed at 4 and 2 under either reading">MODULE</span>: RAW has the domain's tax
+  setting carry over to its urban families (RR&nbsp;p.352), and this module declines to carry the
+  manorial reading across the wall. The argument is in the Library's
+  <a href="#lib-franchise"><i>franchise</i> chapter</a>.</p>
   <div id="ttable"></div>
   <p style="margin:8px 0"><button id="addt" type="button">+ Found a settlement</button></p>
   <p class="pnote" id="tnote" style="margin:0"></p>
@@ -3935,7 +3977,7 @@ which is why the pyramid pays.</p>
   land could thereafter be <b>substituted</b>, one tenant for another, but not <b>layered</b>. So the
   pyramid this tool builds is the <b>pre-1290 shape</b>. Run the dial freely for the Post-Conquest, Angevin and
   distraint centuries; past 1290 the ladder is frozen and a lord who wants fewer direct vassals must
-  <i>grant away</i> rather than interpose. Argued in full in the <b>History</b> chapter, Feudal Manors.</aside>
+  <i>grant away</i> rather than interpose. Argued in full in the <a href="#lib-history"><b>History</b> chapter</a>, Feudal Manors.</aside>
 <div id="vassalTable"></div>
 <p style="margin:8px 0"><button id="addv" type="button">+ Enfeoff a vassal of his own</button></p>
 <div class="land" id="vband"></div>
@@ -7652,6 +7694,34 @@ const TABNAV = {
 };
 // the three tabs, said once: the nav table already names them, in order
 const TABS = Object.keys(TABNAV);
+
+// ---- the Library, addressable -----------------------------------------------------------------
+// A Library target is not a section. It is a CHAPTER FOLD, or a heading deeper inside one, and it
+// has to be OPENED as well as scrolled to: `scrollIntoView` on a closed `<details>` lands the
+// reader on a collapsed summary with the very thing they were sent to read still hidden. That is
+// the same silent no-op the dead cross-tab pointers were (see goAnchor), one level down — and it
+// is why every "see the Custom chapter" on this page pointed at the Library HEAD instead: a
+// pointer at the chapter itself would have looked broken, so nobody wrote one.
+//
+// ⚠ DECLARED, not discovered, for exactly the reason TABNAV is declared. The natural fix is
+// `el.closest("details")`, and harness.mjs's stub returns null from `closest()` unconditionally —
+// so that version works in the product and is INVISIBLE to check_nav, shipping green-adjacent
+// while the pointers go on landing shut. A `data-fold` attribute fails the same way: the stub's
+// `dataset` is an empty object for every element it hands out. Only a structure the page's own
+// SCRIPT carries can be witnessed by the running page. Prefer it over the DOM method that reads
+// better — the same ruling, restated, because the second occasion is where a rule proves itself.
+//
+// FOLDS names the folds. FOLDOF names, for a heading deeper in, the fold it lives in.
+const LIBSEC = "sec-library";
+const FOLDS = ["lib-doctrine-module","lib-doctrine-household","lib-faq",
+               "lib-raw-manors","lib-raw-units","lib-raw-household","lib-raw-offices",
+               "lib-money","lib-custom","lib-franchise","lib-design","lib-history",
+               "lib-harn","lib-canon"];
+const FOLDOF = {
+  "design-what":"lib-design", "design-lineage":"lib-design", "design-engine":"lib-design",
+  "design-lord":"lib-design", "design-scutage":"lib-design", "design-buys":"lib-design",
+  "design-fidelity":"lib-design", "design-levels":"lib-design", "design-threadbare":"lib-design"
+};
 let TAB = "domains";
 function showTab(name){
   if(!TABNAV[name]) return;
@@ -7753,14 +7823,24 @@ function goAnchor(id){
   // reporting the same three silent no-ops. TABNAV is handed to the harness deliberately (see its
   // NAMES list, added for gate G4) so that this question can be witnessed by the running page.
   // Prefer the structure the tests can see over the DOM method that reads better.
-  const owner = TABS.find(t => TABNAV[t].some(([sec]) => sec === id));
+  //
+  // A fold — or a heading inside one — resolves through FOLDS/FOLDOF instead: its OWNING SECTION
+  // is what the tab lookup and the address want, and the fold itself is what has to be opened.
+  // Open before scrolling: a closed `<details>` has no layout for its contents, so the jump would
+  // measure the summary and land short even once the fold opened underneath it.
+  const fold = FOLDOF[id] || (FOLDS.indexOf(id) >= 0 ? id : "");
+  const sec  = fold ? LIBSEC : id;
+  const owner = TABS.find(t => TABNAV[t].some(([s]) => s === sec));
   if(owner && owner !== TAB) showTab(owner);
+  if(fold){ const f = document.getElementById(fold); if(f) f.open = true; }
   el.scrollIntoView();
   // the native jump moves the keyboard as well as the eye, and the skip link is worthless
   // without it. Sections are not focusable, so they are made so for the duration.
   if(!el.hasAttribute("tabindex")) el.setAttribute("tabindex", "-1");
   el.focus({preventScroll:true});
-  HASH_SEC = id;
+  // the SECTION, not the fold: `hashStr` drops anything outside NAVSECS, so writing "lib-custom"
+  // here would have put the reader's section quietly back to whatever it was before the click.
+  HASH_SEC = sec;
   writeHash();
   spyNav();
   return true;
