@@ -635,7 +635,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.13.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.14.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -3675,15 +3675,15 @@
   </details>
   <div class="ctrls">
     <div>
-      <div class="field"><label for="o_dem">Crown demesne under the office <span class="hint">(families — the castle's attached estates)</span></label>
+      <div class="field"><label for="o_dem"><span class="bdg raw" title="families are RAW's unit for every revenue and expense line (RR pp.341–2); what makes these families an OFFICE rather than a fief is the magistrate delegation at RR p.342">RAW</span> Crown demesne under the office <span class="hint">(families — the castle's attached estates)</span></label>
         <input type="number" id="o_dem" min="0" max="2000" step="10" value="160"></div>
-      <div class="field"><label for="o_cls">District class <span class="hint">(sets the garrison rate, RR p.341–2)</span></label>
+      <div class="field"><label for="o_cls"><span class="bdg raw" title="RR pp.341–2 — civilized, borderlands and outlands set the garrison rate at 2, 3 and 4 gp per family, and the office is paid a share of the line it oversees">RAW</span> District class <span class="hint">(sets the garrison rate, RR p.341–2)</span></label>
         <select id="o_cls">
           <option value="0">civilized — 2 gp/family</option>
           <option value="1" selected>borderlands — 3 gp/family</option>
           <option value="2">outlands — 4 gp/family</option>
         </select></div>
-      <div class="field"><label for="o_hench">The officer is <span class="hint">(RR p.342: unsworn officers are "susceptible to corruption")</span></label>
+      <div class="field"><label for="o_hench"><span class="bdg raw" title="RR p.342 states it outright: unsworn officers are &quot;susceptible to corruption&quot;. What the module adds is the PRICE of that susceptibility — the skim dial below — which is badged where it is set">RAW</span> The officer is <span class="hint">(RR p.342: unsworn officers are "susceptible to corruption")</span></label>
         <select id="o_hench">
           <option value="h" selected>the crown's henchman — sworn, no skim</option>
           <option value="a1">an appointee held by good lordship (loyalty ~0) — skims ¼</option>
@@ -3693,15 +3693,15 @@
         </select></div>
     </div>
     <div>
-      <div class="field"><label for="o_bnd">Coin-paying families bound to the office <span class="hint">(demesne manors and commuted — scutage-paying — fees; knight-fees render lances, not coin)</span></label>
+      <div class="field"><label for="o_bnd"><span class="bdg mod" title="the fisc line is the module's extension of RAW's magistrate share: RAW pays the officer 12.5% of the garrison line, and this module carries the same share onto the coin the district renders. That knight-fees render lances and not coin is the quittance, also the module's">MODULE</span> Coin-paying families bound to the office <span class="hint">(demesne manors and commuted — scutage-paying — fees; knight-fees render lances, not coin)</span></label>
         <input type="number" id="o_bnd" min="0" max="20000" step="10" value="600"></div>
-      <div class="field"><label for="o_rate">Render rate <span class="hint">(Call-to-Arms parity = 1 gp/family, RR p.346)</span></label>
+      <div class="field"><label for="o_rate"><span class="bdg rin" title="RR p.346's Call to Arms sets 1 gp per family as the parity this dial defaults to — RAW supplies the number, but not the decision to render it through an office. That part is the module's">RAW-INFORMED</span> Render rate <span class="hint">(Call-to-Arms parity = 1 gp/family, RR p.346)</span></label>
         <select id="o_rate">
           <option value="1" selected>1 gp/family — the customary render</option>
           <option value="2">2 gp/family — heavy exaction</option>
           <option value="3">3 gp/family — war levy</option>
         </select></div>
-      <div class="field"><label for="o_pay">Payers through the office <span class="hint">(0 = estimate at one per 23-family working manor — a holdings count, not a fee, so it does not move with the custom of record; or count the actual vassals, manors, and farmers of revenue)</span></label>
+      <div class="field"><label for="o_pay"><span class="bdg mod" title="the 23-family working manor is the module's own estimate of a holdings count, not a RAW figure and not a fee — which is why it does not move with the custom of record">MODULE</span> Payers through the office <span class="hint">(0 = estimate at one per 23-family working manor — a holdings count, not a fee, so it does not move with the custom of record; or count the actual vassals, manors, and farmers of revenue)</span></label>
         <input type="number" id="o_pay" min="0" max="20000" step="1" value="0"></div>
     </div>
   </div>
@@ -3818,10 +3818,10 @@
 <div class="dials">
   <!-- ⚠ THE FIELD IS TYPED NOW. It always meant rural families and never said so; urban
        settlements are counted below, in their own pool, and the two never share a revenue line. -->
-  <div class="field"><label for="fam">Rural families <span class="hint">(peasant households — towns are counted separately, below)</span></label>
+  <div class="field"><label for="fam"><span class="bdg raw" title="RAW's own domain population: families are the unit every revenue and expense line on RR pp.341–2 is keyed to">RAW</span> Rural families <span class="hint">(peasant households — towns are counted separately, below)</span></label>
     <input type="number" id="fam" min="24" max="500000" step="10" value="4600"></div>
 
-  <div class="field"><label for="r_land">Land value <span class="hint">(3d3 per hex, avg 6 — RR p.338)</span></label>
+  <div class="field"><label for="r_land"><span class="bdg raw" title="RR p.338 — land value is rolled 3d3 per hex, averaging 6. The dial is RAW's own range; what a family YIELDS on it is the custom of record, which is badged where it is set">RAW</span> Land value <span class="hint">(3d3 per hex, avg 6 — RR p.338)</span></label>
     <select id="r_land">
       <option value="3">3 — poor</option><option value="4">4</option><option value="5">5</option>
       <option value="6" selected>6 — the average</option><option value="7">7</option>
@@ -3834,30 +3834,27 @@
          with a link to the dial that owns it. (Round-4 review §4.) -->
     <p class="pnote" id="r_custread" style="margin:4px 0 0"></p></div>
 
-  <div class="field"><label for="cls">District class <span class="hint">(sets the garrison rate, RR p.341–2)</span></label>
+  <div class="field"><label for="cls"><span class="bdg raw" title="RR pp.341–2 — civilized, borderlands and outlands set the garrison rate at 2, 3 and 4 gp per family. ⚠ It does NOT set the urban garrison, which is a flat 2: see the settlements card">RAW</span> District class <span class="hint">(sets the garrison rate, RR p.341–2)</span></label>
     <select id="cls">
       <option value="0">civilized — 2 gp/family</option>
       <option value="1" selected>borderlands — 3 gp/family</option>
       <option value="2">outlands — 4 gp/family</option>
     </select></div>
 
-  <div class="field"><label for="dmil">The demesne militia <span class="hint">(2 per 10 families, trained — credit counts even uncalled, RR p.341/432)</span></label>
+  <div class="field"><label for="dmil"><span class="bdg raw" title="RR p.432 sets the militia at up to 2 per 10 families; RR pp.341–2 grants the garrison credit for troops &quot;even if the militia is not called up&quot;. Both halves are RAW; that the FEE is quit of the line by this service is the module's, and is badged in the ⚖ doctrine table">RAW</span> The demesne militia <span class="hint">(2 per 10 families, trained — credit counts even uncalled, RR p.341/432)</span></label>
     <select id="dmil">
       <option value="1" selected>raised and trained — the credit runs</option>
       <option value="0">not raised — the garrison is paid in coin</option>
     </select></div>
 
-  <!-- FOSTERAGE, as a REALM CONVENTION rather than a term dial. The module's other realm-specific
-       rate — the yeoman (acres ÷ 300 in Kaldor and Chybisa, one per 600 in Melderyn) — already has
-       this shape, and the reason is the same: "one combatant squire per knight, always" is a
-       convention, not a demographic fact. Hârn LEGISLATES the older shape — canon defines the spear
-       as "one knight, one squire and four yeomen", and the phrase is "has traditionally been SET
-       AT", which is assessment language, a servitium debitum. The module's general default sits
-       lower, because in the century it otherwise targets the knight's attendant is commonly a page
-       or valet and the "esquire" has hardened into a rank of independent combatants.
-       The band itself is demography: a seven-year window (14–21) over a generation of ~30, times
-       ~1.4 sons reaching adolescence per inheriting son — about one boy per three households. -->
-  <div class="field"><label for="r_fost">Fosterage — boys of squiring age <span class="hint">(a realm's convention, per household of the class)</span></label>
+  <!-- FOSTERAGE, as a REALM CONVENTION rather than a term dial.
+       ⚠ THE ARGUMENT IS NOW ON THE PAGE — see the ⚖ Deeper inset in this field. It was here, as a
+       comment, for four releases: the demographic band, canon's assessment language, why the
+       module's default sits lower than canon's spear. It is not repeated here, deliberately. An
+       argument stated in two places is two statements that drift — the ruling this project reached
+       for numbers, and it applies with more force to prose, because prose drifts without anything
+       ever printing a different figure. -->
+  <div class="field"><label for="r_fost"><span class="bdg hrn" title="the NAME and the 1-per-household option are canon's — Hârn's spear is &quot;one knight, one squire and four yeomen&quot;, and the phrase is assessment language. The demographic band beneath the default is the module's arithmetic">HÂRN</span> Fosterage — boys of squiring age <span class="hint">(a realm's convention, per household of the class)</span></label>
     <select id="r_fost">
       <!-- ⚠ THE VALUE IS THE DENOMINATOR — households per boy, an exact integer, 0 = none. It used
            to be the RATE (0.3333), and that cost a boy at every household count divisible by three:
@@ -3868,43 +3865,85 @@
       <option value="3" selected>~1 per 3 households — the demographic band</option>
       <option value="2">1 per 2 households</option>
       <option value="1">1 per household — Hârn's assessed spear</option>
-    </select></div>
+    </select>
+    <details class="deeper"><summary>⚖ Deeper — where one boy per three households comes from</summary>
+    <div class="ldesc"><b>The band is demography, not doctrine.</b> A seven-year window (14–21) over a
+    generation of about 30, times roughly 1.4 sons reaching adolescence per inheriting son, gives
+    about <b>one boy of squiring age per three households of the class</b>. That is the default, and
+    it is the reason "one combatant squire per knight, always" is a <i>convention</i> rather than a
+    demographic fact — the boys do not exist in those numbers.
+    <b>Canon legislates the older shape and says so in its own words.</b> Hârn defines the spear as
+    "one knight, one squire and four yeomen", and the phrase is "has traditionally been <b>set
+    at</b>" — <b>assessment language</b>, a <i>servitium debitum</i>, which is a statement about what
+    a holding OWES and not about who rides out of its gate. Selecting <i>1 per household</i> is
+    therefore selecting canon's paper, deliberately; the realm then musters its assessment rather
+    than its population, and the module's own default sits lower because in the century it otherwise
+    targets the knight's attendant is commonly a page or a valet, the "esquire" having hardened into
+    a rank of independent combatants. The other realm rate has this same shape — the yeoman at
+    acres&nbsp;÷&nbsp;300 in Kaldor and Chybisa, one per 600 in Melderyn — and for the same reason.
+    <b>What the boy is worth</b> is on the Domains tab's fosterage lever: +45 gp of watch-and-train
+    value at zero land cost, no place in the line of battle, and reciprocal, so it nets out
+    realm-wide.</div></details></div>
 
-  <!-- PLACEMENT, which is the half a flat "+45 per lance" gets wrong in SHAPE and not merely in
-       level. The boys are not spread; they POOL, and they pool because the LAW moves them: a lord
-       held the wardship of a tenant's minor heir and commonly raised him in his own household, and
-       the great halls — royal, comital, episcopal — were the training schools of the class. Canon
-       prices the office that runs them: Master of Squires at 324d/mo (Kaldor 17), above a Constable
-       of Keeps at 300d — beside "Squires (unpaid)" in the same table. Kept in pence on purpose: the
-       comparison is canon against canon and needs no coin anchor to stand. (This comment used to
-       read "101 gp at the 3.2d anchor"; 3.2 d/gp is the dead anchor retired by the coin ruling.)
-       And the consequence is a LEDGER consequence, not a flavour one: a boy in the earl's hall
-       stands the CASTLE's watch, not a manor's. -->
-  <div class="field"><label for="r_place">Where the boys go <span class="hint">(placement — halls bid by standing, wardships first)</span></label>
+  <!-- PLACEMENT — the half a flat "+45 per lance" gets wrong in SHAPE and not merely in level.
+       ⚠ THE ARGUMENT IS NOW ON THE PAGE — see the ⚖ Deeper inset in this field: wardship law,
+       the great halls as the class's schools, canon's Master of Squires above a Constable of Keeps,
+       and the ledger consequence. Not repeated here; see the fosterage field's note for why.
+       KEPT, because it is a record and not an argument: this comment used to read "101 gp at the
+       3.2d anchor". 3.2 d/gp is the dead anchor retired by the coin ruling, and the pence-against-
+       pence comparison in the inset is what replaced it. -->
+  <div class="field"><label for="r_place"><span class="bdg his" title="a lord held the wardship of a tenant's minor heir and commonly raised him in his own household; the great halls — royal, comital, episcopal — were the training schools of the class. Borrowed as a placement rule, not a rule of the game">HISTORY</span> Where the boys go <span class="hint">(placement — halls bid by standing, wardships first)</span></label>
     <select id="r_place">
       <option value="hall" selected>up the ladder — great halls draw first</option>
       <option value="even">evenly over the fees — the flat assumption</option>
-    </select></div>
+    </select>
+    <details class="deeper"><summary>⚖ Deeper — the law moves the boys, and the ledger follows them</summary>
+    <div class="ldesc"><b>A flat "+45 per lance" is wrong in shape, not merely in level.</b> The boys
+    do not spread evenly; they <b>pool</b> — and they pool because <b>the law moves them</b>. A lord
+    held the <b>wardship</b> of a tenant's minor heir and commonly raised him in his own household,
+    and the great halls — royal, comital, episcopal — were the training schools of the class. So the
+    halls draw first, by standing, with wardships ahead of placements.
+    <b>Canon prices the office that runs them</b>, and the comparison is canon against canon: Master
+    of Squires at <b>324 d/mo</b> (Kaldor 17), <i>above</i> a Constable of Keeps at <b>300 d</b> —
+    printed beside "Squires (unpaid)" in the same table. Kept in pence on purpose: no coin anchor is
+    needed for one canon figure to be read against another, and this module has ruled that there is
+    no single d/gp rate to convert them by.
+    <b>And the consequence is a ledger consequence, not a flavour one.</b> A boy in the earl's hall
+    stands <i>the castle's</i> watch, not a manor's — so the watch-and-train value lands where the
+    boy is, and choosing <i>evenly over the fees</i> moves it back out to the manors, which is the
+    flat assumption stated as a choice rather than made silently.</div></details></div>
 
-  <!-- Months the levy stands. This dial belongs to the REALM and to nothing else. RAW's scutage is a
-       standing monthly rate on a tribute vassal, so "how long does it stand" is a real question here —
-       and the Favor/Duty table answers it with a clock rather than a term: 16.7% a month that the most
-       recent duty is revoked, so ~6 months is the expectation. The default is 1, which prices a single
-       month and changes no figure that was on this card before the dial existed.
-       It must NEVER be offered at the fee tier. The fee does not hold a levy that stands; it commutes
-       one month of service a year, and it is quit of the garrison line RAW's monthly rate is netted
-       against — so a months multiplier there would double-charge the fee, invert the rate lever, and
-       price out the wardships and widows the quittance exists to protect (the scutage rules —
-       <a href="#lib-design">Design chapter</a>, Library). -->
-  <div class="field"><label for="r_scutmo">Months the levy stands <span class="hint">(scutage runs until revoked — RR p.346; the table's clock makes ~6 the expectation)</span></label>
+  <!-- Months the levy stands. This dial belongs to the REALM and to nothing else.
+       ⚠ THE ARGUMENT IS NOW ON THE PAGE — see the ⚖ Deeper inset in this field: RAW's clock rather
+       than a term, and the three reasons it must NEVER be offered at the fee tier. Not repeated
+       here; see the fosterage field's note for why.
+       ⚠ AND THE PROHIBITION IS NOW ASSERTED, not merely enforced by the dial's absence from the
+       fee tier. Self-test 32 drives this dial to 12 and requires every Domains-tab figure to be
+       unmoved. It is trivially true today; that is the point of writing it down. -->
+  <div class="field"><label for="r_scutmo"><span class="bdg raw" title="RR p.346 — RAW's scutage is a standing monthly rate on a tribute vassal, running until the duty is revoked. The ~6-month expectation is read off RAW's own Favor/Duty clock; that it is never offered at the fee tier is the module's ruling">RAW</span> Months the levy stands <span class="hint">(scutage runs until revoked — RR p.346; the table's clock makes ~6 the expectation)</span></label>
     <select id="r_scutmo">
       <option value="1" selected>1 — a single month</option>
       <option value="3">3 — a season</option>
       <option value="6">6 — the expected life</option>
       <option value="12">12 — a year of it</option>
-    </select></div>
+    </select>
+    <details class="deeper"><summary>⚖ Deeper — why a clock, and why never at the fee</summary>
+    <div class="ldesc"><b>This dial belongs to the realm and to nothing else.</b> RAW's scutage is a
+    <b>standing monthly rate</b> on a tribute vassal (RR&nbsp;p.346) — it does not have a term, it
+    runs until the duty is revoked. So "how long does it stand" is a real question here, and RAW
+    answers it with a <b>clock rather than a term</b>: the Favor/Duty table gives a 16.7% chance per
+    month that the most recent duty is revoked, which makes <b>about six months the expectation</b>.
+    The default is 1, which prices a single month and changes no figure that was on this card before
+    the dial existed.
+    <b>⚠ It must never be offered at the fee tier</b>, and that is a ruling with three reasons. The
+    fee does not hold a levy that stands: it commutes <b>one month of service a year</b>, and it is
+    quit of the very garrison line RAW's monthly rate is netted against. A months multiplier there
+    would <b>double-charge the fee</b>, <b>invert the rate lever</b> — cheaper scutage would start
+    costing more — and <b>price out the wardships and widows</b> the quittance exists to protect.
+    The argument in full is the <a href="#design-scutage">scutage section</a> of the
+    <a href="#lib-design">Design chapter</a>.</div></details></div>
 
-  <div class="field"><label for="lvl">The lord's level <span class="hint">(for personal authority, RR p.347–8)</span></label>
+  <div class="field"><label for="lvl"><span class="bdg raw" title="RR pp.347–8 — personal authority scales with the ruler's level, and the strategic ability that follows from it is net INT/WIL">RAW</span> The lord's level <span class="hint">(for personal authority, RR p.347–8)</span></label>
     <select id="lvl">
       <option value="4">4</option><option value="5">5</option><option value="6">6</option>
       <option value="7">7</option><option value="8">8</option><option value="9" selected>9</option>
@@ -3993,16 +4032,25 @@ so is <b>how many of each grade render coin instead of a body</b>.</p>
 <label class="tick"><input type="checkbox" id="oppmil" checked>
   <span style="font-style:normal;color:var(--ink)" id="feenote"></span></label>
 
-<!-- CASTLE-GUARD (Phase 4, spec §5.4). The dial is in LANCES, not days, and that is the ruling:
-     this module has exactly one calendar — the month of service, history's forty days rounded to
-     ACKS's month — and a "ward days" input would smuggle a second one in through the reader's
-     hand. §5.4 proposed `days ÷ 365`; on a lance that is 10.96 gp/mo against 8.75, a 25% swing
-     on every ward line, and it would sit two cards away from the term the rest of the module
-     prices, argues and names. Withdrawn.
-     ⚠ THE SERVICE IS SPENT ONCE. A lance on ward is not in the field host that term. -->
-<div class="field"><label for="r_ward">Lances standing <b>castle-guard</b>
+<!-- CASTLE-GUARD (Phase 4, spec §5.4).
+     ⚠ THE ARGUMENT IS NOW ON THE PAGE — see the ⚖ Deeper inset in this field: lances not days, the
+     one calendar, the withdrawn days÷365 proposal and the 25% swing it carried, and the fact that
+     the service is spent once. Not repeated here; see the fosterage field's note for why. -->
+<div class="field"><label for="r_ward"><span class="bdg mod" title="RAW prices no castle-guard. The institution is history's; that this module counts it in LANCES rather than days is the module's own ruling, and the days÷365 alternative was proposed and withdrawn">MODULE</span> Lances standing <b>castle-guard</b>
   <span class="hint">(of the <span id="w_bodily">—</span> that serve in kind — the rest ride with the host)</span></label>
-  <input type="number" id="r_ward" min="0" max="9999" step="1" value="0"></div>
+  <input type="number" id="r_ward" min="0" max="9999" step="1" value="0">
+  <details class="deeper"><summary>⚖ Deeper — lances, not days, and the calendar this module refused</summary>
+  <div class="ldesc"><b>The dial is in lances, and that is the ruling.</b> This module keeps exactly
+  one calendar — <b>the month of service</b>, history's forty days rounded to ACKS's month — and a
+  "ward days" input would smuggle a second one in through the reader's own hand. The spec proposed
+  pricing ward at <code>days ÷ 365</code>; on a lance that is <b>10.96 gp/mo against 8.75</b>, a
+  <b>25% swing on every ward line</b>, and it would sit two cards away from the term the rest of the
+  module prices, argues and names. <b>Withdrawn</b> — recorded here rather than deleted, because a
+  reader who reaches for days deserves to know the page considered them and why it declined.
+  <b>⚠ And the service is spent once.</b> A lance on ward is <i>not</i> in the field host that term.
+  That is what makes ward a real decision rather than a second bill: the count you enter here comes
+  out of the muster above it, and the ward card beneath shows both sides of the trade.</div></details>
+  </div>
 <div id="wardCard"></div>
 
 </section>
@@ -10389,6 +10437,30 @@ function selfTest(){
     eq(replaceOf("ord") - scutTerm(50, 1, reqOf("ord"), "full"), 45));
   T("…while under the statute knight it closes exactly", ()=>
     eq(replaceOf("dis") - scutTerm(50, 1, reqOf("dis"), "full"), 0));
+
+  // ---- 32. the months multiplier stops at the realm ---------------------------------------------
+  // The realm's `r_scutmo` prices a levy that STANDS. The fee tier holds no such levy: it commutes
+  // one month of service a year and is quit of the very garrison line RAW's monthly rate is netted
+  // against, so a months multiplier there would double-charge the fee, invert the rate lever, and
+  // price out the wardships and widows the quittance exists to protect.
+  //
+  // ⚠ Until now that prohibition was enforced by the dial's ABSENCE from the fee tier and by a
+  // comment saying so — which is to say, by nothing a future edit would run into. This asserts it:
+  // drive the realm dial to its maximum and require every Domains-tab figure to be unmoved. It is
+  // trivially true today, and that is exactly the point of writing it down. The day someone wires
+  // scutMo into the fee's commutation, this is what says so.
+  T("the realm's months multiplier does not reach the fee tier", ()=> {
+    const before = dG("hcards").innerHTML + "|" + dG("cmptable").innerHTML;
+    const was = dG("r_scutmo").value;
+    set("r_scutmo", "12");
+    renderLadder(); renderUnits(); renderHousehold();
+    const after = dG("hcards").innerHTML + "|" + dG("cmptable").innerHTML;
+    set("r_scutmo", was);
+    renderLadder(); renderUnits(); renderHousehold();
+    return before === after ? true
+      : "a Domains-tab figure moved when the REALM's months dial did — the fee is being charged for " +
+        "a levy it does not hold";
+  });
 
   // --- the estate as the reader left it ----------------------------------------------------
   Object.keys(saved).forEach(id => set(id, saved[id]));
