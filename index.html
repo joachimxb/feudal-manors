@@ -664,7 +664,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.20.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.21.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -1927,7 +1927,7 @@
     <div class="ltrow"><span class="ltk">RAW audits</span>
       <a href="#lib-raw-manors">Manors</a><a href="#lib-raw-units">Units</a><a href="#lib-raw-household">Household</a><a href="#lib-raw-offices">Offices</a></div>
     <div class="ltrow"><span class="ltk">Chapters</span>
-      <a href="#lib-money">Money</a><a href="#lib-custom">Custom</a><a href="#lib-franchise">The franchise</a><a href="#lib-design">Design</a><a href="#lib-history">History</a><a href="#lib-harn">Hârn</a><a href="#lib-canon">Canon's two rules</a></div>
+      <a href="#lib-castles">Castles</a><a href="#lib-money">Money</a><a href="#lib-custom">Custom</a><a href="#lib-franchise">The franchise</a><a href="#lib-design">Design</a><a href="#lib-history">History</a><a href="#lib-harn">Hârn</a><a href="#lib-canon">Canon's two rules</a></div>
     <div class="ltrow"><span class="ltk">Within Design</span>
       <a href="#design-engine">The engine</a><a href="#design-lord">The lord's half</a><a href="#design-scutage">Scutage</a><a href="#design-buys">What the fee buys</a><a href="#design-fidelity">Fidelity</a><a href="#design-levels">Levels and XP</a><a href="#design-threadbare">The threadbare fee</a></div>
   </nav>
@@ -2163,6 +2163,63 @@
     </table></div>
   </div>
   </details>
+  <details class="lib" id="lib-castles" data-lib="chapter"><summary>Castles — what a rung's land will actually pay for <span class="bdg raw" title="the stronghold minimum and the population ceiling are both RAW (RR p.338, p.340); the structure prices are RAW's own list (p.132). What the module supplies is the join, and the historical names at each price point are history's">RAW + HISTORY</span></summary>
+  <div class="raw-sect">
+    <div class="raw-head">Castles — what a rung's land will actually pay for</div>
+    <p class="note">This page says <b>castle</b> and <b>castellany</b> several dozen times between them
+    and, until this chapter, priced a castle exactly <b>zero</b> times. That is a gap worth closing,
+    because the answer is not the one the vocabulary implies — and it is the finding a reader is most
+    likely to remember.</p>
+    <div class="raw-head">The ladder, converted to territory and then to stone</div>
+    <p class="note">Two RAW rules, and nothing else: a domain's <b>minimum stronghold value</b> per
+    1.5-mile hex (RR&nbsp;p.338) and its <b>population ceiling</b> per 6-mile hex (RR&nbsp;p.340). The
+    families are the module's own rung values at land&nbsp;6 under the customary reading. <b>Every cell
+    below is computed</b> — <code>hexes = ⌈families ÷ ceiling⌉</code>, then <code>× the class rate</code>
+    — so the table is a function this page can be checked against rather than twelve constants a reader
+    must take on trust.</p>
+    <div id="castleTable"></div>
+    <p class="note"><b>A castellany's stronghold requirement does not buy a castle. It buys a tower.</b>
+    A bachelor's fee buys a timber hall and a palisade — <i>a ringwork</i>. This is not a defect in ACKS
+    and it is not a defect here: it is <b>historically exact</b>. The knightly residence of the
+    11th–13th centuries was a fortified manor house, a ringwork or a solar tower; the castle proper
+    belonged to a magnate. The module's own rung note half-admits it already; the arithmetic says it
+    outright.</p>
+    <p class="note"><b>And a real castle is an earl's, measurably.</b> Run the same rule backwards:
+    <span id="castleRev">—</span> That is why Caer Gardiren is an earl's castle — only an earl's
+    population can secure one.</p>
+    <div class="raw-head">Three things the table says that the vocabulary does not</div>
+    <p class="note"><b>The frontier taxes the knight twice.</b> The same hundred families want
+    <span id="castleFront">—</span> — on top of a higher garrison rate on every one of them. Kaldor is
+    borderlands.</p>
+    <p class="note"><b>One rung is worse placed than the others</b>, and for a reason worth naming:
+    RAW's living-expense scale is <i>quantised by level</i> while the territory rule is
+    <i>continuous in families</i>, so a rung can carry the stone bill of the tier above while drawing
+    the allowance of its own. RAW's living expenses allow an implicit rent of <b>1/33 of stronghold
+    value, capped at half the total</b>, so the stone a rung can carry unaided is
+    <code>(wage ÷ 2) × 33</code>. Measured against what its territory actually demands at borderlands:
+    <span id="castleWorst">—</span></p>
+    <p class="note">⚠ <b>And the research this chapter was built from named the wrong rung</b>, which
+    is worth recording rather than quietly correcting. It put the burden on a <i>county knight</i> of
+    <b>three</b> fees and 75 families — a rung this ladder does not carry, and a name this page
+    already spends on the <b>two-fee</b> holding (see the terms table: <i>"one the knight bachelor;
+    two the county knight; four the castellan"</i>). The <i>finding</i> survives the correction; the
+    rung it lands on does not. That is why the figures above are computed from the ladder rather than
+    transcribed from the table that found them.</p>
+    <p class="note"><b>Unit capacity ≠ peacetime housing ≠ standing establishment</b>, and RAW supplies
+    two of the three. A keep holds <b>6 units</b> in a siege and houses <b>a company of 120</b> in peace
+    (RR&nbsp;p.132, 151). Harlech's actual establishment was <b>36</b>. ⚠ <b>The third number is the one
+    a reader wants</b>, and it is the one no rulebook prints — which is why the garrison composer treats
+    the first as a refusal and the record's 12–60 as a warning. A cap says what is possible; only the
+    record says what was usual.</p>
+    <p class="note">⚠ <b>One note on grain, so a discrepancy does not read as a defect.</b> Everything
+    here is computed at RAW's <b>1.5-mile</b> rates against the per-1.5-mile share of RAW's 6-mile
+    population ceilings. RAW's own 6-mile stronghold figure is <b>not</b> 16× the fine one —
+    22,500&nbsp;gp against 24,000 — which is RAW's rounding rather than an error here. At the coarse
+    rate the earl's caput above reads about <b>2,073</b> families instead. The fine grain is used
+    because the subject is manors.</p>
+  </div>
+  </details>
+
   <details class="lib" id="lib-money" data-lib="chapter"><summary>Money — the gold piece against the pound sterling <span class="bdg raw" title="the coin table is RAW (p.123); the penny equivalence is the designer's own, stated outside the rulebook; the calibration reading is the module's">RAW + MODULE</span></summary>
   <div class="raw-sect">
     <div class="raw-head">Money — the gold piece against the pound sterling</div>
@@ -4167,14 +4224,16 @@ so is <b>how many of each grade render coin instead of a body</b>.</p>
 <p class="seclede">Castle-guard is the one render RAW does not price, and the one the castellany's
 arithmetic cannot do without: <b>the castle is warded by other men's service, not the castellan's
 purse.</b> The doctrine is argued on the Domains tab — see <a href="#sec-muster">the warded walls</a> —
-and this is where it costs something. <b>The service is spent once:</b> a lance standing here is not
-in the host above.</p>
-<!-- CASTLE-GUARD (Phase 4, spec §5.4).
+and this is where it costs something. <b>What the charter says decides whether the walls or the host
+goes short</b> — and in a war year, under the commonest clause of all, it is the walls.</p>
+<!-- CASTLE-GUARD (Phase 4, spec §5.4; rewritten to cl. 29 by the garrison spec, 2026-08-05).
      ⚠ THE ARGUMENT IS NOW ON THE PAGE — see the ⚖ Deeper inset in this field: lances not days, the
-     one calendar, the withdrawn days÷365 proposal and the 25% swing it carried, and the fact that
-     the service is spent once. Not repeated here; see the fosterage field's note for why. -->
-<div class="field"><label for="r_ward"><span class="bdg mod" title="RAW prices no castle-guard. The institution is history's; that this module counts it in LANCES rather than days is the module's own ruling, and the days÷365 alternative was proposed and withdrawn">MODULE</span> Lances standing <b>castle-guard</b>
-  <span class="hint">(of the <span id="w_bodily">—</span> that serve in kind — the rest ride with the host)</span></label>
+     one calendar, the withdrawn days÷365 proposal and the 25% swing it carried, and — new — why
+     "the service is spent once" was true of one charter and not of the other. Not repeated here;
+     see the fosterage field's note for why. -->
+<div class="dials">
+<div class="field"><label for="r_ward"><span class="bdg mod" title="RAW prices no castle-guard. The institution is history's; that this module counts it in LANCES rather than days is the module's own ruling, and the days÷365 alternative was proposed and withdrawn">MODULE</span> Lances the charter binds to <b>castle-guard</b>
+  <span class="hint">(of the <span id="w_bodily">—</span> that serve in kind)</span></label>
   <input type="number" id="r_ward" min="0" max="9999" step="1" value="0">
   <details class="deeper"><summary>⚖ Deeper — lances, not days, and the calendar this module refused</summary>
   <div class="ldesc"><b>The dial is in lances, and that is the ruling.</b> This module keeps exactly
@@ -4184,11 +4243,103 @@ in the host above.</p>
   <b>25% swing on every ward line</b>, and it would sit two cards away from the term the rest of the
   module prices, argues and names. <b>Withdrawn</b> — recorded here rather than deleted, because a
   reader who reaches for days deserves to know the page considered them and why it declined.
-  <b>⚠ And the service is spent once.</b> A lance on ward is <i>not</i> in the field host that term.
-  That is what makes ward a real decision rather than a second bill: the count you enter here comes
-  out of the muster above it, and the ward card beneath shows both sides of the trade.</div></details>
+  <b>⚠ cl. 29 proportions in days, and this module answers in months.</b> That quantisation is the
+  module's own step, not the charter's — the rule is Magna Carta's, the rounding is ours.</div></details>
   </div>
+<div class="field"><label for="r_wardtype"><span class="bdg his" title="Magna Carta 1215 cl. 29 — the clause's own final limb excuses guard in proportion to time served in the host. Which clause a fee was granted under is the charter's business; both were written, routinely, by the same lords">HISTORY</span> What the charter says
+  <span class="hint">(dischargeable at the walls, or owed on top and abating)</span></label>
+  <select id="r_wardtype">
+    <option value="sub" selected>at the walls — one term, the lord elects where</option>
+    <option value="abate">in addition — abating pro rata, cl. 29</option>
+  </select>
+  <details class="deeper"><summary>⚖ Deeper — the ruling this replaced, and why it was not wrong</summary>
+  <div class="ldesc"><b>Until 2026-08-05 this page held that ward was an alternative use of the one
+  term</b> — "the service is spent once", a lance on ward is a lance not in the host. <b>That is
+  exactly right, and it is the first setting above.</b> What it could not describe is the two-clause
+  charter, where a fee owes the field <i>and</i> the walls: there the pool is <b>the year, not the
+  month</b>, and Magna Carta cl. 29 settles the collision in the knight's favour — <i>"if we have led
+  or sent him on military service, he shall be excused guard in proportion to the time in service."</i>
+  <b>Serve the field and the ward abates by what was served.</b> Peace year, the lord has his full
+  ward; war year, he has the host and bare walls. <b>It is a hedge, not a dominance</b> — which is
+  why lords wrote both clauses as a matter of course, and why the old reading was not wrong so much
+  as unscoped.</div></details>
+  </div>
+<div class="field"><label for="r_host"><span class="bdg his" title="the months the host is actually out. cl. 29 abates the ward by the time served, so this dial is what decides whether an abating charter yields a warded wall or a bare one">HISTORY</span> Months the host is <b>out</b>
+  <span class="hint">(what the ward abates against)</span></label>
+  <input type="number" id="r_host" min="0" max="12" step="1" value="1">
+  </div>
+<div class="field"><label for="r_penny"><span class="bdg his" title="castle-guard rent, the tenant's own commutation. Magna Carta cl. 29 gives the ELECTION to the tenant — a constable may not distrain money from a knight willing to serve in person. The rate is this module's wage-parity, 8.75 = a lance's 105 over twelve months">HISTORY</span> …of those, rendering the <b>ward-penny</b>
+  <span class="hint">(8.75 gp/mo each — the tenant elects, not the lord)</span></label>
+  <input type="number" id="r_penny" min="0" max="9999" step="1" value="0">
+  <details class="deeper"><summary>⚖ Deeper — why this, and not scutage, pays for a castle</summary>
+  <div class="ldesc"><b>The two commutations are structurally different animals.</b> Scutage is an
+  <i>occasional imposition</i>, levied per campaign, at a rate <b>the lord</b> sets when he chooses.
+  Ward-penny is a <i>fixed perpetual charge</i> attached to the tenure, and <b>the tenant</b> elects
+  it — cl. 29 forbids a constable to distrain money from a knight willing to serve in person.
+  <b>And the fit with the arithmetic is exact.</b> A garrison is a standing monthly <i>bill</i>;
+  ward-penny is a standing monthly <i>income</i>; they match in kind. Scutage does not — it is an
+  occasional lump against a perpetual expense, which is why it covers barely a twentieth of this
+  realm's coin garrison. <b>This is the row that makes a castle payable</b>, and it is why
+  castle-guard rent funded garrisons while scutage funded campaigns. <b>The rate is not a dial:</b>
+  real ward rents were fixed customary conversions of whole honours, not annual optimisations.</div></details>
+  </div>
+<div class="field"><label for="r_serj"><span class="bdg his" title="tenure by serjeanty — land held for a named, non-knightly service: keeping the gate, warding a tower, finding a watchman. The families leave the fisc, because the holding's whole net IS the serjeant's wage">HISTORY</span> Families granted in <b>serjeanty</b>
+  <span class="hint">(<span id="w_serj">—</span> — they leave the demesne)</span></label>
+  <input type="number" id="r_serj" min="0" max="9999" step="1" value="0">
+  <details class="deeper"><summary>⚖ Deeper — twelve times the land, and why that is arithmetic</summary>
+  <div class="ldesc">A fee renders <b>a lance for a month</b>. A serjeanty renders <b>a body at the
+  gate, every day of the year</b> — and it is the answer to "who opens the gate on an ordinary
+  Tuesday", which the ward dial cannot reach. <b>Land paid as a wage at par:</b> the holding's whole
+  net <i>is</i> the standing body — so at the <b>customary</b> net of 4 gp a family, 3 families carry
+  a 12-gp watchman where 15 carry the 60-gp man-at-arms who serves one month in twelve. <i>Under ACKS
+  RAW revenues a family nets 9, and the same two men want 1⅓ and 6⅔ families.</i> The dial above
+  divides by whichever reading is in force, and says so. <b>⚠ The 12× is construction, not convergence.</b>
+  Land at par means the wage cancels — families per gp of standing body is <code>12 ÷ months</code>
+  for <i>any</i> wage whatever. It is the definition of serving twelve times the months, not two
+  sources agreeing, and it is worth saying because this page has mistaken the one for the other
+  before. What survives is the institution's whole selling line, and it is true: <b>year-round petty
+  service is twelve times cheaper in land than termed service.</b></div></details>
+  </div>
+<div class="field"><label for="r_elect"><span class="bdg mod" title="RR p.345 counts CONCURRENT duties. Once cl. 29 abates by right the two duties never overlap of themselves, so the loyalty roll prices the lord's demand BEYOND the law — not the calendar">MODULE</span> In a war year the lord
+  <span class="hint">(abating is the law; demanding both is not)</span></label>
+  <select id="r_elect">
+    <option value="abate" selected>abates the ward — lawful</option>
+    <option value="both">holds them to both — a roll per knight, per month</option>
+  </select>
+  <details class="deeper"><summary>⚖ Deeper — where the loyalty roll actually fires</summary>
+  <div class="ldesc">RR&nbsp;p.345 says a vassal can be safely asked for <b>one ongoing duty</b> in a
+  month. Ward in one season and host in another are never concurrent, so they are <b>free</b>. And
+  once cl. 29 abates <i>by right</i>, the two never overlap of their own accord either — so a roll
+  keyed on the calendar would be pricing nothing. <b>Abatement is the default of law; the roll prices
+  the demand beyond it.</b> A lord who wants his walls manned <i>and</i> his host full is asking for
+  two duties at once, and forty ward-bound knights is forty exposures at exactly the moment he needs
+  them to come. That is the grievance cl. 29 was written to remedy, priced in ACKS's own currency.
+  <b>⚠ Era-gated by custom rather than by code:</b> the distraint century — Kaldor's — takes
+  abatement as settled law, and the demand belongs to the centuries before the charter.</div></details>
+  </div>
+</div>
 <div id="wardCard"></div>
+</section>
+
+<section id="sec-composer">
+<h2 class="sechead">The garrison composed — men, and where they stand <span style="text-transform:none;letter-spacing:0;font-weight:400;color:var(--mute)">· the first section that <i>builds</i> <span class="bdg raw" title="RR p.434 hands the composition to the player and supplies a wage table: &quot;the exact mix will be determined by the Judge or the player character who rules the domain&quot;. Every wage below is RAW's; the caps are RAW's and the Statute's; the establishment band is history's">RAW</span></span></h2>
+<p class="seclede">RAW says outright that a domain's garrison is <i>"some mix of followers, mercenaries,
+conscripts, and militia"</i> and that the mix is the ruler's to choose (RR&nbsp;p.434). Until now this
+module handed you a gp figure and stopped. <b>One row is a kind of man; one column is a place</b> —
+because a crossbowman stands on the castle's towers <i>and</i> at the town gate, and the count belongs
+in the cell rather than the row.</p>
+<!-- THE GARRISON COMPOSER (garrison spec §2).
+     ⚠ THE TABLE IS BUILT ONCE, with its inputs, exactly as the fee table is and for the same
+     reason: a table rebuilt on every render loses the reader's focus mid-keystroke.
+     ⚠ AND IT OPENS DERIVED, NOT BLANK (§2.5). A blank matrix is a blank page, and a reader who has
+     never seen a real establishment cannot build one. The opening allotment is the Statute of
+     Winchester's own coefficients over this realm's own vills and boroughs, which is also what
+     carries the teaching load of the reconciliation paragraph below. Reset replays that derivation
+     rather than restating it — same discipline as LINK_DFLT. -->
+<div class="field"><label for="c_reset">The opening allotment is <b>derived</b>, not blank</label>
+  <button type="button" class="sbtn" id="c_reset">↺ Reset to the derived establishment</button></div>
+<div id="composerTable"></div>
+<div id="composerCard"></div>
 </section>
 
 <section id="sec-reckoning">
@@ -4541,6 +4692,105 @@ function urbanRevenue(fam){
   const garr  = fam * URBAN.garrison;
   const fixed = fam * URBAN.fixed;
   return {fam, cls, trade, gross, garr, fixed, net: gross - garr - fixed, dissolved: fam < URBAN.min};
+}
+
+// ==============================================================================================
+//  CASTLE-GUARD, THE CHARTER, AND THE CASTLE — the mirror (garrison spec, 2026-08-05)
+//
+//  ⚠ THE ARGUMENT IS NOT HERE, AND THAT IS THE RULE RATHER THAN AN OMISSION. fm_core.mjs is the
+//  OWNER of everything below and carries the reasoning — cl. 29's own final limb, why the month
+//  and not `days ÷ 365`, why the Hundred, why the 12× is construction and not convergence. One
+//  rule, one owner applies to the argument as much as to the arithmetic, and a second copy of a
+//  justification is how three withdrawn ones stayed published. What a READER needs is on the page
+//  itself, in the sections these quantities feed; what a maintainer needs is in the owner.
+//
+//  ⚠ AND THIS BLOCK MIGRATED RATHER THAN APPEARED. The ward arithmetic used to live inside the
+//  Realms closure and nowhere else, which is precisely the condition the parity gate cannot see.
+//  Moving it out was made part of the cl. 29 rewrite rather than left to follow, because patching
+//  it in place would have grown the unmirrored surface exactly where this build expands fastest.
+//  Gated by tools/check_rule_owners.mjs --core.
+// ==============================================================================================
+const WARD_TERM  = 1/12;                          // the month of service, per year
+const WARD_PENNY = LANCE_WAGE * WARD_TERM;        // 8.75 — DERIVED, never the literal
+function wardOwed(wardTermMonths, hostMonthsServed){
+  return Math.max(0, (wardTermMonths || 0) - (hostMonthsServed || 0));
+}
+const CHARTERS = {
+  none:  {key:"none",  name:"none",                 walls:false},
+  sub:   {key:"sub",   name:"at the walls",         walls:true},
+  abate: {key:"abate", name:"in addition, abating", walls:true}
+};
+function charterRows(bound, total, service, term){
+  term = term || 1;
+  const b = Math.max(0, Math.min(+bound || 0, +total || 0));
+  const rows = [{n:b, service: service === "abate" ? "abate" : "sub",
+                 ward: service === "abate" ? 0 : b, term:term}];
+  if((+total || 0) - b > 0) rows.push({n:(+total || 0) - b, service:"none", ward:0, term:term});
+  return rows;
+}
+function wardMuster(charters, opts){
+  const hostMonths = (opts && opts.hostMonths) || 0;
+  let host = 0, wallMonths = 0, wallBodies = 0, abating = 0, posted = 0;
+  for(const c of (charters || [])){
+    // ⚠ NOT `| 0` — a lance is not always a whole body here; see the owner's note.
+    const n = Math.max(0, +c.n || 0), term = c.term || 1;
+    if(c.service === "sub"){
+      const w = Math.min(Math.max(0, +c.ward || 0), n);
+      posted += w; wallBodies += w; wallMonths += w * term;
+      host += n - w;
+    } else if(c.service === "abate"){
+      const owed = wardOwed(term, hostMonths);
+      abating += owed > 0 ? n : 0;
+      wallBodies += owed > 0 ? n : 0;
+      wallMonths += n * owed;
+      host += n;
+    } else {
+      host += n;
+    }
+  }
+  return {host, wallMonths, wallBodies, abating, posted};
+}
+function wardHeadline(charters, opts){
+  const o = opts || {}, hostMonths = o.hostMonths === undefined ? 1 : o.hostMonths;
+  const peace = wardMuster(charters, {hostMonths:0});
+  const war   = wardMuster(charters, {hostMonths:hostMonths});
+  const standing = (o.serjeanties || 0) + (o.hired || 0);
+  return {peaceWalls: peace.wallBodies + standing, warHost: war.host,
+          warWalls: war.wallBodies + standing, stripped: peace.wallBodies - war.wallBodies,
+          peaceMonths: peace.wallMonths, warMonths: war.wallMonths, standing:standing};
+}
+function concurrencyRolls(wardKnights, hostMonths, election){
+  return election === "both" ? Math.max(0, wardKnights | 0) * Math.max(0, hostMonths | 0) : 0;
+}
+const ABSENCE_MORALE = 1;                         // +1 domain morale, forfeited (RR p.352)
+const ABSENCE_XP     = 0.05;                      // +5% domain XP, forfeited (RR p.352)
+const SENESCHAL      = {1:25, 2:50, 3:100};       // Profession, RR p.117
+const SENESCHAL_SPAN = {1:0,  2:3,  3:6};
+const BAILIFF_WAGE   = 24;                        // Kaldor 17, 240d at the CIVILIAN basket
+const BAILIFF_SPAN   = 100;                       // the Hundred — MODULE, see the owner
+function bailiffsFor(fam){ return Math.ceil(Math.max(0, fam || 0) / BAILIFF_SPAN); }
+function bailiffShare(fam){ return Math.max(0, fam || 0) / BAILIFF_SPAN; }
+function absence(months, opts){
+  const wage = (opts && opts.wage) || BAILIFF_WAGE, m = Math.max(0, months || 0);
+  return {months:m, wage: m * wage, morale: m ? ABSENCE_MORALE : 0, xp: m ? ABSENCE_XP : 0,
+          moraleMonths:m};
+}
+function parLand(wage, feeNetPerFam){ return wage / Math.max(1, feeNetPerFam || 1); }
+function parRatio(months){ return 12 / Math.max(1, months || 1); }
+const CAPS = {keepHousing:120, keepUnits:6, borough:12, cityGate:6, villLo:4, villHi:6};
+const ESTABLISHMENT = {earlLo:30, earlHi:60, baron:12};
+const SPECIALIST_SHARE = 4/36;                    // Harlech: 4 non-combatants in 36
+const STRONGHOLD_15 = {civ:1000, bor:1500, out:2000};   // gp per 1.5-mi hex (RR p.338)
+const POPCEIL_6     = {civ:780,  bor:375,  out:185};    // families per 6-mi hex (RR p.340)
+const HEX15_PER_HEX6 = 16;
+function popCeil15(cls){ return POPCEIL_6[cls] / HEX15_PER_HEX6; }
+function strongholdFor(fam, cls){
+  const ceil  = popCeil15(cls);
+  const hexes = Math.ceil(Math.max(0, fam || 0) / ceil);
+  return {fam, cls, ceil, hexes, gp: hexes * STRONGHOLD_15[cls]};
+}
+function securesFam(gp, cls){
+  return Math.floor(Math.max(0, gp || 0) / STRONGHOLD_15[cls]) * popCeil15(cls);
 }
 
 // ---- the equation drawer ---------------------------------------------------------------------
@@ -4945,7 +5195,85 @@ const assizeMounted = (mil, xtra, def, asz) => {
   return {medCap, medReq, med, rem: Math.max(0, xtra - med*0.5)};
 };
 
+// ⚠ TOP LEVEL, DELIBERATELY. This paints a LIBRARY chapter, which lives on the Domains tab, and
+// its first home was inside the Realms closure — where renderLadder could not see it and the page
+// threw on boot. The Realms engine is scoped precisely so its roster and model cannot collide with
+// the Domains engine; anything the Domains side must call belongs out here.
+
+// ---- THE CASTLES CHAPTER's ladder-to-stone table (garrison spec §6) ---------------------------
+// ⚠ COMPUTED, NOT TRANSCRIBED, and that is the whole reason it is code rather than markup. Twelve
+// cells written by hand are twelve constants a reader must trust and a maintainer must remember;
+// the same twelve computed from strongholdFor() are a FUNCTION, and one self-test covers all of
+// them plus the reverse. The hex counts stay in the printed table for the same reason — with them
+// the reader can see the rule, without them he can only see the answers.
+//
+// ⚠ The families come from RUNGS, so a re-graded ladder re-grades this table too. A castles chapter
+// that quietly kept the old rungs would be the exact drift this file's owner discipline forbids.
+const CASTLE_CLS = [["civ","civilized"], ["bor","borderlands"], ["out","outlands"]];
+// What the borderlands figure will actually buy, off RAW's own structure list (RR p.132) — the
+// historical name at each price point, which is what makes the table an argument.
+const CASTLE_BUYS = [
+  [7500,  "one small round stone tower — <b>and nothing else</b>"],
+  [6000,  "one stone gatehouse"],
+  [4500,  "a concrete barracks, or 36 × 100′ of timber palisade"],
+  [3000,  "a timber hall and a palisade — <b>a ringwork</b>"],
+  [0,     "—"]
+];
+// ⚠ `document.getElementById` RATHER THAN `dG`, and the same for the text setter below. `dG` and
+// `setT` are declared further down the file, so a function up here that used them would sit in
+// their temporal dead zone and throw on the first render — which is exactly what happened. This is
+// the same reason renderLadder, twenty lines below, spells getElementById out longhand.
+function paintCastles(){
+  const gEl = id => document.getElementById(id);
+  const put = (id, v) => { const e = gEl(id); if(e) e.textContent = v; };
+  const host = gEl("castleTable"); if(!host) return;
+  // ⚠ The SAME derivation the ladder uses — ⌈anchor ÷ feeNet⌉ — read through the live dials, so a
+  // reader who moves the land value or the custom of record sees this table move with the rest of
+  // the page. A castles chapter pinned to land 6 would be a fourth statement of the rung table.
+  const perFam = ruralRevenue(clampInt("land", 3, 9, 6), customOf()).feeNet;
+  const rows = RUNGS.filter(r => r.feesN >= 1).map(r => {
+    const fam = Math.ceil(r.anchor / perFam);
+    const cells = CASTLE_CLS.map(([k]) => strongholdFor(fam, k));
+    const bor  = cells[1].gp;
+    const buys = (CASTLE_BUYS.find(b => bor >= b[0]) || ["", "—"])[1];
+    return {r, fam, cells, buys};
+  });
+  host.innerHTML = `<div class="scroll"><table><caption class="vh">What each rung's territory must be secured with, by district class</caption><thead><tr>
+    <th scope="col">Rung</th><th scope="col">Families</th>` +
+    CASTLE_CLS.map(([,n]) => `<th scope="col">${n[0].toUpperCase()+n.slice(1)}</th>`).join("") +
+    `<th scope="col">What borderlands buys</th></tr></thead><tbody>` +
+    rows.map(x => `<tr><th scope="row">${x.r.name}</th><td>${fmt(x.fam)}</td>` +
+      x.cells.map((c, i) => `<td${i===1?' class="hi"':''}>${c.hexes} hex${c.hexes===1?"":"es"} = <b>${fmt(c.gp)}</b></td>`).join("") +
+      `<td>${x.buys}</td></tr>`).join("") +
+    `</tbody></table></div>`;
+  // The reverse, and the two situational readings — all derived, none transcribed.
+  const keep = 125000, revFam = securesFam(keep, "bor");
+  put("castleRev", `a ${fmt(keep)} gp stone keep secures ${fmt(Math.round(revFam))} borderlands families.`);
+  const c100 = CASTLE_CLS.map(([k]) => strongholdFor(100, k).gp);
+  put("castleFront", `${fmt(c100[0])} gp of stone at civilized, ${fmt(c100[1])} at borderlands and ${fmt(c100[2])} at outlands`);
+  // ⚠ WHICH RUNG IS WORST IS COMPUTED, NOT NAMED. The research that produced this chapter asserted
+  // the county knight, on a three-fee rung this ladder does not carry; deriving the answer means the
+  // page cannot be wrong about it again, and re-grading the ladder re-grades the finding with it.
+  // RAW's living expenses allow an implicit rent of 1/33 of stronghold value capped at half — so
+  // `(wage ÷ 2) × 33` is the stone a rung carries unaided.
+  const RENT_DIV = 33;
+  const burden = rows.map(x => ({name:x.r.name, need:x.cells[1].gp,
+                                 carry:(x.r.anchor / 2) * RENT_DIV}))
+                     .map(b => ({...b, ratio: b.need / b.carry}));
+  const worst = burden.reduce((a, b) => b.ratio > a.ratio ? b : a);
+  const best  = burden.reduce((a, b) => b.ratio < a.ratio ? b : a);
+  put("castleWorst",
+    burden.map(b => `${b.name} needs ${fmt(b.need)} against ${fmt(b.carry)} it can carry (×${b.ratio.toFixed(2)})`).join("; ") +
+    `. The ${worst.name} is worst placed at ×${worst.ratio.toFixed(2)}; the ${best.name} comes closest to paying its own way at ×${best.ratio.toFixed(2)} — and only there do the two rules nearly meet.`);
+}
+
+
 function renderLadder(){
+  // The castles chapter reads the land value and the custom of record, so it repaints with the
+  // ladder rather than freezing at whatever booted first. ⚠ NOT wrapped in a try/catch: paintCastles
+  // returns early when its mount is absent, and a swallowed exception here would hide exactly the
+  // kind of breakage the self-test's "no throw" assertion exists to catch.
+  paintCastles();
   const land = clampInt("land", 3, 9, 6);            // the slider's own range
   const fost = document.getElementById("l_sq").checked;
   const asz  = document.getElementById("l_asz").checked;   // the assize kept — levy trained & kitted
@@ -7892,6 +8220,9 @@ function paintCounts(){
   return got;
 }
 FM.counts = paintCounts();
+// The castles chapter's table, painted once at boot and again whenever the ladder moves — it reads
+// the land value and the custom of record, so it cannot be static markup. See paintCastles().
+paintCastles();
 
 barFit();
 if(window.ResizeObserver){
@@ -7926,7 +8257,8 @@ const TABNAV = {
             ["sec-muster","Muster"],["sec-units","Units"],["sec-library","Library"]],
   officers:[["sec-offices","The office"],["sec-office-history","In history"]],
   realms:  [["sec-realm","The realm"],["sec-towns","Settlements"],["sec-vassals","Vassals"],
-            ["sec-fees","Fees"],["sec-ward","The ward"],["sec-reckoning","The reckoning"]]
+            ["sec-fees","Fees"],["sec-ward","The ward"],["sec-composer","The garrison"],
+            ["sec-reckoning","The reckoning"]]
 };
 // the three tabs, said once: the nav table already names them, in order
 const TABS = Object.keys(TABNAV);
@@ -7951,7 +8283,7 @@ const TABS = Object.keys(TABNAV);
 const LIBSEC = "sec-library";
 const FOLDS = ["lib-doctrine-module","lib-doctrine-household","lib-faq",
                "lib-raw-manors","lib-raw-units","lib-raw-household","lib-raw-offices",
-               "lib-money","lib-custom","lib-franchise","lib-design","lib-history",
+               "lib-castles","lib-money","lib-custom","lib-franchise","lib-design","lib-history",
                "lib-harn","lib-canon"];
 const FOLDOF = {
   "design-what":"lib-design", "design-lineage":"lib-design", "design-engine":"lib-design",
@@ -8387,6 +8719,115 @@ dG("addt").addEventListener("click", ()=>{
   // seeded at RAW's own floor — the smallest thing that is a settlement at all, and the row of the
   // benchmark table the card quotes back (75 × 2 = 150 gp/mo)
   TOWNS.push({id:tNext++, fam:URBAN.min}); drawTowns(); render(); });
+// ---- THE GARRISON COMPOSER (garrison spec §2) ------------------------------------------------
+// ⚠ ROWS ARE KINDS OF MAN, COLUMNS ARE PLACES, and the count lives in the CELL. The obvious design
+// — a list of troops each tied to a station — is wrong about the thing it models: crossbowmen stand
+// on the castle towers and at the town gate, and a reader forced to choose one is being asked a
+// question the world does not ask.
+//
+// ⚠ EVERY WAGE IS READ OFF QUAL, never restated. QUAL owns RR p.429's wage column, and a composer
+// that carried its own copy would be the shadow class the rule-owner gate forbids. `specialists`
+// is the one row with no QUAL entry, and it is deliberately an OVERHEAD rather than a troop: every
+// documented establishment carries a smith, a carpenter, a mason and a chaplain — Harlech, 4
+// non-combatants in 36 — and no ACKS garrison has ever noticed them.
+const CKIND = [
+  {key:"hfoot", qual:"heavy foot",   name:"Heavy foot"},
+  {key:"lfoot", qual:"light foot",   name:"Light foot"},
+  {key:"bow",   qual:"bowmen",       name:"Crossbow &amp; bow"},
+  {key:"long",  qual:"longbowmen",   name:"Longbowmen"},
+  {key:"lhorse",qual:"light horse",  name:"Light horse"}
+];
+const CWAGE = k => QUAL.find(q => q[0] === k.qual)[3];
+// ⚠ THE CASTLE COLUMN CARRIES TWO NUMBERS AT TWO SEVERITIES (§2.2, and it is the whole reason the
+// composer teaches rather than merely totals). `cap` is HOUSING — RAW's keep holds a company of 120
+// in peace — and it is a refusal. `band` is what actually stood: 30–60 in an earl's castle, ~12 in
+// a baron's, Harlech 36 / Conwy 30 / Caernarfon 40. A composer that knew only the cap would happily
+// validate the 120-man peacetime roster this section exists to debunk, so the band warns in amber
+// at the moment the reader makes the mistake — which is worth more than the paragraph is.
+const CPLACE = [
+  {key:"castle", name:"Castle", cap: m => CAPS.keepHousing,
+   band: () => [ESTABLISHMENT.baron, ESTABLISHMENT.earlHi],
+   rule:"RAW houses one company of 120 in a keep (p.132); the record says 12–60 actually stood"},
+  {key:"town",   name:"Town",   cap: m => m.towns.length * CAPS.borough,
+   rule:"12 men to a borough (Statute of Winchester 1285)"},
+  {key:"vills",  name:"Vills",  cap: m => Math.ceil(m.dem / WORKING_MANOR_FAM) * CAPS.villHi,
+   rule:"4–6 to a vill (Statute of Winchester 1285)"},
+  {key:"roads",  name:"Roads",  cap: () => Infinity,
+   rule:"no standing cap — the vills hold the road (hue and cry to the next vill's bounds); what stands here is discretionary patrol"}
+];
+// The derived opening state: the Statute's own coefficients over THIS realm's vills and boroughs,
+// plus a baron's establishment in the castle. ⚠ Derived from the model, never transcribed — the
+// same rule the walkthrough's REALM0 capture follows, and for the same reason.
+function composerDerived(m){
+  const vills = Math.ceil(m.dem / WORKING_MANOR_FAM);
+  const out = {};
+  CKIND.forEach(k => CPLACE.forEach(p => { out[k.key + "_" + p.key] = 0; }));
+  // A baron's twelve: heavy foot at the gate, bow on the towers — the commonest shape in the record.
+  out.hfoot_castle = Math.min(6, ESTABLISHMENT.baron);
+  out.bow_castle   = ESTABLISHMENT.baron - out.hfoot_castle;
+  // The boroughs, at the Statute's twelve.
+  out.hfoot_town   = m.towns.length * Math.floor(CAPS.borough / 2);
+  out.bow_town     = m.towns.length * (CAPS.borough - Math.floor(CAPS.borough / 2));
+  // ⚠ THE VILLS ARE MOSTLY ALREADY HELD, AND HIRING INTO THEM DOUBLE-COUNTS THE MILITIA. This is
+  // §2.6's argument arriving as arithmetic rather than as prose: the trained militia ARE the men at
+  // home with their kit, so what a lord needs to hire is the SHORTFALL against the Statute's floor,
+  // not the floor itself. At the shipped realm the militia already exceeds it and the derived
+  // opening hires nobody here — which is the reconciliation the section exists to teach, made by
+  // the opening state instead of merely asserted beneath it. The first cut hired four a vill on top
+  // of the militia and tripped the Statute's own cap on load.
+  out.lfoot_vills  = Math.max(0, vills * CAPS.villLo - (m.milMen || 0));
+  // And a light-horse circuit on the roads, which is the only thing that can actually patrol one.
+  out.lhorse_roads = Math.min(4, vills);
+  return out;
+}
+let COMPOSER_BUILT = false, COMPOSER_SEEDED = false;
+function drawComposer(){
+  if(COMPOSER_BUILT) return;
+  COMPOSER_BUILT = true;
+  const head = CPLACE.map(p => `<th scope="col">${p.name}</th>`).join("");
+  dG("composerTable").innerHTML =
+    `<div class="scroll"><table><caption class="vh">The garrison composed — a kind of man to a row, a place to a column</caption>` +
+    `<thead><tr><th scope="col">Kind</th>${head}<th scope="col">Men</th><th scope="col">Wage</th></tr></thead><tbody>` +
+    CKIND.map(k => `<tr><th scope="row">${k.name} <span style="color:var(--hint)">(${CWAGE(k)} ${U("gp/mo")})</span></th>` +
+      CPLACE.map(p => `<td class="edit"><input type="number" id="cx_${k.key}_${p.key}" aria-label="${k.name} — ${p.name}" min="0" max="9999" step="1" value="0"></td>`).join("") +
+      `<td id="cn_${k.key}">—</td><td id="cw_${k.key}">—</td></tr>`).join("") +
+    `<tr class="tot"><th scope="row">Standing already — militia, ward-boys, ward, serjeanties</th>` +
+    CPLACE.map(p => `<td id="cs_${p.key}">—</td>`).join("") +
+    `<td id="cs_men">—</td><td id="cs_wage">—</td></tr>` +
+    `<tr class="tot"><th scope="row">In this place</th>` +
+    CPLACE.map(p => `<td id="ct_${p.key}">—</td>`).join("") +
+    `<td id="ct_men">—</td><td id="ct_wage">—</td></tr></tbody></table></div>`;
+  CKIND.forEach(k => CPLACE.forEach(p =>
+    dG("cx_" + k.key + "_" + p.key).addEventListener("input", render)));
+  dG("c_reset").addEventListener("click", () => {
+    const d = composerDerived(FM.realmLast);
+    Object.keys(d).forEach(id => { const e = dG("cx_" + id); if(e) e.value = String(d[id]); });
+    render();
+  });
+}
+// The composer's own reading of the model. ⚠ Returns the THREE headline lines and never one: see
+// wardHeadline() in the owner for why "lances free for the field" is the retired formula wearing a
+// headline. Hired men stand in both years; only the ward abates.
+function composerRead(m){
+  const cell = (k, p) => clampInt("cx_" + k.key + "_" + p.key, 0, 9999, 0);
+  const byPlace = {}, byKind = {};
+  let hired = 0, wage = 0;
+  CPLACE.forEach(p => { byPlace[p.key] = 0; });
+  CKIND.forEach(k => {
+    let n = 0;
+    CPLACE.forEach(p => { const v = cell(k, p); n += v; byPlace[p.key] += v; });
+    byKind[k.key] = {n, wage: n * CWAGE(k)};
+    hired += n; wage += n * CWAGE(k);
+  });
+  // What already stands without being hired, and WHERE — the militia are at home in the vills, the
+  // ward-boys and the ward-bound lances are at the castle, the serjeanties at their named posts.
+  const standing = {castle: m.sqWard + m.warWalls, town: 0, vills: m.milMen, roads: 0};
+  standing.castle += m.serjMen;
+  const standMen = standing.castle + standing.town + standing.vills + standing.roads;
+  const specialists = Math.round((byPlace.castle + standing.castle) * SPECIALIST_SHARE);
+  return {byPlace, byKind, hired, wage, standing, standMen, specialists,
+          total: hired + standMen};
+}
 
 // ---- the fee table: built ONCE with its inputs, so typing never loses focus ------------------
 dG("feeTable").innerHTML = `<div class="scroll"><table><caption class="vh">The fees of this realm — count, families, cost and service by rung</caption><thead><tr>
@@ -8487,8 +8928,18 @@ function model(){
   const urbanNet   = towns.reduce((s,t) => s + t.net, 0);
   const titlePop   = ruralTotal + urbanTotal;
 
-  // --- the land account — RURAL only, and the whole point of the typing above
-  const granted  = enfFams + vassFams;
+  // --- SERJEANTY — land held for a named, non-knightly service (garrison spec §5) ---------------
+  // ⚠ IT IS A GRANT, SO IT LEAVES THE FISC, and that is gate 5 of the spec rather than a nicety:
+  // the holding's whole net IS the serjeant's wage, so families counted here must not also appear
+  // in the demesne's revenue. Keeping the row honest costs one term in `granted` and buys the
+  // answer to "how do I build a twelve-man castle that costs nothing".
+  //
+  // ⚠ AND THE 12× IS CONSTRUCTION, NOT CONVERGENCE — see fm_core's parRatio(). Land at par means
+  // the wage cancels, so year-round petty service is twelve times cheaper in land than termed
+  // service for ANY wage. That is the institution's selling line and it is true; it is simply not
+  // two witnesses agreeing, and this file has been wrong about that distinction before.
+  const serjFams = clampInt("r_serj", 0, 9999, 0);
+  const granted  = enfFams + vassFams + serjFams;
   const demesne  = ruralTotal - granted;
   const illegal  = demesne < 0;
   const dem      = Math.max(0, demesne);
@@ -8616,41 +9067,101 @@ function model(){
   const sqCastle  = Math.min(sqWard * SQUIRE_WAGE, Math.max(0, garrReq - milCred));
   const sqService = sqFee * SQUIRE_WAGE;
 
-  // --- CASTLE-GUARD — the fee's term, spent at the lord's castle (Phase 4, spec §5.4) ------------
+  // --- CASTLE-GUARD — the charter's clause, and cl. 29's abatement ------------------------------
   //
-  // ⚠ CONSERVATION OF SERVICE, one level up from the squires. The module already spends each fee's
-  // service three ways — it discharges the enfeoffed families' own garrison (the quittance), it
-  // supplies the field host, and where commuted it yields scutage. Letting ward reduce the demesne
-  // garrison as well would count the same knight a FOURTH time. RULED (2026-08-03): ward is an
-  // ALTERNATIVE USE of the one annual term, not an addition to it. The identity is
+  // ⚠ RULED (2026-08-05) — MAGNA CARTA 1215 cl. 29, AND IT SUPERSEDES RULED (2026-08-03).
+  // The old ruling held that ward was an ALTERNATIVE USE of the one annual term — "the service is
+  // spent once", `lancesKind = wardLances + fieldLances`. That is right **under a substitution
+  // charter** and wrong under a two-clause one, and the difference is the whole of this rewrite.
+  // The clause's own final limb: "and if we have led or sent him on military service, he shall be
+  // excused guard in proportion to the time in service." So ward and host draw on one pool — but
+  // THE POOL IS THE YEAR, NOT THE MONTH. A fee may owe forty days in the field *and* a term at the
+  // walls; serve the field and the ward abates by what was served. Peace year → the lord gets his
+  // full ward. War year → he gets the host and little ward. A HEDGE, NOT A DOMINANCE, which is why
+  // lords wrote both clauses as a matter of course.
   //
-  //     lancesAll  = lancesCoin + lancesKind          (commuted or bodily — already asserted)
-  //     lancesKind = wardLances + fieldLances         (bodily, and spent ONCE)
+  // The superseded reading is not deleted, because it was never wrong — it was unscoped. It is the
+  // `sub` setting below, and it remains this tab's default: a lord who has written no castle-service
+  // clause at all has the module's old arithmetic, unchanged, and his numbers do not move.
   //
-  // and what falls out of it: a lance on ward is NOT in the field host that term; a commuted fee
-  // supplies no body at all; the credit lands on the DEMESNE line only, because the fee's own
-  // locality is quit by its own service already. A charter that demands ward ON TOP of field
-  // service is a doubling, and would have to be declared and priced as one — the module refuses
-  // that shape everywhere else and refuses it here by default.
+  // ⚠ CONSERVATION OF SERVICE still holds, and cl. 29 is what makes it hold HONESTLY. The module
+  // spends each fee's service three ways — the enfeoffed families' own garrison (the quittance), the
+  // field host, and scutage where commuted. Under `sub` a posted lance leaves the host, exactly as
+  // before. Under `abate` the knight rides AND the walls go short, which is not a fourth count of
+  // the same body: it is the same body counted once, in the place cl. 29 says it stood.
   //
-  // ⚠ ONE CALENDAR. The term is the module's own — ONE MONTH OF SERVICE, history's forty days
-  // rounded to ACKS's month — and it is the term the walkthrough, the sidenotes, the scutage
-  // doctrine and the fee's own 12-gp pricing all use. §5.4 proposed `days ÷ 365` for this card
-  // alone; on a lance that is 10.96 gp/mo against 8.75, and it would put a second convention two
-  // cards from the first. Withdrawn. The dial is in LANCES for the same reason: a "ward days"
-  // input would let a reader re-introduce the calendar the module just ruled out.
-  const WARD_TERM   = 1/12;                                        // the month of service, per year
+  // ⚠ ONE CALENDAR, unchanged and now load-bearing. The term is ONE MONTH OF SERVICE — history's
+  // forty days rounded to ACKS's month. §5.4 proposed `days ÷ 365`; on a lance that is 10.96 gp/mo
+  // against 8.75, and it would put a second convention two cards from the first. Withdrawn. cl. 29
+  // proportions in DAYS, and quantising it to this module's month is the MODULE's step, not the
+  // charter's — `wardOwed()` in fm_core carries that badge split. The dial stays in LANCES for the
+  // same reason: a "ward days" input would re-introduce the calendar the module ruled out.
+  //
+  // ⚠ WARD_TERM, wardOwed(), wardMuster() and wardHeadline() ARE NO LONGER DECLARED HERE. They
+  // moved to fm_core.mjs and its mirror above in this same build — gate 0 of the garrison spec —
+  // because a rule computed inside this closure is a rule the parity gate cannot see.
+  const wardType    = dG("r_wardtype") ? dG("r_wardtype").value : "sub";
+  const hostMonths  = clampInt("r_host", 0, 12, 1);
+  const election    = dG("r_elect") ? dG("r_elect").value : "abate";
   const wardLances  = Math.min(clampInt("r_ward", 0, 9999, 0), lancesKind);
-  const fieldLances = lancesKind - wardLances;
-  const wardValue   = wardLances * LANCE_WAGE * WARD_TERM;
+  // --- WARD-PENNY — castle-guard's own commutation, and the TENANT elects it -------------------
+  // ⚠ THE TWO COMMUTATIONS ARE STRUCTURALLY DIFFERENT ANIMALS, and this is the one that pays for a
+  // garrison. Scutage is an occasional imposition the LORD elects, per campaign; ward-penny is a
+  // fixed perpetual charge the TENANT elects (Magna Carta cl. 29 — he may not be distrained to give
+  // money if he is willing to serve in person). A lord's garrison is a standing monthly bill and
+  // ward-penny is a standing monthly income: they match in kind, which is exactly what scutage does
+  // not do. It is why castle-guard rent funded garrisons while scutage funded campaigns, and why
+  // this row — not the scutage row — is the one that makes a castle payable.
+  //
+  // ⚠ THE RATE IS PARITY AND THERE IS NO LEVER. 8.75 gp/mo per commuted fee = LANCE_WAGE × 1/12,
+  // the term's own wage-parity, which this module already asserts everywhere else. A rate dial was
+  // considered and refused: real ward rents were fixed customary conversions of whole honours, not
+  // annual optimisations, so the election is a standing toggle and the price is not a judgement.
+  const pennyFees   = Math.min(clampInt("r_penny", 0, 9999, 0), wardLances);
+  const wardBodies  = wardLances - pennyFees;
+  const pennyRev    = pennyFees * WARD_PENNY;
+  // ⚠ ONE CHARTER POPULATION, and the model asks the OWNER what it yields rather than re-deriving
+  // it. `sub` posts the lances to the walls out of the host; `abate` binds them to both and lets
+  // cl. 29 settle it. Everything downstream reads these three lines and nothing recomputes them.
+  // ⚠ `wardBodies`, NOT `wardLances`: a fee that has elected the penny sends no body to the walls.
+  // Counting the commuted fee as a body here would be the double-count gate 4 forbids — the lord
+  // would have his 8.75 AND the man it was paid instead of.
+  const wardChs     = charterRows(wardBodies, lancesKind, wardType);
+  const wardHead    = wardHeadline(wardChs, {hostMonths:hostMonths});
+  const wardPeace   = wardMuster(wardChs, {hostMonths:0});
+  const wardWar     = wardMuster(wardChs, {hostMonths:hostMonths});
+  // The field host is what the muster says rides — NOT `lancesKind − wardLances`, which is the
+  // retired formula and is false the moment the charter abates.
+  const fieldLances = wardWar.host;
+  const peaceWalls  = wardHead.peaceWalls, warWalls = wardHead.warWalls;
+  const wardStripped= wardHead.stripped;
+  // ⚠ THE LORD IS CREDITED WITH THE SERVICE HE ACTUALLY GETS, which under an abating charter in a
+  // war year is nothing. Valuing the paper rather than the muster is how a lord comes to believe
+  // his walls are manned by men who are demonstrably somewhere else.
+  const wardValue   = wardWar.wallMonths * LANCE_WAGE * WARD_TERM;
+  const wardPaper   = wardPeace.wallMonths * LANCE_WAGE * WARD_TERM;
+  // Two duties in force in one month is a loyalty exposure — but only where the lord DEMANDS both.
+  // Under `abate` the knight is quit of guard by right and the exposure is zero (§1.3).
+  const wardRolls   = wardType === "abate"
+                      ? concurrencyRolls(wardLances, hostMonths, election) : 0;
+  // --- the serjeanties' standing bodies, priced in FAMILIES and credited in coin ----------------
+  // The holding's whole net is the wage, so the men are `families ÷ (wage at par)` — 3 families to
+  // a 12-gp heavy foot at the customary net of 4. Floored: a fraction of a serjeanty stands nobody.
+  // ⚠ READ OFF QUAL, never re-declared. The wage table is RR p.429's and QUAL owns it; a local
+  // `HEAVY_FOOT_WAGE = 12` here would be a second statement of a RAW figure with nothing joining
+  // the two — the shadow class this file's rule-owner gate exists to forbid.
+  const serjWage  = QUAL.find(q => q[0] === "heavy foot")[3];
+  const serjPar   = parLand(serjWage, perFam);
+  const serjMen   = serjPar > 0 ? Math.floor(serjFams / serjPar) : 0;
+  const serjCred  = Math.min(serjMen * serjWage, Math.max(0, garrReq - milCred - sqCastle));
   // Capped by what is LEFT of the line, exactly as the ward-boys are: a lord cannot bank garrison
   // credit he has no obligation to spend it against, and service beyond the line is service given
   // away. `wardSpare` is that overflow, and it is reported rather than silently dropped.
-  const wardRoom    = Math.max(0, garrReq - milCred - sqCastle);
+  const wardRoom    = Math.max(0, garrReq - milCred - sqCastle - serjCred);
   const wardCred    = Math.min(wardValue, wardRoom);
   const wardSpare   = wardValue - wardCred;
 
-  const garrCoin  = Math.max(0, garrReq - milCred - sqCastle - wardCred);
+  const garrCoin  = Math.max(0, garrReq - milCred - sqCastle - serjCred - wardCred);
   const garrEff   = dem ? garrCoin / dem : Math.max(0, garrRate - (dmil ? MIL_PER_FAM : 0));
   const lordFam   = perFam - garrEff;
   const feesQuit  = enfFams * garrRate;
@@ -8674,7 +9185,12 @@ function model(){
   // personal authority modifier" (RR p.352). It does NOT pass through `lordFam`: the town's garrison
   // is already off its own line at the flat 2, and running it through the rural rate is exactly the
   // pooling error the typed schema exists to prevent.
-  const coin      = demNet + coinIn + urbanNet;
+  // ⚠ THE PENNY IS REVENUE, NOT A GARRISON CREDIT, and the distinction is the whole of §1.2. A
+  // credit discharges the line and stops at it; an income is the lord's to spend on whatever he
+  // likes — including hiring the watch the commuting knight is no longer standing. Booking it as a
+  // credit would have capped it at the line and hidden exactly the property that makes ward-penny
+  // the standing revenue a castle garrison is payable out of.
+  const coin      = demNet + coinIn + urbanNet + pennyRev;
 
   // --- the OPPORTUNITY rate: what the lord would have paid in garrison on the ENFEOFFED land had he
   //     kept it. Separate from garrEff above, because whether he would have raised militia there is a
@@ -8701,8 +9217,17 @@ function model(){
           scutMo, realmScut, realmScutStand,
           cfPayers, cfB, cfNet,
           demGross, demFixed, demIncome, demNet, coin, garrRate, garrReq, milMen, milCred, milKit, garrCoin, garrEff,
+          // ⚠ `dem` is `demesne` floored at zero, and the composer needs the FLOORED one: an
+          // over-granted realm has a negative demesne and negative vills are not a thing. Added to
+          // the stash rather than re-derived in the view — this file's own rule, and the composer
+          // printed NaN for one render because the view reached for a field that was not there.
+          dem,
           sqDen, sqConv, sqPlace, sqPool, sqClaims, sqWard, sqFee, sqPlaced, sqIdle, sqCastle, sqService, sqByRung,
           wardLances, fieldLances, wardValue, wardRoom, wardCred, wardSpare, WARD_TERM,
+          wardType, hostMonths, election, wardPaper, wardRolls, wardStripped,
+          peaceWalls, warWalls, wardPeaceMonths:wardPeace.wallMonths, wardWarMonths:wardWar.wallMonths,
+          pennyFees, wardBodies, pennyRev,
+          serjFams, serjWage, serjPar, serjMen, serjCred,
           lordFam, feesQuit, vassOwn, oppmil, oppGarr, oppFam, feeCost, netFeeCost,
           perLanceGross, perLanceGarr, perLanceScut, perLanceNet, level, dmil,
           // RR p.352: urban families are added to the realm total for tribute — so the TITLE bands
@@ -8776,6 +9301,24 @@ function render(){
       if(fam !== undefined) f.value = String(fam);
       render(); return FM.realmLast;
     } finally { w.value = wasW; f.value = wasF; render(); }
+  };
+  // The cl. 29 door. Same save-drive-restore contract and the same reason — four controls now,
+  // because the abatement is a function of the charter, the year and the lord's election together
+  // and no one of them can be tested with the other three pinned. ⚠ `finally` restores ALL of them:
+  // a door that leaves the charter set to `abate` poisons every later assertion in the suite with a
+  // rule that was never meant to be the default.
+  FM.realmCharter = ({ward = 0, type = "sub", host = 1, elect = "abate", penny = 0, serj = 0, fam} = {}) => {
+    const els = {r_ward:ward, r_wardtype:type, r_host:host, r_elect:elect, r_penny:penny, r_serj:serj};
+    const was = {}; Object.keys(els).forEach(k => { was[k] = dG(k).value; });
+    const f = dG("fam"), wasF = f.value;
+    try {
+      Object.keys(els).forEach(k => { dG(k).value = String(els[k]); });
+      if(fam !== undefined) f.value = String(fam);
+      render(); return FM.realmLast;
+    } finally {
+      Object.keys(was).forEach(k => { dG(k).value = was[k]; });
+      f.value = wasF; render();
+    }
   };
 
   // --- the urban settlements, each priced on its OWN size
@@ -8862,15 +9405,33 @@ function render(){
   // it is worth a card. ⚠ At the classic honour it is NO, and only just: the shortfall is a few per
   // cent, which is the interesting shape. A card that always cleared would be a decoration.
   setT("w_bodily", one(m.lancesKind) + " lances");
+  setT("w_serj", m.serjFams ? one(m.serjMen) + " standing at " + one(m.serjPar) + " families each"
+                            : one(m.serjPar) + " families to a watchman");
   const wardShort = Math.max(0, m.garrReq - m.milCred - m.sqCastle - m.wardCred);
   dG("wardCard").innerHTML = `<div class="card"><h4>Castle-guard<span>can the honour garrison itself from what it has granted?</span></h4>
     <div class="lrow"><span class="lk">The obligation — ${fmt(m.demesne)} demesne families at ${m.garrRate} ${U("gp")} ${bdg("raw")}</span><span class="lvv">${fmt(m.garrReq)} ${U("gp/mo")}</span></div>
     <div class="lrow"><span class="lk">Demesne militia — ${fmt(m.milMen)} men</span><span class="lvv">−${fmt(m.milCred)} ${U("gp/mo")}</span></div>
     ${m.sqCastle?`<div class="lrow"><span class="lk">Ward-boys on the castle watch — ${fmt(m.sqWard)}</span><span class="lvv">−${fmt(m.sqCastle)} ${U("gp/mo")}</span></div>`:""}
-    <div class="lrow"><span class="lk">Castle-guard — ${one(m.wardLances)} of ${one(m.lancesKind)} bodily lances</span><span class="lvv">−${fmt(m.wardCred)} ${U("gp/mo")}</span></div>
+    ${m.serjMen?`<div class="lrow"><span class="lk">Serjeanties — ${one(m.serjMen)} standing on ${fmt(m.serjFams)} families ${bdg("his","tenure by serjeanty: land held for a named non-knightly service. The families leave the fisc — their whole net IS the wage — which is why the demesne above is smaller than the realm's rural total")}</span><span class="lvv">−${fmt(m.serjCred)} ${U("gp/mo")}</span></div>`:""}
+    <div class="lrow"><span class="lk">Castle-guard — ${one(m.wardLances)} of ${one(m.lancesKind)} bodily lances, ${m.wardType==="abate"?"owed <b>in addition</b>":"discharged <b>at the walls</b>"}</span><span class="lvv">−${fmt(m.wardCred)} ${U("gp/mo")}</span></div>
+    ${m.wardType==="abate"&&m.hostMonths>0?`<div class="lrow hi"><span class="lk">⚠ …but the host is out <b>${m.hostMonths} month${m.hostMonths===1?"":"s"}</b>, and cl. 29 abates the ward ${bdg("his","Magna Carta 1215 cl. 29: excused guard in proportion to the time in service. The knight rides; the walls go short by what he served")}</span><span class="lvv">${m.wardStripped?"−"+one(m.wardStripped)+" from the walls":"no abatement"}</span></div>`:""}
     <div class="lrow ${wardShort?"hi":"gold"}"><span class="lk">${wardShort?"<b>Short</b>":"<b>Covered</b>"}</span><span class="lvv">${wardShort?fmt(wardShort)+" "+U("gp/mo"):"by "+fmt(-wardShort||0)+" "+U("gp/mo")}</span></div>
-    <div class="lrow sub"><b>The service is spent once.</b> ${one(m.wardLances)} lances on ward are ${one(m.wardLances)} lances
-      <i>not</i> in the host: ${one(m.fieldLances)} ride. A commuted fee sends no body at all — it sends the scutage
+    ${m.pennyRev?`<div class="lrow gold"><span class="lk">Ward-penny — ${feeWord(m.pennyFees)} rendering coin at ${WARD_PENNY} ${U("gp/mo")} ${bdg("his","castle-guard rent — a FIXED PERPETUAL charge the tenant elects (cl. 29), against scutage's occasional imposition the lord elects. A standing income against a standing bill: they match in kind, which is why this is what funded garrisons")}</span><span class="lvv">+${fmt(m.pennyRev)} ${U("gp/mo")} to the purse</span></div>
+    <div class="lrow sub"><b>And this is the row that pays for a castle.</b> ⚠ Not because it is large —
+      ${fmt(m.pennyRev)} ${U("gp/mo")} against ${fmt(wardShort)} ${U("gp/mo")} still owed in coin is
+      <b>${wardShort ? Math.round(100 * m.pennyRev / wardShort) : 0}%</b> of it — but because it is
+      <i>the right shape</i>. A garrison is a standing monthly bill and the penny is a standing monthly
+      income: <b>they match in kind.</b> Scutage does not. It is an occasional lump raised per campaign,
+      at a rate the lord elects, against an expense that runs every month whether he campaigns or not —
+      which is why castle-guard rent funded garrisons while scutage funded wars. ⚠ And it is
+      <b>revenue, not a garrison credit</b>: it does not discharge the line above, it pays for whatever
+      the lord hires to stand it.</div>`:""}
+    <div class="lrow sub"><b>${m.wardType==="abate"
+      ? `Two clauses, one year, and cl. 29 settles it.</b> These ${one(m.wardLances)} owe the walls <i>and</i> the
+         host — so all ${one(m.fieldLances)} ride, and the ward abates by the months they served. <b>The walls, not the
+         host, go short.</b>`
+      : `The service is spent once.</b> ${one(m.wardLances)} lances on ward are ${one(m.wardLances)} lances
+         <i>not</i> in the host: ${one(m.fieldLances)} ride.`} A commuted fee sends no body at all — it sends the scutage
       above. And the fee's own country is held by its yeomen, not by its absent knight, which is the quittance
       doing the work it always did. ${bdg("mod","the allocation identity — total = bodily + commuted, bodily = field + ward — is this module's, because RAW prices a garrison line and never says whose body stands it")}</div>
     <div class="lrow sub"><b>Why so little per lance.</b> A lance is worth ${LANCE_WAGE} ${U("gp")} a month standing, but it
@@ -9042,7 +9603,11 @@ function render(){
     ${m.wardLances?`<div class="lrow"><span class="lk"><b>${one(m.wardLances)} lances</b> standing castle-guard ${bdg("mod","castle-guard is not an ACKS institution — RAW prices garrison as a protection-value line and leaves who stands it open. The term is the module's own month of service, and the ruling is that ward SPENDS that term rather than adding to it")}</span><span class="lvv">−${fmt(m.wardCred)} ${U("gp/mo")}</span></div>
     <div class="lrow sub">A lance is worth ${LANCE_WAGE} ${U("gp")} a month standing — knight and squire — but it is owed for
       <b>one month of service a year</b>, so a fee on ward carries ${(LANCE_WAGE*m.WARD_TERM).toFixed(2)} ${U("gp/mo")} of the line, not ${LANCE_WAGE}.
-      ⚠ <b>And it is the same month it would have ridden in.</b> ${one(m.fieldLances)} lances remain for the host.</div>
+      ${m.wardType==="abate"
+        ? `⚠ <b>And it is <i>not</i> the same month it rides in — that is the point of the clause.</b> All
+           ${one(m.fieldLances)} still ride; what abates is the ward.`
+        : `⚠ <b>And it is the same month it would have ridden in.</b> ${one(m.fieldLances)} lances remain for the host.`}</div>
+    ${m.wardRolls?`<div class="lrow warn"><span class="lk">⚠ Held to <b>both</b> — two duties in one month ${bdg("mod","RR p.345 counts concurrent duties. Under cl. 29 the knight is quit by right, so this exposure is the lord's demand beyond the law, not the calendar's doing")}</span><span class="lvv">${one(m.wardRolls)} loyalty roll${m.wardRolls===1?"":"s"}</span></div>`:""}
     ${m.wardSpare?`<div class="lrow sub">⚠ <b>${fmt(m.wardSpare)} ${U("gp/mo")} of it is given away</b> — the line was already covered before these
       lances reached it. Ward beyond the obligation buys the lord nothing he owed; it is service he could have
       taken in the field.</div>`:""}`:""}
@@ -9114,7 +9679,7 @@ function render(){
     <div class="lrow"><span class="lk">Lances owed on paper</span><span class="lvv">${one(m.lancesAll)}</span></div>
     <div class="lrow"><span class="lk">…discharged in kind</span><span class="lvv">${one(m.lancesKind)}</span></div>
     <div class="lrow"><span class="lk">…under scutage</span><span class="lvv">${one(m.lancesCoin)}</span></div>
-    ${m.wardLances?`<div class="lrow"><span class="lk">…of the bodily lances, <b>standing castle-guard</b></span><span class="lvv">−${one(m.wardLances)}</span></div>
+    ${m.wardLances?`<div class="lrow"><span class="lk">…of the bodily lances, <b>bound to castle-guard</b>${m.wardType==="abate"?" — who ride anyway, per cl. 29":""}</span><span class="lvv">${m.wardType==="abate"?"("+one(m.wardLances)+")":"−"+one(m.wardLances)}</span></div>
     <div class="lrow hi"><span class="lk"><b>Lances in the field host</b></span><span class="lvv">${one(m.fieldLances)}</span></div>
     <div class="lrow sub"><b>The term is spent once.</b> A fee owes one month of service a year; a month
       spent on the lord's walls is not available to his host. The ward credit on the garrison card is the
@@ -9161,6 +9726,79 @@ function render(){
     : `Nothing is held by knight-service. Every granted family renders <b>coin</b>, and the band below
        is the whole of what the lord's reach costs him.`;
   dG("cards").innerHTML = cards.join("");
+
+  // ---- THE GARRISON COMPOSER (§2) -------------------------------------------------------------
+  // ⚠ The derived opening is applied ONCE, on the first render, and only to a matrix still at its
+  // markup zeros. Re-deriving on every render would overwrite the reader mid-edit; deriving in the
+  // markup would freeze the Statute's coefficients against a realm that has since moved.
+  const C = composerRead(m);
+  if(!COMPOSER_SEEDED){
+    COMPOSER_SEEDED = true;
+    if(C.hired === 0){
+      const d = composerDerived(m);
+      Object.keys(d).forEach(id => { const e = dG("cx_" + id); if(e) e.value = String(d[id]); });
+    }
+  }
+  const C2 = composerRead(m);
+  // Handed out for the self-test on the same terms as FM.realmLast: the closure keeps its code,
+  // not its results. `caps` goes with it because a cap evaluated in the view and re-evaluated in a
+  // test is two readings of one rule — the shadow this project keeps finding.
+  FM.composerLast = {...C2, caps: Object.fromEntries(CPLACE.map(p => [p.key, p.cap(m)])),
+                     kinds: CKIND.map(k => k.key), places: CPLACE.map(p => p.key),
+                     wages: Object.fromEntries(CKIND.map(k => [k.key, CWAGE(k)]))};
+  CKIND.forEach(k => {
+    setT("cn_" + k.key, one(C2.byKind[k.key].n));
+    setT("cw_" + k.key, C2.byKind[k.key].wage ? fmt(C2.byKind[k.key].wage) : "—");
+  });
+  CPLACE.forEach(p => {
+    setT("cs_" + p.key, one(C2.standing[p.key]));
+    const capV = p.cap(m), tot = C2.byPlace[p.key] + C2.standing[p.key];
+    setT("ct_" + p.key, one(tot) + (capV === Infinity ? "" : " / " + one(capV)));
+  });
+  setT("cs_men", one(C2.standMen)); setT("cs_wage", "in kind");
+  setT("ct_men", one(C2.total));    setT("ct_wage", fmt(C2.wage));
+
+  // The caps, at their two severities. A refusal and a warning are different objects and are
+  // rendered as different objects — see CPLACE's note.
+  const capRows = CPLACE.map(p => {
+    const capV = p.cap(m), tot = C2.byPlace[p.key] + C2.standing[p.key];
+    if(capV !== Infinity && tot > capV)
+      return `<div class="lrow warn"><span class="lk">⚠ <b>${p.name}</b> — ${one(tot)} men against a cap of ${one(capV)}</span><span class="lvv">over by ${one(tot - capV)}</span></div>`;
+    if(p.band){
+      const [lo, hi] = p.band();
+      if(tot > hi) return `<div class="lrow hi"><span class="lk">⚠ <b>${p.name}</b> — ${one(tot)} men. Housed, yes: RAW quarters ${one(capV)} in a keep. But <b>no establishment in the record ran one this full in peace</b> ${bdg("his","Minarsas 30, Esenor 12, Harlech 36, Conwy 30, Caernarfon 40. The English peacetime norm was a dozen soldiers or even fewer")}</span><span class="lvv">the record says ${one(lo)}–${one(hi)}</span></div>`;
+    }
+    return "";
+  }).filter(Boolean).join("");
+
+  // The three headline lines. ⚠ NOT "lances free for the field" — that is the retired formula, and
+  // it is false the moment the charter abates. Hired men and serjeanties stand in both years; the
+  // ward-bound lances are the only thing a war takes off the walls.
+  const hd = wardHeadline(charterRows(m.wardBodies, m.lancesKind, m.wardType),
+    {hostMonths:m.hostMonths, serjeanties:m.serjMen, hired:C2.byPlace.castle});
+  dG("composerCard").innerHTML = `<div class="card"><h4>What you have, and what a war does to it<span>three numbers, because one of them was hiding the other two</span></h4>
+    <div class="lrow"><span class="lk"><b>Peace-year walls</b> — hired, serjeanties, ward-boys and every lance the charter binds</span><span class="lvv">${one(hd.peaceWalls + m.sqWard)}</span></div>
+    <div class="lrow"><span class="lk"><b>War-year host</b> — the lances that ride</span><span class="lvv">${one(hd.warHost)}</span></div>
+    <div class="lrow ${hd.stripped?"hi":""}"><span class="lk">⚠ <b>War-year walls</b> — what is still standing when the host is out ${bdg("his","under an abating charter the ward-bound lances ride AND the ward abates, so the walls carry only what is paid or held by tenure. Castles stripped bare when the host rode is why ward-penny and hired watch existed")}</span><span class="lvv">${one(hd.warWalls + m.sqWard)}</span></div>
+    ${hd.stripped?`<div class="lrow sub">⚠ <b>${one(hd.stripped)} lance${hd.stripped===1?"":"s"} leave${hd.stripped===1?"s":""} the walls the moment the host rides</b>, and no dial here can call ${hd.stripped===1?"it":"them"} back — cl. 29 gives the abatement to the knight, not the lord. What holds the castle in a war year is what you have <i>paid</i> or <i>enfeoffed by tenure</i>: the hired rows above, the serjeanties, and the ward-penny that buys them.</div>`:""}
+    ${capRows}
+    <div class="lrow"><span class="lk">Hired, all places</span><span class="lvv">${one(C2.hired)} men · ${fmt(C2.wage)} ${U("gp/mo")}</span></div>
+    <div class="lrow"><span class="lk">Standing already, in kind — militia, ward-boys, ward, serjeanties</span><span class="lvv">${one(C2.standMen)} men</span></div>
+    <div class="lrow"><span class="lk">Specialists — smith, carpenter, mason, chaplain ${bdg("his","Harlech's establishment of 36 carried 4 non-combatants — 13%. Every documented castle has them and no ACKS garrison has ever noticed them")}</span><span class="lvv">≈${one(C2.specialists)} of the castle's people</span></div>
+    <div class="lrow ${C2.wage > m.garrReq ? "warn" : "gold"}"><span class="lk">Against the line this realm owes</span><span class="lvv">${fmt(C2.wage)} of ${fmt(m.garrReq)} ${U("gp/mo")}</span></div>
+    <div class="lrow sub"><b>And here is the paragraph this page has never printed.</b> This realm's demesne of
+      ${fmt(m.dem)} families raises <b>${fmt(m.milMen)} militia</b> and owes a garrison line of
+      <b>${fmt(m.garrReq)} ${U("gp/mo")}</b> — which, hired, is <i>hundreds</i> of men. Canon puts
+      <b>30–60</b> in an earl's castle and <b>12</b> in a baron's; Edwardian Wales agrees (Harlech 36,
+      Conwy 30, Caernarfon 40). <b>These do not conflict.</b> The ACKS garrison line is a
+      <b>dispersed protection-value expenditure, not a castle roster</b> — the castle takes a slice and
+      the rest is watchmen in vills and militia at home with their kit. To a reader who knows a real
+      establishment, a page that never says so is indistinguishable from a page that is wrong.
+      ${bdg("mod","the reconciliation is the module's: RAW prices a garrison line and never says where the men stand, and the establishment figures are history's")}</div>
+    <div class="lrow sub"><b>The corroboration is worth printing.</b> ${fmt(m.dem)} families ÷ ${WORKING_MANOR_FAM}
+      ≈ <b>${one(Math.ceil(m.dem / WORKING_MANOR_FAM))} vills</b>; the Statute's ${CAPS.villLo}–${CAPS.villHi} a vill gives
+      <b>${one(Math.ceil(m.dem / WORKING_MANOR_FAM) * CAPS.villLo)}–${one(Math.ceil(m.dem / WORKING_MANOR_FAM) * CAPS.villHi)} men</b>, and this
+      module's militia is <b>${fmt(m.milMen)}</b>. Inside the band — and never fitted to it.</div></div>`;
 
 
   // --- flags
@@ -9233,8 +9871,11 @@ function render(){
           (m.lancesCoin > 0
             ? `, ${one(m.lancesKind)} in kind and ${one(m.lancesCoin)} in coin`
             : `, every one of them in kind`) +
-          (cw ? `; <b>${one(m.wardLances)}</b> stand${m.wardLances === 1 ? "s" : ""} ward, so
-                 ${one(m.fieldLances)} ride with the host` : ``) + `. `
+          (cw ? (m.wardType === "abate"
+                 ? `; <b>${one(m.wardLances)}</b> owe${m.wardLances === 1 ? "s" : ""} ward <i>and</i> host, so
+                    ${one(m.fieldLances)} ride and the walls abate to <b>${one(m.warWalls)}</b>`
+                 : `; <b>${one(m.wardLances)}</b> stand${m.wardLances === 1 ? "s" : ""} ward, so
+                    ${one(m.fieldLances)} ride with the host`) : ``) + `. `
         : `No land is in fee, so the honour musters no lances of its own. `) +
       `It takes <b>${fmt(m.coin)} ${U("gp")}</b> a month and owes <b>${fmt(m.garrCoin)} ${U("gp")}</b>
        of garrison in coin` +
@@ -9245,11 +9886,13 @@ function render(){
   }
 }
 
-["fam","r_land","cls","lvl","dmil","oppmil","l_scut","r_scutmo","r_fost","r_place","r_ward"]
+["fam","r_land","cls","lvl","dmil","oppmil","l_scut","r_scutmo","r_fost","r_place","r_ward",
+ "r_wardtype","r_host","r_elect","r_penny","r_serj"]
   .concat(ROSTER.map(r => "fn_"+r.key)).concat(ROSTER.map(r => "fc_"+r.key))
   .forEach(id => dG(id).addEventListener("input", render));
 drawVassals();
 drawTowns();
+drawComposer();
 render();
 
 })();
@@ -9838,6 +10481,183 @@ function selfTest(){
   // wrong and would have hidden a double credit rather than caught one.
   T("…and the purse moves by exactly the credit, because garrison coin comes off the demesne net",
     ()=> near(ward(5).coin - w0().coin, ward(5).wardCred, 1e-9));
+
+  // ---- 10a4. cl. 29 — WARD AND HOST ABATE PRO RATA (garrison spec §1.1, RULED 2026-08-05) -----
+  //
+  // ⚠ THIS GROUP EXISTS BECAUSE THE GROUP ABOVE IS SCOPED, AND USED NOT TO SAY SO. "The service is
+  // spent once" — `lancesKind = wardLances + fieldLances` — is true of a SUBSTITUTION charter and
+  // false of a two-clause one, where the pool is the year and Magna Carta cl. 29 excuses guard "in
+  // proportion to the time in service". Every assertion above still holds, unchanged, because the
+  // tab still opens on `sub`. What is new is that the other charter now exists and is asserted.
+  //
+  // ⚠ AND THE NEGATIVE TWIN IS THE POINT OF THE GROUP, not a courtesy at the end of it. The lesson
+  // this file has paid for twice: when a wording changes, both directions of an assertion move, and
+  // the one that goes quiet is the one nobody notices. So the substitution branch is asserted to
+  // STILL SUBTRACT — if a later edit made abatement universal, the positive tests below would all
+  // still pass and only this one would fall over.
+  const chart = o => FM.realmCharter(o);
+  const sub5  = chart({ward:5, type:"sub",   host:1});
+  const ab5   = chart({ward:5, type:"abate", host:1});
+  const ab5p  = chart({ward:5, type:"abate", host:0});   // the peace year
+
+  T("cl. 29 — under an ABATING charter the ward-bound lances still ride: the host does NOT fall",
+    ()=> eq(ab5.fieldLances, ab5.lancesKind));
+  T("…and it is the WALLS that go short — the peace-year ward abates to nothing in a war year",
+    ()=> ab5.warWalls === 0 && ab5.peaceWalls === 5 ? true
+         : `peace ${ab5.peaceWalls}, war ${ab5.warWalls}`);
+  T("…the abatement is reported as what the host took off the walls",
+    ()=> eq(ab5.wardStripped, 5));
+  T("peace branch — host out 0 months, the lord has his full ward",
+    ()=> eq(ab5p.warWalls, 5));
+  T("…and the paper is worth the same in both years; only the MUSTER moves",
+    ()=> near(ab5.wardPaper, ab5p.wardPaper, 1e-9));
+  T("…so a war year credits the lord with nothing he did not actually get",
+    ()=> eq(ab5.wardValue, 0));
+  // ⚠ THE NEGATIVE TWIN. If abatement ever escapes its charter, only this fails.
+  T("NEGATIVE — a SUBSTITUTION charter still spends the term once: the host falls by the ward",
+    ()=> eq(sub5.fieldLances, sub5.lancesKind - 5));
+  T("…and the two charters genuinely disagree at the same dial setting",
+    ()=> sub5.fieldLances !== ab5.fieldLances ? true
+         : "both charters returned the same host — the clause is not reaching the model");
+  // The arithmetic itself, asserted against the owner rather than re-derived here.
+  T("wardOwed is max(0, term − host) — peace, war, Richmond's two months, and no arrears",
+    ()=> wardOwed(1,0) === 1 && wardOwed(1,1) === 0 && wardOwed(2,1) === 1 && wardOwed(1,3) === 0
+         ? true : "the abatement formula is not max(0, term − host)");
+  T("…and the year resets: excess service never carries into the next one",
+    ()=> eq(wardOwed(1, 12), 0));
+  // The election. Zero by right, priced only where the lord demands beyond the law.
+  T("the loyalty roll does NOT fire on the calendar — abatement is the default of law",
+    ()=> eq(chart({ward:5, type:"abate", host:1, elect:"abate"}).wardRolls, 0));
+  T("…it fires on the lord's demand beyond it — one roll per knight per overlapping month",
+    ()=> eq(chart({ward:5, type:"abate", host:3, elect:"both"}).wardRolls, 15));
+  T("NEGATIVE — a substitution charter has no concurrency to price, whatever the election",
+    ()=> eq(chart({ward:5, type:"sub", host:3, elect:"both"}).wardRolls, 0));
+  // ⚠ The default is inert, and that is a claim worth asserting rather than assuming: this build
+  // changed the ward engine wholesale, and a reader's shipped realm must not have moved under him.
+  T("the tab still OPENS on the substitution charter — the shipped realm did not move",
+    ()=> eq(R.wardType, "sub"));
+
+  // ---- 10a5. WARD-PENNY and SERJEANTY — the two double-count gates (spec §9.4, §9.5) ----------
+  //
+  // Both rows add a way for one thing to be counted twice, and both are gated on the identity
+  // rather than on the total. A commuted fee must not ALSO send the body its penny was paid instead
+  // of; a family granted in serjeanty must not ALSO pay the demesne it was granted out of. Neither
+  // defect would look wrong on its own card, which is the whole reason they are asserted here.
+  const pen3 = chart({ward:5, penny:3});
+  const pen0 = chart({ward:5, penny:0});
+  T("ward-penny — a commuted fee sends NO body: the walls fall by exactly the fees commuted",
+    ()=> eq(pen0.wardBodies - pen3.wardBodies, 3));
+  T("…and the penny is priced at the term's own parity, 8.75 a fee, not a judgement",
+    ()=> near(pen3.pennyRev, 3 * LANCE_WAGE / 12, 1e-9));
+  T("…it is REVENUE, not a garrison credit — the purse moves and the line does not",
+    ()=> near(pen3.coin - pen0.coin, pen3.pennyRev - (pen0.wardCred - pen3.wardCred), 1e-9));
+  T("NEGATIVE — the penny cannot be elected on fees the charter never bound to the walls",
+    ()=> eq(chart({ward:2, penny:9999}).pennyFees, 2));
+  // Serjeanty. The families leave the fisc — this is gate 5, and it is the one that would have
+  // looked right on both cards while being wrong across them.
+  const sj0 = chart({serj:0}), sj90 = chart({serj:90});
+  T("serjeanty — the granted families LEAVE the demesne, exactly as an enfeoffment does",
+    ()=> eq(sj0.demesne - sj90.demesne, 90));
+  T("…so they are not paying the demesne AND standing the watch at once",
+    ()=> near(sj0.garrReq - sj90.garrReq, 90 * sj90.garrRate, 1e-9));
+  T("…the standing bodies are the land at par, floored — a part-serjeanty stands nobody",
+    ()=> eq(sj90.serjMen, Math.floor(90 / sj90.serjPar)));
+  T("…and the wage is read off QUAL, not restated: 3 families to a watchman at the customary net",
+    ()=> eq(sj90.serjPar, sj90.serjWage / sj90.perFam));
+  T("NEGATIVE — with no serjeanty granted the demesne is untouched and no body stands",
+    ()=> sj0.serjMen === 0 && sj0.serjCred === 0 ? true : `${sj0.serjMen} men, ${sj0.serjCred} credit`);
+
+  // ---- 10a6. THE GARRISON COMPOSER — every cell, both directions (spec §9.1) ------------------
+  //
+  // ⚠ THE MATRIX IS ASSERTED AS A CONSERVATION, not as a set of totals. A cell counted into the
+  // wrong row or the wrong column produces a table that is right along one axis and wrong along the
+  // other, and either total alone would hide it. So: rows sum to the same number columns do.
+  const CP = FM.composerLast;
+  T("composer — the matrix sums the same by row as by column",
+    ()=> { const byKind = CP.kinds.reduce((s,k) => s + CP.byKind[k].n, 0);
+           const byPlace = CP.places.reduce((s,p) => s + CP.byPlace[p], 0);
+           return byKind === byPlace ? true : `rows ${byKind}, columns ${byPlace}`; });
+  T("…and the wage bill is the cells against QUAL's wages, never a re-declared rate",
+    ()=> near(CP.wage, CP.kinds.reduce((s,k) => s + CP.byKind[k].n * CP.wages[k], 0), 1e-9));
+  T("…every wage on the composer IS the wage QUAL prices — no second troop table",
+    ()=> CP.kinds.every(k => QUAL.some(q => q[3] === CP.wages[k])) ? true
+         : "a composer wage does not appear in QUAL");
+  // The opening state. ⚠ Asserted as NON-EMPTY rather than as a figure: the derivation reads the
+  // realm's own vills and boroughs, so pinning the numbers here would pin the realm too.
+  T("composer — it opens DERIVED, not blank: a reader is never shown an empty matrix",
+    ()=> CP.hired > 0 ? true : "the composer opened with nothing in it");
+  // ⚠ THIS ASSERTION USED TO ENCODE THE BUG. It read "the derived opening puts watchmen in the
+  // vills", and the opening duly hired four a vill — on top of a militia that already stands there,
+  // double-counting the same men and tripping the Statute's own cap on load. What the opening
+  // should do is hire the SHORTFALL, which at this realm is none. So the test now asserts the
+  // reconciliation instead of the roster: the vills are HELD, and never over-held.
+  T("…the vills are held to the Statute's floor by militia and hire together — never twice over",
+    ()=> { const v = Math.ceil(FM.realmLast.dem / WORKING_MANOR_FAM);
+           const held = CP.byPlace.vills + CP.standing.vills;
+           return held >= v * CAPS.villLo && held <= CP.caps.vills ? true
+             : `${held} in ${v} vills against a floor of ${v*CAPS.villLo} and a cap of ${CP.caps.vills}`; });
+  T("…and no place in the derived opening opens over its own cap",
+    ()=> CP.places.every(p => CP.caps[p] === Infinity ||
+           CP.byPlace[p] + CP.standing[p] <= CP.caps[p]) ? true
+         : "the composer opens in breach of a cap it prints");
+  // The caps, at their two severities. The hard one is RAW's housing; the band is history's.
+  T("composer — the castle's HARD cap is RAW's housing, not the establishment band",
+    ()=> eq(CP.caps.castle, CAPS.keepHousing));
+  T("…the town's cap is the Statute's twelve to a borough, over this realm's own boroughs",
+    ()=> eq(CP.caps.town, FM.realmLast.towns.length * CAPS.borough));
+  T("…the vills' cap is the Statute's six, over the vills this demesne actually makes",
+    ()=> eq(CP.caps.vills, Math.ceil(FM.realmLast.dem / WORKING_MANOR_FAM) * CAPS.villHi));
+  T("…and the roads carry NO standing cap — the vills hold the road, patrol is discretionary",
+    ()=> CP.caps.roads === Infinity ? true : `roads capped at ${CP.caps.roads}`);
+  // ⚠ THE RECONCILIATION, asserted rather than merely printed. This is §2.6's whole claim: the
+  // module's militia lands inside the Statute's own band for the same number of vills. If either
+  // side ever moves out of the other's range the paragraph on the page becomes a false statement,
+  // and it is the kind of false statement nobody re-derives.
+  T("the militia lands INSIDE the Statute's band for this demesne's vills — §2.6's claim, checked",
+    ()=> { const v = Math.ceil(FM.realmLast.dem / WORKING_MANOR_FAM);
+           const lo = v * CAPS.villLo, hi = v * CAPS.villHi, mil = FM.realmLast.milMen;
+           return mil >= lo && mil <= hi ? true
+             : `militia ${mil} is outside the Statute's ${lo}–${hi} for ${v} vills`; });
+  T("…and the specialists are the establishment's own share, not a round number",
+    ()=> near(SPECIALIST_SHARE, 4/36, 1e-12));
+
+  // ---- 10a7. THE LADDER TO STONE — the castles chapter, as a function (spec §6) ---------------
+  //
+  // ⚠ ASSERTED AS A RULE, NOT AS TWELVE CELLS. The chapter prints hex counts precisely so that the
+  // table is `⌈families ÷ ceiling⌉ × rate` rather than a dozen constants; this group is the other
+  // half of that bargain. Re-grade the ladder and these move with it — which is the property a
+  // transcribed table cannot have.
+  T("stronghold — hexes are the ceiling applied to families, and gp is hexes × the class rate",
+    ()=> [25, 50, 75, 100, 375].every(f => ["civ","bor","out"].every(c => {
+           const s = strongholdFor(f, c);
+           return s.hexes === Math.ceil(f / popCeil15(c)) && s.gp === s.hexes * STRONGHOLD_15[c];
+         })) ? true : "a cell is not the rule applied");
+  T("…the borderlands ceiling is RAW's 375 a 6-mile hex shared over sixteen",
+    ()=> near(popCeil15("bor"), 375/16, 1e-12));
+  T("…a castellany's hundred families buy a TOWER at borderlands, not a castle",
+    ()=> eq(strongholdFor(100, "bor").gp, 7500));
+  T("…and a bachelor's twenty-five buy a ringwork",
+    ()=> eq(strongholdFor(25, "bor").gp, 3000));
+  // The reverse. ⚠ This is the one a reader remembers, so it is the one most worth pinning.
+  T("run backwards — a 125,000 gp keep secures an EARL's population, not a castellan's",
+    ()=> eq(Math.round(securesFam(125000, "bor")), 1945));
+  T("…which is more than the castellany's hundred by better than an order of magnitude",
+    ()=> securesFam(125000, "bor") / 100 > 19 ? true : "the earl's caput is not far above the rung");
+  // ⚠ THE GRAIN, asserted because the chapter's own note says a discrepancy is coming. RAW's 6-mile
+  // stronghold figure is not 16× its 1.5-mile one, and a reader who checks will find that out.
+  T("the two grains genuinely disagree — RAW's own rounding, declared rather than hidden",
+    ()=> STRONGHOLD_15.bor * HEX15_PER_HEX6 === 24000 ? true
+         : "the fine rate no longer implies 24,000 at the coarse grain");
+  // The two-rules convergence, and it must land at the CASTELLANY or the chapter's claim is false.
+  T("the two rules nearly meet at the castellany — 6,600 carried against 7,500 demanded",
+    ()=> { const carry = (RUNGS.find(r => r.key === "kt4").anchor / 2) * 33;
+           return carry === 6600 && strongholdFor(100, "bor").gp === 7500 ? true
+             : `carries ${carry} against ${strongholdFor(100,"bor").gp}`; });
+  T("…and no rung below it comes as close, which is what makes the convergence a finding",
+    ()=> { const rat = k => { const r = RUNGS.find(x => x.key === k);
+             return strongholdFor(Math.ceil(r.anchor / 4), "bor").gp / ((r.anchor / 2) * 33); };
+           return rat("kt4") < rat("kt2") && rat("kt2") < rat("kt1") ? true
+             : "the burden no longer falls monotonically down the ladder"; });
 
   // ---- 10b. the demesne row, decomposed — the two identities that make it a decomposition ----
   // One row labelled "gross revenue" printed a figure already net of the fixed expenses, so three
