@@ -664,7 +664,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.18.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.19.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab">
@@ -4090,7 +4090,7 @@ stated on it</b>, because the arithmetic a Judge types depends on them.</p>
   <p class="pnote" style="margin:0 0 8px"><b>Three rulings this section makes, said out loud.</b>
   <b>In demesne only</b> — a town in a vassal's realm is <i>his</i>, and reaches you through his
   tribute, already keyed on the family count you typed for him. <b>Many, never pooled</b> — market
-  class is per settlement: two towns of 200 are two Class&nbsp;V markets, not one Class&nbsp;IV.
+  class is per settlement: two towns of 200 are two Class&nbsp;VI markets, not one Class&nbsp;V.
   <b>The realm's morale, not its own</b> — a settlement shares the base and current morale of the
   domain it sits in, and that domain is yours.</p>
   <p class="pnote" style="margin:0 0 8px"><b>The manorial reading stops at the town wall.</b>
@@ -4197,9 +4197,9 @@ touched, and it stays that way however far you dial. Read down and the argument 
      make the example live but to say, LIVE, that it has stopped describing him. -->
 <p class="pnote" id="walkstate" style="margin:0 0 8px"></p>
 <div class="walkthrough" id="realmwalk">
-  <div class="rrow"><span class="wk">The honour</span><span><b>4,600 families</b> on land worth
-    <b>6</b>, in the <b>borderlands</b>, under a lord of <b>level 9</b>. One population; found a
-    settlement above and there are two.</span></div>
+  <div class="rrow"><span class="wk">The honour</span><span><b>4,600 families</b> on the land, and
+    <b>550</b> more in two towns — <b>5,150</b> all told, which is what the rank is read from. Land
+    worth <b>6</b>, in the <b>borderlands</b>, under a lord of <b>level 9</b>.</span></div>
   <div class="rrow"><span class="wk">How it is held</span><span><b>780</b> in hand — barely
     <b>17%</b> — <b>2,240</b> under vassals, <b>1,580</b> in fees. <b>The lord of a great honour
     holds almost none of it</b>, and that is the finding, not a mis-set dial.</span></div>
@@ -4207,8 +4207,17 @@ touched, and it stays that way however far you dial. Read down and the argument 
     <b>63 lances</b>. Of those, <b>44.5 serve in kind</b> and <b>18.5 render coin</b> — the fraction
     is real: a half-fee owes joint service, and half a lance is what the paper says.</span></div>
   <div class="rrow"><span class="wk">What comes in</span><span>Demesne <b>2,364</b> net of its own
-    expenses, tribute from the vassals <b>2,728</b>, scutage <b>39</b>. <b>5,092 gp a month</b> —
-    and the smallest of the three lines is the one every rules argument is about.</span></div>
+    expenses, tribute from the vassals <b>2,728</b>, the two towns <b>1,300</b>, scutage <b>39</b>.
+    <b>6,392 gp a month</b> — and the smallest of the four lines is the one every rules argument is
+    about.</span></div>
+  <div class="rrow"><span class="wk">And why two towns</span><span>Because they are two markets, not
+    one. <b>400</b> families band as Class&nbsp;V and <b>150</b> as Class&nbsp;VI; a single town of
+    550 would band as Class&nbsp;IV and trade the whole of it at the higher rate. So the towns render
+    <b>1,300</b> where a pooled one would claim 1,375 — the ruling costs this realm 75 gp a month,
+    and <b>it is right to</b>. Those last two are arithmetic you can do from the figure on screen,
+    not numbers the page prints, so they are not set as claims; the self-test holds them. <i>And
+    unlike every rural figure above, these do not move with the custom of record: the town stands on
+    ACKS RAW's own 4 and 2 under either reading.</i></span></div>
   <div class="rrow"><span class="wk">What the walls cost</span><span>The garrison line asks
     <b>2,340</b>. The demesne militia — <b>156 men</b>, trained — carries <b>1,404</b> of it, the
     ward-boys <b>180</b>, and <b>756 gp</b> is left to pay in coin.</span></div>
@@ -8287,12 +8296,28 @@ dG("addv").addEventListener("click", ()=>{ VASS.push({id:vNext++, fam:160, paren
 //   5. One settlement or many?  → MANY. Market class is per settlement: two towns of 200 are two
 //      Class V markets, not one Class IV. Pooling them would be the single most tempting
 //      simplification here and would overstate trade revenue on every realm that has two towns.
-let TOWNS = [];
+// ---- THE REALM OPENS WITH TWO SETTLEMENTS ------------------------------------------------------
+// It used to open with none, and a reader met an empty editor and an entire second population he had
+// to imagine. ⚠ The SIZES are not invented: `kaldor_model.mjs` carries canon households and
+// castletown populations for 30 holdings, and at five people to a household a typical Kaldoran
+// holding's castletown runs 9–15% of its whole (Minarsas 8.7%, Olokand 11.7%, Gardiren 15.2% — the
+// kingdom-wide 18.7% is dragged up by Tashal, a royal capital and no model for anything). 550 urban
+// families beside 4,600 rural is 10.7%, inside that band.
+//
+// ⚠ AND TWO RATHER THAN ONE, DELIBERATELY: 400 is a Class V market and 150 a Class VI, so the class
+// column has something to show, and the "many, never pooled" ruling is demonstrated by the shipped
+// numbers instead of only asserted. Two towns of 550 families between them yield 1,300 gp/mo; one
+// town of 550 yields 1,375, because 550 lands in a band that trades at 1.5 while the 150 trades at
+// 1. Pooling would have overstated the realm's trade by 75 gp/mo, on the default, in plain sight.
+//
+// The rank does not move — 4,600 rural is a Count and 5,150 all told is still a Count — so the
+// headline the reader meets is the one the page has always opened on.
+let TOWNS = [{id:1, fam:400}, {id:2, fam:150}];
 // The realm as the page opened — filled on the first render, and never again. See the note at its
 // only use: it is what tells the reader that the fixed example has stopped describing him.
 let REALM0 = null;
 
-let tNext = 1;
+let tNext = 3;   // 1 and 2 are the two settlements the realm opens with
 // ⚠ THE REMOVE BUTTON IS class="x", NOT class="mini". It was written in v3.6 asking for a class the
 // stylesheet has never had, while the rule it wanted — #tab-realms button.x, small and red — had
 // been sitting there since v3 carrying the vassal table's identical ×. So two remove buttons in
@@ -8707,9 +8732,14 @@ function render(){
     // into the other and either would work there; the Node harness's element stub keeps them apart,
     // so reading innerHTML here returns "" and a gate bound to this surface reports the text absent
     // while the page renders it perfectly. Read the property the writer wrote.
+    // ⚠ `writ` joined this door when the realm was given settlements to open with. Until then a gate
+    // could read the writ straight off the page, because the page's own state WAS the no-town state;
+    // now the only way to see the writ's no-settlement branch is through here. A door that carries
+    // some of a render's surfaces and not others is a door that decides which questions can be
+    // asked — so it carries every surface a gate has ever wanted.
     const out = {m:FM.realmLast, cards:dG("cards").innerHTML, readout:dG("readout").innerHTML,
                  tnote:dG("tnote").textContent || dG("tnote").innerHTML || "",
-                 ttable:dG("ttable").innerHTML};
+                 ttable:dG("ttable").innerHTML, writ:dG("realmwrit").innerHTML};
     TOWNS = was; drawTowns(); render();
     return out;
   };
@@ -9159,9 +9189,14 @@ function render(){
     const two = m.urbanTotal > 0;
     const cw  = (m.wardLances || 0) > 0;
     dG("realmwrit").innerHTML =
-      `<b>The honour in hand.</b> ${fmt(m.famTotal)} famil${m.famTotal === 1 ? "y" : "ies"}` +
-      (two ? ` — ${fmt(m.ruralTotal)} rural and ${fmt(m.urbanTotal)} urban, and the rank is read off
-              the whole of it` : ``) +
+      // ⚠ `titlePop` WHEN THERE ARE TWO POPULATIONS, not `famTotal`. `famTotal` is the RURAL count,
+      // and leading with it produced "4,600 families — 4,600 rural and 550 urban", which states a
+      // total that is 550 short of itself. It read correctly for as long as the realm opened with no
+      // towns, and was wrong the hour it opened with two: **a figure that is only right when one of
+      // its terms is zero is a figure waiting for that term to move.**
+      `<b>The honour in hand.</b> ${fmt(two ? m.titlePop : m.famTotal)} famil${(two ? m.titlePop : m.famTotal) === 1 ? "y" : "ies"}` +
+      (two ? ` — ${fmt(m.ruralTotal)} on the land and ${fmt(m.urbanTotal)} in ${m.towns.length === 1 ? "a town" : "towns"},
+              and the rank is read off the whole of it` : ``) +
       // ⚠ AN IMPOSSIBLE HOLDING IS NOT A HOLDING. `demesne < 0` means more land has been granted
       // away than the realm contains, and the readout already marks it. The first draft of this
       // sentence read "of which −3,520 (−1173%) is in hand" in a confident voice — a writ's whole
@@ -9169,7 +9204,12 @@ function render(){
       (m.illegal
         ? `, and <b>more land is granted away than the realm holds</b> — the honour below is not a
            realm yet. `
-        : `, of which <b>${fmt(m.rawDem)}</b> (${pc(m.rawDem)}%) is in hand. `) +
+        // ⚠ the percentage is OF THE RURAL FAMILIES and now says so. `pc` divides by `famTotal`,
+        // which is the rural count — correct, because demesne is land and a town is not held that
+        // way — but with the sentence now leading on the whole population, an unlabelled "17%"
+        // invites the reader to read it against 5,150 and get 15%.
+        : `, of which <b>${fmt(m.rawDem)}</b> of the ${two ? "rural " : ""}families
+           (${pc(m.rawDem)}%) ${m.rawDem === 1 ? "is" : "are"} in hand. `) +
       (m.enfFams > 0
         ? `${fmt(m.estates)} estate${m.estates === 1 ? "" : "s"} owe <b>${one(m.lancesAll)}
            lance${m.lancesAll === 1 ? "" : "s"}</b>` +
@@ -9591,9 +9631,23 @@ function selfTest(){
   // comparison that isolates what these tests claim to isolate. The first version compared against
   // R and failed by exactly the custom's factor, which read as a leak and was a stale baseline.
   const none = () => FM.realmTowns([]);
-  T("no settlement is founded at the default",  ()=> ifVirgin(()=> eq(R.urbanTotal, 0)));
-  T("…so the title bands on the same number it always did",
-    ()=> ifVirgin(()=> eq(R.titlePop, R.ruralTotal)));
+  // ⚠ THESE TWO USED TO ASSERT AN EMPTY DEFAULT — `urbanTotal === 0`, and `titlePop === ruralTotal`
+  // as its consequence — and they were right until the realm was given two settlements to open with.
+  // RE-POINTED, NOT DELETED. The discipline they carry is "a build proves itself inert at its own
+  // default", and that survives the default moving; what changes is which state is the default. They
+  // now assert the shipped pair exactly, so a stray edit to `TOWNS` is a finding rather than a
+  // surprise, and the title's arithmetic is asserted against the two populations rather than against
+  // one of them.
+  T("the realm opens with its two settlements — 400 and 150",
+    ()=> ifVirgin(()=> eq(R.towns.length, 2) && eq(R.towns[0].fam, 400) && eq(R.towns[1].fam, 150)));
+  T("…and the title bands on BOTH populations, not the rural one",
+    ()=> ifVirgin(()=> eq(R.urbanTotal, 550) && eq(R.titlePop, R.ruralTotal + 550)));
+  // ⚠ AND THE RULING IS NOW VISIBLE IN THE DEFAULT ITSELF. Two towns of 550 families between them
+  // are two markets and not one: 400 bands at Class V (trade 1.5) and 150 at Class VI (trade 1),
+  // where a single pooled 550 would band at Class IV and trade the whole of it at 1.5. Pooling would
+  // overstate this realm's trade by 75 gp/mo — asserted here so the demonstration cannot rot.
+  T("…and not pooling them is worth 75 gp/mo less than pooling would claim",
+    ()=> ifVirgin(()=> eq(town(400, 150).urbanNet + 75, town(550).urbanNet)));
   // RAW's own benchmark, read off the card the reader sees: a small village of 75-99 urban
   // families yields 150-199 gp/mo (RR p.352, Villages Towns and Cities).
   T("RAW's benchmark village — 75 families yield 150 gp/mo", ()=> eq(town(75).urbanNet, 150));
