@@ -677,7 +677,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.22.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.23.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab"></nav>
@@ -769,7 +769,7 @@
 <div class="pop" id="pop-cust" hidden>
   <button type="button" class="pclose" data-popclose aria-label="close">×</button>
   <div class="ptitle">The custom of record — what a family yields</div>
-  <label for="m_cust">Two peasantries, one rulebook: it reprices every gp on this page</label>
+  <label for="m_cust">Two peasantries, one rulebook: it reprices every rural gp on this page</label>
   <select id="m_cust">
     <option value="cust">Customary — villeins by custom of the manor (service 1, tax 0)</option>
     <option value="raw">ACKS RAW — a free, taxed, commercial peasantry (4, 2)</option>
@@ -885,13 +885,43 @@
   design</b>. <b>It is a real deviation and the module owns it</b> — argued, bounded and priced in the
   <a href="#lib-doctrine-module">⚖ module doctrine table</a>, which is where every other departure is
   written down too. If you disagree with that one ruling, you will disagree with the page.</p>
+  <!-- ⚠ THIS PARAGRAPH USED TO INTRODUCE THE MODULE'S SECOND-BIGGEST RULING BY NAME ONLY. It said
+       every gp was "priced at a custom of record" and left the reader to discover what a custom of
+       record IS two sections later, in the gloss. A coined term used before it is defined reads as
+       a term of art the reader is assumed to know — so the one dial that reprices the whole rural
+       page arrived as a mystery, and the 25-vs-12 consequence arrived with no cause attached.
+       It now answers the question the term is an answer to, in the order a reader has it: what does
+       a family yield, what are the two settings, which is the default and why, what it moves and
+       what it does not. The DERIVATION stays in the Custom chapter — this is the statement, not the
+       argument, and the link is the seam between them.
+       ⚠ AND IT CARRIES NO `.termchip`, WHICH WAS THE OBVIOUS MOVE AND WOULD HAVE BROKEN THE POPOVER.
+       `reanchorPop()` places the open popover against `popTwins(pop, scope)[0]` — the FIRST match in
+       document order — and the bar/prose scoping below guards bar-against-prose only. A SECOND prose
+       chip for the same dial had never existed, so "one prose chip per dial" is an invariant the code
+       relies on and nothing states. A chip here would sit ahead of the worked example's `customary
+       rent` chip, so a reader who opened the dial from the example and then scrolled would have his
+       popover jump up the page to a sentence he was not reading. Chipping a term where the reader
+       first meets it is right, and it needs `dPopOpen` to record the ELEMENT rather than only the
+       scope — a mechanic, and this was a presentation pass. -->
   <p class="intro" style="max-width:1080px"><b>And the economy itself is a ruling, not an inheritance.</b>
-  Every gp here is priced at a <b>custom of record</b> — villeins holding by custom of the manor, not
-  RAW's free taxed peasantry — which moves every number on the page: the same bachelor's fee is
-  <b>25 families</b> under the customary rent and <b>12</b> under ACKS RAW revenues. It is a dial, RAW
-  is offered on it as a comparison, and <b>a sceptical reader should open the
-  <a href="#lib-custom">Custom chapter</a> before the ladder makes any of the rest look like
-  arithmetic.</b></p>
+  Before any figure here means anything, the module has to answer a question ACKS settles once and for
+  all: <b>what does one peasant family yield its lord?</b> That answer is the <b>custom of record</b>
+  — set at <a href="#sec-dials">the Dials</a>, and chipped on the writ at the foot of the window — and
+  it is a dial with two settings, of which <b>the module's default is not RAW's</b>.
+  <b>ACKS RAW</b> gives every family 4 gp of service revenue and 2 of tax on top of the land value
+  (RR&nbsp;pp.341–2): a free, taxed, commercial peasantry. <b>Customary</b> — the default — reads the
+  same village as <b>villeins holding by custom of the manor</b>, where the rent <i>is</i> the land:
+  service falls to <b>1</b> and tax to <b>0</b>. The reason is RAW's own wording, which describes
+  service revenue as the licence income of <i>freemen's trades</i> — and a villein renders in land and
+  labour, not in coin from a trade he does not practise.</p>
+  <p class="intro" style="max-width:1080px">At average land that nets a fee-holder <b>4 gp a family</b>
+  customary against <b>9</b> under RAW, so the same bachelor's fee is <b>25 families</b> at the
+  customary rent and <b>12</b> <i>under ACKS RAW revenues</i> — the whole rural page, re-scaled by one
+  choice. Every <b>rural</b> figure moves with the dial; <b>the towns do not</b>, a burgess being free
+  and taxed in fact as well as on paper. RAW stands on the dial as a <b>comparison</b> rather than a
+  rival century — no era preset touches it — and <b>a sceptical reader should open the
+  <a href="#lib-custom">Custom chapter</a>, where the value is derived and can be argued with, before
+  the ladder makes any of the rest look like arithmetic.</b></p>
 
   <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin:22px 0 2px">3 · What the module is made of</h3>
   <p class="intro" style="max-width:1080px">Six tabs in three registers. <b>This one orients</b>; two
@@ -929,7 +959,8 @@
     a modelling choice, and is the reason every era on this page re-counts the same ladder.
     Everything on this page follows from that one sentence. Because a sworn man's wage doubles
     per level, the rungs fall straight out of the henchman wage table — <b>½ / 1 / 2 / 4 fees, retaining
-    L2 / L3 / L4 / L5</b> — each netting <code>land&nbsp;+&nbsp;3</code> gp per family, each owing as many
+    L2 / L3 / L4 / L5</b> — each netting <code>land&nbsp;−&nbsp;2</code> gp per family under the customary
+    rent, <code>land&nbsp;+&nbsp;3</code> <i>under ACKS RAW revenues</i>, each owing as many
     lances as it counts fees, and the ladder stops where barony income begins. Nothing here is a new
     economy; it is ACKS II's own economy read at one level below the baron.
   </p>
@@ -1018,8 +1049,8 @@
   <div class="notecol">
   <h3 style="font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--green);margin:14px 0 2px">The manor's words</h3>
   <div class="gloss">
-    <div><b>the custom of record</b> — what a family yields its lord: villeins by custom of the manor (the default), or RAW’s free taxed peasantry as a comparison. It is a realm’s economy rather than a century’s, and it reprices every gp on this page.</div>
-    <div><b>tenement</b> — a full 30-acre holding, worked by one peasant family: ACKS’s revenue unit, and what every gp on this page is counted in.</div>
+    <div><b>the custom of record</b> — what a family yields its lord: villeins by custom of the manor (the default), or RAW’s free taxed peasantry as a comparison. It is a realm’s economy rather than a century’s, and it reprices every <b>rural</b> gp on this page — the towns keep RAW’s own 4 and 2 under either reading.</div>
+    <div><b>tenement</b> — a full 30-acre holding, worked by one peasant family: ACKS’s revenue unit, and what every <b>rural</b> gp on this page is counted in. A burgess holds no tenement — the towns count in urban families instead.</div>
     <div><b>household</b> — anyone under a roof. It is what a survey counts, not what a manor rents, and the two are different numbers.</div>
     <div><b>fee</b> — land granted to keep a fighting man: the smallest estate whose income pays his wage.</div>
     <div><b>lance</b> — one knight’s service: the man himself, horsed and mailed, squire and remounts behind him.</div>
@@ -1235,7 +1266,8 @@
     <tbody>
       <tr><th scope="row"><b>The custom of record</b> — what a family yields
         <span class="bdg mod" title="RAW gives one schedule — 4 gp of service and 2 of tax. That a customary population yields 1 and 0 is this module's reading of RAW's own wording, and is badged wherever it is stated">MODULE</span></th>
-        <td><b>Every gp on every tab</b>, by about 2.25×. It decides how many families a knight needs:
+        <td><b>Every rural gp on every tab</b>, by about 2.25× at land 6 — the towns are untouched, and
+          that exemption is itself a ruling (<a href="#sec-towns">settlements</a>). It decides how many families a knight needs:
           the same bachelor's fee is <b>25</b> families customary and <b>12</b> under RAW revenues.</td>
         <td><b>Customary.</b> RAW describes service revenue as the income of freemen's <i>trades</i>, and
           a villein holding by custom renders in land and labour. ACKS RAW is on the same dial as a
@@ -1959,8 +1991,11 @@
     lines: the ordinance lance <b>paid</b> its coustillier — a fighting rider, this ladder's man-at-arms — and
     carried its page unpaid; the Library’s <a href="#lib-history">History chapter</a>’s lance note has the whole arc.) <b>In war the split follows RAW's own favor-and-duty law</b> (p.345–6) —
     two RAW halves and one transplant. RAW's halves: a Call to Arms is <b>provider-pays</b> — the called vassal
-    musters at his own wage cost, so the fee’s month of service rides on the knight's purse (priced on every Ladder card:
-    about two-fifths of the fee's income, once a year); and the Troops favor runs the other way — what the lord
+    musters at his own wage cost, so the fee’s month of service rides on the knight's purse (priced <b>live</b> on every
+    Ladder card, once a year: at the module's defaults it runs from about three-quarters of the fee's income at the
+    lower rungs to more than the whole of it at the castellany. <b>No single fraction is safe here</b> — the share
+    swings with the land value and the custom of record, which is why the card computes it and this sentence does
+    not quote it); and the Troops favor runs the other way — what the lord
     sends, the lord pays. The transplant (owned in the ⚖ table, Library): RAW bounds duties by <b>count</b> —
     one per favor, no free service — never by days; the module reads the land as the standing favor that earns one
     month of service a year, and prices anything beyond it as new consideration at the muster-roll wage — the lord's coin.
@@ -2000,12 +2035,23 @@
     <b>anchors</b> — 60 against 100, three to five exactly — and the realised counts sit a little either side of it, because each
     rung rounds its own remainder up.
   </p>
+  <!-- ⚠ THE HAZARD OF SPLITTING DOCTRINE FROM ARITHMETIC, caught in the act. This paragraph says
+       outright that the numbers live on the other tab — and when the other tab's numbers changed
+       (cl. 29, v3.21.0) this sentence did not follow them. It went on stating the pre-cl.29 reading
+       as though it were the whole ruling: "takes them out of the host", "spent once", flat. A
+       one-line summary of arithmetic that is deliberately elsewhere is a summary with nothing local
+       to contradict it, so it goes stale silently. It now names BOTH charter forms, which is the
+       least a one-line version can say without being false under one of them. -->
   <p class="intro"><b>And this is where the doctrine is argued; it is priced on the other tab.</b>
   Feudal Realms carries <a href="#sec-ward">the ward</a> as a line of its own: enter how many lances
-  stand at the walls and the realm's ledger takes them out of the host and puts their service against
-  the castellan's garrison. The dial is in <b>lances, not days</b> — this module keeps one calendar,
-  the month of service — and the service is <b>spent once</b>, which is what makes ward a decision
-  rather than a second bill.</p>
+  stand at the walls, and what the ledger does with them <b>depends on what the charter says</b>.
+  Under a <b>substitution</b> charter — the default — it takes them out of the host and puts their
+  service against the castellan's garrison: the service is <b>spent once</b>, which makes ward a
+  decision rather than a second bill. Under an <b>abating</b> charter they owe the walls <i>and</i>
+  the field, so they ride anyway and the ward abates by the months they served (Magna Carta cl. 29) —
+  and it is the walls that go short. The dial is in <b>lances, not days</b> either way: this module
+  keeps one calendar, the month of service. <b>Both readings are in the
+  <a href="#lib-doctrine-module">⚖ doctrine table</a></b>, which is where the ruling is declared.</p>
   </details>
   <details class="fold"><summary>At the barony, RAW resumes</summary>
 
@@ -2129,10 +2175,21 @@
                with `round(N ÷ 3)` in 0 cases, while `floor` disagrees in 1,666. Fixed anyway: a
                constant that is only correct because of what happens to consume it is a defect that
                has not been reached yet. -->
+          <!-- ⚠ "1 per 2 knights (typical demographics)" WAS CUT, AND IT HAD BEEN THE DEFAULT.
+               `r_fost` cut the identical position for the identical reason — an interpolation between
+               two argued numbers with no argument of its own — and this dial kept it, wearing a label
+               ("typical demographics") that asserted the very warrant that ruling says it does not
+               have. A household of the class is a lance, so the two dials were describing one
+               population at two densities, and the muster shipped at the indefensible one.
+               The three settings are now the three the module can argue: none, the demographic band
+               (a 14–21 window over a ~30-year generation × ~1.4 sons per inheriting son ≈ one boy per
+               three households of the class), and canon's assessed one-per-lance spear — which is
+               assessment language, and selecting it musters the paper. Same set as `r_fost`, same
+               default, and the consumer's fallback moved with the markup so a stale link cannot
+               restore a position the dial no longer offers. -->
           <option value="0">none — bare lances</option>
-          <option value="3">1 per 3 knights</option>
-          <option value="2" selected>1 per 2 knights (typical demographics)</option>
-          <option value="1">every lance — the full muster</option>
+          <option value="3" selected>~1 per 3 knights — the demographic band</option>
+          <option value="1">every lance — Hârn's assessed spear</option>
         </select></div>
       <div class="field"><label for="u_scale">Muster fights as <span class="hint">(scale sets unit size &amp; officer floors, RR p.437)</span></label>
         <select id="u_scale">
@@ -2493,8 +2550,9 @@
     <div class="stepcard"><span class="stepno">Step 4 · <a href="#sec-ward">The ward</a></span>
       <h4>Where the service is spent</h4>
       <p class="stepwhat">Castle-guard, the ward-penny, serjeanty.</p>
-      <p style="font-size:12.5px;margin:0">Service spent at the walls is service not in the host, and
-      <b>what the charter says</b> decides which goes short in a war year. This is also where a castle
+      <p style="font-size:12.5px;margin:0">Whether a lance at the walls is <b>instead of</b> the host
+      or <b>on top of</b> it is <b>what the charter says</b> — and that is what decides which of the
+      two goes short in a war year. This is also where a castle
       stops being a line item: ward-penny is a standing income against a standing bill, which scutage
       never was.</p></div>
     <div class="stepcard"><span class="stepno">Step 5 · <a href="#sec-composer">The garrison</a></span>
@@ -2835,7 +2893,19 @@ goes short</b> — and in a war year, under the commonest clause of all, it is t
   <b>Serve the field and the ward abates by what was served.</b> Peace year, the lord has his full
   ward; war year, he has the host and bare walls. <b>It is a hedge, not a dominance</b> — which is
   why lords wrote both clauses as a matter of course, and why the old reading was not wrong so much
-  as unscoped.</div></details>
+  as unscoped.
+  <br><br><b>⚠ And the honour holds ONE clause at a time — say it, because the sentence above invites
+  the opposite.</b> If lords wrote both routinely, a real honour's ward-bound fees were a <i>mixed</i>
+  population: some substituting, some abating. This dial sets the clause for <b>all</b> the fees bound
+  to the walls, and the ledger reads a single charter population. That is a modelling boundary, not a
+  claim about the record — the same "one estate, one charter, one lord" simplification the fee
+  definition makes (<a href="#sec-idea">the idea</a>), reappearing at realm scale. <b>To reason about a mixed
+  honour, price each clause's fees in a separate pass</b> — the <i>service</i> is additive, since each
+  fee stands in exactly one of the two. <b>The garrison credit is not:</b> ward is capped by whatever
+  is left of the line after militia, ward-boys and serjeanties, so two passes' credits must be checked
+  against that one remaining line rather than summed. The muster arithmetic underneath already takes a
+  <i>list</i> of charter populations — this is a limit of what the dial offers, not of what the model
+  can express.</div></details>
   </div>
 <div class="field"><label for="r_host"><span class="bdg his" title="the months the host is actually out. cl. 29 abates the ward by the time served, so this dial is what decides whether an abating charter yields a warded wall or a bare one">HISTORY</span> Months the host is <b>out</b>
   <span class="hint">(what the ward abates against)</span></label>
@@ -2948,9 +3018,11 @@ touched, and it stays that way however far you dial. Read down and the argument 
     <b>63 lances</b>. Of those, <b>44.5 serve in kind</b> and <b>18.5 render coin</b> — the fraction
     is real: a half-fee owes joint service, and half a lance is what the paper says.</span></div>
   <div class="rrow"><span class="wk">What comes in</span><span>Demesne <b>2,364</b> net of its own
-    expenses, tribute from the vassals <b>2,728</b>, the two towns <b>1,300</b>, scutage <b>39</b>.
-    <b>6,392 gp a month</b> — and the smallest of the four lines is the one every rules argument is
-    about.</span></div>
+    expenses, tribute from the vassals <b>2,728</b>, and the two towns <b>1,300</b> — <b>6,392 gp a
+    month</b> in hand. Scutage brings <b>39</b> more, and it is deliberately <i>not</i> in that total:
+    a lord who takes scutage must spend it on troops or face loyalty rolls at −4 (RR&nbsp;p.346), so it
+    is reported against the garrison and never as money he may spend. <b>The smallest of the four lines
+    is the one every rules argument is about</b>, and it is the one line that is not his.</span></div>
   <div class="rrow"><span class="wk">And why two towns</span><span>Because they are two markets, not
     one. <b>400</b> families band as Class&nbsp;V and <b>150</b> as Class&nbsp;VI; a single town of
     550 would band as Class&nbsp;IV and trade the whole of it at the higher rate. So the towns render
@@ -3065,7 +3137,9 @@ the places the module argues against itself are on the same page as the places i
              is the whole discipline of a doctrine table. -->
         <tr><th scope="row"><b>The custom of record — a family yields <code>land + 1 + 0</code>, not
           <code>land + 4 + 2</code></b>. Service revenue is 1 and tax is 0 on a customary manor, and
-          customary is the default. Every gp on the page is repriced by it.</th>
+          customary is the default. Every <b>rural</b> gp on the page is repriced by it; the urban
+          population is held at RAW's own 4 and 2 under either reading, which is the second half of
+          this ruling and not an oversight.</th>
           <td>RAW gives one schedule: <b>4 gp of service and 2 of tax</b> per family (RR pp.341–2),
           motivated as the licence income of a freeman's trades. It does not distinguish a villein
           population from a burgess one, and prices both at the freeman's rate.</td>
@@ -3077,9 +3151,23 @@ the places the module argues against itself are on the same page as the places i
           Argued in the <a href="#lib-custom">Custom chapter</a>; the burgess half is the
           <a href="#lib-franchise">franchise chapter</a>. ⚠ The comparison reading is RAW to the gold
           piece — this is a deviation the page will run <i>without</i>, on request.</td></tr>
-        <tr><th scope="row"><b>Castle-guard is counted in lances, and the service is spent once</b> —
-          a lance standing ward is not in the field host that term, and ward is priced at the
-          module's one calendar, the month of service.</th>
+        <!-- ⚠ THIS ROW STATED THE SUPERSEDED READING AS THE RULING, for every release since the
+             garrison spec shipped cl. 29 (v3.21.0). Its heading read "Castle-guard is counted in
+             lances, and the service is spent once", and neither cl. 29 nor the abating charter
+             appeared anywhere in the row — while the ward dial, the ward card and the reckoning had
+             all carried two charter forms since that release. By this table's own rule at the head
+             of the section — "a ruling not in one of these tables is not a ruling this module has
+             made" — the module's CURRENT castle-guard ruling was undeclared, and the declared one
+             had been retired. `spent once` is not deleted: it is exactly the `sub` charter, which is
+             still the default, so what was wrong was its SCOPE, not its content. -->
+        <tr><th scope="row"><b>Castle-guard is counted in lances, not days — and what the term does is
+          the charter's business, not the module's</b>. Under a <b>substitution</b> charter (the
+          default) the service is <b>spent once</b>: a lance standing ward is not in the field host
+          that term. Under an <b>abating</b> charter the fee owes the walls <i>and</i> the host, and
+          <b>Magna Carta 1215, cl. 29</b> abates the ward <i>pro rata</i> by the time served — so the
+          lance rides, and it is the walls that go short in a war year. Both clauses were written,
+          routinely, by the same lords; ward is priced at the module's one calendar either way, the
+          month of service.</th>
           <td><b>RAW prices no castle-guard at all.</b> It has a garrison line and says nothing about
           who stands at the walls, or on what term.</td>
           <td>The institution is history's — fees bound to a castle owed ward in rotation, and
@@ -3087,10 +3175,20 @@ the places the module argues against itself are on the same page as the places i
           to carve them. The module declines the obvious alternative and records why: the spec
           proposed <code>days ÷ 365</code>, which on a lance is <b>10.96 gp/mo against 8.75</b> — a
           <b>25% swing on every ward line</b>, and a <i>second calendar</i> two cards away from the
-          term the rest of the module prices and names. Withdrawn. The conservation rule is the
-          load-bearing half: service spent at the walls is service not in the host, so ward is a
-          decision and not a second bill. Priced on <a href="#sec-ward">the ward</a>; argued at
-          <a href="#sec-muster">the warded walls</a>.</td></tr>
+          term the rest of the module prices and names. Withdrawn.
+          <b>What the two charter forms are for.</b> The <b>substitution</b> reading — service spent
+          once — makes ward a <i>decision</i> rather than a second bill, and it is right about the
+          charter that offers the walls <i>instead of</i> the field. It could not describe the
+          two-clause charter, where a fee owes both; there the pool is <b>the year, not the month</b>,
+          and cl. 29's own final limb settles the collision in the knight's favour —
+          <i>"if we have led or sent him on military service, he shall be excused guard in proportion
+          to the time in service."</i> So the conservation rule holds <i>within a charter form</i>
+          rather than across the institution: substitution conserves the term, abatement conserves the
+          year. <b>It is a hedge, not a dominance</b>, which is why lords wrote both — peace year, the
+          lord has his full ward; war year, the host and bare walls.
+          <b>⚠ One quantisation is ours:</b> cl. 29 proportions in <i>days</i> and this module answers
+          in months — the rule is Magna Carta's, the rounding is the module's. Priced on
+          <a href="#sec-ward">the ward</a>; argued at <a href="#sec-muster">the warded walls</a>.</td></tr>
         <tr><th scope="row"><b>A settlement is a second population, typed apart from the first</b> —
           its own revenue line, a flat garrison of 2, no militia, no fee acreage, no density; and the
           contested III/IV boundary is ruled at <b>2,500</b>.</th>
@@ -3149,7 +3247,7 @@ the places the module argues against itself are on the same page as the places i
           <td>Because the wage table is the market price of a level-L man, and the fee must pay it at every point of contact. At a fee's birth from the household, p.168 applies verbatim: the lord enfeoffs a knight he was already paying, and land replaces wage. At a birth from the market — RAW lets a lord enfeoff non-henchmen outright: "mercenary commanders, adventurers" (p.347) — the fee's income is the recruitment offer, and it must meet the man's open-market wage or he rides on. And at every inheritance the market binds the <b>grade</b>, not the man: an heir on a 96-gp manor doesn't ride off — he stays, poorer, and the estate can no longer sustain the rank's establishment, so the line slides down the kit ladder toward the esquire (the threadbare fee, <a href="#lib-design">Design chapter</a>, Library) while standing manors re-grade rather than resize. Netting, offering, retaining: one price — enforced hard at the first two points, and at the third by the slow slide of grade.</td></tr>
         <tr><th scope="row">Who pays when the levy is called up?</th>
           <td>Someone does: <b>the provider</b> — RAW's general law (Call to Arms: the vassal musters troops at his own wage cost; Troops favor: the lord pays for what he sends down, p.346). The rung cards price it: afield, the knight pays his yeomen's wages and their plough-teams stand idle. The idle plough is booked at the family's <b>full revenue rate</b> (<code>land+6</code> under ACKS RAW revenues,
-            <code>land+1</code> customary — the engine reads the live profile), because RAW's two ledger columns come apart here: p.432 reduces domain <i>revenues</i> by one family per man levied ("produce revenue as if it has [fewer] families"), while p.342's <i>Costs per Family</i> column — liturgies, tithe, maintenance — keeps charging: the family still lives there; only its production marches. Net loss per man is therefore the whole revenue, not the fee's net take. Together roughly <b>two-fifths</b> of the fee's income for the month of service, plus −2 morale — free to keep, dear to call, which is why historical levies were short-term, defensive instruments. And the bill is bounded: the fee owes the term — one month of service a year, the forty days — at its own cost; past it the muster rides on the lord's wages (the pay ladder, 1s/2s/4s ↔ 60/100/200), as the rolls show fee-holders drawing. The knight himself is pre-paid for the term: the fee sustains him year-round — at home always, in the host for the forty days, and beyond them at the lord's coin.</td></tr>
+            <code>land+1</code> customary — the engine reads the live profile), because RAW's two ledger columns come apart here: p.432 reduces domain <i>revenues</i> by one family per man levied ("produce revenue as if it has [fewer] families"), while p.342's <i>Costs per Family</i> column — liturgies, tithe, maintenance — keeps charging: the family still lives there; only its production marches. Net loss per man is therefore the whole revenue, not the fee's net take. <b>Together, a large fraction of the fee's income for the month of service</b> — at the module's defaults about three-quarters at the bachelor's fee and the whole of it and more at the castellany — plus −2 morale. <b>The share is not a constant and this page will not quote one:</b> it swings with the land value and the custom of record (swept across both readings and every land value, it runs from under a fifth of a month's income to more than three months of it), so every Ladder card computes its own rung's figure live. Free to keep, dear to call, which is why historical levies were short-term, defensive instruments. And the bill is bounded: the fee owes the term — one month of service a year, the forty days — at its own cost; past it the muster rides on the lord's wages (the pay ladder, 1s/2s/4s ↔ 60/100/200), as the rolls show fee-holders drawing. The knight himself is pre-paid for the term: the fee sustains him year-round — at home always, in the host for the forty days, and beyond them at the lord's coin.</td></tr>
         <tr><th scope="row">Four fees — one L5 knight, or four knights?</th>
           <td>Both, and the module says which is which. The wage ladder answers <b>retention</b>: 400 gp of income keeps one L5 man — grade. The quota answers <b>service</b>: four fees owe four lances — count. Historically the count was the law and the grade the social fact, and they were never traded one for the other: a four-fee holder did not send "one better knight" — he sent himself and found three more, or paid. The cards price the finding (scutage, term-hire, the levy's horse), and the Muster section prices why the standing alternative — retained men on wages — belongs to the margin and the barony, not the parity floor. Concentration keeps its real cost visible too: four L3 lances out-rate one L5 on the battle sheet (Units section) — the premium of the great fee is command, quality, and one sworn bond, never bodies.</td></tr>
       </tbody>
@@ -6241,7 +6339,11 @@ function renderUnits(){
   const ldrp = document.getElementById("u_ldr").checked;
   const mnt  = document.getElementById("u_mount").checked;
   const land = clampInt("land", 3, 9, 6);
-  const sqrDen = clampInt("u_sq", 0, 3, 2);        // KNIGHTS PER SQUIRE — exact integer, 0 = none
+  // KNIGHTS PER SQUIRE — exact integer, 0 = none. ⚠ The fallback is 3 and must stay equal to the
+  // markup's `selected` option: it was 2, the "1 per 2" position, which the dial no longer offers
+  // (see the note at #u_sq). A fallback that names a retired option is a dial position reachable
+  // only by a malformed link.
+  const sqrDen = clampInt("u_sq", 0, 3, 3);
   const S    = sqrDen ? Math.round(N / sqrDen) : 0; // squires: fostered sons, ride with the host as TRAIN (not troops)
   const REQU = reqOf(document.getElementById("l_def").value);   // the definition's required body
   const kWage = Math.max(HENCH[kl], REQU);         // dubbed floor: any knight ≥ the definition of record (manor doctrine)
@@ -10154,7 +10256,7 @@ function render(){
     <div class="lrow"><span class="lk">Demesne militia — ${mixed}</span><span class="lvv">${fmt(m.milMen)} men</span></div>
     <div class="lrow"><span class="lk">…their credit against the line ${bdg("raw")}</span><span class="lvv">−${fmt(m.milCred)} ${U("gp/mo")}</span></div>
     ${m.milKit?`<div class="lrow"><span class="lk">…one-time to train &amp; equip them</span><span class="lvv">${gpo(m.milKit)}</span></div>`:""}
-    ${m.wardLances?`<div class="lrow"><span class="lk"><b>${one(m.wardLances)} lances</b> standing castle-guard ${bdg("mod","castle-guard is not an ACKS institution — RAW prices garrison as a protection-value line and leaves who stands it open. The term is the module's own month of service, and the ruling is that ward SPENDS that term rather than adding to it")}</span><span class="lvv">−${fmt(m.wardCred)} ${U("gp/mo")}</span></div>
+    ${m.wardLances?`<div class="lrow"><span class="lk"><b>${one(m.wardLances)} lances</b> standing castle-guard ${bdg("mod","castle-guard is not an ACKS institution — RAW prices garrison as a protection-value line and leaves who stands it open. The term is the module's own month of service; what that term DOES is the charter's business. A substitution charter spends it once — a lance at the walls is not in the host. An abating charter owes both, and Magna Carta cl. 29 excuses the guard in proportion to the time served in the field")}</span><span class="lvv">−${fmt(m.wardCred)} ${U("gp/mo")}</span></div>
     <div class="lrow sub">A lance is worth ${LANCE_WAGE} ${U("gp")} a month standing — knight and squire — but it is owed for
       <b>one month of service a year</b>, so a fee on ward carries ${(LANCE_WAGE*m.WARD_TERM).toFixed(2)} ${U("gp/mo")} of the line, not ${LANCE_WAGE}.
       ${m.wardType==="abate"
@@ -10235,9 +10337,14 @@ function render(){
     <div class="lrow"><span class="lk">…under scutage</span><span class="lvv">${one(m.lancesCoin)}</span></div>
     ${m.wardLances?`<div class="lrow"><span class="lk">…of the bodily lances, <b>bound to castle-guard</b>${m.wardType==="abate"?" — who ride anyway, per cl. 29":""}</span><span class="lvv">${m.wardType==="abate"?"("+one(m.wardLances)+")":"−"+one(m.wardLances)}</span></div>
     <div class="lrow hi"><span class="lk"><b>Lances in the field host</b></span><span class="lvv">${one(m.fieldLances)}</span></div>
-    <div class="lrow sub"><b>The term is spent once.</b> A fee owes one month of service a year; a month
-      spent on the lord's walls is not available to his host. The ward credit on the garrison card is the
-      same month, seen from the other side of the account — it is not a second one.</div>`:""}
+    <div class="lrow sub">${m.wardType==="abate"
+      ? `<b>The year is the pool, not the month.</b> These fees owe the walls <i>and</i> the host, so they
+         ride, and cl. 29 abates their ward by the time served. What the garrison card credits is the ward
+         that <i>survives</i> the campaign — in a hard war year that can be nothing at all, which is the
+         clause working rather than a line gone missing.`
+      : `<b>The term is spent once.</b> A fee owes one month of service a year; a month
+         spent on the lord's walls is not available to his host. The ward credit on the garrison card is the
+         same month, seen from the other side of the account — it is not a second one.`}</div>`:""}
     <div class="lrow"><span class="lk">Fees paying scutage</span><span class="lvv">${fmt(m.scutEst)} of ${fmt(m.estates)}</span></div>
     <div class="lrow hi"><span class="lk">Trained levy standing ${bdg("raw")}</span><span class="lvv">${fmt(m.levyAll)} yeomen</span></div>
     <div class="lrow sub">Levy at RAW's militia ceiling (2 per 10 families, p.431–2) — standing watch on
