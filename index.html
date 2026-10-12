@@ -740,7 +740,7 @@
        and with the custom of record now changing every figure on the page by 2.25×, "which build"
        is a question with consequences. Restored as the public release number only: the internal
        LINK_BUILD stamp governs serialized state and is not a thing a reader should have to know. -->
-  <span class="vchip">v3.25.0 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
+  <span class="vchip">v3.25.1 · <a href="https://github.com/joachimxb/feudal-manors/releases">release notes</a></span></p>
 </header>
 <div id="topbars">
 <nav class="topnav" id="topnav" aria-label="Sections of this tab"></nav>
@@ -13712,7 +13712,10 @@ const densNeeds = n => n <= 185 ? 2 : n <= 375 ? 1 : 0;
 const lfm  = sixStr;   // the sixths formatter is owned once, beside RUNGS
 // a signed one-decimal round, matching the card's own f1 — so the writ prints the figure the
 // card printed, rather than a fuller-precision one that disagrees with it in the last place
-const r1 = n => (n < 0 ? -1 : 1) * Math.round(Math.abs(n) * 10) / 10;
+// a function declaration, so that it is hoisted: renderHousehold reads it at boot — before this line
+// runs — whenever a link opens the page on a grown manor with a live muster, and as a `const` it
+// stopped the page there (v3.25.1).
+function r1(n){ return (n < 0 ? -1 : 1) * Math.round(Math.abs(n) * 10) / 10; }
 
 // --- ONE read of the world -----------------------------------------------------------------
 function readState(){
